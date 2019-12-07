@@ -1,0 +1,8 @@
+{
+  "appId": "co.dallen.bosmapper",
+  "appName": "BosMapper",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "public",
+  "cordova": {}
+}
