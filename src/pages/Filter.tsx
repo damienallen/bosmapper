@@ -14,9 +14,9 @@ import {
   IonPage,
   IonTitle,
   IonToolbar
-} from '@ionic/react';
-import { book, build, colorFill, grid } from 'ionicons/icons';
-import React from 'react';
+} from '@ionic/react'
+import { book, build, colorFill, grid } from 'ionicons/icons'
+import React from 'react'
 
 export const Filter: React.FC = () => {
   return (
@@ -64,5 +64,5 @@ export const Filter: React.FC = () => {
         </IonList>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}

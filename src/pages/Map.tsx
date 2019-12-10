@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import React from 'react'
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 
 export const MapCanvas: React.FC = () => {
   return (
@@ -12,5 +12,5 @@ export const MapCanvas: React.FC = () => {
       <IonContent>
       </IonContent>
     </IonPage>
-  );
-};
+  )
+}

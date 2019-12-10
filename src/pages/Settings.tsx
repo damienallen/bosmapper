@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonHeader, IonToolbar, IonPage, IonTitle, IonContent } from '@ionic/react';
+import React from 'react'
+import { IonHeader, IonToolbar, IonPage, IonTitle, IonContent } from '@ionic/react'
 
 export const Settings: React.FC = () => {
   return (
@@ -11,5 +11,5 @@ export const Settings: React.FC = () => {
       </IonHeader>
       <IonContent />
     </IonPage>
-  );
-};
+  )
+}
