@@ -17,14 +17,13 @@ import {
 } from '@ionic/react';
 import { book, build, colorFill, grid } from 'ionicons/icons';
 import React from 'react';
-import './Tab1.css';
 
-const Tab1: React.FC = () => {
+export const Filter: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab One</IonTitle>
+          <IonTitle>Filter</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -67,5 +66,3 @@ const Tab1: React.FC = () => {
     </IonPage>
   );
 };
-
-export default Tab1;

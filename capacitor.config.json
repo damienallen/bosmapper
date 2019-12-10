@@ -1,6 +1,6 @@
 {
   "appId": "io.ionic.starter",
-  "appName": "bosMapper",
+  "appName": "bos-mapper",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
