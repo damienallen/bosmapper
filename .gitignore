@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
 # dependencies
 /node_modules
 /.pnp
@@ -9,8 +10,6 @@
 
 # production
 /build
-/android
-/electron
 
 # misc
 .DS_Store
@@ -23,11 +22,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-=======
-# Node
-node_modules
-
-# Platforms
-android
-electron
->>>>>>> 594de3291bb0bc6601f2776ac72bf4d1345a1ad3
