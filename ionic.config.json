@@ -1,7 +1,0 @@
-{
-  "name": "bos-mapper",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}
