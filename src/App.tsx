@@ -11,6 +11,8 @@ import {
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 import { funnel, map, settings } from 'ionicons/icons'
+
+/* App pages */
 import { Filter } from './pages/Filter'
 import { MapCanvas } from './pages/Map'
 import { Settings } from './pages/Settings'
@@ -34,7 +36,7 @@ import '@ionic/react/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
-const App: React.FC = () => (
+export const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
@@ -62,5 +64,3 @@ const App: React.FC = () => (
     </IonReactRouter>
   </IonApp>
 )
-
-export default App

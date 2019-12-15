@@ -1,52 +1,76 @@
-import * as React from 'react';
+import React, { useEffect, useRef } from 'react'
+import { createUseStyles } from 'react-jss'
 
-import OlMap from 'ol/Map';
-import OlView from 'ol/View';
-import OlLayerTile from 'ol/layer/Tile';
-import OlSourceOSM from 'ol/source/OSM';
-import { fromLonLat } from 'ol/proj';
+import OlMap from 'ol/Map'
+import OlView from 'ol/View'
+import OlLayerTile from 'ol/layer/Tile'
+import OlSourceOSM from 'ol/source/OSM'
+import { fromLonLat } from 'ol/proj'
 
-interface Props { }
 
-export class Canvas extends React.Component {
+const useStyles = createUseStyles({
+    map: {
+        height: '100%',
 
-    private map: OlMap
-    private mapDivId: string
+        '& .ol-attribution': {
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            background: '#fff',
+            borderRadius: '4px 0 0',
+            fontSize: '0.8em',
+            opacity: 0.7,
 
-    constructor(props: Props) {
+            '& ul': {
+                padding: '3px 5px',
+                margin: 0,
+                listStyleType: 'none',
+                '& li': {
+                    display: 'inline-block'
+                }
+            },
 
-        super(props);
+            '& button': {
+                display: 'none'
+            }
+        }
+    }
+})
 
-        this.mapDivId = `map-${Math.random()}`;
+export const Canvas: React.FC = () => {
 
-        this.map = new OlMap({
-            layers: [
-                new OlLayerTile({
-                    // name: 'OSM',
-                    source: new OlSourceOSM()
-                })
-            ],
-            view: new OlView({
-                center: fromLonLat([37.40570, 8.81566]),
-                zoom: 4
+    console.log('OL canvas init...')
+
+    const mapEl: any = useRef<HTMLDivElement>()
+    const classes = useStyles()
+
+    const map = new OlMap({
+        layers: [
+            new OlLayerTile({
+                // name: 'OSM',
+                source: new OlSourceOSM()
             })
-        });
-    }
+        ],
+        view: new OlView({
+            center: fromLonLat([51.908761, 4.432852]),
+            zoom: 4
+        })
+    })
 
-    componentDidMount() {
-        this.map.setTarget(this.mapDivId);
-    }
+    useEffect(() => {
+        map.setTarget(mapEl.current)
 
-    render() {
-        return (
-            <div>
-                <div
-                    id={this.mapDivId}
-                    style={{
-                        height: '400px'
-                    }}
-                />
-            </div>
-        );
-    }
+        setTimeout(() => {
+            map.updateSize()
+        }, 500)
+
+        return () => {
+            console.log('Unloading map')
+            map.setTarget(undefined)
+        }
+    })
+
+    return (
+        <div className={classes.map} ref={mapEl} />
+    )
 }

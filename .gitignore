@@ -7,7 +7,9 @@
 /coverage
 
 # production
+/android
 /build
+/electron
 
 # misc
 .DS_Store
