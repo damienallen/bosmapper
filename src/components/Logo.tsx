@@ -9,9 +9,10 @@ const useStyles = createUseStyles({
         position: 'absolute',
         width: '30vw',
         maxWidth: 150,
+        padding: '0 4px',
         top: 0,
         right: 0,
-        background: 'rgba(255,255,255,0.6)',
+        background: 'rgba(255,255,255,0.8)',
         borderRadius: '0 0 0 4px',
         zIndex: 150
     }
