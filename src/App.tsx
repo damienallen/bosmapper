@@ -46,7 +46,7 @@ export const App: React.FC = () => (
           <Route path="/settings" component={Settings} />
           <Route path="/" render={() => <Redirect to="/map" />} exact={true} />
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
+        <IonTabBar slot="bottom" color="primary">
           <IonTabButton tab="filter" href="/filter">
             <IonIcon icon={funnel} />
             <IonLabel>Filter</IonLabel>

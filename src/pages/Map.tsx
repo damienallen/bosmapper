@@ -1,15 +1,15 @@
 import React from 'react'
-import { IonContent, IonPage } from '@ionic/react'
+import { IonPage } from '@ionic/react'
 
 import { Canvas } from '../components/Canvas'
+import { Logo } from '../components/Logo'
 
 export const MapCanvas: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
-        <Canvas />
-      </IonContent>
+      <Logo />
+      <Canvas />
     </IonPage>
   )
 }

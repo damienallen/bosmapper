@@ -11,15 +11,52 @@ import { fromLonLat } from 'ol/proj'
 const useStyles = createUseStyles({
     map: {
         height: '100%',
+        zIndex: 100,
+
+        '& .ol-zoom': {
+            top: '0.5em',
+            left: '0.5em',
+
+            '@media (max-width: 576px)': {
+                display: 'none'
+            }
+        },
+
+        '& .ol-control': {
+            position: 'absolute',
+            background: 'rgba(255,255,255,0.4)',
+            borderRadius: 4,
+            padding: 2,
+
+            '& button': {
+                display: 'block',
+                margin: 1,
+                padding: 0,
+                color: '#fff',
+                fontSize: '1.14em',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                textTransform: 'none',
+                textAlign: 'center',
+                height: '1.375em',
+                width: '1.375em',
+                lineHeight: '0.4em',
+                background: 'rgba(0,60,136,0.5)',
+                cursor: 'pointer'
+            }
+        },
+
+        '& .ol-rotate': {
+            display: 'none' // TODO: show/hide dynamically
+        },
 
         '& .ol-attribution': {
             position: 'absolute',
             bottom: 0,
             right: 0,
-            background: '#fff',
+            background: 'rgba(255,255,255,0.6)',
             borderRadius: '4px 0 0',
             fontSize: '0.8em',
-            opacity: 0.7,
 
             '& ul': {
                 padding: '3px 5px',
@@ -31,7 +68,7 @@ const useStyles = createUseStyles({
             },
 
             '& button': {
-                display: 'none'
+                display: 'none !important'
             }
         }
     }
@@ -47,13 +84,12 @@ export const Canvas: React.FC = () => {
     const map = new OlMap({
         layers: [
             new OlLayerTile({
-                // name: 'OSM',
                 source: new OlSourceOSM()
             })
         ],
         view: new OlView({
-            center: fromLonLat([51.908761, 4.432852]),
-            zoom: 4
+            center: fromLonLat([4.432852, 51.908761]),
+            zoom: 17
         })
     })
 
