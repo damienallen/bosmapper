@@ -8,120 +8,12 @@ import OlSourceOSM from 'ol/source/OSM'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 import { fromLonLat } from 'ol/proj'
 
-const geoJson = {
-    'type': 'FeatureCollection',
-    'crs': {
-        'type': 'name',
-        'properties': {
-            'name': 'EPSG:4326'
-        }
-    },
-    'features': [
-        // {
-        //     'type': 'Feature',
-        //     'geometry': {
-        //         'type': 'Point',
-        //         'coordinates': [4.432852, 51.908761]
-        //     },
-        //     'properties': {
-        //         'id': 'value0'
-        //     }
-        // },
-        {
-            'type': 'Feature',
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [51.908761, 4.432852]
-            },
-            'properties': {
-                'id': 2
-            }
-        }
-    ]
-}
+import { styleFunction } from '../utilities/FeatureHelpers'
+import * as geoJson from '../assets/voedselbos.json'
+import * as apiKey from '../maptiler.json'
 
-const image = new CircleStyle({
-    radius: 5,
-    fill: undefined,
-    stroke: new Stroke({ color: 'red', width: 1 })
-})
-
-interface StyleDict {
-    [key: string]: Style
-}
-
-const styles: StyleDict = {
-    'Point': new Style({
-        image: image
-    }),
-    'LineString': new Style({
-        stroke: new Stroke({
-            color: 'green',
-            width: 1
-        })
-    }),
-    'MultiLineString': new Style({
-        stroke: new Stroke({
-            color: 'green',
-            width: 1
-        })
-    }),
-    'MultiPoint': new Style({
-        image: image
-    }),
-    'MultiPolygon': new Style({
-        stroke: new Stroke({
-            color: 'yellow',
-            width: 1
-        }),
-        fill: new Fill({
-            color: 'rgba(255, 255, 0, 0.1)'
-        })
-    }),
-    'Polygon': new Style({
-        stroke: new Stroke({
-            color: 'blue',
-            lineDash: [4],
-            width: 3
-        }),
-        fill: new Fill({
-            color: 'rgba(0, 0, 255, 0.1)'
-        })
-    }),
-    'GeometryCollection': new Style({
-        stroke: new Stroke({
-            color: 'magenta',
-            width: 2
-        }),
-        fill: new Fill({
-            color: 'magenta'
-        }),
-        image: new CircleStyle({
-            radius: 10,
-            fill: undefined,
-            stroke: new Stroke({
-                color: 'magenta'
-            })
-        })
-    }),
-    'Circle': new Style({
-        stroke: new Stroke({
-            color: 'red',
-            width: 2
-        }),
-        fill: new Fill({
-            color: 'rgba(255,0,0,0.2)'
-        })
-    })
-}
-
-const styleFunction = (feature: any) => {
-    let featureStyle: any = styles[feature.getGeometry().getType()]
-    return featureStyle
-}
 
 const useStyles = createUseStyles({
     map: {
@@ -191,19 +83,20 @@ const useStyles = createUseStyles({
 
 export const Canvas: React.FC = () => {
 
-    console.log('OL canvas init...')
+    console.log(`OL canvas init with API key: ${apiKey.key}`)
 
     const mapEl: any = useRef<HTMLDivElement>()
     const classes = useStyles()
 
     // Load GeoJSON features
     const vectorSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(geoJson)
+        features: (new GeoJSON()).readFeatures(geoJson.data)
     })
-
     const vectorLayer = new VectorLayer({
         source: vectorSource,
-        style: styleFunction
+        style: styleFunction,
+        updateWhileAnimating: true,
+        updateWhileInteracting: true
     })
 
     const map = new OlMap({
