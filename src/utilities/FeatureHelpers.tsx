@@ -3,8 +3,8 @@ import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
 
 const imageStyle = new CircleStyle({
     radius: 1,
-    fill: undefined,
-    stroke: new Stroke({ color: 'red', width: 1 })
+    fill: new Fill({ color: 'rgba(76, 112, 2, 0.5)' }),
+    stroke: new Stroke({ color: 'rgba(37, 54, 2, 1)', width: 1 })
 })
 
 interface StyleDict {
@@ -78,6 +78,6 @@ const featureStyles: StyleDict = {
 
 export const styleFunction = (feature: any, resolution: number) => {
     let featureStyle: any = featureStyles[feature.getGeometry().getType()]
-    featureStyle.getImage().setRadius(5 / resolution)
+    featureStyle.getImage().setRadius(1 / resolution)
     return featureStyle
 }
