@@ -11,7 +11,7 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-import * as geoJson from '../assets/voedselbos.json'
+import * as geoJson from '../assets/voedselbos_features.json'
 import * as apiKey from '../maptiler.json'
 
 

@@ -1,5 +1,27 @@
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
+import * as speciesJson from '../assets/voedselbos_species.json'
 
+interface SpeciesDict {
+    [key: string]: any
+}
+
+export const getSpeciesDict = () => {
+    let dict: any = {}
+    speciesJson.species.forEach((item: any) => {
+        dict[item.species] = item
+    })
+    return dict
+}
+export const speciesDict: SpeciesDict = getSpeciesDict()
+
+export const getSpeciesData = (name: string) => {
+    if (name in speciesDict) {
+        return speciesDict[name]
+    } else {
+        console.warn(`Unable to find species '${name}'`)
+        return null
+    }
+}
 
 const imageStyle = new CircleStyle({
     radius: 1,
@@ -78,6 +100,10 @@ const featureStyles: StyleDict = {
 
 export const styleFunction = (feature: any, resolution: number) => {
     let featureStyle: any = featureStyles[feature.getGeometry().getType()]
-    featureStyle.getImage().setRadius(1 / resolution)
+    let speciesName = feature.values_.species
+    let speciesData = getSpeciesData(speciesName)
+    let radius = Math.min(speciesData.width ? speciesData.width : 1, 10)
+    // console.log(radius)
+    featureStyle.getImage().setRadius(radius / resolution)
     return featureStyle
 }
