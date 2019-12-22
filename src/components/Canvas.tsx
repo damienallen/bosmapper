@@ -107,8 +107,8 @@ export const Canvas: React.FC = () => {
             vectorLayer
         ],
         view: new OlView({
-            center: fromLonLat([4.432852, 51.908761]),
-            zoom: 17
+            center: fromLonLat([4.431915, 51.908404]),
+            zoom: 19.5
         })
     })
 

@@ -32,8 +32,7 @@ for i in range(1, len(species)):
             "name_en": name_en[i].value,
             "height": height[i].value,
             "width": width[i].value,
-            "phase": phase[i].value,
-            "notes": notes[i].value,
+            "phase": phase[i].value
         }
     )
 

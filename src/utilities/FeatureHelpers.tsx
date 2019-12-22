@@ -1,4 +1,4 @@
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style'
+import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style'
 import * as speciesJson from '../assets/voedselbos_species.json'
 
 interface SpeciesDict {
@@ -35,7 +35,23 @@ interface StyleDict {
 
 const featureStyles: StyleDict = {
     'Point': new Style({
-        image: imageStyle
+        image: imageStyle,
+        text: new Text({
+            textAlign: 'center',
+            textBaseline: 'middle',
+            text: '',
+            fill: new Fill({ color: '#ffffff' }),
+            stroke: new Stroke({
+                color: '#000000',
+                width: 0.5
+            }),
+            offsetX: 0,
+            offsetY: 0,
+            placement: undefined,
+            maxAngle: undefined,
+            overflow: undefined,
+            rotation: 0
+        })
     }),
     'LineString': new Style({
         stroke: new Stroke({
@@ -102,8 +118,17 @@ export const styleFunction = (feature: any, resolution: number) => {
     let featureStyle: any = featureStyles[feature.getGeometry().getType()]
     let speciesName = feature.values_.species
     let speciesData = getSpeciesData(speciesName)
-    let radius = Math.min(speciesData.width ? speciesData.width : 1, 10)
-    // console.log(radius)
+    let radius = speciesData.width ? speciesData.width / 2 : 1
+
+    // Fixed radius
     featureStyle.getImage().setRadius(radius / resolution)
+
+    if (!speciesData.width) console.log(speciesName)
+    if (speciesData.width / resolution > 50 || speciesData.height / resolution > 100) {
+        featureStyle.getText().setText(speciesData.abbr)
+    } else {
+        featureStyle.getText().setText(null)
+    }
+
     return featureStyle
 }

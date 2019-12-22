@@ -56,7 +56,7 @@
             "name_nl": "Slangenden",
             "name_en": null,
             "height": 25,
-            "width": 10,
+            "width": 15,
             "phase": 1,
             "notes": "Hier t goedkoopste, ik zou de maat nemen 40-50 cm (30 euro), anders duurt t weer 3 jaar langer"
         },
@@ -85,8 +85,8 @@
             "species": "Aronia melanocarpa",
             "name_nl": "Zwarte appelbes (VS)",
             "name_en": "Black chokeberry (US)",
-            "height": null,
-            "width": null,
+            "height": 1.2,
+            "width": 2.4,
             "phase": null,
             "notes": null
         },
@@ -152,11 +152,11 @@
         },
         {
             "abbr": "C. anomala",
-            "species": "Callicarpa anomala ",
+            "species": "Callicarpa anomala",
             "name_nl": null,
             "name_en": "Beautyberry",
-            "height": null,
-            "width": null,
+            "height": 1.5,
+            "width": 3,
             "phase": null,
             "notes": null
         },
@@ -435,8 +435,8 @@
             "species": "Desmodium elegans",
             "name_nl": null,
             "name_en": null,
-            "height": null,
-            "width": null,
+            "height": 1.2,
+            "width": 1.2,
             "phase": null,
             "notes": null
         },
@@ -665,8 +665,8 @@
             "species": "Mahonia aquilegium",
             "name_nl": "Dadelpruim",
             "name_en": null,
-            "height": 10,
-            "width": 7,
+            "height": 1.5,
+            "width": 1.5,
             "phase": 1,
             "notes": null
         },
@@ -675,10 +675,10 @@
             "species": "Mahonia bealei",
             "name_nl": "Mahonia",
             "name_en": null,
-            "height": 10,
-            "width": 7,
+            "height": 6,
+            "width": 2.6,
             "phase": 1,
-            "notes": "Gratis verzendkosten boven de 35 eu"
+            "notes": null
         },
         {
             "abbr": "M. germanica",
@@ -725,8 +725,8 @@
             "species": "Myrica pensylvanica",
             "name_nl": "Wasgagel",
             "name_en": "Northern bayberry",
-            "height": null,
-            "width": null,
+            "height": 2.5,
+            "width": 2.5,
             "phase": null,
             "notes": null
         },
@@ -765,8 +765,8 @@
             "species": "Pluot",
             "name_nl": "Pluot",
             "name_en": "Pluot",
-            "height": null,
-            "width": null,
+            "height": 3,
+            "width": 5,
             "phase": 1,
             "notes": null
         },
@@ -805,8 +805,8 @@
             "species": "Prunus salicina",
             "name_nl": "Japanse pruim",
             "name_en": "Japanese plum",
-            "height": null,
-            "width": null,
+            "height": 8,
+            "width": 5,
             "phase": 1,
             "notes": null
         },
@@ -835,8 +835,8 @@
             "species": "Quercus rotundifolia",
             "name_nl": "Steeneik",
             "name_en": null,
-            "height": "",
-            "width": "",
+            "height": 7,
+            "width": 11,
             "phase": 1,
             "notes": "???"
         },
@@ -1055,8 +1055,8 @@
             "species": "Staphylea pinnata",
             "name_nl": "Europese pimpernoot",
             "name_en": null,
-            "height": 4,
-            "width": 4,
+            "height": 5,
+            "width": 5,
             "phase": 1,
             "notes": null
         },
