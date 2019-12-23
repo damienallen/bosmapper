@@ -23,10 +23,35 @@ export const getSpeciesData = (name: string) => {
     }
 }
 
-const imageStyle = new CircleStyle({
+const treeTrunk = new Style({
+    image: new CircleStyle({
+        radius: 1,
+        fill: new Fill({ color: 'rgba(134, 118, 92, 0.5)' }),
+        stroke: new Stroke({ color: 'rgba(118, 104, 81, 1)', width: 1.5 })
+    })
+})
+
+const treeStyle = new CircleStyle({
     radius: 1,
     fill: new Fill({ color: 'rgba(76, 112, 2, 0.5)' }),
-    stroke: new Stroke({ color: 'rgba(37, 54, 2, 1)', width: 1 })
+    stroke: new Stroke({ color: 'rgba(37, 54, 2, 1)', width: 1.5 })
+})
+
+const textStyle = new Text({
+    textAlign: 'center',
+    textBaseline: 'middle',
+    text: '',
+    fill: new Fill({ color: '#ffffff' }),
+    stroke: new Stroke({
+        color: '#000000',
+        width: 0.5
+    }),
+    offsetX: 0,
+    offsetY: 15,
+    placement: undefined,
+    maxAngle: undefined,
+    overflow: undefined,
+    rotation: 0
 })
 
 interface StyleDict {
@@ -35,23 +60,8 @@ interface StyleDict {
 
 const featureStyles: StyleDict = {
     'Point': new Style({
-        image: imageStyle,
-        text: new Text({
-            textAlign: 'center',
-            textBaseline: 'middle',
-            text: '',
-            fill: new Fill({ color: '#ffffff' }),
-            stroke: new Stroke({
-                color: '#000000',
-                width: 0.5
-            }),
-            offsetX: 0,
-            offsetY: 0,
-            placement: undefined,
-            maxAngle: undefined,
-            overflow: undefined,
-            rotation: 0
-        })
+        image: treeStyle,
+        text: textStyle
     }),
     'LineString': new Style({
         stroke: new Stroke({
@@ -66,7 +76,7 @@ const featureStyles: StyleDict = {
         })
     }),
     'MultiPoint': new Style({
-        image: imageStyle
+        image: treeStyle
     }),
     'MultiPolygon': new Style({
         stroke: new Stroke({
@@ -122,13 +132,20 @@ export const styleFunction = (feature: any, resolution: number) => {
 
     // Fixed radius
     featureStyle.getImage().setRadius(radius / resolution)
+    let trunk: any = treeTrunk.clone()
+    let trunkRadius = Math.min(radius / 5, 0.3)
+    trunk.getImage().setRadius(trunkRadius / resolution)
 
-    if (!speciesData.width) console.log(speciesName)
+    // Display text based on tree height & crown width
     if (speciesData.width / resolution > 50 || speciesData.height / resolution > 100) {
         featureStyle.getText().setText(speciesData.abbr)
+        featureStyle.getText().setOffsetY(1.5 / resolution)
+
+        let fontSize = Math.min(Math.max(1 / resolution, 10), 20)
+        featureStyle.getText().setFont(`${fontSize}px sans-serif`)
     } else {
         featureStyle.getText().setText(null)
     }
 
-    return featureStyle
+    return [featureStyle, trunk]
 }

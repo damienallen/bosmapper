@@ -48,7 +48,7 @@ const useStyles = createUseStyles({
                 height: '1.375em',
                 width: '1.375em',
                 lineHeight: '0.4em',
-                background: 'rgba(0,60,136,0.5)',
+                background: 'rgba(76, 112, 2, 0.8)',
                 cursor: 'pointer'
             }
         },
