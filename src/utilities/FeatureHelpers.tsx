@@ -12,6 +12,7 @@ export const getSpeciesDict = () => {
     })
     return dict
 }
+
 export const speciesDict: SpeciesDict = getSpeciesDict()
 
 export const getSpeciesData = (name: string) => {
@@ -133,15 +134,19 @@ export const styleFunction = (feature: any, resolution: number) => {
     // Fixed radius
     featureStyle.getImage().setRadius(radius / resolution)
     let trunk: any = treeTrunk.clone()
-    let trunkRadius = Math.min(radius / 5, 0.3)
+    let trunkRadius = Math.max(radius / 10, 0.2)
+
     trunk.getImage().setRadius(trunkRadius / resolution)
 
     // Display text based on tree height & crown width
     if (speciesData.width / resolution > 50 || speciesData.height / resolution > 100) {
-        featureStyle.getText().setText(speciesData.abbr)
-        featureStyle.getText().setOffsetY(1.5 / resolution)
+        let text = speciesData.abbr
+        featureStyle.getText().setText(text)
+        featureStyle.getText().setOffsetY(0.5 * radius / resolution)
 
-        let fontSize = Math.min(Math.max(1 / resolution, 10), 20)
+        let scaleFactor = 10 / text.length
+        // console.log(scaleFactor)
+        let fontSize = Math.min(Math.max(scaleFactor / resolution, 10), 25)
         featureStyle.getText().setFont(`${fontSize}px sans-serif`)
     } else {
         featureStyle.getText().setText(null)
