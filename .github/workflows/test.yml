@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
+    
+    - name: Checkout
+      uses: actions/checkout@v1
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
       run: npm test
