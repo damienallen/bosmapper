@@ -1,4 +1,4 @@
-name: CI
+name: Node CI
 
 on: [push]
 
@@ -29,4 +29,6 @@ jobs:
       run: npm build
 
     - name: Run tests
-      run: npm run test-ci
+      run: npm test
+      env:
+        CI: true

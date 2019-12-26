@@ -52,5 +52,13 @@
     "electron": "^7.1.5",
     "npm-check": "^5.9.0"
   },
-  "description": "Simple tree management"
+  "description": "Simple tree management",
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(ol|ionicons)/).*/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
 }
