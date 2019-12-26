@@ -21,12 +21,7 @@ const useStyles = createUseStyles({
         zIndex: 100,
 
         '& .ol-zoom': {
-            top: '0.5em',
-            left: '0.5em',
-
-            '@media (max-width: 576px)': {
-                display: 'none'
-            }
+            display: 'none'
         },
 
         '& .ol-control': {
@@ -81,7 +76,7 @@ const useStyles = createUseStyles({
     }
 })
 
-export const Canvas: React.FC = () => {
+export const MapCanvas: React.FC = () => {
 
     console.log(`OL canvas init with API key: ${apiKey.key}`)
 
@@ -120,7 +115,7 @@ export const Canvas: React.FC = () => {
         }, 500)
 
         return () => {
-            console.log('Unloading map')
+            console.log('Unloading map canvas...')
             map.setTarget(undefined)
         }
     })
