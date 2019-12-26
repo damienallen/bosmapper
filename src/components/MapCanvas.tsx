@@ -12,7 +12,7 @@ import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
 import * as geoJson from '../assets/voedselbos_features.json'
-import * as apiKey from '../maptiler.json'
+// import * as apiKey from '../maptiler.json'
 
 
 const useStyles = createUseStyles({
@@ -78,7 +78,7 @@ const useStyles = createUseStyles({
 
 export const MapCanvas: React.FC = () => {
 
-    console.log(`OL canvas init with API key: ${apiKey.key}`)
+    // console.log(`OL canvas init with API key: ${apiKey.key}`)
 
     const mapEl: any = useRef<HTMLDivElement>()
     const classes = useStyles()
