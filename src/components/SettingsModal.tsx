@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { IonHeader, IonToolbar, IonPage, IonTitle, IonContent } from '@ionic/react'
 
-export const Settings: React.FC = () => {
+export const SettingsModal: React.FC = () => {
 
   useEffect(() => {
     console.log('Loading settings page...')

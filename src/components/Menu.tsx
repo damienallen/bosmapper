@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { createUseStyles } from 'react-jss'
+import { observer, MobXProviderContext } from 'mobx-react'
 import {
   IonButton,
   IonContent,
@@ -7,7 +8,6 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonMenu,
   IonMenuButton,
   IonModal,
@@ -16,11 +16,16 @@ import {
 import { logIn, settings } from 'ionicons/icons'
 
 import { Filter } from './Filter'
+import { LicenseModal } from './LicenseModal'
 import { Logo } from './Logo'
-import { MapSelector } from './MapSelector'
+// import { MapSelector } from './MapSelector'
 import { MenuFooter } from './MenuFooter'
-import { Settings } from './Settings'
+import { SettingsModal } from './SettingsModal'
 import { SignIn } from './SignIn'
+
+const useStores = () => {
+  return React.useContext(MobXProviderContext)
+}
 
 export interface AppPage {
   url: string,
@@ -46,6 +51,9 @@ const useStyles = createUseStyles({
   menuList: {
     borderBottom: '1px solid rgba(0,0,0,0.13)',
     marginBottom: 8
+  },
+  clickable: {
+    cursor: 'pointer'
   }
 })
 
@@ -59,48 +67,60 @@ export const MenuToggle: React.FC = () => {
   )
 }
 
-export const Menu: React.FC = () => {
+export const Menu: React.FC = observer(() => {
   const classes = useStyles()
-  const [showModal, setShowModal] = useState(false)
-  const [showPopover, setShowPopover] = useState(false)
+  const { ui } = useStores()
 
   return (
     <IonMenu contentId="main" type="overlay">
 
       <IonPopover
-        isOpen={showPopover}
-        onDidDismiss={e => setShowPopover(false)}
+        isOpen={ui.showLoginPopover}
+        onDidDismiss={e => ui.setShowLoginPopover(false)}
       >
         <SignIn />
       </IonPopover>
 
-      <IonModal isOpen={showModal}>
-        <Settings />
-        <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+      <IonModal isOpen={ui.showSettingsModal}>
+        <SettingsModal />
+        <IonButton onClick={() => ui.setShowSettingsModal(false)}>Close Modal</IonButton>
+      </IonModal>
+
+      <IonModal isOpen={ui.showLicenseModal}>
+        <LicenseModal />
+        <IonButton onClick={() => ui.setShowLicenseModal(false)}>Close Modal</IonButton>
       </IonModal>
 
       <Logo />
 
       <IonContent>
 
-        <IonList className={classes.menuList} lines="none">
+        {/* <IonList className={classes.menuList} lines="none">
           <MapSelector />
-        </IonList>
+        </IonList> */}
 
         <IonList className={classes.menuList} lines="none">
           <Filter />
         </IonList>
 
-
         <IonList className={classes.menuList} lines="none">
-          <IonItem onClick={() => setShowPopover(true)}>
+
+          <IonItem
+            className={classes.clickable}
+            onClick={() => ui.setShowLoginPopover(true)}
+          >
             <IonIcon slot="start" icon={logIn} />
             <IonLabel>Sign in</IonLabel>
           </IonItem>
-          <IonItem onClick={() => setShowModal(true)}>
+
+          <IonItem
+            className={classes.clickable}
+            onClick={() => ui.setShowSettingsModal(true)}
+          >
             <IonIcon slot="start" icon={settings} />
             <IonLabel>Settings</IonLabel>
           </IonItem>
+
         </IonList>
 
         <MenuFooter />
@@ -108,4 +128,4 @@ export const Menu: React.FC = () => {
       </IonContent>
     </IonMenu>
   )
-}
+})

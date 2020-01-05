@@ -1,4 +1,5 @@
 import React from 'react'
+import { Provider } from 'mobx-react'
 import {
   IonApp,
   IonSplitPane,
@@ -9,6 +10,9 @@ import {
 import { MapCanvas } from './components/MapCanvas'
 import { MapOverlay } from './components/MapOverlay'
 import { Menu } from './components/Menu'
+
+/* Stores */
+import { UIStore, SettingStore } from './stores'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -31,13 +35,18 @@ import './theme/variables.css'
 
 
 export const App: React.FC = () => (
-  <IonApp>
-    <IonSplitPane contentId="main">
-      <Menu />
-      <IonContent id="main">
-        <MapOverlay />
-        <MapCanvas />
-      </IonContent>
-    </IonSplitPane>
-  </IonApp>
+  <Provider
+    settings={new SettingStore()}
+    ui={new UIStore()}
+  >
+    <IonApp>
+      <IonSplitPane contentId="main">
+        <Menu />
+        <IonContent id="main">
+          <MapOverlay />
+          <MapCanvas />
+        </IonContent>
+      </IonSplitPane>
+    </IonApp>
+  </Provider>
 )

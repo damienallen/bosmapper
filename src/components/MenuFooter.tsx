@@ -4,6 +4,8 @@ import {
     IonText
 } from '@ionic/react'
 
+import { version } from '../../package.json'
+
 const useStyles = createUseStyles({
     container: {
         position: 'absolute',
@@ -22,7 +24,7 @@ export const MenuFooter: React.FC = () => {
     return (
         <div className={classes.container}>
             <IonText color="medium">
-                <span>MIT License</span> &bull; <span>v0.1.0</span>
+                <span>MIT License</span> &bull; <span>v{version}</span>
             </IonText>
         </div>
     )
