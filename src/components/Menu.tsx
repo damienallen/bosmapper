@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import {
+  IonButton,
   IonContent,
   IonIcon,
   IonItem,
@@ -8,11 +9,18 @@ import {
   IonList,
   IonListHeader,
   IonMenu,
-  IonMenuButton
+  IonMenuButton,
+  IonModal,
+  IonPopover
 } from '@ionic/react'
 import { logIn, settings } from 'ionicons/icons'
 
-import { Logo } from '../components/Logo'
+import { Filter } from './Filter'
+import { Logo } from './Logo'
+import { MapSelector } from './MapSelector'
+import { MenuFooter } from './MenuFooter'
+import { Settings } from './Settings'
+import { SignIn } from './SignIn'
 
 export interface AppPage {
   url: string,
@@ -34,6 +42,10 @@ const useStyles = createUseStyles({
   menuIcon: {
     color: '#fff',
     fontSize: '2.5em'
+  },
+  menuList: {
+    borderBottom: '1px solid rgba(0,0,0,0.13)',
+    marginBottom: 8
   }
 })
 
@@ -47,43 +59,53 @@ export const MenuToggle: React.FC = () => {
   )
 }
 
-export const Menu: React.FC = () => (
-  <IonMenu contentId="main" type="overlay">
-    <Logo />
-    <IonContent>
+export const Menu: React.FC = () => {
+  const classes = useStyles()
+  const [showModal, setShowModal] = useState(false)
+  const [showPopover, setShowPopover] = useState(false)
 
-      <IonList lines="none">
-        <IonListHeader>
-          <IonLabel>Filter</IonLabel>
-        </IonListHeader>
-      </IonList>
+  return (
+    <IonMenu contentId="main" type="overlay">
 
-      <IonList lines="none">
-        <IonItem>
-          <IonIcon slot="start" icon={logIn} />
-          <IonLabel>Sign in</IonLabel>
-        </IonItem>
-        <IonItem>
-          <IonIcon slot="start" icon={settings} />
-          <IonLabel>Settings</IonLabel>
-        </IonItem>
-      </IonList>
+      <IonPopover
+        isOpen={showPopover}
+        onDidDismiss={e => setShowPopover(false)}
+      >
+        <SignIn />
+      </IonPopover>
 
-      <IonList lines="none">
-        <IonItem>
-          <IonLabel>
-            <h2>License</h2>
-            <h3>MIT</h3>
-          </IonLabel>
-        </IonItem>
-        <IonItem>
-          <IonLabel>
-            <h2>Version</h2>
-            <h3>0.1.0</h3>
-          </IonLabel>
-        </IonItem>
-      </IonList>
+      <IonModal isOpen={showModal}>
+        <Settings />
+        <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+      </IonModal>
 
-    </IonContent>
-  </IonMenu>
-)
+      <Logo />
+
+      <IonContent>
+
+        <IonList className={classes.menuList} lines="none">
+          <MapSelector />
+        </IonList>
+
+        <IonList className={classes.menuList} lines="none">
+          <Filter />
+        </IonList>
+
+
+        <IonList className={classes.menuList} lines="none">
+          <IonItem onClick={() => setShowPopover(true)}>
+            <IonIcon slot="start" icon={logIn} />
+            <IonLabel>Sign in</IonLabel>
+          </IonItem>
+          <IonItem onClick={() => setShowModal(true)}>
+            <IonIcon slot="start" icon={settings} />
+            <IonLabel>Settings</IonLabel>
+          </IonItem>
+        </IonList>
+
+        <MenuFooter />
+
+      </IonContent>
+    </IonMenu>
+  )
+}

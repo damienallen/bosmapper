@@ -8,10 +8,11 @@ const useStyles = createUseStyles({
     container: {
         width: '100%',
         padding: 8,
-        borderBottom: '1px solid rgba(0,0,0,0.13)'
+        borderBottom: '1px solid rgba(0,0,0,0.13)',
+        marginBottom: 8
     },
     logo: {
-        maxWidth: 150    
+        maxWidth: 150
     }
 })
 
