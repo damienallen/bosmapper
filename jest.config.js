@@ -1,9 +1,22 @@
 module.exports = {
-  testPathIgnorePatterns: ['/node_modules/'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest-env.js',
+    'jest-canvas-mock'
+  ],
+  testPathIgnorePatterns: ['/build/', '/node_modules/'],
   transformIgnorePatterns: [
-    "/node_modules/(?!(ol|ionicons)/).*/"
+    '<rootDir>/node_modules/(?!(ol|ionicons)/).*/'
   ],
+  transform: {
+    '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.svg$': 'jest-svg-transformer'
+  },
+  moduleNameMapper: {
+    '.+\\.(css|scss|png|jpg|ttf)$': 'identity-obj-proxy'
+  },
   coveragePathIgnorePatterns: [
-    "/node_modules/"
-  ],
+    '<rootDir>/node_modules/',
+    '<rootDir>/jest-env.js'
+  ]
 };
