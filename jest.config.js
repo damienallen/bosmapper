@@ -1,17 +1,22 @@
 module.exports = {
   setupFilesAfterEnv: [
-    '<rootDir>/src/setupTests.jsx',
+    '<rootDir>/jest-env.js',
     'jest-canvas-mock'
   ],
-  testPathIgnorePattern: ["<rootDir>/build/", "<rootDir>/node_modules/"],
+  testPathIgnorePatterns: ['/build/', '/node_modules/'],
   transformIgnorePatterns: [
-    // '/node_modules/(?!(ol)/).*/'
-    '/node_modules/(?!(ol|ionicons)/).*/'
+    '<rootDir>/node_modules/(?!(ol|ionicons)/).*/'
   ],
   transform: {
-  //   // '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.(js|jsx)$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.svg$': 'jest-svg-transformer',
-  //   '.+\\.(css|styl|less|sass|scss)$': 'jest-transform-css',
+    '^.+\\.svg$': 'jest-svg-transformer'
   },
+  moduleNameMapper: {
+    '.+\\.(css|scss|png|jpg|ttf)$': 'identity-obj-proxy'
+  },
+  coveragePathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/jest-env.js'
+  ]
 };
