@@ -25,10 +25,10 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+
     - name: Deploy
       run: npm run deploy
-
-    # - name: Run tests
-    #   run: npm test
-    #   env:
-    #     CI: true
