@@ -8,8 +8,7 @@ import {
   IonModal,
   IonToolbar,
   IonPage,
-  IonTitle,
-  IonContent
+  IonTitle
 } from '@ionic/react'
 import { close } from 'ionicons/icons'
 
@@ -50,9 +49,9 @@ export const SettingsModal: React.FC = observer(() => {
             <IonTitle>Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent>
-          Label
-      </IonContent>
+        <div className={classes.container}>
+          Settings content
+        </div>
       </IonPage>
     </IonModal>
   )

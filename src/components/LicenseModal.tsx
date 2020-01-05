@@ -8,8 +8,7 @@ import {
     IonModal,
     IonToolbar,
     IonPage,
-    IonTitle,
-    IonContent
+    IonTitle
 } from '@ionic/react'
 import { close } from 'ionicons/icons'
 
@@ -19,7 +18,7 @@ const useStores = () => {
 
 const useStyles = createUseStyles({
     container: {
-        margin: 20
+        padding: 20
     },
     toolbarButtons: {
         marginRight: 20
