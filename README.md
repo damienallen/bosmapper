@@ -1,2 +1,0 @@
-# bosmapper
-Simple tree management
