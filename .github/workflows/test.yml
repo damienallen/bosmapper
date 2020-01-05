@@ -1,4 +1,4 @@
-name: Test & Deploy
+name: Test
 
 on: [push]
 
@@ -29,6 +29,4 @@ jobs:
       run: npm test
       env:
         CI: true
-
-    - name: Deploy
-      run: npm run deploy
+      
