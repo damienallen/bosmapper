@@ -1,25 +1,59 @@
 import React, { useEffect } from 'react'
-import { IonHeader, IonToolbar, IonPage, IonTitle, IonContent } from '@ionic/react'
+import { createUseStyles } from 'react-jss'
+import { observer, MobXProviderContext } from 'mobx-react'
+import {
+  IonButtons,
+  IonHeader,
+  IonIcon,
+  IonModal,
+  IonToolbar,
+  IonPage,
+  IonTitle,
+  IonContent
+} from '@ionic/react'
+import { close } from 'ionicons/icons'
 
-export const SettingsModal: React.FC = () => {
+const useStores = () => {
+  return React.useContext(MobXProviderContext)
+}
+
+const useStyles = createUseStyles({
+  container: {
+    padding: 20
+  },
+  toolbarButtons: {
+    marginRight: 20
+  }
+})
+
+export const SettingsModal: React.FC = observer(() => {
+  const classes = useStyles()
+  const { ui } = useStores()
 
   useEffect(() => {
-    console.log('Loading settings page...')
     return () => {
-      console.log('Unloading settings page...')
+      console.log('Saving settings...')
     }
   })
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Settings</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        Label
+    <IonModal
+      isOpen={ui.showSettingsModal}
+      onDidDismiss={_e => ui.setShowSettingsModal(false)}
+    >
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons className={classes.toolbarButtons} slot="end">
+              <IonIcon onClick={() => ui.setShowSettingsModal(false)} icon={close} />
+            </IonButtons>
+            <IonTitle>Settings</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          Label
       </IonContent>
-    </IonPage>
+      </IonPage>
+    </IonModal>
   )
-}
+})

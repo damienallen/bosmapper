@@ -1,17 +1,14 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { MobXProviderContext } from 'mobx-react'
 import {
-  IonButton,
   IonContent,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
   IonMenu,
-  IonMenuButton,
-  IonModal,
-  IonPopover
+  IonMenuButton
 } from '@ionic/react'
 import { logIn, settings } from 'ionicons/icons'
 
@@ -67,29 +64,16 @@ export const MenuToggle: React.FC = () => {
   )
 }
 
-export const Menu: React.FC = observer(() => {
+export const Menu: React.FC = () => {
   const classes = useStyles()
   const { ui } = useStores()
 
   return (
     <IonMenu contentId="main" type="overlay">
 
-      <IonPopover
-        isOpen={ui.showLoginPopover}
-        onDidDismiss={e => ui.setShowLoginPopover(false)}
-      >
-        <SignIn />
-      </IonPopover>
-
-      <IonModal isOpen={ui.showSettingsModal}>
-        <SettingsModal />
-        <IonButton onClick={() => ui.setShowSettingsModal(false)}>Close Modal</IonButton>
-      </IonModal>
-
-      <IonModal isOpen={ui.showLicenseModal}>
-        <LicenseModal />
-        <IonButton onClick={() => ui.setShowLicenseModal(false)}>Close Modal</IonButton>
-      </IonModal>
+      <SignIn />
+      <SettingsModal />
+      <LicenseModal />
 
       <Logo />
 
@@ -126,6 +110,6 @@ export const Menu: React.FC = observer(() => {
         <MenuFooter />
 
       </IonContent>
-    </IonMenu>
+    </IonMenu >
   )
-})
+}

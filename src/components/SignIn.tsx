@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
+import { observer, MobXProviderContext } from 'mobx-react'
 import {
     IonButton,
-    IonInput
+    IonInput,
+    IonPopover
 } from '@ionic/react'
+
+const useStores = () => {
+    return React.useContext(MobXProviderContext)
+}
 
 const useStyles = createUseStyles({
     container: {
@@ -19,17 +25,29 @@ const useStyles = createUseStyles({
     }
 })
 
-export const SignIn: React.FC = () => {
+export const SignIn: React.FC = observer(() => {
     const classes = useStyles()
+    const { ui } = useStores()
+
+    useEffect(() => {
+        return () => {
+            ui.setShowLoginPopover(false)
+        }
+    })
 
     return (
-        <div className={classes.container}>
+        <IonPopover
+            isOpen={ui.showLoginPopover}
+            onDidDismiss={(_e: any) => ui.setShowLoginPopover(false)}
+        >
+            <div className={classes.container}>
 
-            <IonInput className={classes.input} placeholder="Email address" />
-            <IonInput className={classes.input} type="password" placeholder="Password" />
+                <IonInput className={classes.input} placeholder="Email address" />
+                <IonInput className={classes.input} type="password" placeholder="Password" />
 
-            <IonButton className={classes.button}>Sign In</IonButton>
+                <IonButton className={classes.button}>Sign In</IonButton>
 
-        </div>
+            </div>
+        </IonPopover>
     )
-}
+})
