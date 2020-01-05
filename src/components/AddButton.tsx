@@ -8,7 +8,7 @@ import { add } from 'ionicons/icons'
 const useStyles = createUseStyles({
     container: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 5,
         right: 5,
         zIndex: 150
     }

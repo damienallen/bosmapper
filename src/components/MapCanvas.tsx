@@ -55,9 +55,9 @@ const useStyles = createUseStyles({
         '& .ol-attribution': {
             position: 'absolute',
             bottom: 0,
-            right: 0,
+            left: 0,
             background: 'rgba(255,255,255,0.8)',
-            borderRadius: '4px 0 0',
+            borderRadius: '0 4px 0 0',
             fontSize: '0.6em',
 
             '& ul': {
