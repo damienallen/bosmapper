@@ -1,8 +1,8 @@
 from pathlib import Path
 import json
 
-input_path = Path.cwd() / "map_data" / "voedselbos_features_original.geojson"
-output_path = Path.cwd() / "map_data" / "voedselbos_features.geojson"
+input_path = Path.cwd() / "map_data" / "voedselbos_features_updated.geojson"
+output_path = Path.cwd() / "map_data" / "voedselbos_features_labeled.geojson"
 species_path = Path.cwd() / "map_data" / "voedselbos_species.json"
 
 print(f"Loading feature data from '{input_path}''")

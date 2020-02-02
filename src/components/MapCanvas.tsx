@@ -11,7 +11,7 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-import * as geoJson from '../assets/voedselbos_features.json'
+import * as geoJson from '../assets/voedselbos_features_updated.json'
 // import * as apiKey from '../maptiler.json'
 
 
@@ -82,7 +82,7 @@ export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
     const classes = useStyles()
-
+    console.log(geoJson)
     // Load GeoJSON features
     const vectorSource = new VectorSource({
         features: (new GeoJSON()).readFeatures(geoJson.data)
