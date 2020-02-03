@@ -11,7 +11,8 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-import * as geoJson from '../assets/voedselbos_features_updated.json'
+import * as updatedJson from '../assets/voedselbos_features_updated.json'
+// import * as originalJson from '../assets/voedselbos_features_original.json'
 // import * as apiKey from '../maptiler.json'
 
 
@@ -78,17 +79,16 @@ const useStyles = createUseStyles({
 
 export const MapCanvas: React.FC = () => {
 
-    // console.log(`OL canvas init with API key: ${apiKey.key}`)
-
     const mapEl: any = useRef<HTMLDivElement>()
     const classes = useStyles()
-    console.log(geoJson)
+
     // Load GeoJSON features
-    const vectorSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(geoJson.data)
+    const updatedSource = new VectorSource({
+        features: (new GeoJSON()).readFeatures(updatedJson.data)
     })
+
     const vectorLayer = new VectorLayer({
-        source: vectorSource,
+        source: updatedSource,
         style: styleFunction,
         updateWhileAnimating: true,
         updateWhileInteracting: true

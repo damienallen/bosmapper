@@ -20,6 +20,16 @@ export class UIStore {
 
 }
 
+export class MapStore {
+
+    @observable version: string = 'current'
+
+    setVersion(value: string) {
+        this.version = value
+    }
+
+}
+
 export class SettingStore {
 
     @observable language: string = 'nl'

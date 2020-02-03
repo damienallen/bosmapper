@@ -12,7 +12,7 @@ import { MapOverlay } from './components/MapOverlay'
 import { Menu } from './components/Menu'
 
 /* Stores */
-import { UIStore, SettingStore } from './stores'
+import { UIStore, MapStore, SettingStore } from './stores'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -38,6 +38,7 @@ export const App: React.FC = () => (
   <Provider
     settings={new SettingStore()}
     ui={new UIStore()}
+    map={new MapStore()}
   >
     <IonApp>
       <IonSplitPane contentId="main">

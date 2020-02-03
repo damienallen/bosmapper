@@ -15,7 +15,7 @@ import { logIn, settings } from 'ionicons/icons'
 import { Filter } from './Filter'
 import { LicenseModal } from './LicenseModal'
 import { Logo } from './Logo'
-// import { MapSelector } from './MapSelector'
+import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
 import { SettingsModal } from './SettingsModal'
 import { SignIn } from './SignIn'
@@ -79,9 +79,9 @@ export const Menu: React.FC = () => {
 
       <IonContent>
 
-        {/* <IonList className={classes.menuList} lines="none">
-          <MapSelector />
-        </IonList> */}
+        <IonList className={classes.menuList} lines="none">
+          <MapOptions />
+        </IonList>
 
         <IonList className={classes.menuList} lines="none">
           <Filter />
