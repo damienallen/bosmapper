@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 
 import OlMap from 'ol/Map'
@@ -11,10 +12,11 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-import * as updatedJson from '../assets/voedselbos_features_updated.json'
-// import * as originalJson from '../assets/voedselbos_features_original.json'
 // import * as apiKey from '../maptiler.json'
 
+const useStores = () => {
+    return React.useContext(MobXProviderContext)
+}
 
 const useStyles = createUseStyles({
     map: {
@@ -77,14 +79,15 @@ const useStyles = createUseStyles({
     }
 })
 
-export const MapCanvas: React.FC = () => {
+export const MapCanvas: React.FC = observer(() => {
 
     const mapEl: any = useRef<HTMLDivElement>()
     const classes = useStyles()
+    const { map } = useStores()
 
     // Load GeoJSON features
     const updatedSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(updatedJson.data)
+        features: (new GeoJSON()).readFeatures(map.filteredFeatures)
     })
 
     const vectorLayer = new VectorLayer({
@@ -94,7 +97,7 @@ export const MapCanvas: React.FC = () => {
         updateWhileInteracting: true
     })
 
-    const map = new OlMap({
+    const olMap = new OlMap({
         layers: [
             new OlLayerTile({
                 source: new OlSourceOSM()
@@ -108,19 +111,19 @@ export const MapCanvas: React.FC = () => {
     })
 
     useEffect(() => {
-        map.setTarget(mapEl.current)
+        olMap.setTarget(mapEl.current)
 
         setTimeout(() => {
-            map.updateSize()
+            olMap.updateSize()
         }, 500)
 
         return () => {
             console.log('Unloading map canvas...')
-            map.setTarget(undefined)
+            olMap.setTarget(undefined)
         }
     })
 
     return (
         <div className={classes.map} ref={mapEl} />
     )
-}
+})
