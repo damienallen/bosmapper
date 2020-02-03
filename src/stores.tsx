@@ -23,9 +23,14 @@ export class UIStore {
 export class MapStore {
 
     @observable version: string = 'current'
+    @observable filteredFeatures: any
 
     setVersion(value: string) {
         this.version = value
+    }
+
+    setFilteredFeatures(value: any) {
+        this.filteredFeatures = value
     }
 
 }

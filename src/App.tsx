@@ -2,13 +2,11 @@ import React from 'react'
 import { Provider } from 'mobx-react'
 import {
   IonApp,
-  IonSplitPane,
-  IonContent
+  IonSplitPane
 } from '@ionic/react'
 
 /* Components */
-import { MapCanvas } from './components/MapCanvas'
-import { MapOverlay } from './components/MapOverlay'
+import { Content } from './components/Content'
 import { Menu } from './components/Menu'
 
 /* Stores */
@@ -43,10 +41,7 @@ export const App: React.FC = () => (
     <IonApp>
       <IonSplitPane contentId="main">
         <Menu />
-        <IonContent id="main">
-          <MapOverlay />
-          <MapCanvas />
-        </IonContent>
+        <Content />
       </IonSplitPane>
     </IonApp>
   </Provider>

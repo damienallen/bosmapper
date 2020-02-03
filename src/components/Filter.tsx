@@ -27,9 +27,9 @@ export const Filter: React.FC = () => {
     const classes = useStyles()
 
     return (
-        <div className={classes.container} >
+        <div className={classes.container}>
             <IonListHeader>
-                <IonLabel>Filter</IonLabel>
+                <IonLabel color="medium">Filter</IonLabel>
             </IonListHeader>
 
             <IonItem>
