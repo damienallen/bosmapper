@@ -94,7 +94,7 @@ export const Menu: React.FC = () => {
             onClick={() => ui.setShowLoginPopover(true)}
           >
             <IonIcon slot="start" icon={logIn} />
-            <IonLabel>Sign in</IonLabel>
+            <IonLabel>Inloggen</IonLabel>
           </IonItem>
 
           <IonItem
@@ -102,7 +102,7 @@ export const Menu: React.FC = () => {
             onClick={() => ui.setShowSettingsModal(true)}
           >
             <IonIcon slot="start" icon={settings} />
-            <IonLabel>Settings</IonLabel>
+            <IonLabel>Instellingen</IonLabel>
           </IonItem>
 
         </IonList>

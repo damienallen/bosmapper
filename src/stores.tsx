@@ -20,6 +20,29 @@ export class UIStore {
 
 }
 
+export class FilterStore {
+
+    @observable query: string = ''
+    @observable minHeight: number = 0
+    @observable maxHeight: number = 40
+    @observable minWidth: number = 0
+    @observable maxWidth: number = 40
+
+    setQuery(value: string) {
+        this.query = value
+    }
+
+    setHeightRange(minValue: number, maxValue: number) {
+        this.minHeight = minValue
+        this.maxHeight = maxValue
+    }
+
+    setWidthRange(minValue: number, maxValue: number) {
+        this.maxWidth = minValue
+        this.maxWidth = maxValue
+    }
+}
+
 export class MapStore {
 
     @observable version: string = 'current'

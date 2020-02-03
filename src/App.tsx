@@ -10,7 +10,7 @@ import { Content } from './components/Content'
 import { Menu } from './components/Menu'
 
 /* Stores */
-import { UIStore, MapStore, SettingStore } from './stores'
+import { UIStore, MapStore, SettingStore, FilterStore } from './stores'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -34,9 +34,10 @@ import './theme/variables.css'
 
 export const App: React.FC = () => (
   <Provider
+    filter={new FilterStore()}
+    map={new MapStore()}
     settings={new SettingStore()}
     ui={new UIStore()}
-    map={new MapStore()}
   >
     <IonApp>
       <IonSplitPane contentId="main">

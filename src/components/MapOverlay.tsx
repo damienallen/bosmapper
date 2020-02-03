@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createUseStyles } from 'react-jss'
 
 import { AddButton } from '../components/AddButton'
@@ -16,15 +16,7 @@ const useStyles = createUseStyles({
 })
 
 export const MapOverlay: React.FC = () => {
-
   const classes = useStyles()
-
-  useEffect(() => {
-    console.log('Unloading map page...')
-    return () => {
-      console.log('Unloading map page...')
-    }
-  })
 
   return (
     <div className={classes.container}>

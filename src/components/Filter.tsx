@@ -1,7 +1,9 @@
 import React from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
     IonIcon,
+    IonInput,
     IonItem,
     IonLabel,
     IonListHeader,
@@ -11,36 +13,69 @@ import {
 import { radioButtonOff } from 'ionicons/icons'
 import { GiFruitTree } from 'react-icons/gi'
 
+const useStores = () => {
+    return React.useContext(MobXProviderContext)
+}
+
 const useStyles = createUseStyles({
     container: {
-        width: '100%'
+        width: '100%',
+        paddingBottom: 8
     },
     range: {
-        padding: 8
+        padding: '28px 14px 0 14px'
     },
     large: {
         fontSize: '2em'
+    },
+    queryInput: {
+        // background: '#666',
+        // borderRadius: 4,
     }
 })
 
-export const Filter: React.FC = () => {
+export const Filter: React.FC = observer(() => {
     const classes = useStyles()
+    const { filter } = useStores()
 
     return (
         <div className={classes.container}>
             <IonListHeader>
-                <IonLabel color="medium">Filter</IonLabel>
+                <IonLabel color="medium">Filteren</IonLabel>
             </IonListHeader>
 
             <IonItem>
-                <IonRange className={classes.range} dualKnobs={true} value={{ lower: 33, upper: 60 }} pin color="dark">
+                <IonInput
+                    className={classes.queryInput}
+                    clearInput={true}
+                    inputmode="search"
+                    placeholder="Zoeken"
+                    onIonChange={(e: any) => filter.setQuery(e.target.value)}
+                    debounce={400}
+                />
+            </IonItem>
+
+            <IonItem>
+                <IonRange
+                    className={classes.range} dualKnobs={true}
+                    onIonChange={(e: any) => filter.setWidthRange(e.target.value.lower, e.target.value.upper)}
+                    min={0} max={40}
+                    value={{ lower: 0, upper: 40 }}
+                    pin color="dark"
+                >
                     <IonNote slot="start"><IonIcon icon={radioButtonOff} /></IonNote>
                     <IonNote slot="end" className={classes.large}><IonIcon icon={radioButtonOff} /></IonNote>
                 </IonRange>
             </IonItem>
 
             <IonItem>
-                <IonRange className={classes.range} dualKnobs={true} value={{ lower: 33, upper: 60 }} pin color="dark">
+                <IonRange
+                    className={classes.range} dualKnobs={true}
+                    onIonChange={(e: any) => filter.setHeightRange(e.target.value.lower, e.target.value.upper)}
+                    min={0} max={40}
+                    value={{ lower: 0, upper: 40 }}
+                    pin color="dark"
+                >
                     <IonNote slot="start"><GiFruitTree /></IonNote>
                     <IonNote slot="end" className={classes.large} ><GiFruitTree /></IonNote>
                 </IonRange>
@@ -48,4 +83,4 @@ export const Filter: React.FC = () => {
 
         </div>
     )
-}
+})

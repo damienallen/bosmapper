@@ -111,6 +111,7 @@ export const MapCanvas: React.FC = observer(() => {
     })
 
     useEffect(() => {
+        console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
 
         setTimeout(() => {

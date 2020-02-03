@@ -1,6 +1,6 @@
 import React from 'react'
-import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
+import { createUseStyles } from 'react-jss'
 import {
     IonItem,
     IonLabel,
@@ -37,13 +37,13 @@ export const MapOptions: React.FC = observer(() => {
         <div className={classes.container} >
 
             <IonListHeader>
-                <IonLabel color="medium">Map</IonLabel>
+                <IonLabel color="medium">Kaart</IonLabel>
             </IonListHeader>
 
             <IonItem>
-                <IonText color={!isCurrent ? 'dark' : 'medium'}>Original</IonText>
+                <IonText color={!isCurrent ? 'dark' : 'medium'}>Geplanned</IonText>
                 <IonToggle name="version" color="dark" onIonChange={toggleMap} checked={isCurrent}></IonToggle>
-                <IonText color={isCurrent ? 'dark' : 'medium'}>Current</IonText>
+                <IonText color={isCurrent ? 'dark' : 'medium'}>Actueel</IonText>
             </IonItem>
 
         </div>

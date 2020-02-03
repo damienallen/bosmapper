@@ -33,10 +33,6 @@ export const MenuFooter: React.FC = () => {
     return (
         <div className={classes.container}>
             <IonText color="medium">
-                <div className={classes.footerItem} onClick={() => ui.setShowLicenseModal(true)}>
-                    MIT License
-                </div>
-                &bull;
                 <div className={classes.footerItem}>
                     v{version}
                 </div>

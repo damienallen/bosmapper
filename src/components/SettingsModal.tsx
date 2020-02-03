@@ -46,11 +46,10 @@ export const SettingsModal: React.FC = observer(() => {
             <IonButtons className={classes.toolbarButtons} slot="end">
               <IonIcon onClick={() => ui.setShowSettingsModal(false)} icon={close} />
             </IonButtons>
-            <IonTitle>Settings</IonTitle>
+            <IonTitle>Instellingen</IonTitle>
           </IonToolbar>
         </IonHeader>
         <div className={classes.container}>
-          Settings content
         </div>
       </IonPage>
     </IonModal>

@@ -45,7 +45,7 @@ export const SignIn: React.FC = observer(() => {
                 <IonInput className={classes.input} placeholder="Email address" />
                 <IonInput className={classes.input} type="password" placeholder="Password" />
 
-                <IonButton className={classes.button}>Sign In</IonButton>
+                <IonButton className={classes.button}>Inloggen</IonButton>
 
             </div>
         </IonPopover>
