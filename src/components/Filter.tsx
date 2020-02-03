@@ -29,8 +29,9 @@ const useStyles = createUseStyles({
         fontSize: '2em'
     },
     queryInput: {
-        // background: '#666',
-        // borderRadius: 4,
+        margin: '0 15px',
+        padding: '0 10px !important',
+        borderRadius: 4
     }
 })
 
@@ -46,7 +47,7 @@ export const Filter: React.FC = observer(() => {
 
             <IonItem>
                 <IonInput
-                    className={classes.queryInput}
+                    className={`${classes.queryInput} bg-light`}
                     clearInput={true}
                     inputmode="search"
                     placeholder="Zoeken"
