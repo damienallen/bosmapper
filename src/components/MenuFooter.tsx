@@ -1,15 +1,10 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { MobXProviderContext } from 'mobx-react'
 import {
     IonText
 } from '@ionic/react'
 
 import { version } from '../../package.json'
-
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
 
 const useStyles = createUseStyles({
     container: {
@@ -28,7 +23,6 @@ const useStyles = createUseStyles({
 
 export const MenuFooter: React.FC = () => {
     const classes = useStyles()
-    const { ui } = useStores()
 
     return (
         <div className={classes.container}>
