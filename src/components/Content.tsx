@@ -17,7 +17,7 @@ export const Content: React.FC = observer(() => {
     console.log('Loading features')
     const { filter, map } = useStores()
 
-    const query = filter.query
+    const query = filter.query.toLowerCase()
     const minHeight = filter.minHeight
     const maxHeight = filter.maxHeight
 
@@ -26,25 +26,30 @@ export const Content: React.FC = observer(() => {
 
     const featureFilter = (feature: any) => {
         const speciesData = getSpeciesData(feature.properties.species)
-        // if (query.length > 2 && !(
-        //     speciesData.species.includes(query)
-        //     || (speciesData.name_nl && speciesData.name_nl.includes(query))
-        //     || (speciesData.name_en && speciesData.name_en.includes(query))
-        // )) {
-        //     return false
-        // }
 
         if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
         if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
-        return true
+
+        if (query.length < 3) {
+            return true
+        } else if (
+            speciesData.species.toLowerCase().includes(query)
+            || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
+            || (speciesData.name_en && speciesData.name_en.toLowerCase().includes(query))
+        ) {
+            return true
+        } else {
+            return false
+        }
     }
 
     // Load appropriate feature set
     let geoData = map.version === 'current'
-        ? updatedJson.data
-        : originalJson.data
+        ? { ...updatedJson.data }
+        : { ...originalJson.data }
 
     geoData.features = geoData.features.filter(featureFilter)
+    console.log(query, geoData.features.length)
     map.setFilteredFeatures(geoData)
 
     return (

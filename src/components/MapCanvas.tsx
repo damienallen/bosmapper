@@ -106,6 +106,8 @@ export const MapCanvas: React.FC = observer(() => {
         ],
         view: new OlView({
             center: fromLonLat([4.431915, 51.908404]),
+            maxZoom: 22,
+            minZoom: 17,
             zoom: 19.5
         })
     })

@@ -60,8 +60,8 @@ export const Filter: React.FC = observer(() => {
                 <IonRange
                     className={classes.range} dualKnobs={true}
                     onIonChange={(e: any) => filter.setWidthRange(e.target.value.lower, e.target.value.upper)}
-                    min={0} max={40}
-                    value={{ lower: 0, upper: 40 }}
+                    min={0} max={20}
+                    value={{ lower: 0, upper: 20 }}
                     pin color="dark"
                 >
                     <IonNote slot="start"><IonIcon icon={radioButtonOff} /></IonNote>
@@ -73,8 +73,8 @@ export const Filter: React.FC = observer(() => {
                 <IonRange
                     className={classes.range} dualKnobs={true}
                     onIonChange={(e: any) => filter.setHeightRange(e.target.value.lower, e.target.value.upper)}
-                    min={0} max={40}
-                    value={{ lower: 0, upper: 40 }}
+                    min={0} max={30}
+                    value={{ lower: 0, upper: 30 }}
                     pin color="dark"
                 >
                     <IonNote slot="start"><GiFruitTree /></IonNote>

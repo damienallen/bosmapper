@@ -24,9 +24,9 @@ export class FilterStore {
 
     @observable query: string = ''
     @observable minHeight: number = 0
-    @observable maxHeight: number = 40
+    @observable maxHeight: number = 30
     @observable minWidth: number = 0
-    @observable maxWidth: number = 40
+    @observable maxWidth: number = 20
 
     setQuery(value: string) {
         this.query = value

@@ -47,7 +47,8 @@ const useStyles = createUseStyles({
   },
   menuList: {
     borderBottom: '1px solid rgba(0,0,0,0.13)',
-    marginBottom: 8
+    marginBottom: 8,
+    userSelect: 'none'
   },
   clickable: {
     cursor: 'pointer'
