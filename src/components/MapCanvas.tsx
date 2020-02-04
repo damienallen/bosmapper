@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 
 import OlMap from 'ol/Map'
@@ -11,9 +12,11 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-import * as geoJson from '../assets/voedselbos_features.json'
 // import * as apiKey from '../maptiler.json'
 
+const useStores = () => {
+    return React.useContext(MobXProviderContext)
+}
 
 const useStyles = createUseStyles({
     map: {
@@ -55,9 +58,9 @@ const useStyles = createUseStyles({
         '& .ol-attribution': {
             position: 'absolute',
             bottom: 0,
-            right: 0,
+            left: 0,
             background: 'rgba(255,255,255,0.8)',
-            borderRadius: '4px 0 0',
+            borderRadius: '0 4px 0 0',
             fontSize: '0.6em',
 
             '& ul': {
@@ -76,25 +79,25 @@ const useStyles = createUseStyles({
     }
 })
 
-export const MapCanvas: React.FC = () => {
-
-    // console.log(`OL canvas init with API key: ${apiKey.key}`)
+export const MapCanvas: React.FC = observer(() => {
 
     const mapEl: any = useRef<HTMLDivElement>()
     const classes = useStyles()
+    const { map } = useStores()
 
     // Load GeoJSON features
-    const vectorSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(geoJson.data)
+    const updatedSource = new VectorSource({
+        features: (new GeoJSON()).readFeatures(map.filteredFeatures)
     })
+
     const vectorLayer = new VectorLayer({
-        source: vectorSource,
+        source: updatedSource,
         style: styleFunction,
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
 
-    const map = new OlMap({
+    const olMap = new OlMap({
         layers: [
             new OlLayerTile({
                 source: new OlSourceOSM()
@@ -103,24 +106,27 @@ export const MapCanvas: React.FC = () => {
         ],
         view: new OlView({
             center: fromLonLat([4.431915, 51.908404]),
+            maxZoom: 22,
+            minZoom: 17,
             zoom: 19.5
         })
     })
 
     useEffect(() => {
-        map.setTarget(mapEl.current)
+        console.log('Loading map canvas')
+        olMap.setTarget(mapEl.current)
 
         setTimeout(() => {
-            map.updateSize()
+            olMap.updateSize()
         }, 500)
 
         return () => {
             console.log('Unloading map canvas...')
-            map.setTarget(undefined)
+            olMap.setTarget(undefined)
         }
     })
 
     return (
         <div className={classes.map} ref={mapEl} />
     )
-}
+})

@@ -1,19 +1,28 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
+import { MobXProviderContext } from 'mobx-react'
 import {
   IonContent,
   IonIcon,
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonMenu,
-  IonMenuButton,
-  IonMenuToggle
+  IonMenuButton
 } from '@ionic/react'
-import { settings } from 'ionicons/icons'
+import { logIn, settings } from 'ionicons/icons'
 
-import { Logo } from '../components/Logo'
+import { Filter } from './Filter'
+import { LicenseModal } from './LicenseModal'
+import { Logo } from './Logo'
+import { MapOptions } from './MapOptions'
+import { MenuFooter } from './MenuFooter'
+import { SettingsModal } from './SettingsModal'
+import { SignIn } from './SignIn'
+
+const useStores = () => {
+  return React.useContext(MobXProviderContext)
+}
 
 export interface AppPage {
   url: string,
@@ -24,13 +33,25 @@ export interface AppPage {
 const useStyles = createUseStyles({
   menuToggle: {
     position: 'absolute',
-    background: 'rgba(255,255,255,0.5)',
-    borderRadius: 2,
+    background: 'rgba(0,0,0,0.1)',
+    borderRadius: 4,
     margin: 8,
     padding: '4px 0',
     top: 0,
     left: 0,
     zIndex: 150
+  },
+  menuIcon: {
+    color: '#fff',
+    fontSize: '2.5em'
+  },
+  menuList: {
+    borderBottom: '1px solid rgba(0,0,0,0.13)',
+    marginBottom: 8,
+    userSelect: 'none'
+  },
+  clickable: {
+    cursor: 'pointer'
   }
 })
 
@@ -39,31 +60,57 @@ export const MenuToggle: React.FC = () => {
 
   return (
     <div className={classes.menuToggle}>
-      <IonMenuButton />
+      <IonMenuButton className={classes.menuIcon} />
     </div>
   )
 }
 
-export const Menu: React.FC = () => (
-  <IonMenu contentId="main" type="overlay">
-    <Logo />
-    <IonContent>
+export const Menu: React.FC = () => {
+  const classes = useStyles()
+  const { ui } = useStores()
 
-      <IonList lines="none">
-        <IonListHeader>
-          <IonLabel>Filter</IonLabel>
-        </IonListHeader>
-      </IonList>
+  return (
+    <IonMenu contentId="main" type="overlay">
 
-      <IonList lines="none">
-        <IonMenuToggle autoHide={false}>
-          <IonItem>
-            <IonIcon slot="start" icon={settings} />
-            <IonLabel>Settings</IonLabel>
+      <SignIn />
+      <SettingsModal />
+      <LicenseModal />
+
+      <Logo />
+
+      <IonContent>
+
+        <IonList className={classes.menuList} lines="none">
+          <MapOptions />
+        </IonList>
+
+        <IonList className={classes.menuList} lines="none">
+          <Filter />
+        </IonList>
+
+        <IonList className={classes.menuList} lines="none">
+
+          <IonItem
+            className={classes.clickable}
+            onClick={() => ui.setShowLoginPopover(true)}
+          >
+            <IonIcon slot="start" icon={logIn} />
+            <IonLabel>Inloggen</IonLabel>
           </IonItem>
-        </IonMenuToggle>
-      </IonList>
 
-    </IonContent>
-  </IonMenu>
-)
+          <IonItem
+            className={classes.clickable}
+            onClick={() => ui.setShowSettingsModal(true)}
+          >
+            <IonIcon slot="start" icon={settings} />
+            <IonLabel>Instellingen</IonLabel>
+          </IonItem>
+
+        </IonList>
+
+        <MenuFooter />
+
+      </IonContent>
+    </IonMenu >
+  )
+}

@@ -11,7 +11,7 @@ const useStyles = createUseStyles({
         borderBottom: '1px solid rgba(0,0,0,0.13)'
     },
     logo: {
-        maxWidth: 150    
+        maxWidth: 150
     }
 })
 

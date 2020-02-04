@@ -75,3 +75,22 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+
+/* Disable input highlights */
+ion-item {
+  --highlight-background: unset;
+}
+
+.bg-dark {
+  background: var(--ion-color-dark, #222428)
+}
+
+.bg-medium {
+  background: var(--ion-color-medium, #989aa2)
+}
+
+
+.bg-light {
+  background: var(--ion-color-light, #f4f5f8)
+}
+

@@ -140,7 +140,7 @@ export const styleFunction = (feature: any, resolution: number) => {
 
     // Display text based on tree height & crown width
     if (speciesData.width / resolution > 50 || speciesData.height / resolution > 100) {
-        let text = speciesData.abbr
+        let text = speciesData.name_nl ? speciesData.name_nl : speciesData.abbr
         featureStyle.getText().setText(text)
         featureStyle.getText().setOffsetY(0.5 * radius / resolution)
 
