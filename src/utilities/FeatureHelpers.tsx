@@ -1,5 +1,6 @@
-import { Circle as CircleStyle, Fill, Stroke, Style, Text } from 'ol/style'
+import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style'
 import * as speciesJson from '../assets/voedselbos_species.json'
+import mapPin from '../assets/pin.svg'
 
 interface SpeciesDict {
     [key: string]: any
@@ -23,6 +24,14 @@ export const getSpeciesData = (name: string) => {
         return null
     }
 }
+
+const pin = new Style({
+    image: new Icon({
+        anchor: [0.5, 1],
+        src: mapPin,
+        scale: 1
+    })
+})
 
 const treeTrunk = new Style({
     image: new CircleStyle({
@@ -125,32 +134,37 @@ const featureStyles: StyleDict = {
     })
 }
 
-export const styleFunction = (feature: any, resolution: number) => {
+export const styleFunction = (feature: any, resolution: number, display: string = 'pin') => {
     let featureStyle: any = featureStyles[feature.getGeometry().getType()]
     let speciesName = feature.values_.species
     let speciesData = getSpeciesData(speciesName)
-    let radius = speciesData.width ? speciesData.width / 2 : 1
-
-    // Fixed radius
-    featureStyle.getImage().setRadius(radius / resolution)
-    let trunk: any = treeTrunk.clone()
-    let trunkRadius = Math.max(radius / 10, 0.2)
-
-    trunk.getImage().setRadius(trunkRadius / resolution)
 
     // Display text based on tree height & crown width
     if (speciesData.width / resolution > 50 || speciesData.height / resolution > 100) {
         let text = speciesData.name_nl ? speciesData.name_nl : speciesData.abbr
         featureStyle.getText().setText(text)
-        featureStyle.getText().setOffsetY(0.5 * radius / resolution)
+        // featureStyle.getText().setOffsetY(0.5 * radius / resolution)
 
         let scaleFactor = 10 / text.length
-        // console.log(scaleFactor)
         let fontSize = Math.min(Math.max(scaleFactor / resolution, 10), 25)
         featureStyle.getText().setFont(`${fontSize}px sans-serif`)
     } else {
         featureStyle.getText().setText(null)
     }
 
-    return [featureStyle, trunk]
+    if (display === 'crown') {
+        // Fixed radius tree trunks
+        let radius = speciesData.width ? speciesData.width / 2 : 1
+        featureStyle.getImage().setRadius(radius / resolution)
+
+        let trunk: any = treeTrunk.clone()
+        let trunkRadius = Math.max(radius / 10, 0.2)
+        trunk.getImage().setRadius(trunkRadius / resolution)
+
+        return [featureStyle, trunk]
+    } else {
+
+        return [featureStyle, pin.clone()]
+    }
+
 }

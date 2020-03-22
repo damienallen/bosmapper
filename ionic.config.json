@@ -1,5 +1,5 @@
 {
-  "name": "bos-mapper",
+  "name": "bosmapper",
   "integrations": {
     "capacitor": {}
   },
