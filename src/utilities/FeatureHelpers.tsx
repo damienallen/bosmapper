@@ -1,6 +1,6 @@
 import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style'
 import * as speciesJson from '../assets/voedselbos_species.json'
-import mapPin from '../assets/pin.svg'
+import mapPin from '../assets/pin.png'
 
 interface SpeciesDict {
     [key: string]: any
@@ -29,7 +29,7 @@ const pin = new Style({
     image: new Icon({
         anchor: [0.5, 1],
         src: mapPin,
-        scale: 1
+        scale: 0.15
     })
 })
 
