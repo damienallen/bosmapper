@@ -12,7 +12,6 @@ import {
 } from '@ionic/react'
 import { logIn, settings } from 'ionicons/icons'
 
-import { Filter } from './Filter'
 import { LicenseModal } from './LicenseModal'
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
@@ -31,19 +30,9 @@ export interface AppPage {
 }
 
 const useStyles = createUseStyles({
-  menuToggle: {
-    position: 'absolute',
-    background: 'rgba(0,0,0,0.1)',
-    borderRadius: 4,
-    margin: 8,
-    padding: '4px 0',
-    top: 0,
-    left: 0,
-    zIndex: 150
-  },
   menuIcon: {
-    color: '#fff',
-    fontSize: '2.5em'
+    color: '#999',
+    fontSize: '2.1em'
   },
   menuList: {
     borderBottom: '1px solid rgba(0,0,0,0.13)',
@@ -57,12 +46,7 @@ const useStyles = createUseStyles({
 
 export const MenuToggle: React.FC = () => {
   const classes = useStyles()
-
-  return (
-    <div className={classes.menuToggle}>
-      <IonMenuButton className={classes.menuIcon} />
-    </div>
-  )
+  return (<IonMenuButton className={classes.menuIcon} />)
 }
 
 export const Menu: React.FC = () => {
@@ -82,10 +66,6 @@ export const Menu: React.FC = () => {
 
         <IonList className={classes.menuList} lines="none">
           <MapOptions />
-        </IonList>
-
-        <IonList className={classes.menuList} lines="none">
-          <Filter />
         </IonList>
 
         <IonList className={classes.menuList} lines="none">

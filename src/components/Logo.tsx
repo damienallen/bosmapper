@@ -2,16 +2,15 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { IonImg } from '@ionic/react'
 
-import logoDark from '../assets/logo_dark.png'
 
 const useStyles = createUseStyles({
     container: {
         width: '100%',
-        padding: 8,
-        borderBottom: '1px solid rgba(0,0,0,0.13)'
-    },
-    logo: {
-        maxWidth: 150
+        padding: '16px 0',
+        background: '#ddd',
+        color: '#333',
+        textAlign: 'center',
+        fontSize: '1.4em'
     }
 })
 
@@ -20,7 +19,7 @@ export const Logo: React.FC = () => {
 
     return (
         <div className={classes.container}>
-            <IonImg className={classes.logo} src={logoDark} />
+            <b>bos</b>mapper
         </div>
     )
 }
