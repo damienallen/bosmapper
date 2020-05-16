@@ -59,14 +59,17 @@ const useStyles = createUseStyles({
             position: 'absolute',
             bottom: 0,
             left: 0,
-            background: 'rgba(255,255,255,0.8)',
-            borderRadius: '0 4px 0 0',
+            padding: 0,
+            background: 'none',
             fontSize: '0.6em',
+            textAlign: 'left',
 
             '& ul': {
-                padding: '2px 4px',
+                padding: 5,
                 margin: 0,
                 listStyleType: 'none',
+                background: 'rgba(255,255,255,0.8)',
+                borderRadius: '0 4px 0 0',
                 '& li': {
                     display: 'inline-block'
                 }

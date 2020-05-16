@@ -31,6 +31,9 @@ import '@ionic/react/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
+/* Openlayers styling */
+import 'ol/ol.css'
+
 
 export const App: React.FC = () => (
   <Provider

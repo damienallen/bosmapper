@@ -56,6 +56,7 @@ const textStyle = new Text({
         color: '#000000',
         width: 0.5
     }),
+    font: '18px sans-serif',
     offsetX: 0,
     offsetY: 15,
     placement: undefined,
@@ -134,37 +135,18 @@ const featureStyles: StyleDict = {
     })
 }
 
-export const styleFunction = (feature: any, resolution: number, display: string = 'pin') => {
+export const styleFunction = (feature: any, resolution: number) => {
     let featureStyle: any = featureStyles[feature.getGeometry().getType()]
     let speciesName = feature.values_.species
     let speciesData = getSpeciesData(speciesName)
 
     // Display text based on tree height & crown width
-    if (speciesData.width / resolution > 50 || speciesData.height / resolution > 100) {
+    if (resolution < 0.06) {
         let text = speciesData.name_nl ? speciesData.name_nl : speciesData.abbr
         featureStyle.getText().setText(text)
-        // featureStyle.getText().setOffsetY(0.5 * radius / resolution)
-
-        let scaleFactor = 10 / text.length
-        let fontSize = Math.min(Math.max(scaleFactor / resolution, 10), 25)
-        featureStyle.getText().setFont(`${fontSize}px sans-serif`)
     } else {
         featureStyle.getText().setText(null)
     }
 
-    if (display === 'crown') {
-        // Fixed radius tree trunks
-        let radius = speciesData.width ? speciesData.width / 2 : 1
-        featureStyle.getImage().setRadius(radius / resolution)
-
-        let trunk: any = treeTrunk.clone()
-        let trunkRadius = Math.max(radius / 10, 0.2)
-        trunk.getImage().setRadius(trunkRadius / resolution)
-
-        return [featureStyle, trunk]
-    } else {
-
-        return [featureStyle, pin.clone()]
-    }
-
+    return [featureStyle, pin.clone()]
 }

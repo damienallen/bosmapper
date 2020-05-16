@@ -1,6 +1,5 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { IonImg } from '@ionic/react'
 
 
 const useStyles = createUseStyles({
