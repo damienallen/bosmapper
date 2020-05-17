@@ -15,6 +15,7 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { styleFunction } from '../utilities/FeatureHelpers'
 import { MapBrowserEvent } from 'ol'
 
+
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
@@ -146,10 +147,7 @@ export const MapCanvas: React.FC = () => {
         console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
 
-        // Set up autorun functions
-        // const disposer = autorun(() => {
-        //     olMap.setLayerGroup(getLayers(map.baseMap, treeFeatures))
-        // })
+        // Set up reactions
         const disposer = [
             reaction(
                 () => map.baseMap,
@@ -170,9 +168,7 @@ export const MapCanvas: React.FC = () => {
         return () => {
             console.log('Unloading map canvas...')
             olMap.setTarget(undefined)
-            disposer.forEach((dispose: IReactionDisposer) => {
-                dispose()
-            })
+            disposer.forEach((dispose: IReactionDisposer) => dispose())
         }
     })
 
