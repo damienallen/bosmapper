@@ -33,14 +33,6 @@ const pin = new Style({
     })
 })
 
-const treeTrunk = new Style({
-    image: new CircleStyle({
-        radius: 1,
-        fill: new Fill({ color: 'rgba(134, 118, 92, 0.5)' }),
-        stroke: new Stroke({ color: 'rgba(118, 104, 81, 1)', width: 1.5 })
-    })
-})
-
 const treeStyle = new CircleStyle({
     radius: 1,
     fill: new Fill({ color: 'rgba(76, 112, 2, 0.5)' }),

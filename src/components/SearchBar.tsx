@@ -52,7 +52,7 @@ const useStyles = createUseStyles({
 
 export const SearchBar: React.FC = observer(() => {
     const classes = useStyles()
-    const [searchText, setSearchText] = React.useState('')
+    const [searchText] = React.useState('')
     const { filter, ui } = useStores()
 
     return (
