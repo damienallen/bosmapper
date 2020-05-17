@@ -96,7 +96,7 @@ export const TreeDetail: React.FC = observer(() => {
 
                 <IonItem>
                     <IonButton fill="outline" className={classes.moveButton}><IonIcon icon={move} /></IonButton>
-                    <IonButton fill="outline">species wijzigen</IonButton>
+                    {/* <IonButton fill="outline">species wijzigen</IonButton> */}
                     <IonButton fill="outline" slot="end" color="danger" onClick={() => setShowRemovePopover(true)}>
                         <IonIcon icon={trash} color="danger" />
                     </IonButton>

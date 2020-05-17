@@ -6,6 +6,8 @@ interface SpeciesDict {
     [key: string]: any
 }
 
+export const speciesList = speciesJson.species
+
 export const getSpeciesDict = () => {
     let dict: any = {}
     speciesJson.species.forEach((item: any) => {

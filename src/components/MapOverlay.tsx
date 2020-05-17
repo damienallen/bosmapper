@@ -9,6 +9,7 @@ import { TreeDetail } from './TreeDetail'
 
 import { LoginPopover } from './LoginPopover'
 import { SettingsModal } from './SettingsModal'
+import { SpeciesModal } from './SpeciesModal'
 
 const useStores = () => {
   return React.useContext(MobXProviderContext)
@@ -33,6 +34,7 @@ export const MapOverlay: React.FC = observer(() => {
     <div className={classes.container}>
       <FilterModal />
       <SettingsModal />
+      <SpeciesModal />
       <LoginPopover />
 
       <SearchBar />
