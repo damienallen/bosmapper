@@ -9,6 +9,7 @@ import { getSpeciesData } from '../utilities/FeatureHelpers'
 import * as updatedJson from '../assets/voedselbos_features_updated.json'
 import * as originalJson from '../assets/voedselbos_features_original.json'
 
+
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }

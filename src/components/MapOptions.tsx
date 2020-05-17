@@ -50,9 +50,9 @@ export const MapOptions: React.FC = observer(() => {
             </IonListHeader>
 
             <IonItem>
-                <IonText color={!isCurrent ? 'dark' : 'medium'}>Vector</IonText>
+                <IonText color={!isDrone ? 'dark' : 'medium'}>Vector</IonText>
                 <IonToggle name="version" color="dark" onIonChange={toggleBaseMap} checked={isDrone}></IonToggle>
-                <IonText color={isCurrent ? 'dark' : 'medium'}>Drone</IonText>
+                <IonText color={isDrone ? 'dark' : 'medium'}>Drone</IonText>
             </IonItem>
 
             <IonItem>

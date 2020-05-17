@@ -1,17 +1,18 @@
 import React, { useEffect, useRef } from 'react'
+import { autorun } from 'mobx'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
 import OlLayerTile from 'ol/layer/Tile'
+import OlLayerGroup from 'ol/layer/Group'
 import XYZ from 'ol/source/XYZ'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-import { MapStore } from '../stores'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -21,7 +22,7 @@ const useStyles = createUseStyles({
     mapCanvas: {
         height: '100%',
         zIndex: 100,
-        background: (mapBackground: string) => mapBackground,
+        background: 'none',
 
         '& .ol-zoom': {
             display: 'none'
@@ -82,20 +83,35 @@ const useStyles = createUseStyles({
     }
 })
 
-export const MapCanvas: React.FC = observer(() => {
+const xyzUrl = (baseMap: string) => (
+    `https://voedselbos-tiles.ams3.digitaloceanspaces.com/${baseMap}/{z}/{x}/{y}.png`
+)
+
+const getLayers = (baseMap: string, features: VectorLayer) => (
+    new OlLayerGroup({
+        layers: [
+            new OlLayerTile({
+                source: new XYZ({
+                    url: xyzUrl(baseMap)
+                })
+            }),
+            features
+        ]
+    })
+)
+
+export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
     const { map } = useStores()
-
-    const mapBackground = map.baseMap === 'drone' ? '#333' : '#fff'
-    const classes = useStyles(mapBackground)
+    const classes = useStyles()
 
     // Load GeoJSON features
     const updatedSource = new VectorSource({
         features: (new GeoJSON()).readFeatures(map.filteredFeatures)
     })
 
-    const vectorLayer = new VectorLayer({
+    const treeFeatures = new VectorLayer({
         source: updatedSource,
         style: styleFunction,
         updateWhileAnimating: true,
@@ -103,14 +119,7 @@ export const MapCanvas: React.FC = observer(() => {
     })
 
     const olMap = new OlMap({
-        layers: [
-            new OlLayerTile({
-                source: new XYZ({
-                    url: `https://voedselbos-tiles.ams3.digitaloceanspaces.com/${map.baseMap}/{z}/{x}/{y}.png`
-                })
-            }),
-            vectorLayer
-        ],
+        layers: getLayers(map.baseMap, treeFeatures),
         view: new OlView({
             center: [493358, 6783574],
             maxZoom: 23,
@@ -125,6 +134,12 @@ export const MapCanvas: React.FC = observer(() => {
         console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
 
+        // Set up autorun functions
+        const autorunDisposer = autorun(() => {
+            console.log(getLayers(map.baseMap, treeFeatures))
+            olMap.setLayerGroup(getLayers(map.baseMap, treeFeatures))
+        })
+
         setTimeout(() => {
             olMap.updateSize()
         }, 500)
@@ -132,10 +147,11 @@ export const MapCanvas: React.FC = observer(() => {
         return () => {
             console.log('Unloading map canvas...')
             olMap.setTarget(undefined)
+            autorunDisposer()
         }
     })
 
     return (
         <div className={classes.mapCanvas} ref={mapEl} />
     )
-})
+}
