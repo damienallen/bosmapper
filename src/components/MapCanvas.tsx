@@ -5,14 +5,12 @@ import { createUseStyles } from 'react-jss'
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
 import OlLayerTile from 'ol/layer/Tile'
-import OlSourceOSM from 'ol/source/OSM'
+import XYZ from 'ol/source/XYZ'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
-import { fromLonLat } from 'ol/proj'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
-// import * as apiKey from '../maptiler.json'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -22,6 +20,7 @@ const useStyles = createUseStyles({
     map: {
         height: '100%',
         zIndex: 100,
+        background: '#000',
 
         '& .ol-zoom': {
             display: 'none'
@@ -59,14 +58,17 @@ const useStyles = createUseStyles({
             position: 'absolute',
             bottom: 0,
             left: 0,
-            background: 'rgba(255,255,255,0.8)',
-            borderRadius: '0 4px 0 0',
+            padding: 0,
+            background: 'none',
             fontSize: '0.6em',
+            textAlign: 'left',
 
             '& ul': {
-                padding: '2px 4px',
+                padding: 5,
                 margin: 0,
                 listStyleType: 'none',
+                background: 'rgba(255,255,255,0.8)',
+                borderRadius: '0 4px 0 0',
                 '& li': {
                     display: 'inline-block'
                 }
@@ -100,15 +102,18 @@ export const MapCanvas: React.FC = observer(() => {
     const olMap = new OlMap({
         layers: [
             new OlLayerTile({
-                source: new OlSourceOSM()
+                source: new XYZ({
+                    url: 'https://voedselbos-tiles.ams3.digitaloceanspaces.com/hybrid/{z}/{x}/{y}.png'
+                })
             }),
             vectorLayer
         ],
         view: new OlView({
-            center: fromLonLat([4.431915, 51.908404]),
-            maxZoom: 22,
-            minZoom: 17,
-            zoom: 19.5
+            center: [493358, 6783574],
+            maxZoom: 24,
+            minZoom: 18,
+            zoom: 20,
+            rotation: -0.945
         })
     })
 

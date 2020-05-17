@@ -3,7 +3,6 @@ import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
     IonIcon,
-    IonInput,
     IonItem,
     IonLabel,
     IonListHeader,
@@ -44,17 +43,6 @@ export const Filter: React.FC = observer(() => {
             <IonListHeader>
                 <IonLabel color="medium">Filteren</IonLabel>
             </IonListHeader>
-
-            <IonItem>
-                <IonInput
-                    className={`${classes.queryInput} bg-light`}
-                    clearInput={true}
-                    inputmode="search"
-                    placeholder="Zoeken"
-                    onIonChange={(e: any) => filter.setQuery(e.target.value)}
-                    debounce={400}
-                />
-            </IonItem>
 
             <IonItem>
                 <IonRange
