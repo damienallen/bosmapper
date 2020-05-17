@@ -27,7 +27,7 @@ const useStyles = createUseStyles({
         width: '100%',
         borderRadius: 6,
         padding: 5,
-        background: 'rgba(255, 255, 255, 0.95)',
+        background: (searchBackground: string) => searchBackground,
         display: 'flex'
     },
     search: {
@@ -51,9 +51,12 @@ const useStyles = createUseStyles({
 })
 
 export const SearchBar: React.FC = observer(() => {
-    const classes = useStyles()
     const [searchText] = React.useState('')
-    const { filter, ui } = useStores()
+    const { filter, map, ui } = useStores()
+
+    const searchBackground = map.baseMap === 'drone' ?
+        'rgba(255, 255, 255, 0.95)' : 'rgba(225, 225, 225, 0.95)'
+    const classes = useStyles(searchBackground)
 
     return (
         <div className={classes.container}>

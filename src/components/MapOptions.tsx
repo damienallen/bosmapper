@@ -23,6 +23,7 @@ export const MapOptions: React.FC = observer(() => {
     const classes = useStyles()
     const { map } = useStores()
 
+    const isDrone = (map.baseMap === 'drone')
     const isCurrent = (map.version === 'current')
 
     const toggleMap = (e: any) => {
@@ -33,12 +34,26 @@ export const MapOptions: React.FC = observer(() => {
         }
     }
 
+    const toggleBaseMap = (e: any) => {
+        if (e.target.checked) {
+            map.setBaseMap('drone')
+        } else {
+            map.setBaseMap('vector')
+        }
+    }
+
     return (
         <div className={classes.container} >
 
             <IonListHeader>
                 <IonLabel color="medium">Kaart</IonLabel>
             </IonListHeader>
+
+            <IonItem>
+                <IonText color={!isCurrent ? 'dark' : 'medium'}>Vector</IonText>
+                <IonToggle name="version" color="dark" onIonChange={toggleBaseMap} checked={isDrone}></IonToggle>
+                <IonText color={isCurrent ? 'dark' : 'medium'}>Drone</IonText>
+            </IonItem>
 
             <IonItem>
                 <IonText color={!isCurrent ? 'dark' : 'medium'}>Geplanned</IonText>

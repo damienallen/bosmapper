@@ -11,16 +11,17 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
+import { MapStore } from '../stores'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
 
 const useStyles = createUseStyles({
-    map: {
+    mapCanvas: {
         height: '100%',
         zIndex: 100,
-        background: '#000',
+        background: (mapBackground: string) => mapBackground,
 
         '& .ol-zoom': {
             display: 'none'
@@ -84,8 +85,10 @@ const useStyles = createUseStyles({
 export const MapCanvas: React.FC = observer(() => {
 
     const mapEl: any = useRef<HTMLDivElement>()
-    const classes = useStyles()
     const { map } = useStores()
+
+    const mapBackground = map.baseMap === 'drone' ? '#333' : '#fff'
+    const classes = useStyles(mapBackground)
 
     // Load GeoJSON features
     const updatedSource = new VectorSource({
@@ -103,17 +106,18 @@ export const MapCanvas: React.FC = observer(() => {
         layers: [
             new OlLayerTile({
                 source: new XYZ({
-                    url: 'https://voedselbos-tiles.ams3.digitaloceanspaces.com/hybrid/{z}/{x}/{y}.png'
+                    url: `https://voedselbos-tiles.ams3.digitaloceanspaces.com/${map.baseMap}/{z}/{x}/{y}.png`
                 })
             }),
             vectorLayer
         ],
         view: new OlView({
             center: [493358, 6783574],
-            maxZoom: 24,
+            maxZoom: 23,
             minZoom: 18,
-            zoom: 20,
-            rotation: -0.945
+            zoom: 19.5,
+            rotation: -0.948,
+            extent: [493263, 6783488, 493457, 6783662] // 493249,493472,6783473,6783677 [EPSG:3857]
         })
     })
 
@@ -132,6 +136,6 @@ export const MapCanvas: React.FC = observer(() => {
     })
 
     return (
-        <div className={classes.map} ref={mapEl} />
+        <div className={classes.mapCanvas} ref={mapEl} />
     )
 })

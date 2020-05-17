@@ -51,10 +51,15 @@ export class FilterStore {
 export class MapStore {
 
     @observable version: string = 'current'
+    @observable baseMap: string = 'drone'
     @observable filteredFeatures: any
 
     setVersion(value: string) {
         this.version = value
+    }
+
+    setBaseMap(value: string) {
+        this.baseMap = value
     }
 
     setFilteredFeatures(value: any) {
