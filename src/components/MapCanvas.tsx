@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { autorun } from 'mobx'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { reaction, IReactionDisposer } from 'mobx'
+import { MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 
 import OlMap from 'ol/Map'
@@ -13,6 +13,7 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
+import { MapBrowserEvent } from 'ol'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -103,16 +104,14 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map } = useStores()
+    const { map, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
-    const updatedSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(map.filteredFeatures)
-    })
-
     const treeFeatures = new VectorLayer({
-        source: updatedSource,
+        source: new VectorSource({
+            features: (new GeoJSON()).readFeatures(map.filteredFeatures)
+        }),
         style: styleFunction,
         updateWhileAnimating: true,
         updateWhileInteracting: true
@@ -122,11 +121,24 @@ export const MapCanvas: React.FC = () => {
         layers: getLayers(map.baseMap, treeFeatures),
         view: new OlView({
             center: [493358, 6783574],
-            maxZoom: 23,
+            maxZoom: 22,
             minZoom: 18,
             zoom: 19.5,
             rotation: -0.948,
-            extent: [493263, 6783488, 493457, 6783662] // 493249,493472,6783473,6783677 [EPSG:3857]
+            extent: [493263, 6783483, 493457, 6783667] // 493249,493472,6783473,6783677 [EPSG:3857]
+        })
+    })
+
+    // Click handling
+    olMap.on('click', (event: MapBrowserEvent) => {
+
+        // Hide details if open
+        ui.setShowTreeDetails(false)
+        map.setSelectedFeature(null)
+
+        olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
+            map.setSelectedFeature(feature)
+            ui.setShowTreeDetails(true)
         })
     })
 
@@ -135,10 +147,21 @@ export const MapCanvas: React.FC = () => {
         olMap.setTarget(mapEl.current)
 
         // Set up autorun functions
-        const autorunDisposer = autorun(() => {
-            console.log(getLayers(map.baseMap, treeFeatures))
-            olMap.setLayerGroup(getLayers(map.baseMap, treeFeatures))
-        })
+        // const disposer = autorun(() => {
+        //     olMap.setLayerGroup(getLayers(map.baseMap, treeFeatures))
+        // })
+        const disposer = [
+            reaction(
+                () => map.baseMap,
+                (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
+            ),
+            reaction(
+                () => map.filteredFeatures,
+                (filteredFeatures: any) => treeFeatures.setSource(new VectorSource({
+                    features: (new GeoJSON()).readFeatures(filteredFeatures)
+                }))
+            ),
+        ]
 
         setTimeout(() => {
             olMap.updateSize()
@@ -147,7 +170,9 @@ export const MapCanvas: React.FC = () => {
         return () => {
             console.log('Unloading map canvas...')
             olMap.setTarget(undefined)
-            autorunDisposer()
+            disposer.forEach((dispose: IReactionDisposer) => {
+                dispose()
+            })
         }
     })
 

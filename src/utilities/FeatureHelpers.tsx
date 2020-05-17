@@ -1,6 +1,6 @@
 import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style'
 import * as speciesJson from '../assets/voedselbos_species.json'
-import mapPin from '../assets/pin.png'
+import mapPin from '../assets/pin_green.svg'
 
 interface SpeciesDict {
     [key: string]: any
@@ -25,18 +25,10 @@ export const getSpeciesData = (name: string) => {
     }
 }
 
-const pin = new Style({
-    image: new Icon({
-        anchor: [0.5, 1],
-        src: mapPin,
-        scale: 0.15
-    })
-})
-
-const treeStyle = new CircleStyle({
-    radius: 1,
-    fill: new Fill({ color: 'rgba(76, 112, 2, 0.5)' }),
-    stroke: new Stroke({ color: 'rgba(37, 54, 2, 1)', width: 1.5 })
+const pin = new Icon({
+    anchor: [0.5, 1],
+    src: mapPin,
+    scale: 0.25
 })
 
 const textStyle = new Text({
@@ -63,7 +55,7 @@ interface StyleDict {
 
 const featureStyles: StyleDict = {
     'Point': new Style({
-        image: treeStyle,
+        image: pin,
         text: textStyle
     }),
     'LineString': new Style({
@@ -79,7 +71,7 @@ const featureStyles: StyleDict = {
         })
     }),
     'MultiPoint': new Style({
-        image: treeStyle
+        image: pin
     }),
     'MultiPolygon': new Style({
         stroke: new Stroke({
@@ -128,17 +120,17 @@ const featureStyles: StyleDict = {
 }
 
 export const styleFunction = (feature: any, resolution: number) => {
-    let featureStyle: any = featureStyles[feature.getGeometry().getType()]
-    let speciesName = feature.values_.species
-    let speciesData = getSpeciesData(speciesName)
+    const featureStyle: any = featureStyles[feature.getGeometry().getType()]
+    const speciesName = feature.values_.species
+    const speciesData = getSpeciesData(speciesName)
 
     // Display text based on tree height & crown width
     if (resolution < 0.06) {
-        let text = speciesData.name_nl ? speciesData.name_nl : speciesData.abbr
+        const text = speciesData.name_nl ? speciesData.name_nl : speciesData.abbr
         featureStyle.getText().setText(text)
     } else {
         featureStyle.getText().setText(null)
     }
 
-    return [featureStyle, pin.clone()]
+    return [featureStyle]
 }

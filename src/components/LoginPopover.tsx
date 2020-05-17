@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
 import {
@@ -13,7 +13,8 @@ const useStores = () => {
 
 const useStyles = createUseStyles({
     container: {
-        padding: 20
+        padding: 20,
+        zIndex: 500
     },
     button: {
         marginTop: 10,
@@ -25,15 +26,9 @@ const useStyles = createUseStyles({
     }
 })
 
-export const SignIn: React.FC = observer(() => {
+export const LoginPopover: React.FC = observer(() => {
     const classes = useStyles()
     const { ui } = useStores()
-
-    useEffect(() => {
-        return () => {
-            ui.setShowLoginPopover(false)
-        }
-    })
 
     return (
         <IonPopover

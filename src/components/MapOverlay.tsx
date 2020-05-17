@@ -2,10 +2,13 @@ import React from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 
-import { AddButton } from '../components/AddButton'
-import { FilterModal } from '../components/FilterModal'
-import { SearchBar } from '../components/SearchBar'
+import { AddButton } from './AddButton'
+import { FilterModal } from './FilterModal'
+import { SearchBar } from './SearchBar'
+import { TreeDetail } from './TreeDetail'
 
+import { LoginPopover } from './LoginPopover'
+import { SettingsModal } from './SettingsModal'
 
 const useStores = () => {
   return React.useContext(MobXProviderContext)
@@ -23,16 +26,18 @@ const useStyles = createUseStyles({
 })
 
 export const MapOverlay: React.FC = observer(() => {
-  const { map } = useStores()
-  const mapBackground = map.baseMap === 'drone' ? '#333' : '#fff'
-  const classes = useStyles(mapBackground)
+  const { map, ui } = useStores()
+  const classes = useStyles(map.mapBackground)
 
   return (
     <div className={classes.container}>
       <FilterModal />
+      <SettingsModal />
+      <LoginPopover />
 
       <SearchBar />
-      <AddButton />
+      {ui.showTreeDetails ? <TreeDetail /> : null}
+      {ui.showTreeDetails ? null : <AddButton />}
     </div>
   )
 })

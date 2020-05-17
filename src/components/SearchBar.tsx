@@ -7,7 +7,7 @@ import {
 } from '@ionic/react'
 import { funnel } from 'ionicons/icons'
 
-import { MenuToggle } from '../components/Menu'
+import { MenuToggle } from './Menu'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -25,7 +25,7 @@ const useStyles = createUseStyles({
     },
     bar: {
         width: '100%',
-        borderRadius: 6,
+        borderRadius: 4,
         padding: 5,
         background: (searchBackground: string) => searchBackground,
         display: 'flex'
@@ -53,10 +53,7 @@ const useStyles = createUseStyles({
 export const SearchBar: React.FC = observer(() => {
     const [searchText] = React.useState('')
     const { filter, map, ui } = useStores()
-
-    const searchBackground = map.baseMap === 'drone' ?
-        'rgba(255, 255, 255, 0.95)' : 'rgba(225, 225, 225, 0.95)'
-    const classes = useStyles(searchBackground)
+    const classes = useStyles(map.overlayBackground)
 
     return (
         <div className={classes.container}>
@@ -66,6 +63,10 @@ export const SearchBar: React.FC = observer(() => {
                     className={classes.search}
                     value={searchText}
                     onIonChange={e => filter.setQuery(e.detail.value!)}
+                    onIonFocus={e => {
+                        ui.setShowTreeDetails(false)
+                        map.setSelectedFeature(null)
+                    }}
                     debounce={400}
                     placeholder="Zoeken"
                     mode="ios"
