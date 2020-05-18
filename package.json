@@ -6,6 +6,7 @@
     "@capacitor/core": "^2.0.2",
     "@ionic/core": "5.0.7",
     "@ionic/react": "5.0.7",
+    "axios": "^0.19.2",
     "ionicons": "5.0.1",
     "mobx": "5.15.4",
     "mobx-react": "6.2.2",

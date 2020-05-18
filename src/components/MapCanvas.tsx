@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useRef } from 'react'
 import { reaction, IReactionDisposer } from 'mobx'
 import { MobXProviderContext } from 'mobx-react'
@@ -15,7 +16,7 @@ import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
-import { locateStyle, styleFunction } from '../utilities/FeatureHelpers'
+import { styleFunction } from '../utilities/FeatureHelpers'
 import { MapBrowserEvent } from 'ol'
 
 
@@ -113,9 +114,7 @@ export const MapCanvas: React.FC = () => {
 
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
-        source: new VectorSource({
-            features: (new GeoJSON()).readFeatures(map.filteredFeatures)
-        }),
+        source: new VectorSource(),
         style: styleFunction,
         updateWhileAnimating: true,
         updateWhileInteracting: true
@@ -171,6 +170,19 @@ export const MapCanvas: React.FC = () => {
     useEffect(() => {
         console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
+
+        // Fetch features
+        axios.get('http://192.168.178.16:8080/trees/')
+            .then((response) => {
+                console.log(response)
+                map.setFeatures(response.data.data)
+                treeFeatures.setSource(new VectorSource({
+                    features: (new GeoJSON()).readFeatures(map.filteredFeatures)
+                }))
+            })
+            .catch((error) => {
+                console.error(error)
+            })
 
         // Set up reactions
         const disposer = [

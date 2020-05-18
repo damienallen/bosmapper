@@ -18,14 +18,14 @@ const useStores = () => {
 }
 
 export const Content: React.FC = observer(() => {
-    const { map } = useStores()
+    // const { map } = useStores()
 
-    // Load appropriate feature set
-    const geoData = map.version === 'current'
-        ? { ...updatedJson.data }
-        : { ...originalJson.data }
+    // // Load appropriate feature set
+    // const geoData = map.version === 'current'
+    //     ? { ...updatedJson.data }
+    //     : { ...originalJson.data }
 
-    map.setFeatures(geoData)
+    // map.setFeatures(geoData)
 
     return (
         <IonContent id="main">

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
@@ -51,7 +52,17 @@ export const TreeDetail: React.FC = observer(() => {
     const speciesData = getSpeciesData(speciesName)
 
     const confirmRemove = () => {
-        console.log('Removing feature', map.selectedFeature.values_.fid)
+        const oid = map.selectedFeature.values_.oid
+        console.log('Removing feature', oid)
+
+        axios.post(`http://192.168.178.16:8080/tree/remove/${oid}/`)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+
         setShowRemovePopover(false)
     }
 

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
@@ -48,12 +49,27 @@ export const LocationSelector: React.FC = observer(() => {
     const classes = useStyles(map.overlayBackground)
 
     const handleCancel = (event: any) => {
-        console.log('Cancel')
+        map.setNewFeatureSpecies(null)
         ui.setShowLocationSelector(false)
     }
 
     const handleConfirm = (event: any) => {
-        console.log('Confirm')
+        const featureJson = {
+            species: map.newFeatureSpecies,
+            lon: map.center[0],
+            lat: map.center[1],
+        }
+        console.log('Trying to add feature', featureJson)
+
+        axios.post('http://192.168.178.16:8080/tree/add/', featureJson)
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+
+        map.setNewFeatureSpecies(null)
         ui.setShowLocationSelector(false)
     }
 

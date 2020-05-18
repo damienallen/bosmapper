@@ -1,4 +1,4 @@
-import { autorun, observable, computed } from "mobx"
+import { autorun, observable, computed, toJS } from "mobx"
 import { cloneDeep } from "lodash"
 
 import { getSpeciesData } from './utilities/FeatureHelpers'
@@ -96,6 +96,8 @@ export class MapStore {
 
     @observable center: any
 
+    @observable newFeatureSpecies: string | null = null
+
     setVersion(value: string) {
         this.version = value
     }
@@ -115,6 +117,10 @@ export class MapStore {
 
     setCenter(value: any) {
         this.center = value
+    }
+
+    setNewFeatureSpecies(value: string) {
+        this.newFeatureSpecies = value
     }
 
     @computed get overlayBackground() {
@@ -140,7 +146,7 @@ export class MapStore {
                 if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
                 if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
 
-                if (query.length < 3) {
+                if (query.length < 1) {
                     return true
                 } else if (
                     speciesData.species.toLowerCase().includes(query)
@@ -153,10 +159,13 @@ export class MapStore {
                 }
             }
 
+            console.log(this.features)
+
             if (this.features) {
                 const filteredGeoJson = cloneDeep(this.features)
                 filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
                 this.filteredFeatures = filteredGeoJson
+                console.log(filteredGeoJson)
             }
         })
     }

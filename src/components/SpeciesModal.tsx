@@ -34,7 +34,7 @@ const useStyles = createUseStyles({
 
 export const SpeciesModal: React.FC = observer(() => {
     const classes = useStyles()
-    const { ui } = useStores()
+    const { map, ui } = useStores()
 
     // TODO: order this by common name
     const [searchText, setSearchText] = useState('')
@@ -63,7 +63,7 @@ export const SpeciesModal: React.FC = observer(() => {
     // Handle species select
     const handleSelect = (species: string) => {
         console.log('Adding new tree:', species)
-
+        map.setNewFeatureSpecies(species)
         ui.setShowLocationSelector(true)
         ui.setShowSpeciesModal(false)
     }
