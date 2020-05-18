@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import { IonButton } from '@ionic/react'
@@ -45,8 +45,12 @@ const useStyles = createUseStyles({
 })
 
 export const LocationSelector: React.FC = observer(() => {
-    const { map, ui } = useStores()
+    const { map, settings, ui } = useStores()
     const classes = useStyles(map.overlayBackground)
+
+    useEffect(() => {
+        if (ui.selectorAction === 'move') map.setCenterOnSelected(true)
+    })
 
     const handleCancel = (event: any) => {
         map.setNewFeatureSpecies(null)
@@ -54,30 +58,55 @@ export const LocationSelector: React.FC = observer(() => {
     }
 
     const handleConfirm = (event: any) => {
-        const featureJson = {
-            species: map.newFeatureSpecies,
-            lon: map.center[0],
-            lat: map.center[1],
-        }
-        console.log('Trying to add feature', featureJson)
 
-        axios.post('http://192.168.178.16:8080/tree/add/', featureJson)
-            .then((response) => {
-                console.debug(response)
-                map.setNeedsUpdate(true)
-            })
-            .catch((error) => {
-                console.error(error)
-            })
+        if (ui.selectorAction === 'move') {
+            const featureJson = {
+                species: map.selectedFeature.values_.species,
+                status: map.selectedFeature.values_.status,
+                lon: map.center[0],
+                lat: map.center[1],
+                notes: map.selectedFeature.values_.notes
+            }
+            axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
+                .then((response) => {
+                    console.debug(response)
+                    map.setNeedsUpdate(true)
+                    ui.setToastText('Geslaagd!')
+                })
+                .catch((error) => {
+                    console.error(error)
+                    ui.setToastText('Verzoek mislukt')
+                })
+        } else {
+            const featureJson = {
+                species: map.newFeatureSpecies,
+                lon: map.center[0],
+                lat: map.center[1],
+            }
+            console.log('Trying to add feature', featureJson)
+
+            axios.post(`${settings.host}/tree/add/`, featureJson)
+                .then((response) => {
+                    console.debug(response)
+                    map.setNeedsUpdate(true)
+                    ui.setToastText('Geslaagd!')
+                })
+                .catch((error) => {
+                    console.error(error)
+                    ui.setToastText('Verzoek mislukt')
+                })
+        }
 
         map.setNewFeatureSpecies(null)
         ui.setShowLocationSelector(false)
     }
 
+    const headerText = ui.selectorAction === 'new' ? 'Kies een locatie' : 'Kies een niewue locatie'
+
     return (
         <div className={classes.container}>
             <div className={classes.header}>
-                Kies een locatie
+                {headerText}
             </div>
 
             <Crosshair />

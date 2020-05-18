@@ -45,7 +45,7 @@ const useStyles = createUseStyles({
 
 export const TreeDetail: React.FC = observer(() => {
     const [showRemovePopover, setShowRemovePopover] = useState(false)
-    const { map } = useStores()
+    const { map, settings, ui } = useStores()
     const classes = useStyles()
 
     const speciesName = map.selectedFeature.values_.species
@@ -55,14 +55,18 @@ export const TreeDetail: React.FC = observer(() => {
         const oid = map.selectedFeature.values_.oid
         console.log('Removing feature', oid)
 
-        axios.post(`http://192.168.178.16:8080/tree/remove/${oid}/`)
+        axios.post(`${settings.host}/tree/remove/${oid}/`)
             .then((response) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
+                ui.setShowTreeDetails(false)
+                ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
                 console.error(error)
+                ui.setToastText('Verzoek mislukt')
             })
+
 
         setShowRemovePopover(false)
     }
@@ -107,10 +111,12 @@ export const TreeDetail: React.FC = observer(() => {
                 </IonCardHeader>
 
                 <IonItem>
-                    {/* <IonButton fill="outline" className={classes.moveButton}><IonIcon icon={move} /></IonButton> */}
+                    <IonButton fill="outline" className={classes.moveButton} onClick={() => { ui.setShowLocationSelector(true, 'move') }}>
+                        <IonIcon icon={move} />Verplaatsen
+                    </IonButton>
                     {/* <IonButton fill="outline">species wijzigen</IonButton> */}
-                    <IonButton fill="outline" slot="end" color="danger" onClick={() => setShowRemovePopover(true)}>
-                        <IonIcon icon={trash} color="danger" />
+                    <IonButton fill="outline" slot="end" color="danger" onClick={() => { setShowRemovePopover(true) }}>
+                        <IonIcon icon={trash} color="danger" />Verwijderen
                     </IonButton>
                 </IonItem>
             </IonCard>

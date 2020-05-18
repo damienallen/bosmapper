@@ -20,7 +20,7 @@ export const Crosshair: React.FC = () => {
 
     return (
         <div className={classes.container}>
-            <img src={focus} className={classes.focus} />
+            <img src={focus} className={classes.focus} alt="+" />
         </div>
     )
 }

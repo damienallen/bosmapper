@@ -19,8 +19,10 @@ export class RootStore {
 
 export class UIStore {
 
-    @observable showLoginPopover: boolean = false
+    @observable toastText: string = ''
+    @observable showToast: boolean = false
 
+    @observable showLoginPopover: boolean = false
     @observable showLicenseModal: boolean = false
     @observable showFilterModal: boolean = false
     @observable showSettingsModal: boolean = false
@@ -28,6 +30,17 @@ export class UIStore {
 
     @observable showTreeDetails: boolean = false
     @observable showLocationSelector: boolean = false
+    @observable selectorAction: string = 'new'
+
+    setToastText(value: string) {
+        this.toastText = value
+        this.showToast = true
+    }
+
+    hideToast() {
+        this.showToast = false
+        this.toastText = ''
+    }
 
     setShowLoginPopover(value: boolean) {
         this.showLoginPopover = value
@@ -53,8 +66,9 @@ export class UIStore {
         this.showTreeDetails = value
     }
 
-    setShowLocationSelector(value: boolean) {
+    setShowLocationSelector(value: boolean, action: string = 'new') {
         this.showLocationSelector = value
+        this.selectorAction = action
     }
 
     constructor(public root: RootStore) { }
@@ -96,6 +110,7 @@ export class MapStore {
 
     @observable featuresHash: string = ''
     @observable needsUpdate: boolean = false
+    @observable centerOnSelected: boolean = false
 
     @observable center: any
     @observable newFeatureSpecies: string | null = null
@@ -123,6 +138,10 @@ export class MapStore {
 
     setNeedsUpdate(value: boolean) {
         this.needsUpdate = value
+    }
+
+    setCenterOnSelected(value: boolean) {
+        this.centerOnSelected = value
     }
 
     setCenter(value: any) {
@@ -182,6 +201,8 @@ export class MapStore {
 export class SettingStore {
 
     @observable language: string = 'nl'
+    @observable host: string = 'http://192.168.178.16:8080'
+    // @observable host: string = 'https://bos.dallen.co'
 
     setLanguage(value: string) {
         this.language = value

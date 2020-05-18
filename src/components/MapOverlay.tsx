@@ -1,6 +1,7 @@
 import React from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
+import { IonToast } from '@ionic/react'
 
 import { AddButton } from './AddButton'
 import { LocationSelector } from './LocationSelector'
@@ -36,6 +37,13 @@ export const MapOverlay: React.FC = observer(() => {
         <SearchBar />
         {ui.showTreeDetails ? <TreeDetail /> : null}
         {ui.showTreeDetails ? null : <AddButton />}
+
+        <IonToast
+          isOpen={ui.showToast}
+          onDidDismiss={() => ui.hideToast()}
+          message={ui.toastText}
+          duration={2000}
+        />
       </div>
     )
 

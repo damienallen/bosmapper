@@ -7,11 +7,8 @@ import hash from 'object-hash'
 
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
-import Feature from 'ol/Feature'
 import OlLayerTile from 'ol/layer/Tile'
 import OlLayerGroup from 'ol/layer/Group'
-import Point from 'ol/geom/Point'
-import Vector from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
@@ -110,7 +107,7 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map, ui } = useStores()
+    const { map, settings, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
@@ -121,30 +118,19 @@ export const MapCanvas: React.FC = () => {
         updateWhileInteracting: true
     })
 
-    // const locateSource = new Vector()
-    // const positionFocus = new Feature({
-    //     geometry: new Point([493358, 6783574]),
-    //     name: 'Crosshair'
-    // })
-    // locateSource.addFeature(positionFocus)
-
-    // const positioning = new VectorLayer({
-    //     source: locateSource,
-    //     style: locateStyle,
-    //     updateWhileAnimating: true,
-    //     updateWhileInteracting: true
-    // })
+    // Set up map
+    const olView = new OlView({
+        center: [493358, 6783574],
+        maxZoom: 22,
+        minZoom: 18,
+        zoom: 19.5,
+        rotation: -0.948,
+        extent: [493263, 6783483, 493457, 6783667] // 493249,493472,6783473,6783677 [EPSG:3857]
+    })
 
     const olMap = new OlMap({
         layers: getLayers(map.baseMap, treeFeatures),
-        view: new OlView({
-            center: [493358, 6783574],
-            maxZoom: 22,
-            minZoom: 18,
-            zoom: 19.5,
-            rotation: -0.948,
-            extent: [493263, 6783483, 493457, 6783667] // 493249,493472,6783473,6783677 [EPSG:3857]
-        })
+        view: olView
     })
 
     // Drag handling
@@ -152,7 +138,6 @@ export const MapCanvas: React.FC = () => {
         const mapCenter = olMap.getView().getCenter()
         map.setCenter(mapCenter)
     })
-
 
     // Click handling
     olMap.on('click', (event: MapBrowserEvent) => {
@@ -170,7 +155,7 @@ export const MapCanvas: React.FC = () => {
 
     // Feature fetching from server
     const getFeatures = () => {
-        axios.get('http://192.168.178.16:8080/trees/')
+        axios.get(`${settings.host}/trees/`)
             .then((response) => {
                 const featuresHash = hash(response.data)
                 if (featuresHash !== map.featuresHash) {
@@ -188,6 +173,7 @@ export const MapCanvas: React.FC = () => {
             })
             .catch((error) => {
                 console.error(error)
+                ui.setToastText('Geen verbinding met server')
             })
     }
 
@@ -207,6 +193,16 @@ export const MapCanvas: React.FC = () => {
                     if (needsUpdate) {
                         getFeatures()
                         map.setNeedsUpdate(false)
+                    }
+                }
+            ),
+            reaction(
+                () => map.centerOnSelected,
+                (centerOnSelected: boolean) => {
+                    if (centerOnSelected && map.selectedFeature) {
+                        const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
+                        olView.setCenter(featureCoords)
+                        map.setCenterOnSelected(false)
                     }
                 }
             ),
