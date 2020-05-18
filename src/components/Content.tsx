@@ -1,5 +1,4 @@
 import React from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
 import { IonContent } from '@ionic/react'
 
 import { MapCanvas } from './MapCanvas'
@@ -9,32 +8,13 @@ import { LoginPopover } from './LoginPopover'
 import { SettingsModal } from './SettingsModal'
 import { SpeciesModal } from './SpeciesModal'
 
-import * as updatedJson from '../assets/voedselbos_features_updated.json'
-import * as originalJson from '../assets/voedselbos_features_original.json'
+export const Content: React.FC = () => (
+    <IonContent id="main">
+        <SettingsModal />
+        <SpeciesModal />
+        <LoginPopover />
 
-
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
-
-export const Content: React.FC = observer(() => {
-    // const { map } = useStores()
-
-    // // Load appropriate feature set
-    // const geoData = map.version === 'current'
-    //     ? { ...updatedJson.data }
-    //     : { ...originalJson.data }
-
-    // map.setFeatures(geoData)
-
-    return (
-        <IonContent id="main">
-            <SettingsModal />
-            <SpeciesModal />
-            <LoginPopover />
-
-            <MapOverlay />
-            <MapCanvas />
-        </IonContent>
-    )
-})
+        <MapOverlay />
+        <MapCanvas />
+    </IonContent>
+)

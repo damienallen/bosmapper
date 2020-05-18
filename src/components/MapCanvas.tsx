@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react'
 import { reaction, IReactionDisposer } from 'mobx'
 import { MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
+import hash from 'object-hash'
 
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
@@ -161,31 +162,54 @@ export const MapCanvas: React.FC = () => {
         map.setSelectedFeature(null)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
-            console.log(feature)
+            // console.log(feature)
             map.setSelectedFeature(feature)
             ui.setShowTreeDetails(true)
         })
     })
+
+    // Feature fetching from server
+    const getFeatures = () => {
+        axios.get('http://192.168.178.16:8080/trees/')
+            .then((response) => {
+                const featuresHash = hash(response.data)
+                if (featuresHash !== map.featuresHash) {
+                    console.debug(response)
+
+                    map.setFeaturesHash(featuresHash)
+                    map.setFeaturesGeoJson(response.data.data)
+                    treeFeatures.setSource(new VectorSource({
+                        features: (new GeoJSON()).readFeatures(map.filteredFeatures)
+                    }))
+                } else {
+                    console.debug('Features not updated')
+                }
+
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }
 
     useEffect(() => {
         console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
 
         // Fetch features
-        axios.get('http://192.168.178.16:8080/trees/')
-            .then((response) => {
-                console.log(response)
-                map.setFeatures(response.data.data)
-                treeFeatures.setSource(new VectorSource({
-                    features: (new GeoJSON()).readFeatures(map.filteredFeatures)
-                }))
-            })
-            .catch((error) => {
-                console.error(error)
-            })
+        getFeatures()
+        const featureFetcher = setInterval(getFeatures, 10000)
 
         // Set up reactions
         const disposer = [
+            reaction(
+                () => map.needsUpdate,
+                (needsUpdate: boolean) => {
+                    if (needsUpdate) {
+                        getFeatures()
+                        map.setNeedsUpdate(false)
+                    }
+                }
+            ),
             reaction(
                 () => map.baseMap,
                 (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
@@ -205,6 +229,7 @@ export const MapCanvas: React.FC = () => {
         return () => {
             console.log('Unloading map canvas...')
             olMap.setTarget(undefined)
+            clearInterval(featureFetcher)
             disposer.forEach((dispose: IReactionDisposer) => dispose())
         }
     })

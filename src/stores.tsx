@@ -1,5 +1,5 @@
-import { autorun, observable, computed, toJS } from "mobx"
-import { cloneDeep } from "lodash"
+import { autorun, observable, computed } from 'mobx'
+import { cloneDeep } from 'lodash'
 
 import { getSpeciesData } from './utilities/FeatureHelpers'
 
@@ -90,12 +90,14 @@ export class MapStore {
     @observable version: string = 'current'
     @observable baseMap: string = 'drone'
 
-    @observable features: any
+    @observable featuresGeoJson: any
     @observable filteredFeatures: any
     @observable selectedFeature: any
 
-    @observable center: any
+    @observable featuresHash: string = ''
+    @observable needsUpdate: boolean = false
 
+    @observable center: any
     @observable newFeatureSpecies: string | null = null
 
     setVersion(value: string) {
@@ -106,13 +108,21 @@ export class MapStore {
         this.baseMap = value
     }
 
-    setFeatures(value: any) {
-        this.features = value
+    setFeaturesGeoJson(value: any) {
+        this.featuresGeoJson = value
         this.filteredFeatures = value
     }
 
     setSelectedFeature(value: any) {
         this.selectedFeature = value
+    }
+
+    setFeaturesHash(value: string) {
+        this.featuresHash = value
+    }
+
+    setNeedsUpdate(value: boolean) {
+        this.needsUpdate = value
     }
 
     setCenter(value: any) {
@@ -159,13 +169,10 @@ export class MapStore {
                 }
             }
 
-            console.log(this.features)
-
-            if (this.features) {
-                const filteredGeoJson = cloneDeep(this.features)
+            if (this.featuresGeoJson) {
+                const filteredGeoJson = cloneDeep(this.featuresGeoJson)
                 filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
                 this.filteredFeatures = filteredGeoJson
-                console.log(filteredGeoJson)
             }
         })
     }

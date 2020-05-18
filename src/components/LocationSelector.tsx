@@ -63,7 +63,8 @@ export const LocationSelector: React.FC = observer(() => {
 
         axios.post('http://192.168.178.16:8080/tree/add/', featureJson)
             .then((response) => {
-                console.log(response)
+                console.debug(response)
+                map.setNeedsUpdate(true)
             })
             .catch((error) => {
                 console.error(error)
