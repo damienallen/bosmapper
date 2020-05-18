@@ -162,10 +162,7 @@ export const MapCanvas: React.FC = () => {
                     console.debug(response)
 
                     map.setFeaturesHash(featuresHash)
-                    map.setFeaturesGeoJson(response.data.data)
-                    treeFeatures.setSource(new VectorSource({
-                        features: (new GeoJSON()).readFeatures(map.filteredFeatures)
-                    }))
+                    map.setFeaturesGeoJson(response.data)
                 } else {
                     console.debug('Features not updated')
                 }
@@ -212,9 +209,15 @@ export const MapCanvas: React.FC = () => {
             ),
             reaction(
                 () => map.filteredFeatures,
-                (filteredFeatures: any) => treeFeatures.setSource(new VectorSource({
-                    features: (new GeoJSON()).readFeatures(filteredFeatures)
-                }))
+                (filteredFeatures: any) => {
+                    if (map.filteredFeatures.features) {
+                        treeFeatures.setSource(new VectorSource({
+                            features: (new GeoJSON()).readFeatures(filteredFeatures)
+                        }))
+                    } else {
+                        console.warn('No features found')
+                    }
+                }
             ),
         ]
 

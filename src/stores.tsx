@@ -163,17 +163,17 @@ export class MapStore {
     constructor(public root: RootStore) {
         autorun(() => {
             const query = this.root.filter.query.toLowerCase()
-            const minHeight = this.root.filter.minHeight
-            const maxHeight = this.root.filter.maxHeight
+            // const minHeight = this.root.filter.minHeight
+            // const maxHeight = this.root.filter.maxHeight
 
-            const minWidth = this.root.filter.minWidth
-            const maxWidth = this.root.filter.maxWidth
+            // const minWidth = this.root.filter.minWidth
+            // const maxWidth = this.root.filter.maxWidth
 
             const featureFilter = (feature: any) => {
                 const speciesData = getSpeciesData(feature.properties.species)
 
-                if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
-                if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
+                // if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
+                // if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
 
                 if (query.length < 1) {
                     return true
@@ -188,7 +188,7 @@ export class MapStore {
                 }
             }
 
-            if (this.featuresGeoJson) {
+            if (this.featuresGeoJson && this.featuresGeoJson.features) {
                 const filteredGeoJson = cloneDeep(this.featuresGeoJson)
                 filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
                 this.filteredFeatures = filteredGeoJson
@@ -201,8 +201,8 @@ export class MapStore {
 export class SettingStore {
 
     @observable language: string = 'nl'
-    @observable host: string = 'http://192.168.178.16:8080'
-    // @observable host: string = 'https://bos.dallen.co'
+    // @observable host: string = 'http://192.168.178.16:8080'
+    @observable host: string = 'https://bos.dallen.co'
 
     setLanguage(value: string) {
         this.language = value

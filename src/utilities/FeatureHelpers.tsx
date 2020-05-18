@@ -11,7 +11,7 @@ export const speciesList = speciesJson.species
 export const getSpeciesDict = () => {
     let dict: any = {}
     speciesJson.species.forEach((item: any) => {
-        dict[item.species] = item
+        dict[item.abbr] = item
     })
     return dict
 }
@@ -23,7 +23,7 @@ export const getSpeciesData = (name: string) => {
         return speciesDict[name]
     } else {
         console.warn(`Unable to find species '${name}'`)
-        return null
+        return speciesDict['Onbekend']
     }
 }
 
