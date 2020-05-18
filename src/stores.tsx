@@ -1,11 +1,46 @@
-import { observable } from "mobx"
+import { autorun, observable, computed } from 'mobx'
+import { cloneDeep } from 'lodash'
+
+import { getSpeciesData } from './utilities/FeatureHelpers'
+
+export class RootStore {
+    public ui: UIStore
+    public filter: FilterStore
+    public map: MapStore
+    public settings: SettingStore
+
+    constructor() {
+        this.ui = new UIStore(this)
+        this.filter = new FilterStore(this)
+        this.map = new MapStore(this)
+        this.settings = new SettingStore(this)
+    }
+}
 
 export class UIStore {
+
+    @observable toastText: string = ''
+    @observable showToast: boolean = false
 
     @observable showLoginPopover: boolean = false
     @observable showLicenseModal: boolean = false
     @observable showFilterModal: boolean = false
     @observable showSettingsModal: boolean = false
+    @observable showSpeciesModal: boolean = false
+
+    @observable showTreeDetails: boolean = false
+    @observable showLocationSelector: boolean = false
+    @observable selectorAction: string = 'new'
+
+    setToastText(value: string) {
+        this.toastText = value
+        this.showToast = true
+    }
+
+    hideToast() {
+        this.showToast = false
+        this.toastText = ''
+    }
 
     setShowLoginPopover(value: boolean) {
         this.showLoginPopover = value
@@ -23,6 +58,20 @@ export class UIStore {
         this.showSettingsModal = value
     }
 
+    setShowSpeciesModal(value: boolean) {
+        this.showSpeciesModal = value
+    }
+
+    setShowTreeDetails(value: boolean) {
+        this.showTreeDetails = value
+    }
+
+    setShowLocationSelector(value: boolean, action: string = 'new') {
+        this.showLocationSelector = value
+        this.selectorAction = action
+    }
+
+    constructor(public root: RootStore) { }
 }
 
 export class FilterStore {
@@ -46,19 +95,105 @@ export class FilterStore {
         this.maxWidth = minValue
         this.maxWidth = maxValue
     }
+
+    constructor(public root: RootStore) { }
 }
 
 export class MapStore {
 
     @observable version: string = 'current'
+    @observable baseMap: string = 'drone'
+
+    @observable featuresGeoJson: any
     @observable filteredFeatures: any
+    @observable selectedFeature: any
+
+    @observable featuresHash: string = ''
+    @observable needsUpdate: boolean = false
+    @observable centerOnSelected: boolean = false
+
+    @observable center: any
+    @observable newFeatureSpecies: string | null = null
 
     setVersion(value: string) {
         this.version = value
     }
 
-    setFilteredFeatures(value: any) {
+    setBaseMap(value: string) {
+        this.baseMap = value
+    }
+
+    setFeaturesGeoJson(value: any) {
+        this.featuresGeoJson = value
         this.filteredFeatures = value
+    }
+
+    setSelectedFeature(value: any) {
+        this.selectedFeature = value
+    }
+
+    setFeaturesHash(value: string) {
+        this.featuresHash = value
+    }
+
+    setNeedsUpdate(value: boolean) {
+        this.needsUpdate = value
+    }
+
+    setCenterOnSelected(value: boolean) {
+        this.centerOnSelected = value
+    }
+
+    setCenter(value: any) {
+        this.center = value
+    }
+
+    setNewFeatureSpecies(value: string) {
+        this.newFeatureSpecies = value
+    }
+
+    @computed get overlayBackground() {
+        return this.baseMap === 'drone' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(230, 230, 230, 0.95)'
+    }
+
+    @computed get mapBackground() {
+        return this.baseMap === 'drone' ? '#333' : '#fff'
+    }
+
+    constructor(public root: RootStore) {
+        autorun(() => {
+            const query = this.root.filter.query.toLowerCase()
+            // const minHeight = this.root.filter.minHeight
+            // const maxHeight = this.root.filter.maxHeight
+
+            // const minWidth = this.root.filter.minWidth
+            // const maxWidth = this.root.filter.maxWidth
+
+            const featureFilter = (feature: any) => {
+                const speciesData = getSpeciesData(feature.properties.species)
+
+                // if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
+                // if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
+
+                if (query.length < 1) {
+                    return true
+                } else if (
+                    speciesData.species.toLowerCase().includes(query)
+                    || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
+                    || (speciesData.name_en && speciesData.name_en.toLowerCase().includes(query))
+                ) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+
+            if (this.featuresGeoJson && this.featuresGeoJson.features) {
+                const filteredGeoJson = cloneDeep(this.featuresGeoJson)
+                filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
+                this.filteredFeatures = filteredGeoJson
+            }
+        })
     }
 
 }
@@ -66,9 +201,12 @@ export class MapStore {
 export class SettingStore {
 
     @observable language: string = 'nl'
+    // @observable host: string = 'http://192.168.178.16:8080'
+    @observable host: string = 'https://bos.dallen.co'
 
     setLanguage(value: string) {
         this.language = value
     }
 
+    constructor(public root: RootStore) { }
 }

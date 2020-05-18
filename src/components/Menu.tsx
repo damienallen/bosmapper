@@ -12,12 +12,9 @@ import {
 } from '@ionic/react'
 import { logIn, settings } from 'ionicons/icons'
 
-import { LicenseModal } from './LicenseModal'
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
-import { SettingsModal } from './SettingsModal'
-import { SignIn } from './SignIn'
 
 const useStores = () => {
   return React.useContext(MobXProviderContext)
@@ -55,11 +52,6 @@ export const Menu: React.FC = () => {
 
   return (
     <IonMenu contentId="main" type="overlay">
-
-      <SignIn />
-      <SettingsModal />
-      <LicenseModal />
-
       <Logo />
 
       <IonContent>

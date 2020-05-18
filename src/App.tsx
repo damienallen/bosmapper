@@ -10,7 +10,7 @@ import { Content } from './components/Content'
 import { Menu } from './components/Menu'
 
 /* Stores */
-import { UIStore, MapStore, SettingStore, FilterStore } from './stores'
+import { RootStore } from './stores'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -35,18 +35,22 @@ import './theme/variables.css'
 import 'ol/ol.css'
 
 
-export const App: React.FC = () => (
-  <Provider
-    filter={new FilterStore()}
-    map={new MapStore()}
-    settings={new SettingStore()}
-    ui={new UIStore()}
-  >
-    <IonApp>
-      <IonSplitPane contentId="main">
-        <Menu />
-        <Content />
-      </IonSplitPane>
-    </IonApp>
-  </Provider>
-)
+export const App: React.FC = () => {
+  const rootStore = new RootStore()
+
+  return (
+    <Provider
+      filter={rootStore.filter}
+      map={rootStore.map}
+      settings={rootStore.settings}
+      ui={rootStore.ui}
+    >
+      <IonApp>
+        <IonSplitPane contentId="main">
+          <Menu />
+          <Content />
+        </IonSplitPane>
+      </IonApp>
+    </Provider>
+  )
+}

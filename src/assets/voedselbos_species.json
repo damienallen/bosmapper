@@ -1,6 +1,16 @@
 {
     "species": [
         {
+            "abbr": "Onbekend",
+            "species": "Onbekend",
+            "name_nl": "Onbekend",
+            "name_en": "Unknown",
+            "height": null,
+            "width": null,
+            "phase": null,
+            "notes": null
+        },
+        {
             "abbr": "A. incana",
             "species": "Alnus incana",
             "name_nl": "Witte els",

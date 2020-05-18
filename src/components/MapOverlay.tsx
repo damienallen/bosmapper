@@ -1,10 +1,17 @@
 import React from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
+import { IonToast } from '@ionic/react'
 
-import { AddButton } from '../components/AddButton'
-import { FilterModal } from '../components/FilterModal'
-import { SearchBar } from '../components/SearchBar'
+import { AddButton } from './AddButton'
+import { LocationSelector } from './LocationSelector'
+import { SearchBar } from './SearchBar'
+import { TreeDetail } from './TreeDetail'
 
+
+const useStores = () => {
+  return React.useContext(MobXProviderContext)
+}
 
 const useStyles = createUseStyles({
   container: {
@@ -12,19 +19,32 @@ const useStyles = createUseStyles({
     top: 0,
     left: 0,
     height: '100%',
-    width: '100%'
+    width: '100%',
+    background: (backgroundColor: string) => backgroundColor
   }
 })
 
-export const MapOverlay: React.FC = () => {
-  const classes = useStyles()
+export const MapOverlay: React.FC = observer(() => {
+  const { map, ui } = useStores()
+  const classes = useStyles(map.mapBackground)
 
-  return (
+  return ui.showLocationSelector ? (
     <div className={classes.container}>
-      <FilterModal />
-
-      <SearchBar />
-      <AddButton />
+      <LocationSelector />
     </div>
-  )
-}
+  ) : (
+      <div className={classes.container}>
+        <SearchBar />
+        {ui.showTreeDetails ? <TreeDetail /> : null}
+        {ui.showTreeDetails ? null : <AddButton />}
+
+        <IonToast
+          isOpen={ui.showToast}
+          onDidDismiss={() => ui.hideToast()}
+          message={ui.toastText}
+          duration={2000}
+        />
+      </div>
+    )
+
+})

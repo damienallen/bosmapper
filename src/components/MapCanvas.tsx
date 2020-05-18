@@ -1,26 +1,32 @@
+import axios from 'axios'
 import React, { useEffect, useRef } from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { reaction, IReactionDisposer } from 'mobx'
+import { MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
+import hash from 'object-hash'
 
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
 import OlLayerTile from 'ol/layer/Tile'
+import OlLayerGroup from 'ol/layer/Group'
 import XYZ from 'ol/source/XYZ'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelpers'
+import { MapBrowserEvent } from 'ol'
+
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
 
 const useStyles = createUseStyles({
-    map: {
+    mapCanvas: {
         height: '100%',
         zIndex: 100,
-        background: '#000',
+        background: 'none',
 
         '& .ol-zoom': {
             display: 'none'
@@ -81,45 +87,139 @@ const useStyles = createUseStyles({
     }
 })
 
-export const MapCanvas: React.FC = observer(() => {
+const xyzUrl = (baseMap: string) => (
+    `https://voedselbos-tiles.ams3.digitaloceanspaces.com/${baseMap}/{z}/{x}/{y}.png`
+)
+
+const getLayers = (baseMap: string, features: VectorLayer) => (
+    new OlLayerGroup({
+        layers: [
+            new OlLayerTile({
+                source: new XYZ({
+                    url: xyzUrl(baseMap)
+                })
+            }),
+            features
+        ]
+    })
+)
+
+export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
+    const { map, settings, ui } = useStores()
     const classes = useStyles()
-    const { map } = useStores()
 
     // Load GeoJSON features
-    const updatedSource = new VectorSource({
-        features: (new GeoJSON()).readFeatures(map.filteredFeatures)
-    })
-
-    const vectorLayer = new VectorLayer({
-        source: updatedSource,
+    const treeFeatures = new VectorLayer({
+        source: new VectorSource(),
         style: styleFunction,
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
 
+    // Set up map
+    const olView = new OlView({
+        center: [493358, 6783574],
+        maxZoom: 22,
+        minZoom: 18,
+        zoom: 19.5,
+        rotation: -0.948,
+        extent: [493263, 6783483, 493457, 6783667] // 493249,493472,6783473,6783677 [EPSG:3857]
+    })
+
     const olMap = new OlMap({
-        layers: [
-            new OlLayerTile({
-                source: new XYZ({
-                    url: 'https://voedselbos-tiles.ams3.digitaloceanspaces.com/hybrid/{z}/{x}/{y}.png'
-                })
-            }),
-            vectorLayer
-        ],
-        view: new OlView({
-            center: [493358, 6783574],
-            maxZoom: 24,
-            minZoom: 18,
-            zoom: 20,
-            rotation: -0.945
+        layers: getLayers(map.baseMap, treeFeatures),
+        view: olView
+    })
+
+    // Drag handling
+    olMap.on('moveend', (event: any) => {
+        const mapCenter = olMap.getView().getCenter()
+        map.setCenter(mapCenter)
+    })
+
+    // Click handling
+    olMap.on('click', (event: MapBrowserEvent) => {
+
+        // Hide details if open
+        ui.setShowTreeDetails(false)
+        map.setSelectedFeature(null)
+
+        olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
+            // console.log(feature)
+            map.setSelectedFeature(feature)
+            ui.setShowTreeDetails(true)
         })
     })
+
+    // Feature fetching from server
+    const getFeatures = () => {
+        axios.get(`${settings.host}/trees/`)
+            .then((response) => {
+                const featuresHash = hash(response.data)
+                if (featuresHash !== map.featuresHash) {
+                    console.debug(response)
+
+                    map.setFeaturesHash(featuresHash)
+                    map.setFeaturesGeoJson(response.data)
+                } else {
+                    console.debug('Features not updated')
+                }
+
+            })
+            .catch((error) => {
+                console.error(error)
+                ui.setToastText('Geen verbinding met server')
+            })
+    }
 
     useEffect(() => {
         console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
+
+        // Fetch features
+        getFeatures()
+        const featureFetcher = setInterval(getFeatures, 10000)
+
+        // Set up reactions
+        const disposer = [
+            reaction(
+                () => map.needsUpdate,
+                (needsUpdate: boolean) => {
+                    if (needsUpdate) {
+                        getFeatures()
+                        map.setNeedsUpdate(false)
+                    }
+                }
+            ),
+            reaction(
+                () => map.centerOnSelected,
+                (centerOnSelected: boolean) => {
+                    if (centerOnSelected && map.selectedFeature) {
+                        const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
+                        olView.setCenter(featureCoords)
+                        map.setCenterOnSelected(false)
+                    }
+                }
+            ),
+            reaction(
+                () => map.baseMap,
+                (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
+            ),
+            reaction(
+                () => map.filteredFeatures,
+                (filteredFeatures: any) => {
+                    if (map.filteredFeatures.features) {
+                        treeFeatures.setSource(new VectorSource({
+                            features: (new GeoJSON()).readFeatures(filteredFeatures)
+                        }))
+                    } else {
+                        console.warn('No features found')
+                    }
+                }
+            ),
+        ]
 
         setTimeout(() => {
             olMap.updateSize()
@@ -128,10 +228,12 @@ export const MapCanvas: React.FC = observer(() => {
         return () => {
             console.log('Unloading map canvas...')
             olMap.setTarget(undefined)
+            clearInterval(featureFetcher)
+            disposer.forEach((dispose: IReactionDisposer) => dispose())
         }
     })
 
     return (
-        <div className={classes.map} ref={mapEl} />
+        <div className={classes.mapCanvas} ref={mapEl} />
     )
-})
+}
