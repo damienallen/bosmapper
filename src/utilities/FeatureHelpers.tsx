@@ -1,6 +1,7 @@
 import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style'
 import * as speciesJson from '../assets/voedselbos_species.json'
 import mapPin from '../assets/pin_green.svg'
+import focus from '../assets/focus.svg'
 
 interface SpeciesDict {
     [key: string]: any
@@ -49,6 +50,14 @@ const textStyle = new Text({
     maxAngle: undefined,
     overflow: undefined,
     rotation: 0
+})
+
+export const locateStyle = new Style({
+    image: new Icon({
+        anchor: [0.5, 0.5],
+        src: focus,
+        scale: 1
+    })
 })
 
 interface StyleDict {

@@ -5,6 +5,10 @@ import { IonContent } from '@ionic/react'
 import { MapCanvas } from './MapCanvas'
 import { MapOverlay } from './MapOverlay'
 
+import { LoginPopover } from './LoginPopover'
+import { SettingsModal } from './SettingsModal'
+import { SpeciesModal } from './SpeciesModal'
+
 import * as updatedJson from '../assets/voedselbos_features_updated.json'
 import * as originalJson from '../assets/voedselbos_features_original.json'
 
@@ -25,6 +29,10 @@ export const Content: React.FC = observer(() => {
 
     return (
         <IonContent id="main">
+            <SettingsModal />
+            <SpeciesModal />
+            <LoginPopover />
+
             <MapOverlay />
             <MapCanvas />
         </IonContent>

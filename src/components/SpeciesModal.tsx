@@ -63,6 +63,8 @@ export const SpeciesModal: React.FC = observer(() => {
     // Handle species select
     const handleSelect = (species: string) => {
         console.log('Adding new tree:', species)
+
+        ui.setShowLocationSelector(true)
         ui.setShowSpeciesModal(false)
     }
 

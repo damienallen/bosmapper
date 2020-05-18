@@ -27,6 +27,7 @@ export class UIStore {
     @observable showSpeciesModal: boolean = false
 
     @observable showTreeDetails: boolean = false
+    @observable showLocationSelector: boolean = false
 
     setShowLoginPopover(value: boolean) {
         this.showLoginPopover = value
@@ -50,6 +51,10 @@ export class UIStore {
 
     setShowTreeDetails(value: boolean) {
         this.showTreeDetails = value
+    }
+
+    setShowLocationSelector(value: boolean) {
+        this.showLocationSelector = value
     }
 
     constructor(public root: RootStore) { }
@@ -89,6 +94,8 @@ export class MapStore {
     @observable filteredFeatures: any
     @observable selectedFeature: any
 
+    @observable center: any
+
     setVersion(value: string) {
         this.version = value
     }
@@ -104,6 +111,10 @@ export class MapStore {
 
     setSelectedFeature(value: any) {
         this.selectedFeature = value
+    }
+
+    setCenter(value: any) {
+        this.center = value
     }
 
     @computed get overlayBackground() {

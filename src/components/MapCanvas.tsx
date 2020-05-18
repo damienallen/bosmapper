@@ -5,14 +5,17 @@ import { createUseStyles } from 'react-jss'
 
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
+import Feature from 'ol/Feature'
 import OlLayerTile from 'ol/layer/Tile'
 import OlLayerGroup from 'ol/layer/Group'
+import Point from 'ol/geom/Point'
+import Vector from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
-import { styleFunction } from '../utilities/FeatureHelpers'
+import { locateStyle, styleFunction } from '../utilities/FeatureHelpers'
 import { MapBrowserEvent } from 'ol'
 
 
@@ -118,6 +121,20 @@ export const MapCanvas: React.FC = () => {
         updateWhileInteracting: true
     })
 
+    // const locateSource = new Vector()
+    // const positionFocus = new Feature({
+    //     geometry: new Point([493358, 6783574]),
+    //     name: 'Crosshair'
+    // })
+    // locateSource.addFeature(positionFocus)
+
+    // const positioning = new VectorLayer({
+    //     source: locateSource,
+    //     style: locateStyle,
+    //     updateWhileAnimating: true,
+    //     updateWhileInteracting: true
+    // })
+
     const olMap = new OlMap({
         layers: getLayers(map.baseMap, treeFeatures),
         view: new OlView({
@@ -130,6 +147,13 @@ export const MapCanvas: React.FC = () => {
         })
     })
 
+    // Drag handling
+    olMap.on('moveend', (event: any) => {
+        const mapCenter = olMap.getView().getCenter()
+        map.setCenter(mapCenter)
+    })
+
+
     // Click handling
     olMap.on('click', (event: MapBrowserEvent) => {
 
@@ -138,6 +162,7 @@ export const MapCanvas: React.FC = () => {
         map.setSelectedFeature(null)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
+            console.log(feature)
             map.setSelectedFeature(feature)
             ui.setShowTreeDetails(true)
         })
