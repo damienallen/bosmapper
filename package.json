@@ -1,20 +1,74 @@
 {
-  "name": "capacitor-app",
-  "version": "1.0.0",
-  "description": "An Amazing Capacitor App",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "capacitor",
-    "mobile"
-  ],
-  "author": "",
-  "license": "ISC",
+  "name": "bos-mapper",
+  "version": "0.3.0",
+  "private": true,
   "dependencies": {
-    "@capacitor/android": "^1.3.0",
-    "@capacitor/cli": "^1.3.0",
-    "@capacitor/core": "^1.3.0"
-  }
+    "@capacitor/core": "^2.0.2",
+    "@ionic/core": "5.0.7",
+    "@ionic/react": "5.0.7",
+    "@types/object-hash": "^1.3.3",
+    "axios": "^0.19.2",
+    "ionicons": "5.0.1",
+    "mobx": "5.15.4",
+    "mobx-react": "6.2.2",
+    "object-hash": "^2.0.3",
+    "ol": "6.3.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-icons": "3.10.0",
+    "react-jss": "10.1.1",
+    "react-scripts": "3.4.1",
+    "typescript": "3.8.3"
+  },
+  "scripts": {
+    "start": "ionic serve --no-open",
+    "update": "npm-check -u",
+    "build": "react-scripts build",
+    "test": "jest",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.0",
+    "@babel/preset-env": "7.9.5",
+    "@babel/preset-typescript": "7.9.0",
+    "@capacitor/android": "^2.0.2",
+    "@capacitor/cli": "^2.0.2",
+    "@ionic/cli": "6.6.0",
+    "@types/jest": "25.2.1",
+    "@types/lodash": "^4.14.151",
+    "@types/node": "13.13.4",
+    "@types/ol": "6.3.1",
+    "@types/react": "16.9.34",
+    "@types/react-dom": "16.9.6",
+    "babel-jest": "^24.9.0",
+    "cordova-res": "0.13.0",
+    "electron": "^7.1.7",
+    "gh-pages": "2.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-canvas-mock": "^2.2.0",
+    "jest-svg-transformer": "^1.0.0",
+    "jest-transform-css": "^2.0.0",
+    "native-run": "1.0.0",
+    "npm-check": "5.9.2",
+    "ts-jest": "^24.2.0"
+  },
+  "description": "Simple tree management",
+  "homepage": "https://damienallen.github.io/bosmapper"
 }

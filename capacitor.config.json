@@ -1,7 +1,8 @@
 {
-  "appId": "co.dallen.bosmapper",
-  "appName": "BosMapper",
-  "bundledWebRuntime": true,
-  "npmClient": "yarn",
-  "webDir": "www"
+  "appId": "io.ionic.starter",
+  "appName": "bos-mapper",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
 }

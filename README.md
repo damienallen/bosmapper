@@ -1,17 +1,21 @@
-## Created with Capacitor Create
+![bosmapper](https://github.com/damienallen/bosmapper/blob/develop/src/assets/logo_dark.png)
 
-This app was created using the `npx @capacitor/cli create` command, and comes with a very
-minimal shell for building an app.
+### Requirements
+- node & npm
+- ionic cli (v5+)
+- yarn (optional)
 
-Note: unless you know what you're doing, we don't recommend using the `create` way of building an app. Instead, you'll
-likely want to create an app using your framework's tooling (such as `create-react-app`), and then *add* capacitor
-to *that* project (using `npx @capacitor/cli init`).
 
-### Running this example
+### Dev environment
+After cloning the repository, install depenencies using `yarn install`.
 
-To run the provided example, can use serve command:
+Webpack is used to optimize and package static resources. It should be used either in watch mode (yarn start) or a manual build using yarn run build.
+
+
+### Running the app
+
+To run the app locally, can use the serve command:
 
 ```bash
 npx cap serve
 ```
-# bos-mapper

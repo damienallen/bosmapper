@@ -1,0 +1,8 @@
+{
+  "name": "bosmapper",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "440dcc94"
+}
