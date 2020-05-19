@@ -1,24 +1,12 @@
 {
     "species": [
         {
-            "abbr": "Onbekend",
-            "species": "Onbekend",
-            "name_nl": "Onbekend",
-            "name_en": "Unknown",
-            "height": null,
-            "width": null,
-            "phase": null,
-            "notes": null
-        },
-        {
             "abbr": "A. incana",
             "species": "Alnus incana",
             "name_nl": "Witte els",
             "name_en": null,
             "height": null,
-            "width": null,
-            "phase": "Windhaag",
-            "notes": null
+            "width": null
         },
         {
             "abbr": "A. alnifolia",
@@ -26,9 +14,7 @@
             "name_nl": "Saskatoon krentenboompje",
             "name_en": "Saskatoon serviceberry",
             "height": 3,
-            "width": 2.5,
-            "phase": 1,
-            "notes": "Van elk ras 1"
+            "width": 2.5
         },
         {
             "abbr": "A. laevis",
@@ -36,9 +22,7 @@
             "name_nl": "Krentenboompje",
             "name_en": null,
             "height": 4,
-            "width": 3.5,
-            "phase": 1,
-            "notes": null
+            "width": 3.5
         },
         {
             "abbr": "Amelanchier",
@@ -46,9 +30,7 @@
             "name_nl": "Krentenboompje",
             "name_en": "Serviceberry",
             "height": 4,
-            "width": 3.5,
-            "phase": 1,
-            "notes": "Van elk ras 1"
+            "width": 3.5
         },
         {
             "abbr": "A. cordata",
@@ -56,9 +38,7 @@
             "name_nl": "Udo",
             "name_en": null,
             "height": 2,
-            "width": 2,
-            "phase": 2,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "A. araucana",
@@ -66,9 +46,7 @@
             "name_nl": "Slangenden",
             "name_en": null,
             "height": 25,
-            "width": 15,
-            "phase": 1,
-            "notes": "Hier t goedkoopste, ik zou de maat nemen 40-50 cm (30 euro), anders duurt t weer 3 jaar langer"
+            "width": 10
         },
         {
             "abbr": "A. unedo",
@@ -76,9 +54,7 @@
             "name_nl": "Aardbeiboom",
             "name_en": "Strawberry tree",
             "height": 8,
-            "width": 8,
-            "phase": 1,
-            "notes": "Neem grootste varieteit, vraag even na bij fruitbomen hoe groot ie wordt"
+            "width": 8
         },
         {
             "abbr": "A. uva-ursi",
@@ -86,19 +62,15 @@
             "name_nl": "Berendruif",
             "name_en": null,
             "height": 0.25,
-            "width": 0.25,
-            "phase": 1,
-            "notes": "Ordernummer: ORD10173"
+            "width": 0.25
         },
         {
             "abbr": "A. melanocarpa",
             "species": "Aronia melanocarpa",
             "name_nl": "Zwarte appelbes (VS)",
             "name_en": "Black chokeberry (US)",
-            "height": 1.2,
-            "width": 2.4,
-            "phase": null,
-            "notes": null
+            "height": null,
+            "width": null
         },
         {
             "abbr": "Aronia spp.",
@@ -106,9 +78,7 @@
             "name_nl": "zwarte appelbes",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": "Viking is het standaard productieras,staat waars al op de voedseltuin. Neem daarom 4 van elk van de genoemde rassen, en vul rest aan met planten van voedseltuin"
+            "width": 3
         },
         {
             "abbr": "B. darwinii",
@@ -116,9 +86,7 @@
             "name_nl": "Zuurbes",
             "name_en": null,
             "height": 2.5,
-            "width": 2.5,
-            "phase": 1,
-            "notes": "Gratis verzendkosten boven de 35 eu"
+            "width": 2.5
         },
         {
             "abbr": "B. lologensis",
@@ -126,9 +94,7 @@
             "name_nl": "Zuurbes",
             "name_en": null,
             "height": 2.5,
-            "width": 2.5,
-            "phase": 1,
-            "notes": null
+            "width": 2.5
         },
         {
             "abbr": "B. rubrostilla",
@@ -136,9 +102,7 @@
             "name_nl": "Zuurbes",
             "name_en": null,
             "height": 2,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "B. pendula",
@@ -146,9 +110,7 @@
             "name_nl": "Ruwe berk",
             "name_en": null,
             "height": 20,
-            "width": 6,
-            "phase": "Wijker",
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "B. papyrifera",
@@ -156,19 +118,15 @@
             "name_nl": "Papiermoerbei",
             "name_en": null,
             "height": 12,
-            "width": 8,
-            "phase": 1,
-            "notes": "Gratis verzendkosten boven de 50 eu"
+            "width": 8
         },
         {
             "abbr": "C. anomala",
-            "species": "Callicarpa anomala",
+            "species": "Callicarpa anomala ",
             "name_nl": null,
             "name_en": "Beautyberry",
-            "height": 1.5,
-            "width": 3,
-            "phase": null,
-            "notes": null
+            "height": null,
+            "width": null
         },
         {
             "abbr": "C. arborescens",
@@ -176,9 +134,7 @@
             "name_nl": "Siberische erwtenstruik",
             "name_en": null,
             "height": 6,
-            "width": 4,
-            "phase": "Wijker",
-            "notes": null
+            "width": 4
         },
         {
             "abbr": "C. illinoinensis",
@@ -186,9 +142,7 @@
             "name_nl": "Pecan",
             "name_en": null,
             "height": 30,
-            "width": 15,
-            "phase": 1,
-            "notes": null
+            "width": 15
         },
         {
             "abbr": "C. sativa",
@@ -196,9 +150,7 @@
             "name_nl": "Kastanjeboom",
             "name_en": null,
             "height": 20,
-            "width": 20,
-            "phase": 1,
-            "notes": null
+            "width": 20
         },
         {
             "abbr": "C. fortunei",
@@ -206,9 +158,7 @@
             "name_nl": "Dadelpruim",
             "name_en": null,
             "height": 10,
-            "width": 7,
-            "phase": 2,
-            "notes": "Nog geen kweker voor gevonden, kunnen we ook zelf opkweken (ik heb zaad uit Trompenburg)"
+            "width": 7
         },
         {
             "abbr": "C. harringtonii",
@@ -216,9 +166,7 @@
             "name_nl": "Pruimtaxus",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 2,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "C. cathayensis",
@@ -226,9 +174,7 @@
             "name_nl": "Chinese kwee\u00a0",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "C. japonica",
@@ -236,9 +182,7 @@
             "name_nl": "Japanse sierkwee",
             "name_en": "Japanese quince",
             "height": 2,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "C. speciosa",
@@ -246,9 +190,7 @@
             "name_nl": "Sierkwee",
             "name_en": "Quince",
             "height": 1,
-            "width": 1,
-            "phase": 1,
-            "notes": null
+            "width": 1
         },
         {
             "abbr": "C. x superba",
@@ -256,9 +198,7 @@
             "name_nl": "Japanse sierkwee  'Jet Trail'",
             "name_en": "Japanese quince 'Jet Trail'",
             "height": 1.5,
-            "width": 1.5,
-            "phase": 1,
-            "notes": "Ik zoek eigenlijk het ras 'Fusion' maar die kan ik nergens vinden"
+            "width": 1.5
         },
         {
             "abbr": "C. Owari",
@@ -266,9 +206,7 @@
             "name_nl": "Satsuma mandarijn",
             "name_en": "Satsuma orange",
             "height": 3,
-            "width": 4,
-            "phase": 1,
-            "notes": null
+            "width": 4
         },
         {
             "abbr": "C. kousa",
@@ -276,9 +214,7 @@
             "name_nl": "Japanse kornoelje",
             "name_en": "Japanese dogwood",
             "height": 8,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "C. mas",
@@ -286,9 +222,7 @@
             "name_nl": "Gele kornoelje",
             "name_en": null,
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": "of http://cornusmas.eu"
+            "width": 5
         },
         {
             "abbr": "C. avellana",
@@ -296,9 +230,7 @@
             "name_nl": "Hazelaar",
             "name_en": "Common hazel",
             "height": 6,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "C. arnoldiana",
@@ -306,9 +238,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "C. azarolus",
@@ -316,9 +246,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 10,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "C. calpodendron",
@@ -326,9 +254,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Late hawthorn",
             "height": 5,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "C. ellwangeriana",
@@ -336,9 +262,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": "pavia.be"
+            "width": 5
         },
         {
             "abbr": "C. mexicana",
@@ -346,9 +270,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "C. opaca",
@@ -356,9 +278,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 9,
-            "width": 6,
-            "phase": 1,
-            "notes": "pavia.be"
+            "width": 6
         },
         {
             "abbr": "C. pennsylveniaca",
@@ -366,9 +286,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": "pavia.be"
+            "width": 5
         },
         {
             "abbr": "C. pin.\nmajor",
@@ -376,9 +294,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 7,
-            "width": 7,
-            "phase": 1,
-            "notes": null
+            "width": 7
         },
         {
             "abbr": "C. schraderiana",
@@ -386,9 +302,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "C. tanacetifolia",
@@ -396,9 +310,7 @@
             "name_nl": "Meidoorn",
             "name_en": "Hawthorn",
             "height": 10,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "C. tricuspidata",
@@ -406,9 +318,7 @@
             "name_nl": "Chinese moerbei",
             "name_en": null,
             "height": 6,
-            "width": 6,
-            "phase": 1,
-            "notes": "Een mannetje en een vrouwtje"
+            "width": 6
         },
         {
             "abbr": "C.cardunculus",
@@ -416,9 +326,7 @@
             "name_nl": "Kardoen",
             "name_en": null,
             "height": 1,
-            "width": 1,
-            "phase": 1,
-            "notes": null
+            "width": 1
         },
         {
             "abbr": "C. scolymus",
@@ -426,29 +334,23 @@
             "name_nl": "Artisjok",
             "name_en": null,
             "height": 1,
-            "width": 1,
-            "phase": 1,
-            "notes": null
+            "width": 1
         },
         {
             "abbr": "D. fargesii",
             "species": "Decaisnea fargesii",
-            "name_nl": "Blauwe boon/Augurkenstruik",
+            "name_nl": "Augurkenstruik (Blauwe boon)",
             "name_en": null,
             "height": 5,
-            "width": 3,
-            "phase": 1,
-            "notes": "etifolia"
+            "width": 3
         },
         {
             "abbr": "Desmodium sp.",
             "species": "Desmodium elegans",
             "name_nl": null,
             "name_en": null,
-            "height": 1.2,
-            "width": 1.2,
-            "phase": null,
-            "notes": null
+            "height": null,
+            "width": null
         },
         {
             "abbr": "D. lotus",
@@ -456,9 +358,7 @@
             "name_nl": "Lotusvrucht",
             "name_en": null,
             "height": 10,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "D. virginiana",
@@ -466,9 +366,7 @@
             "name_nl": "Persimoen",
             "name_en": null,
             "height": 15,
-            "width": 10,
-            "phase": 1,
-            "notes": null
+            "width": 10
         },
         {
             "abbr": "D. virg. x kaki",
@@ -476,9 +374,7 @@
             "name_nl": "Persimoen hybride",
             "name_en": null,
             "height": 15,
-            "width": 8,
-            "phase": 1,
-            "notes": null
+            "width": 8
         },
         {
             "abbr": "E. angustifolia",
@@ -486,9 +382,7 @@
             "name_nl": "Oleaster",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "E. x ebbingei",
@@ -496,9 +390,7 @@
             "name_nl": "Zilverbes",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": "Neem 4 normale en 4 Gilt Edge, die laatste schijnt goed te dragen en te bestuiven"
+            "width": 3
         },
         {
             "abbr": "E. multiflora",
@@ -506,9 +398,7 @@
             "name_nl": "Goumi",
             "name_en": "Cherry elaeagnus",
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "E. umbellata",
@@ -516,19 +406,15 @@
             "name_nl": "Olijfwilg",
             "name_en": null,
             "height": "5\u00a0",
-            "width": 5,
-            "phase": "Wijker",
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "E. japonica",
             "species": "Eriobotrya japonica\u00a0",
-            "name_nl": "Loquat of Japanse Wolmispel",
+            "name_nl": "Japanse Wolmispel (Loquat)",
             "name_en": null,
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "A. sellowiana",
@@ -536,9 +422,7 @@
             "name_nl": "Ananasguave",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": "Elk ras 1"
+            "width": 3
         },
         {
             "abbr": "F. carica",
@@ -546,9 +430,7 @@
             "name_nl": "Vijg",
             "name_en": null,
             "height": 6,
-            "width": 6,
-            "phase": 1,
-            "notes": "1 besteld bij Arborealis, rest eigen kweek"
+            "width": 6
         },
         {
             "abbr": "F. japonica",
@@ -556,9 +438,7 @@
             "name_nl": "Marumi kumquat",
             "name_en": null,
             "height": 2.5,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "F. margarita",
@@ -566,9 +446,7 @@
             "name_nl": "Nagami kumquat",
             "name_en": null,
             "height": 2.5,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "F. alnus",
@@ -576,19 +454,15 @@
             "name_nl": "Vuilboom",
             "name_en": null,
             "height": null,
-            "width": null,
-            "phase": "Wijker",
-            "notes": null
+            "width": null
         },
         {
             "abbr": "G. shallon",
             "species": "Gaultheria shallon",
-            "name_nl": "Salal / Shallon",
-            "name_en": null,
+            "name_nl": "Shallon (appeltjesblad)",
+            "name_en": "Salal",
             "height": 1.5,
-            "width": 1.5,
-            "phase": 2,
-            "notes": null
+            "width": 1.5
         },
         {
             "abbr": "G. avellana",
@@ -596,9 +470,7 @@
             "name_nl": "Chileense hazelaar",
             "name_en": null,
             "height": 10,
-            "width": 10,
-            "phase": 1,
-            "notes": "h. kolster"
+            "width": 10
         },
         {
             "abbr": "G. triacanthos",
@@ -606,9 +478,7 @@
             "name_nl": "Valse christusdoorn",
             "name_en": "Honey locust",
             "height": 20,
-            "width": 10,
-            "phase": "1+ wijker",
-            "notes": "10 als wijkers niet voorradig, 2 definitief"
+            "width": 10
         },
         {
             "abbr": "Glyc. glabra",
@@ -616,9 +486,7 @@
             "name_nl": "Zoethout",
             "name_en": null,
             "height": 1.5,
-            "width": 1.5,
-            "phase": 1,
-            "notes": null
+            "width": 1.5
         },
         {
             "abbr": "H. carolina",
@@ -626,9 +494,7 @@
             "name_nl": "Sneeuwklokjesboom",
             "name_en": null,
             "height": 6,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "width": 5
         },
         {
             "abbr": "Hemerocallis sp.",
@@ -636,9 +502,7 @@
             "name_nl": "Daglelie",
             "name_en": null,
             "height": 0.5,
-            "width": 0.5,
-            "phase": 1,
-            "notes": null
+            "width": 0.5
         },
         {
             "abbr": "H. rhamnoides",
@@ -646,19 +510,15 @@
             "name_nl": "Duindoorn",
             "name_en": null,
             "height": 6,
-            "width": 5,
-            "phase": "Wijker",
-            "notes": "Als via kordes niet lukt"
+            "width": 5
         },
         {
             "abbr": "H. dulcis",
             "species": "Hovenia dulcis",
-            "name_nl": "Japanse krentenboom of rozijnenboom",
+            "name_nl": "Japanse krentenboom (rozijnenboom)",
             "name_en": null,
             "height": 10,
-            "width": 7,
-            "phase": 1,
-            "notes": null
+            "width": 7
         },
         {
             "abbr": "L. barbarum",
@@ -666,29 +526,23 @@
             "name_nl": "Gojibes",
             "name_en": null,
             "height": 2.5,
-            "width": 2.5,
-            "phase": 1,
-            "notes": null
+            "width": 2.5
         },
         {
             "abbr": "M. aquifolium",
-            "species": "Mahonia aquilegium",
-            "name_nl": "Dadelpruim",
+            "species": "Mahonia aquifolium",
+            "name_nl": "Mahonia",
             "name_en": null,
-            "height": 1.5,
-            "width": 1.5,
-            "phase": 1,
-            "notes": null
+            "height": 10,
+            "width": 7
         },
         {
             "abbr": "M. bealei",
             "species": "Mahonia bealei",
             "name_nl": "Mahonia",
             "name_en": null,
-            "height": 6,
-            "width": 2.6,
-            "phase": 1,
-            "notes": null
+            "height": 10,
+            "width": 7
         },
         {
             "abbr": "M. germanica",
@@ -696,9 +550,7 @@
             "name_nl": "Mispel",
             "name_en": null,
             "height": 5,
-            "width": 4,
-            "phase": 1,
-            "notes": null
+            "width": 4
         },
         {
             "abbr": "M. alba",
@@ -706,9 +558,7 @@
             "name_nl": "Witte moerbei",
             "name_en": null,
             "height": 15,
-            "width": 12,
-            "phase": 1,
-            "notes": null
+            "width": 12
         },
         {
             "abbr": "M. nigra",
@@ -716,9 +566,7 @@
             "name_nl": "Zwarte moerbei",
             "name_en": null,
             "height": 8,
-            "width": 12,
-            "phase": 1,
-            "notes": null
+            "width": 12
         },
         {
             "abbr": "M. rubra",
@@ -726,19 +574,15 @@
             "name_nl": "Rode moerbei",
             "name_en": null,
             "height": 15,
-            "width": 10,
-            "phase": 1,
-            "notes": null
+            "width": 10
         },
         {
             "abbr": "M. pensylvanica",
             "species": "Myrica pensylvanica",
             "name_nl": "Wasgagel",
             "name_en": "Northern bayberry",
-            "height": 2.5,
-            "width": 2.5,
-            "phase": null,
-            "notes": null
+            "height": null,
+            "width": null
         },
         {
             "abbr": "Phyllostachis sp.",
@@ -746,9 +590,7 @@
             "name_nl": "Bamboe",
             "name_en": null,
             "height": 6,
-            "width": 6,
-            "phase": 2,
-            "notes": "Zoek 4 soorten eetbare bamboe uit, kwekers moeten nog gevonden worden"
+            "width": 6
         },
         {
             "abbr": "P. koraiensis",
@@ -756,9 +598,7 @@
             "name_nl": "Pijnboompit",
             "name_en": null,
             "height": 20,
-            "width": 15,
-            "phase": 1,
-            "notes": null
+            "width": 15
         },
         {
             "abbr": "P. pinea",
@@ -766,19 +606,15 @@
             "name_nl": "Parasolden",
             "name_en": "Stone pine",
             "height": 20,
-            "width": 15,
-            "phase": 1,
-            "notes": "Bulk?"
+            "width": 15
         },
         {
             "abbr": "P. pluot",
             "species": "Pluot",
             "name_nl": "Pluot",
             "name_en": "Pluot",
-            "height": 3,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "height": null,
+            "width": null
         },
         {
             "abbr": "P. avium hfs",
@@ -786,9 +622,7 @@
             "name_nl": "Zoete kers",
             "name_en": "Wild cherry",
             "height": 6,
-            "width": 4,
-            "phase": 1,
-            "notes": "Onderstam Limburgse boskriek / F12/1"
+            "width": 4
         },
         {
             "abbr": "P. cerasius",
@@ -796,9 +630,7 @@
             "name_nl": "Zure kers",
             "name_en": null,
             "height": 4,
-            "width": 4,
-            "phase": 1,
-            "notes": null
+            "width": 4
         },
         {
             "abbr": "P. domestica",
@@ -806,19 +638,15 @@
             "name_nl": "Pruim, halfstam",
             "name_en": null,
             "height": 4,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "P. salicina",
             "species": "Prunus salicina",
             "name_nl": "Japanse pruim",
             "name_en": "Japanese plum",
-            "height": 8,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "height": null,
+            "width": null
         },
         {
             "abbr": "P. sinensis",
@@ -826,39 +654,31 @@
             "name_nl": "Chinese kweepeer",
             "name_en": null,
             "height": 7,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "P. communis",
             "species": "Pyrus communis",
-            "name_nl": "Peer, hoogstam",
+            "name_nl": "Peer (hoogstam)",
             "name_en": null,
             "height": 10,
-            "width": 6,
-            "phase": 1,
-            "notes": null
+            "width": 6
         },
         {
             "abbr": "Q. rotundifolia",
             "species": "Quercus rotundifolia",
             "name_nl": "Steeneik",
             "name_en": null,
-            "height": 7,
-            "width": 11,
-            "phase": 1,
-            "notes": "???"
+            "height": "",
+            "width": ""
         },
         {
             "abbr": "R. aromatica",
             "species": "Rhus aromatica",
-            "name_nl": "Fluweelboom, klein",
+            "name_nl": "Fluweelboom (klein)",
             "name_en": null,
             "height": 1.5,
-            "width": 1.5,
-            "phase": 1,
-            "notes": "2 grow low, 3 normaal"
+            "width": 1.5
         },
         {
             "abbr": "R. glabra",
@@ -866,9 +686,7 @@
             "name_nl": "Fluweelboom",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": "1x 'Laciniata'"
+            "width": 3
         },
         {
             "abbr": "R. typhina",
@@ -876,9 +694,7 @@
             "name_nl": "Fluweelboom",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "R. divaricatum",
@@ -886,9 +702,7 @@
             "name_nl": "Worcester bes",
             "name_en": null,
             "height": 2,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "R. nigrum",
@@ -896,9 +710,7 @@
             "name_nl": "Zwarte bes",
             "name_en": "Blackcurrant",
             "height": 2,
-            "width": 1.5,
-            "phase": 1,
-            "notes": "3 Ojeblanc, 2 Black down"
+            "width": 1.5
         },
         {
             "abbr": "R. odoratum",
@@ -906,9 +718,7 @@
             "name_nl": "Buffelkrent",
             "name_en": null,
             "height": 1.25,
-            "width": 1.25,
-            "phase": 1,
-            "notes": "Een mix van alle 3 de rassen"
+            "width": 1.25
         },
         {
             "abbr": "R. rubrum",
@@ -916,19 +726,15 @@
             "name_nl": "Rode bes",
             "name_en": null,
             "height": 2,
-            "width": 1.5,
-            "phase": 1,
-            "notes": "Roze ras, voor de collectie"
+            "width": 1.5
         },
         {
             "abbr": "R. rugosa",
             "species": "Rosa rugosa",
-            "name_nl": "Bottelroos / rimpelroos",
+            "name_nl": "Bottelroos (rimpelroos)",
             "name_en": null,
             "height": 2,
-            "width": 1.5,
-            "phase": "Wijker",
-            "notes": "Toch niet besteld"
+            "width": 1.5
         },
         {
             "abbr": "R. ilecebrosus",
@@ -936,9 +742,7 @@
             "name_nl": null,
             "name_en": null,
             "height": 1,
-            "width": 1,
-            "phase": 1,
-            "notes": null
+            "width": 1
         },
         {
             "abbr": "R. \u2018loganberry\u2019",
@@ -946,9 +750,7 @@
             "name_nl": "Framboos",
             "name_en": null,
             "height": 2,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "R. nepalensis",
@@ -956,9 +758,7 @@
             "name_nl": "Nepalese framboos",
             "name_en": "Nepalese raspberry",
             "height": 0.5,
-            "width": 0.5,
-            "phase": 1,
-            "notes": null
+            "width": 0.5
         },
         {
             "abbr": "R.phoenicolasius",
@@ -966,9 +766,7 @@
             "name_nl": "Japanse wijnbes",
             "name_en": "Japanese wineberry",
             "height": 2,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "R. \u2018tayberry Buckingham\u2019",
@@ -976,9 +774,7 @@
             "name_nl": "Taybes",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": "Buckingham is een doornloze variant"
+            "width": 3
         },
         {
             "abbr": "S. alba",
@@ -986,9 +782,7 @@
             "name_nl": "Schiet Wilg",
             "name_en": null,
             "height": null,
-            "width": null,
-            "phase": "Windhaag",
-            "notes": null
+            "width": null
         },
         {
             "abbr": "S. canadensis",
@@ -996,9 +790,7 @@
             "name_nl": "Vlier",
             "name_en": "Common elderberry",
             "height": 3,
-            "width": 2.5,
-            "phase": 1,
-            "notes": null
+            "width": 2.5
         },
         {
             "abbr": "S. nigra",
@@ -1006,9 +798,7 @@
             "name_nl": "Vlier",
             "name_en": null,
             "height": 4,
-            "width": 3,
-            "phase": 1,
-            "notes": "Van alle vier de vruchtselecties 1"
+            "width": 3
         },
         {
             "abbr": "S. argentea",
@@ -1016,9 +806,7 @@
             "name_nl": "Buffelbes",
             "name_en": null,
             "height": 4,
-            "width": 3,
-            "phase": 1,
-            "notes": null
+            "width": 3
         },
         {
             "abbr": "S. aucuparia",
@@ -1026,9 +814,7 @@
             "name_nl": "Eetbare lijsterbes",
             "name_en": null,
             "height": 12,
-            "width": 7,
-            "phase": 1,
-            "notes": null
+            "width": 7
         },
         {
             "abbr": "Sorbus Burka",
@@ -1036,9 +822,7 @@
             "name_nl": null,
             "name_en": null,
             "height": 7,
-            "width": 5,
-            "phase": 1,
-            "notes": "Kruising tussen appelbes en lijsterbes met eetbare vruchten"
+            "width": 5
         },
         {
             "abbr": "S. domestica",
@@ -1046,9 +830,7 @@
             "name_nl": "Peervormige lijsterbes",
             "name_en": null,
             "height": 20,
-            "width": 8,
-            "phase": 1,
-            "notes": null
+            "width": 8
         },
         {
             "abbr": "S. torminalis",
@@ -1056,19 +838,15 @@
             "name_nl": "Elsbes",
             "name_en": "Wild service tree",
             "height": 20,
-            "width": 8,
-            "phase": 1,
-            "notes": null
+            "width": 8
         },
         {
             "abbr": "S. pinnata",
             "species": "Staphylea pinnata",
             "name_nl": "Europese pimpernoot",
             "name_en": null,
-            "height": 5,
-            "width": 5,
-            "phase": 1,
-            "notes": null
+            "height": 43224,
+            "width": 43224
         },
         {
             "abbr": "S. trifolia",
@@ -1076,29 +854,23 @@
             "name_nl": "Amerikaanse pimpernoot",
             "name_en": null,
             "height": 3,
-            "width": 3,
-            "phase": 1,
-            "notes": "A Touch of green"
+            "width": 3
         },
         {
             "abbr": "T. cordata\u00a0",
             "species": "Tilia cordata\u00a0",
-            "name_nl": "Winterlinde, geknot",
+            "name_nl": "Winterlinde (geknot)",
             "name_en": null,
             "height": 3,
-            "width": 2,
-            "phase": "Wijker",
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "T. sinensis",
             "species": "Toona sinensis",
-            "name_nl": "Franseuiensoepboom, geknot",
+            "name_nl": "Franseuiensoepboom (geknot)",
             "name_en": null,
             "height": 3,
-            "width": 2,
-            "phase": 1,
-            "notes": null
+            "width": 2
         },
         {
             "abbr": "T. nucifera",
@@ -1106,9 +878,7 @@
             "name_nl": "Kaya",
             "name_en": "Japanese torreya",
             "height": 20,
-            "width": 10,
-            "phase": 1,
-            "notes": null
+            "width": 10
         },
         {
             "abbr": "U. molinea",
@@ -1116,9 +886,7 @@
             "name_nl": "Chileense guave",
             "name_en": null,
             "height": 1.5,
-            "width": 1.5,
-            "phase": 1,
-            "notes": null
+            "width": 1.5
         },
         {
             "abbr": "V. macrocarpum",
@@ -1126,9 +894,7 @@
             "name_nl": "Amerikaanse cranberry",
             "name_en": null,
             "height": 0.5,
-            "width": 0.5,
-            "phase": 1,
-            "notes": null
+            "width": 0.5
         },
         {
             "abbr": "V. myrtillus",
@@ -1136,9 +902,7 @@
             "name_nl": "Blauwe bosbes",
             "name_en": "European blueberry",
             "height": 0.5,
-            "width": 1,
-            "phase": 1,
-            "notes": null
+            "width": 1
         },
         {
             "abbr": "V. oxycoccus",
@@ -1146,9 +910,7 @@
             "name_nl": "Kleine veenbes",
             "name_en": "Small cranberry",
             "height": 0.2,
-            "width": 1,
-            "phase": 1,
-            "notes": null
+            "width": 1
         },
         {
             "abbr": "Z. piperitum",
@@ -1156,9 +918,7 @@
             "name_nl": "Japans peper boompje",
             "name_en": "Japanese pepper",
             "height": 2,
-            "width": 1.5,
-            "phase": 1,
-            "notes": null
+            "width": 1.5
         },
         {
             "abbr": "Z. simulans",
@@ -1166,9 +926,7 @@
             "name_nl": "Szechuan peper boompje",
             "name_en": "Sichuan pepper",
             "height": 2.5,
-            "width": 2.5,
-            "phase": 1,
-            "notes": null
+            "width": 2.5
         },
         {
             "abbr": "Zanthoxylum sp.",
@@ -1176,9 +934,7 @@
             "name_nl": "Peper boompje",
             "name_en": null,
             "height": 2,
-            "width": 2,
-            "phase": 1,
-            "notes": "Een andere soort dan piperetum of simulans, maakt niet zoveel uit welke"
+            "width": 2
         },
         {
             "abbr": "Z. jujuba",
@@ -1186,10 +942,8 @@
             "name_nl": "Dadelpruim",
             "name_en": null,
             "height": 10,
-            "width": 7,
-            "phase": 1,
-            "notes": "1 zaailing al aanwezig, lang nog te kopen"
+            "width": 7
         }
     ],
-    "updated": "2019-12-22T19:30:28.024602"
+    "updated": "2020-05-19T23:40:31.684319"
 }

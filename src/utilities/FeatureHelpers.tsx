@@ -22,8 +22,15 @@ export const getSpeciesData = (name: string) => {
     if (name in speciesDict) {
         return speciesDict[name]
     } else {
-        console.warn(`Unable to find species '${name}'`)
-        return speciesDict['Onbekend']
+        if (name !== 'Onbekend') console.warn(`Unable to find species '${name}'`)
+        return {
+            'abbr': 'Onbekend',
+            'species': 'Onbekend',
+            'name_nl': 'Onbekend',
+            'name_en': 'Unknown',
+            'height': null,
+            'width': null
+        }
     }
 }
 
