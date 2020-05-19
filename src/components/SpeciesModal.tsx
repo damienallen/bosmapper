@@ -97,7 +97,7 @@ export const SpeciesModal: React.FC = observer(() => {
                             <IonItem key={item.abbr} onClick={e => handleSelect(item.abbr)}>
                                 <IonLabel>
                                     <h2>{item.name_nl}</h2>
-                                    <p>{item.abbr}</p>
+                                    <p>{item.species}</p>
                                 </IonLabel>
                             </IonItem>
                         )
