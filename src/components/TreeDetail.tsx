@@ -107,7 +107,7 @@ export const TreeDetail: React.FC = observer(() => {
 
                 <IonCardHeader>
                     <IonCardTitle>{speciesData.name_nl}</IonCardTitle>
-                    <IonCardSubtitle className={classes.subtitle}>{speciesData.abbr}</IonCardSubtitle>
+                    <IonCardSubtitle className={classes.subtitle}>{speciesData.species}</IonCardSubtitle>
                 </IonCardHeader>
 
                 <IonItem>

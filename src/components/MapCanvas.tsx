@@ -221,6 +221,12 @@ export const MapCanvas: React.FC = () => {
             ),
         ]
 
+        const waitForMap = setInterval(function () {
+            window.dispatchEvent(new Event('resize'))
+            clearInterval(waitForMap)
+        }, 100)
+
+        // Handle resize
         setTimeout(() => {
             olMap.updateSize()
         }, 500)

@@ -4,8 +4,8 @@ from pathlib import Path
 import json
 
 
-xlsx_path = Path.cwd() / "map_data" / "voedselbos_species.xlsx"
-json_path = Path.cwd() / "map_data" / "voedselbos_species.json"
+xlsx_path = Path("voedselbos_species.xlsx")
+json_path = Path("voedselbos_species.json")
 
 print(f"Loading data from '{xlsx_path}''")
 wb = load_workbook(filename=xlsx_path)
@@ -32,7 +32,6 @@ for i in range(1, len(species)):
             "name_en": name_en[i].value,
             "height": height[i].value,
             "width": width[i].value,
-            "phase": phase[i].value
         }
     )
 
@@ -40,5 +39,4 @@ json_data = {"species": species_list, "updated": datetime.now().isoformat()}
 
 print(f"Saving to '{json_path}'")
 with open(json_path, "w") as f:
-    json.dump(json_data, f)
-
+    json.dump(json_data, f, indent=4)
