@@ -24,16 +24,6 @@ export const MapOptions: React.FC = observer(() => {
     const { map } = useStores()
 
     const isDrone = (map.baseMap === 'drone')
-    const isCurrent = (map.version === 'current')
-
-    const toggleMap = (e: any) => {
-        if (e.target.checked) {
-            map.setVersion('current')
-        } else {
-            map.setVersion('original')
-        }
-    }
-
     const toggleBaseMap = (e: any) => {
         if (e.target.checked) {
             map.setBaseMap('drone')
@@ -53,12 +43,6 @@ export const MapOptions: React.FC = observer(() => {
                 <IonText color={!isDrone ? 'dark' : 'medium'}>Vector</IonText>
                 <IonToggle name="version" color="dark" onIonChange={toggleBaseMap} checked={isDrone}></IonToggle>
                 <IonText color={isDrone ? 'dark' : 'medium'}>Drone</IonText>
-            </IonItem>
-
-            <IonItem>
-                <IonText color={!isCurrent ? 'dark' : 'medium'}>Geplanned</IonText>
-                <IonToggle name="version" color="dark" onIonChange={toggleMap} checked={isCurrent}></IonToggle>
-                <IonText color={isCurrent ? 'dark' : 'medium'}>Actueel</IonText>
             </IonItem>
 
         </div>
