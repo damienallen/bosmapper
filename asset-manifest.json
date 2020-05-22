@@ -13,8 +13,8 @@
     "static/js/5.ecb2a17a.chunk.js": "/bosmapper/static/js/5.ecb2a17a.chunk.js",
     "static/js/5.ecb2a17a.chunk.js.map": "/bosmapper/static/js/5.ecb2a17a.chunk.js.map",
     "main.css": "/bosmapper/static/css/main.1b8bb00d.chunk.css",
-    "main.js": "/bosmapper/static/js/main.038de96c.chunk.js",
-    "main.js.map": "/bosmapper/static/js/main.038de96c.chunk.js.map",
+    "main.js": "/bosmapper/static/js/main.187ea427.chunk.js",
+    "main.js.map": "/bosmapper/static/js/main.187ea427.chunk.js.map",
     "runtime-main.js": "/bosmapper/static/js/runtime-main.fa1b6cf4.js",
     "runtime-main.js.map": "/bosmapper/static/js/runtime-main.fa1b6cf4.js.map",
     "stencil-ion-avatar_3-ios-entry-js.js": "/bosmapper/static/js/stencil-ion-avatar_3-ios-entry-js.a4015b4c.chunk.js",
@@ -187,7 +187,7 @@
     "static/js/91.9415017d.chunk.js": "/bosmapper/static/js/91.9415017d.chunk.js",
     "static/js/91.9415017d.chunk.js.map": "/bosmapper/static/js/91.9415017d.chunk.js.map",
     "index.html": "/bosmapper/index.html",
-    "precache-manifest.c8032eb90dcae68e88601679bd720bf2.js": "/bosmapper/precache-manifest.c8032eb90dcae68e88601679bd720bf2.js",
+    "precache-manifest.f480accd275811f030571b3c9078f1c3.js": "/bosmapper/precache-manifest.f480accd275811f030571b3c9078f1c3.js",
     "service-worker.js": "/bosmapper/service-worker.js",
     "static/css/51.251b446c.chunk.css.map": "/bosmapper/static/css/51.251b446c.chunk.css.map",
     "static/css/main.1b8bb00d.chunk.css.map": "/bosmapper/static/css/main.1b8bb00d.chunk.css.map",
@@ -203,6 +203,6 @@
     "static/css/51.251b446c.chunk.css",
     "static/js/51.7ddd5b37.chunk.js",
     "static/css/main.1b8bb00d.chunk.css",
-    "static/js/main.038de96c.chunk.js"
+    "static/js/main.187ea427.chunk.js"
   ]
 }

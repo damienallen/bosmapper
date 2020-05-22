@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c41e57d93037aca40ef95bf82d7acc5d",
+    "revision": "effa9792833cfa32c92d1315d5df3ad2",
     "url": "/bosmapper/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bosmapper/static/css/51.251b446c.chunk.css"
   },
   {
-    "revision": "ad92e126bd8ab974195a",
+    "revision": "35097c64e8cf5a6d05ac",
     "url": "/bosmapper/static/css/main.1b8bb00d.chunk.css"
   },
   {
@@ -216,8 +216,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bosmapper/static/js/91.9415017d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ad92e126bd8ab974195a",
-    "url": "/bosmapper/static/js/main.038de96c.chunk.js"
+    "revision": "35097c64e8cf5a6d05ac",
+    "url": "/bosmapper/static/js/main.187ea427.chunk.js"
   },
   {
     "revision": "7810468ec5230422cee4",
