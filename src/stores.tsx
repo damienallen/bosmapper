@@ -201,8 +201,7 @@ export class MapStore {
 export class SettingStore {
 
     @observable language: string = 'nl'
-    // @observable host: string = 'http://192.168.178.16:8080'
-    @observable host: string = (process.env.SERVER_ENV === 'dev' ? 'https://bos.dallen.co' : 'http://192.168.178.16:8080')
+    @observable host: string = 'https://bos.dallen.co'
 
     setLanguage(value: string) {
         this.language = value

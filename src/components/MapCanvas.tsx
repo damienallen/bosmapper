@@ -179,6 +179,7 @@ export const MapCanvas: React.FC = () => {
         olMap.setTarget(mapEl.current)
 
         // Fetch features
+        console.log(`Fetching features from '${settings.host}'`)
         getFeatures()
         const featureFetcher = setInterval(getFeatures, 10000)
 
