@@ -125,7 +125,7 @@ export const MapCanvas: React.FC = () => {
         minZoom: 18,
         zoom: 19.5,
         rotation: -0.948,
-        extent: [493263, 6783483, 493457, 6783667] // 493249,493472,6783473,6783677 [EPSG:3857]
+        extent: [493263, 6783480, 493457, 6783670] // 493249,493472,6783473,6783677 [EPSG:3857]
     })
 
     const olMap = new OlMap({
@@ -179,6 +179,7 @@ export const MapCanvas: React.FC = () => {
         olMap.setTarget(mapEl.current)
 
         // Fetch features
+        console.log(`Fetching features from '${settings.host}'`)
         getFeatures()
         const featureFetcher = setInterval(getFeatures, 10000)
 
@@ -221,15 +222,13 @@ export const MapCanvas: React.FC = () => {
             ),
         ]
 
-        const waitForMap = setInterval(function () {
-            window.dispatchEvent(new Event('resize'))
-            clearInterval(waitForMap)
-        }, 100)
-
-        // Handle resize
-        setTimeout(() => {
+        // Prevent map loading issues by forcing resize
+        const waitForMap = setInterval(() => {
             olMap.updateSize()
-        }, 500)
+        }, 100)
+        olMap.once('postcompose', () => {
+            clearInterval(waitForMap)
+        })
 
         return () => {
             console.log('Unloading map canvas...')
