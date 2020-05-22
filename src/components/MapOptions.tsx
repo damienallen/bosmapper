@@ -24,16 +24,6 @@ export const MapOptions: React.FC = observer(() => {
     const { map } = useStores()
 
     const isDrone = (map.baseMap === 'drone')
-    const isCurrent = (map.version === 'current')
-
-    const toggleMap = (e: any) => {
-        if (e.target.checked) {
-            map.setVersion('current')
-        } else {
-            map.setVersion('original')
-        }
-    }
-
     const toggleBaseMap = (e: any) => {
         if (e.target.checked) {
             map.setBaseMap('drone')
