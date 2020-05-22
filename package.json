@@ -1,6 +1,6 @@
 {
   "name": "bos-mapper",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "dependencies": {
     "@capacitor/core": "^2.0.2",
@@ -22,6 +22,7 @@
   },
   "scripts": {
     "start": "ionic serve --no-open",
+    "start-dev": "export SERVER_ENV=dev&& ionic serve --no-open",
     "update": "npm-check -u",
     "build": "react-scripts build",
     "test": "jest",
