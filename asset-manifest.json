@@ -13,8 +13,8 @@
     "static/js/5.ecb2a17a.chunk.js": "/bosmapper/static/js/5.ecb2a17a.chunk.js",
     "static/js/5.ecb2a17a.chunk.js.map": "/bosmapper/static/js/5.ecb2a17a.chunk.js.map",
     "main.css": "/bosmapper/static/css/main.1b8bb00d.chunk.css",
-    "main.js": "/bosmapper/static/js/main.187ea427.chunk.js",
-    "main.js.map": "/bosmapper/static/js/main.187ea427.chunk.js.map",
+    "main.js": "/bosmapper/static/js/main.b53cc4d2.chunk.js",
+    "main.js.map": "/bosmapper/static/js/main.b53cc4d2.chunk.js.map",
     "runtime-main.js": "/bosmapper/static/js/runtime-main.fa1b6cf4.js",
     "runtime-main.js.map": "/bosmapper/static/js/runtime-main.fa1b6cf4.js.map",
     "stencil-ion-avatar_3-ios-entry-js.js": "/bosmapper/static/js/stencil-ion-avatar_3-ios-entry-js.a4015b4c.chunk.js",
@@ -104,8 +104,8 @@
     "stencil-ion-virtual-scroll-entry-js.js": "/bosmapper/static/js/stencil-ion-virtual-scroll-entry-js.72785724.chunk.js",
     "stencil-ion-virtual-scroll-entry-js.js.map": "/bosmapper/static/js/stencil-ion-virtual-scroll-entry-js.72785724.chunk.js.map",
     "static/css/51.251b446c.chunk.css": "/bosmapper/static/css/51.251b446c.chunk.css",
-    "static/js/51.7ddd5b37.chunk.js": "/bosmapper/static/js/51.7ddd5b37.chunk.js",
-    "static/js/51.7ddd5b37.chunk.js.map": "/bosmapper/static/js/51.7ddd5b37.chunk.js.map",
+    "static/js/51.d4faf73d.chunk.js": "/bosmapper/static/js/51.d4faf73d.chunk.js",
+    "static/js/51.d4faf73d.chunk.js.map": "/bosmapper/static/js/51.d4faf73d.chunk.js.map",
     "static/js/52.ec945cbf.chunk.js": "/bosmapper/static/js/52.ec945cbf.chunk.js",
     "static/js/52.ec945cbf.chunk.js.map": "/bosmapper/static/js/52.ec945cbf.chunk.js.map",
     "static/js/53.0a957005.chunk.js": "/bosmapper/static/js/53.0a957005.chunk.js",
@@ -187,11 +187,11 @@
     "static/js/91.9415017d.chunk.js": "/bosmapper/static/js/91.9415017d.chunk.js",
     "static/js/91.9415017d.chunk.js.map": "/bosmapper/static/js/91.9415017d.chunk.js.map",
     "index.html": "/bosmapper/index.html",
-    "precache-manifest.f480accd275811f030571b3c9078f1c3.js": "/bosmapper/precache-manifest.f480accd275811f030571b3c9078f1c3.js",
+    "precache-manifest.55e924b06a08b90d85497cff34eefb88.js": "/bosmapper/precache-manifest.55e924b06a08b90d85497cff34eefb88.js",
     "service-worker.js": "/bosmapper/service-worker.js",
     "static/css/51.251b446c.chunk.css.map": "/bosmapper/static/css/51.251b446c.chunk.css.map",
     "static/css/main.1b8bb00d.chunk.css.map": "/bosmapper/static/css/main.1b8bb00d.chunk.css.map",
-    "static/js/51.7ddd5b37.chunk.js.LICENSE.txt": "/bosmapper/static/js/51.7ddd5b37.chunk.js.LICENSE.txt",
+    "static/js/51.d4faf73d.chunk.js.LICENSE.txt": "/bosmapper/static/js/51.d4faf73d.chunk.js.LICENSE.txt",
     "static/js/52.ec945cbf.chunk.js.LICENSE.txt": "/bosmapper/static/js/52.ec945cbf.chunk.js.LICENSE.txt",
     "static/js/88.2b2cdd4a.chunk.js.LICENSE.txt": "/bosmapper/static/js/88.2b2cdd4a.chunk.js.LICENSE.txt",
     "static/js/91.9415017d.chunk.js.LICENSE.txt": "/bosmapper/static/js/91.9415017d.chunk.js.LICENSE.txt",
@@ -201,8 +201,8 @@
   "entrypoints": [
     "static/js/runtime-main.fa1b6cf4.js",
     "static/css/51.251b446c.chunk.css",
-    "static/js/51.7ddd5b37.chunk.js",
+    "static/js/51.d4faf73d.chunk.js",
     "static/css/main.1b8bb00d.chunk.css",
-    "static/js/main.187ea427.chunk.js"
+    "static/js/main.b53cc4d2.chunk.js"
   ]
 }
