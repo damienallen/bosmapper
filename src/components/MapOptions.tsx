@@ -55,12 +55,6 @@ export const MapOptions: React.FC = observer(() => {
                 <IonText color={isDrone ? 'dark' : 'medium'}>Drone</IonText>
             </IonItem>
 
-            <IonItem>
-                <IonText color={!isCurrent ? 'dark' : 'medium'}>Geplanned</IonText>
-                <IonToggle name="version" color="dark" onIonChange={toggleMap} checked={isCurrent}></IonToggle>
-                <IonText color={isCurrent ? 'dark' : 'medium'}>Actueel</IonText>
-            </IonItem>
-
         </div>
     )
 })
