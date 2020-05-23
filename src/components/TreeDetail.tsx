@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
-    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover, IonCardContent
+    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover
 } from '@ionic/react'
 import { move, trash } from 'ionicons/icons'
 
@@ -40,7 +40,7 @@ const useStyles = createUseStyles({
     },
     featureActions: {
         display: 'flex',
-        padding: 5,
+        padding: '15px 5px 5px 5px',
         background: '#fff'
     },
     labelButton: {
@@ -123,9 +123,7 @@ export const TreeDetail: React.FC = observer(() => {
                     <IonCardSubtitle className={classes.subtitle}>{speciesData.name_la}</IonCardSubtitle>
                 </IonCardHeader>
 
-                <IonCardContent>
-                    <Note />
-                </IonCardContent>
+                <Note />
 
                 <div className={classes.featureActions}>
                     <IonButton

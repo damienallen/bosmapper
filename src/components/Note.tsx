@@ -1,36 +1,40 @@
-import React from 'react'
-// import { createUseStyles } from 'react-jss'
+import React, { useState } from 'react'
+import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
-import { IonIcon } from '@ionic/react'
-import { addCircleOutline, createOutline } from 'ionicons/icons'
+import { IonInput } from '@ionic/react'
 
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
 
-// const useStyles = createUseStyles({
-//     container: {
-//         padding: 20
-//     },
-// })
+const useStyles = createUseStyles({
+    container: {
+        padding: '5px 20px',
+        background: 'rgba(0, 0, 0, 0.1)'
+    },
+})
 
 export const Note: React.FC = observer(() => {
-    // const classes = useStyles()
+    const classes = useStyles()
     const { map } = useStores()
+    const [text, setText] = useState(map.selectedFeature.values_.notes)
 
-    const addNote = () => {
-        console.log('add note')
+    const updateNote = () => {
+        console.log('Edit note')
     }
 
-    return map.selectedFeature.values_.notes ?
-        (
-            <div onClick={addNote}>
-                {map.selectedFeature.values_.notes} < IonIcon icon={createOutline} />
-            </div>
-        ) : (
-            <div onClick={addNote}>
-                <IonIcon icon={addCircleOutline} /> Notitie
-            </div>
-        )
+    return (
+        <div className={classes.container}>
+            <IonInput
+                value={text}
+                placeholder='Notitie toevoegen'
+                onIonChange={(e: any) => setText(e.detail.value!)}
+                onIonBlur={() => updateNote()}
+                maxlength={80}
+                mode='ios'
+                clearInput
+            ></IonInput>
+        </div>
+    )
 })
