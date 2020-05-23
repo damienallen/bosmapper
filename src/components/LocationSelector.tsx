@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
@@ -49,29 +49,26 @@ export const LocationSelector: React.FC = observer(() => {
     const classes = useStyles(map.overlayBackground)
 
     useEffect(() => {
-        if (ui.selectorAction === 'move') map.setCenterOnSelected(true)
+        if (ui.locationSelectorAction === 'move') map.setCenterOnSelected(true)
     })
 
-    const handleCancel = (event: any) => {
+    const handleCancel = () => {
         map.setNewFeatureSpecies(null)
         ui.setShowLocationSelector(false)
     }
 
-    const handleConfirm = (event: any) => {
+    const handleConfirm = () => {
 
-        if (ui.selectorAction === 'move') {
+        if (ui.locationSelectorAction === 'move') {
             const featureJson = {
-                species: map.selectedFeature.values_.species,
-                status: map.selectedFeature.values_.status,
                 lon: map.center[0],
-                lat: map.center[1],
-                notes: map.selectedFeature.values_.notes
+                lat: map.center[1]
             }
             axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
-                .then((response) => {
+                .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
-                    ui.setToastText('Geslaagd!')
+                    ui.setShowLocationUpdated(true)
                 })
                 .catch((error) => {
                     console.error(error)
@@ -86,7 +83,7 @@ export const LocationSelector: React.FC = observer(() => {
             console.log('Trying to add feature', featureJson)
 
             axios.post(`${settings.host}/tree/add/`, featureJson)
-                .then((response) => {
+                .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
                     ui.setToastText('Geslaagd!')
@@ -101,7 +98,7 @@ export const LocationSelector: React.FC = observer(() => {
         ui.setShowLocationSelector(false)
     }
 
-    const headerText = ui.selectorAction === 'new' ? 'Kies een locatie' : 'Kies een niewue locatie'
+    const headerText = ui.locationSelectorAction === 'move' ? 'Locatie bewerken' : 'Kies een locatie (nieuw)'
 
     return (
         <div className={classes.container}>
@@ -114,16 +111,16 @@ export const LocationSelector: React.FC = observer(() => {
             <div className={classes.footer}>
                 <IonButton
                     className={classes.actionButton}
-                    onClick={handleCancel}
-                    size="default"
-                    fill="outline"
+                    onClick={() => handleCancel()}
+                    size='default'
+                    fill='outline'
                 >
                     Annuleren
                     </IonButton>
                 <IonButton
                     className={classes.actionButton}
-                    onClick={handleConfirm}
-                    size="default"
+                    onClick={() => handleConfirm()}
+                    size='default'
                 >
                     Bevestigen
                     </IonButton>

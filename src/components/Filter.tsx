@@ -36,7 +36,7 @@ const useStyles = createUseStyles({
 
 export const Filter: React.FC = observer(() => {
     const classes = useStyles()
-    const { filter } = useStores()
+    const { species } = useStores()
 
     return (
         <div className={classes.container}>
@@ -47,7 +47,7 @@ export const Filter: React.FC = observer(() => {
             <IonItem>
                 <IonRange
                     className={classes.range} dualKnobs={true}
-                    onIonChange={(e: any) => filter.setWidthRange(e.target.value.lower, e.target.value.upper)}
+                    onIonChange={(e: any) => species.setWidthRange(e.target.value.lower, e.target.value.upper)}
                     min={0} max={20}
                     value={{ lower: 0, upper: 20 }}
                     pin color="dark"
@@ -60,7 +60,7 @@ export const Filter: React.FC = observer(() => {
             <IonItem>
                 <IonRange
                     className={classes.range} dualKnobs={true}
-                    onIonChange={(e: any) => filter.setHeightRange(e.target.value.lower, e.target.value.upper)}
+                    onIonChange={(e: any) => species.setHeightRange(e.target.value.lower, e.target.value.upper)}
                     min={0} max={30}
                     value={{ lower: 0, upper: 30 }}
                     pin color="dark"

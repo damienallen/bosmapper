@@ -25,8 +25,13 @@ export const AddButton: React.FC = () => {
     const classes = useStyles()
 
     return (
-        <IonFab className={classes.fab} vertical="bottom" horizontal="end" slot="fixed">
-            <IonFabButton onClick={() => ui.setShowSpeciesModal(true)}>
+        <IonFab
+            className={classes.fab}
+            vertical="bottom"
+            horizontal="end"
+            slot="fixed"
+        >
+            <IonFabButton color="light" onClick={() => ui.setShowSpeciesSelector(true)}>
                 <IonIcon icon={add} />
             </IonFabButton>
         </IonFab>

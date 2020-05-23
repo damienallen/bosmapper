@@ -1,17 +1,18 @@
 import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
-import { getSpeciesData } from './utilities/FeatureHelpers'
+
+export const showUpdatedTimeout = 2500
 
 export class RootStore {
     public ui: UIStore
-    public filter: FilterStore
     public map: MapStore
     public settings: SettingStore
+    public species: SpeciesStore
 
     constructor() {
         this.ui = new UIStore(this)
-        this.filter = new FilterStore(this)
+        this.species = new SpeciesStore(this)
         this.map = new MapStore(this)
         this.settings = new SettingStore(this)
     }
@@ -26,11 +27,17 @@ export class UIStore {
     @observable showLicenseModal: boolean = false
     @observable showFilterModal: boolean = false
     @observable showSettingsModal: boolean = false
-    @observable showSpeciesModal: boolean = false
 
     @observable showTreeDetails: boolean = false
+    @observable showLocationUpdated: boolean = false
+    @observable showNotesUpdated: boolean = false
+    @observable showSpeciesUpdated: boolean = false
+
     @observable showLocationSelector: boolean = false
-    @observable selectorAction: string = 'new'
+    @observable showSpeciesSelector: boolean = false
+
+    @observable locationSelectorAction: string = 'new'
+    @observable speciesSelectorAction: string = 'new'
 
     setToastText(value: string) {
         this.toastText = value
@@ -58,29 +65,64 @@ export class UIStore {
         this.showSettingsModal = value
     }
 
-    setShowSpeciesModal(value: boolean) {
-        this.showSpeciesModal = value
-    }
-
     setShowTreeDetails(value: boolean) {
         this.showTreeDetails = value
     }
 
+    setShowSpeciesUpdated(value: boolean) {
+        this.showSpeciesUpdated = value
+        if (value) setTimeout(() => this.setShowSpeciesUpdated(false), showUpdatedTimeout)
+    }
+
+    setShowNotesUpdated(value: boolean) {
+        this.showNotesUpdated = value
+        if (value) setTimeout(() => this.setShowNotesUpdated(false), showUpdatedTimeout)
+    }
+
+    setShowLocationUpdated(value: boolean) {
+        this.showLocationUpdated = value
+        if (value) setTimeout(() => this.setShowLocationUpdated(false), showUpdatedTimeout)
+    }
+
     setShowLocationSelector(value: boolean, action: string = 'new') {
         this.showLocationSelector = value
-        this.selectorAction = action
+        this.locationSelectorAction = action
+    }
+
+    setShowSpeciesSelector(value: boolean, action: string = 'new') {
+        this.showSpeciesSelector = value
+        this.speciesSelectorAction = action
+    }
+
+    @computed get showDetailsUpdated() {
+        return (this.showLocationUpdated || this.showNotesUpdated || this.showSpeciesUpdated)
     }
 
     constructor(public root: RootStore) { }
 }
 
-export class FilterStore {
 
+export interface Species {
+    species: string,
+    name_la: string,
+    name_nl?: string,
+    name_en?: string,
+    height?: number,
+    width?: number
+}
+
+export class SpeciesStore {
+
+    @observable list: Species[] = []
     @observable query: string = ''
     @observable minHeight: number = 0
     @observable maxHeight: number = 30
     @observable minWidth: number = 0
     @observable maxWidth: number = 20
+
+    setList(value: Species[]) {
+        this.list = value
+    }
 
     setQuery(value: string) {
         this.query = value
@@ -94,6 +136,10 @@ export class FilterStore {
     setWidthRange(minValue: number, maxValue: number) {
         this.maxWidth = minValue
         this.maxWidth = maxValue
+    }
+
+    @computed get count() {
+        return this.list.length
     }
 
     constructor(public root: RootStore) { }
@@ -162,18 +208,10 @@ export class MapStore {
 
     constructor(public root: RootStore) {
         autorun(() => {
-            const query = this.root.filter.query.toLowerCase()
-            // const minHeight = this.root.filter.minHeight
-            // const maxHeight = this.root.filter.maxHeight
-
-            // const minWidth = this.root.filter.minWidth
-            // const maxWidth = this.root.filter.maxWidth
+            const query = this.root.species.query.toLowerCase()
 
             const featureFilter = (feature: any) => {
-                const speciesData = getSpeciesData(feature.properties.species)
-
-                // if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
-                // if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
+                const speciesData = feature.properties
 
                 if (query.length < 1) {
                     return true
@@ -205,6 +243,10 @@ export class SettingStore {
 
     setLanguage(value: string) {
         this.language = value
+    }
+
+    setHost(value: string) {
+        this.host = value
     }
 
     constructor(public root: RootStore) { }

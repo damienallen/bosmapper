@@ -12,6 +12,9 @@ import { Menu } from './components/Menu'
 /* Stores */
 import { RootStore } from './stores'
 
+/* Utilities */
+import { fetchSpecies } from './utilities/SpeciesHelper'
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
 
@@ -37,16 +40,23 @@ import 'ol/ol.css'
 
 export const App: React.FC = () => {
   const rootStore = new RootStore()
+  console.debug(process.env)
+  if (process.env.SERVER_ENV === 'dev') {
+    rootStore.settings.setHost('http://192.168.178.16:8080')
+  }
+
+  // Fetch species list from server
+  fetchSpecies(rootStore)
 
   return (
     <Provider
-      filter={rootStore.filter}
       map={rootStore.map}
       settings={rootStore.settings}
+      species={rootStore.species}
       ui={rootStore.ui}
     >
       <IonApp>
-        <IonSplitPane contentId="main">
+        <IonSplitPane contentId='main'>
           <Menu />
           <Content />
         </IonSplitPane>
