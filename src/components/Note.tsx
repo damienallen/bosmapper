@@ -39,14 +39,23 @@ export const Note: React.FC = observer(() => {
             })
     }
 
+    // Blur input and submit on 'enter' press
+    const onKeyPress = (e: any): void => {
+        if (e.key === 'Enter') {
+            e.target.blur()
+        }
+    }
+
     return (
         <div className={classes.container}>
             <IonInput
                 value={text}
                 disabled={ui.showNotesUpdated}
                 placeholder='Notitie toevoegen'
+                enterkeyhint='done'
                 onIonChange={(e: any) => setText(e.detail.value!)}
                 onIonBlur={() => updateNote()}
+                onKeyDown={onKeyPress}
                 maxlength={80}
                 mode='ios'
                 clearInput
