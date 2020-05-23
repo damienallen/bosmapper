@@ -1,38 +1,6 @@
 import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style'
-import * as speciesJson from '../assets/voedselbos_species.json'
 import mapPin from '../assets/pin_green.svg'
 
-interface SpeciesDict {
-    [key: string]: any
-}
-
-export const speciesList = speciesJson.species
-
-export const getSpeciesDict = () => {
-    let dict: any = {}
-    speciesJson.species.forEach((item: any) => {
-        dict[item.abbr] = item
-    })
-    return dict
-}
-
-export const speciesDict: SpeciesDict = getSpeciesDict()
-
-export const getSpeciesData = (name: string) => {
-    if (name in speciesDict) {
-        return speciesDict[name]
-    } else {
-        if (name !== 'Onbekend') console.warn(`Unable to find species '${name}'`)
-        return {
-            'abbr': 'Onbekend',
-            'species': 'Onbekend',
-            'name_nl': 'Onbekend',
-            'name_en': 'Unknown',
-            'height': null,
-            'width': null
-        }
-    }
-}
 
 const pin = new Icon({
     anchor: [0.5, 1],
@@ -130,8 +98,7 @@ const featureStyles: StyleDict = {
 
 export const styleFunction = (feature: any, resolution: number) => {
     const featureStyle: any = featureStyles[feature.getGeometry().getType()]
-    const speciesName = feature.values_.species
-    const speciesData = getSpeciesData(speciesName)
+    const speciesData = feature.values_
 
     // Display text based on tree height & crown width
     if (resolution < 0.06) {

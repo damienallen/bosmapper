@@ -52,7 +52,7 @@ const useStyles = createUseStyles({
 
 export const SearchBar: React.FC = observer(() => {
     const [searchText] = React.useState('')
-    const { filter, map, ui } = useStores()
+    const { species, map, ui } = useStores()
     const classes = useStyles(map.overlayBackground)
 
     return (
@@ -62,7 +62,7 @@ export const SearchBar: React.FC = observer(() => {
                 <IonSearchbar
                     className={classes.search}
                     value={searchText}
-                    onIonChange={e => filter.setQuery(e.detail.value!)}
+                    onIonChange={e => species.setQuery(e.detail.value!)}
                     onIonFocus={e => {
                         ui.setShowTreeDetails(false)
                         map.setSelectedFeature(null)

@@ -7,7 +7,6 @@ import {
 } from '@ionic/react'
 import { move, trash } from 'ionicons/icons'
 
-import { getSpeciesData } from '../utilities/FeatureHelpers'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -48,8 +47,7 @@ export const TreeDetail: React.FC = observer(() => {
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
-    const speciesName = map.selectedFeature.values_.species
-    const speciesData = getSpeciesData(speciesName)
+    const speciesData = map.selectedFeature.values_
 
     const confirmRemove = () => {
         const oid = map.selectedFeature.values_.oid

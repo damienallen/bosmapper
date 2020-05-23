@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
+import { toJS } from 'mobx'
 import {
     IonButtons,
     IonHeader,
@@ -16,8 +17,7 @@ import {
 } from '@ionic/react'
 import { close } from 'ionicons/icons'
 
-import { speciesList, } from '../utilities/FeatureHelpers'
-
+import { Species } from '../stores'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -34,30 +34,30 @@ const useStyles = createUseStyles({
 
 export const SpeciesModal: React.FC = observer(() => {
     const classes = useStyles()
-    const { map, ui } = useStores()
+    const { map, species, ui } = useStores()
+
+    const allSpecies = toJS(species.list)
 
     // TODO: order this by common name
     const [searchText, setSearchText] = useState('')
-    const [filteredSpecies, setFilteredSpecies] = useState(speciesList)
+    const [filteredSpecies, setFilteredSpecies] = useState(allSpecies)
 
     // Handle species search
     const handleInput = (e: any) => {
         setSearchText(e.detail.value!)
         const query = searchText.toLowerCase()
 
-        const nameFilter = (item: any) => {
-            if (
+        if (query.length > 2) {
+            const nameFilter = (item: Species) => (
                 item.species.toLowerCase().includes(query)
                 || (item.name_nl && item.name_nl.toLowerCase().includes(query))
                 || (item.name_en && item.name_en.toLowerCase().includes(query))
-            ) {
-                return true
-            } else {
-                return false
-            }
-        }
+            )
 
-        setFilteredSpecies(speciesList.filter(nameFilter))
+            setFilteredSpecies(allSpecies.filter(nameFilter))
+        } else {
+            setFilteredSpecies(allSpecies)
+        }
     }
 
     // Handle species select
@@ -67,6 +67,19 @@ export const SpeciesModal: React.FC = observer(() => {
         ui.setShowLocationSelector(true)
         ui.setShowSpeciesModal(false)
     }
+
+    console.log(allSpecies, filteredSpecies)
+    const speciesList = filteredSpecies.map((item: Species) => {
+        console.log(item)
+        return (
+            <IonItem key={item.abbr} onClick={e => handleSelect(item.abbr)}>
+                <IonLabel>
+                    <h2>{item.name_nl}</h2>
+                    <p>{item.species}</p>
+                </IonLabel>
+            </IonItem>
+        )
+    })
 
     return (
         <IonModal
@@ -92,16 +105,7 @@ export const SpeciesModal: React.FC = observer(() => {
             </IonHeader>
             <IonContent>
                 <IonList>
-                    {
-                        filteredSpecies.map((item) =>
-                            <IonItem key={item.abbr} onClick={e => handleSelect(item.abbr)}>
-                                <IonLabel>
-                                    <h2>{item.name_nl}</h2>
-                                    <p>{item.species}</p>
-                                </IonLabel>
-                            </IonItem>
-                        )
-                    }
+                    {speciesList}
                 </IonList>
             </IonContent>
         </IonModal>

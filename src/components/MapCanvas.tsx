@@ -14,7 +14,7 @@ import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
-import { styleFunction } from '../utilities/FeatureHelpers'
+import { styleFunction } from '../utilities/FeatureHelper'
 import { MapBrowserEvent } from 'ol'
 
 

@@ -1,17 +1,16 @@
 import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
-import { getSpeciesData } from './utilities/FeatureHelpers'
 
 export class RootStore {
     public ui: UIStore
-    public filter: FilterStore
     public map: MapStore
     public settings: SettingStore
+    public species: SpeciesStore
 
     constructor() {
         this.ui = new UIStore(this)
-        this.filter = new FilterStore(this)
+        this.species = new SpeciesStore(this)
         this.map = new MapStore(this)
         this.settings = new SettingStore(this)
     }
@@ -74,13 +73,28 @@ export class UIStore {
     constructor(public root: RootStore) { }
 }
 
-export class FilterStore {
 
+export interface Species {
+    abbr: string,
+    species: string,
+    name_nl?: string,
+    name_en?: string,
+    height?: number,
+    width?: number
+}
+
+export class SpeciesStore {
+
+    @observable list: Species[] = []
     @observable query: string = ''
     @observable minHeight: number = 0
     @observable maxHeight: number = 30
     @observable minWidth: number = 0
     @observable maxWidth: number = 20
+
+    setList(value: Species[]) {
+        this.list = value
+    }
 
     setQuery(value: string) {
         this.query = value
@@ -162,15 +176,15 @@ export class MapStore {
 
     constructor(public root: RootStore) {
         autorun(() => {
-            const query = this.root.filter.query.toLowerCase()
-            // const minHeight = this.root.filter.minHeight
-            // const maxHeight = this.root.filter.maxHeight
+            const query = this.root.species.query.toLowerCase()
+            // const minHeight = this.root.species.minHeight
+            // const maxHeight = this.root.species.maxHeight
 
-            // const minWidth = this.root.filter.minWidth
-            // const maxWidth = this.root.filter.maxWidth
+            // const minWidth = this.root.species.minWidth
+            // const maxWidth = this.root.species.maxWidth
 
             const featureFilter = (feature: any) => {
-                const speciesData = getSpeciesData(feature.properties.species)
+                const speciesData = feature.properties
 
                 // if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
                 // if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
@@ -205,6 +219,10 @@ export class SettingStore {
 
     setLanguage(value: string) {
         this.language = value
+    }
+
+    setHost(value: string) {
+        this.host = value
     }
 
     constructor(public root: RootStore) { }
