@@ -71,5 +71,6 @@
     "npm-check": "5.9.2",
     "ts-jest": "^24.2.0"
   },
-  "description": "Simple tree management"
+  "description": "Simple tree management",
+  "homepage": "https://damienallen.github.io/bosmapper"
 }
