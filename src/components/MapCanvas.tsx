@@ -147,7 +147,6 @@ export const MapCanvas: React.FC = () => {
         map.setSelectedFeature(null)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
-            // console.log(feature)
             map.setSelectedFeature(feature)
             ui.setShowTreeDetails(true)
         })

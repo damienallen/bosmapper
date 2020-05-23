@@ -5,8 +5,6 @@ import { MobXProviderContext } from 'mobx-react'
 import { IonFab, IonFabButton, IonIcon } from '@ionic/react'
 import { add } from 'ionicons/icons'
 
-import { fetchSpecies } from '../utilities/SpeciesHelper'
-
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -23,21 +21,17 @@ const useStyles = createUseStyles({
 })
 
 export const AddButton: React.FC = () => {
-    const { root, species, ui } = useStores()
+    const { ui } = useStores()
     const classes = useStyles()
 
-    const checkSpecies = () => {
-        if (species.count > 0) {
-            ui.setShowSpeciesModal(true)
-        } else {
-            ui.setToastText('Probeert de soortenlijst van de server op te halen.')
-            fetchSpecies(root)
-        }
-    }
-
     return (
-        <IonFab className={classes.fab} vertical="bottom" horizontal="end" slot="fixed">
-            <IonFabButton onClick={() => checkSpecies()}>
+        <IonFab
+            className={classes.fab}
+            vertical="bottom"
+            horizontal="end"
+            slot="fixed"
+        >
+            <IonFabButton color="light" onClick={() => ui.setShowSpeciesModal(true)}>
                 <IonIcon icon={add} />
             </IonFabButton>
         </IonFab>

@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
-    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonIcon, IonButton, IonPopover
+    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover
 } from '@ionic/react'
-import { move, trash } from 'ionicons/icons'
+import { createOutline, documentTextOutline, move, trash } from 'ionicons/icons'
 
 
 const useStores = () => {
@@ -29,9 +29,6 @@ const useStyles = createUseStyles({
         fontStyle: 'italic',
         fontWeight: 400
     },
-    moveButton: {
-        marginRight: 10
-    },
     actionButtons: {
         display: 'flex',
         padding: '0 5px 10px 5px'
@@ -39,7 +36,19 @@ const useStyles = createUseStyles({
     actionButton: {
         flex: 1,
         margin: '0 5px'
-    }
+    },
+    featureActions: {
+        display: 'flex',
+        padding: 5
+    },
+    labelButton: {
+        flex: '0 1'
+    },
+    iconButtons: {
+        flex: '0 1',
+        marginLeft: 'auto',
+        display: 'flex'
+    },
 })
 
 export const TreeDetail: React.FC = observer(() => {
@@ -67,6 +76,14 @@ export const TreeDetail: React.FC = observer(() => {
 
 
         setShowRemovePopover(false)
+    }
+
+    const addNote = () => {
+        console.log('Add note')
+    }
+
+    const chooseSpecies = () => {
+        console.log('Choose species')
     }
 
     return (
@@ -104,19 +121,49 @@ export const TreeDetail: React.FC = observer(() => {
             <IonCard className={classes.box}>
 
                 <IonCardHeader>
-                    <IonCardTitle>{speciesData.name_nl}</IonCardTitle>
-                    <IonCardSubtitle className={classes.subtitle}>{speciesData.species}</IonCardSubtitle>
+                    <IonCardTitle>{speciesData.name_nl ? speciesData.name_nl : speciesData.species}</IonCardTitle>
+                    <IonCardSubtitle className={classes.subtitle}>{speciesData.name_la}</IonCardSubtitle>
                 </IonCardHeader>
 
-                <IonItem>
-                    <IonButton fill="outline" className={classes.moveButton} onClick={() => { ui.setShowLocationSelector(true, 'move') }}>
-                        <IonIcon icon={move} />Verplaatsen
+                <div className={classes.featureActions}>
+                    <IonButton
+                        fill="outline"
+                        size="small"
+                        color="medium"
+                        className={classes.labelButton}
+                        onClick={addNote}
+                    >
+                        <IonIcon icon={documentTextOutline} /> Notitie
                     </IonButton>
-                    {/* <IonButton fill="outline">species wijzigen</IonButton> */}
-                    <IonButton fill="outline" slot="end" color="danger" onClick={() => { setShowRemovePopover(true) }}>
-                        <IonIcon icon={trash} color="danger" />Verwijderen
+                    <IonButton
+                        fill="outline"
+                        size="small"
+                        color="medium"
+                        className={classes.labelButton}
+                        onClick={chooseSpecies}
+                    >
+                        <IonIcon icon={createOutline} /> Soort
                     </IonButton>
-                </IonItem>
+
+                    <div className={classes.iconButtons}>
+                        <IonButton
+                            fill="outline"
+                            size="small"
+                            color="medium"
+                            onClick={() => ui.setShowLocationSelector(true, 'move')}
+                        >
+                            <IonIcon icon={move} />
+                        </IonButton>
+                        <IonButton
+                            fill="outline"
+                            size="small"
+                            color="danger"
+                            onClick={() => setShowRemovePopover(true)}
+                        >
+                            <IonIcon icon={trash} color="danger" />
+                        </IonButton>
+                    </div>
+                </div>
             </IonCard>
         </div>
     )

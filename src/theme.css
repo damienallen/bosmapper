@@ -19,99 +19,66 @@
 */
 
 :root {
-
-  --ion-color-primary: #346051;
-  --ion-color-primary-rgb: 52,96,81;
+  --ion-color-primary: #38593A;
+  --ion-color-primary-rgb: 56,89,58;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255,255,255;
-  --ion-color-primary-shade: #2e5447;
-  --ion-color-primary-tint: #487062;
+  --ion-color-primary-shade: #314e33;
+  --ion-color-primary-tint: #4c6a4e;
 
-  --ion-color-secondary: #0cd1e8;
-  --ion-color-secondary-rgb: 12, 209, 232;
-  --ion-color-secondary-contrast: #ffffff;
-  --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #0bb8cc;
-  --ion-color-secondary-tint: #24d6ea;
+  --ion-color-secondary: #A4BF88;
+  --ion-color-secondary-rgb: 164,191,136;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0,0,0;
+  --ion-color-secondary-shade: #90a878;
+  --ion-color-secondary-tint: #adc594;
 
-  --ion-color-tertiary: #7044ff;
-  --ion-color-tertiary-rgb: 112, 68, 255;
+  --ion-color-tertiary: #593719;
+  --ion-color-tertiary-rgb: 89,55,25;
   --ion-color-tertiary-contrast: #ffffff;
-  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #633ce0;
-  --ion-color-tertiary-tint: #7e57ff;
+  --ion-color-tertiary-contrast-rgb: 255,255,255;
+  --ion-color-tertiary-shade: #4e3016;
+  --ion-color-tertiary-tint: #6a4b30;
 
-  --ion-color-success: #10dc60;
-  --ion-color-success-rgb: 16, 220, 96;
+  --ion-color-success: #318C23;
+  --ion-color-success-rgb: 49,140,35;
   --ion-color-success-contrast: #ffffff;
-  --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #0ec254;
-  --ion-color-success-tint: #28e070;
+  --ion-color-success-contrast-rgb: 255,255,255;
+  --ion-color-success-shade: #2b7b1f;
+  --ion-color-success-tint: #469839;
 
-  --ion-color-warning: #ffce00;
-  --ion-color-warning-rgb: 255, 206, 0;
-  --ion-color-warning-contrast: #ffffff;
-  --ion-color-warning-contrast-rgb: 255, 255, 255;
-  --ion-color-warning-shade: #e0b500;
-  --ion-color-warning-tint: #ffd31a;
+  --ion-color-warning: #ffc409;
+  --ion-color-warning-rgb: 255,196,9;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0,0,0;
+  --ion-color-warning-shade: #e0ac08;
+  --ion-color-warning-tint: #ffca22;
 
-  --ion-color-danger: #f04141;
-  --ion-color-danger-rgb: 245, 61, 61;
+  --ion-color-danger: #D93D04;
+  --ion-color-danger-rgb: 217,61,4;
   --ion-color-danger-contrast: #ffffff;
-  --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #d33939;
-  --ion-color-danger-tint: #f25454;
+  --ion-color-danger-contrast-rgb: 255,255,255;
+  --ion-color-danger-shade: #bf3604;
+  --ion-color-danger-tint: #dd501d;
 
   --ion-color-dark: #222428;
-  --ion-color-dark-rgb: 34, 34, 34;
+  --ion-color-dark-rgb: 34,36,40;
   --ion-color-dark-contrast: #ffffff;
-  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-contrast-rgb: 255,255,255;
   --ion-color-dark-shade: #1e2023;
   --ion-color-dark-tint: #383a3e;
 
-  --ion-color-medium: #989aa2;
-  --ion-color-medium-rgb: 152, 154, 162;
+  --ion-color-medium: #666666;
+  --ion-color-medium-rgb: 102,102,102;
   --ion-color-medium-contrast: #ffffff;
-  --ion-color-medium-contrast-rgb: 255, 255, 255;
-  --ion-color-medium-shade: #86888f;
-  --ion-color-medium-tint: #a2a4ab;
+  --ion-color-medium-contrast-rgb: 255,255,255;
+  --ion-color-medium-shade: #5a5a5a;
+  --ion-color-medium-tint: #757575;
 
   --ion-color-light: #f4f5f8;
-  --ion-color-light-rgb: 244, 244, 244;
+  --ion-color-light-rgb: 244,245,248;
   --ion-color-light-contrast: #000000;
-  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-contrast-rgb: 0,0,0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
-}
-
-/* Additional Ionic Colors
-// --------------------------------------------------
-// In order to add colors to be used with Ionic components,
-// the color should be added as a class with the convention `.ion-color-{COLOR}`
-// where `{COLOR}` is the color to be used on the Ionic component
-// and each variant is defined for the color. For more information, please see
-// https://beta.ionicframework.com/docs/theming/advanced
-*/
-
-.ion-color-favorite {
-  --ion-color-base: #69bb7b;
-  --ion-color-base-rgb: 105, 187, 123;
-  --ion-color-contrast: #ffffff;
-  --ion-color-contrast-rgb: 255, 255, 255;
-  --ion-color-shade: #5ca56c;
-  --ion-color-tint: #78c288;
-}
-
-/* Shared Variables
-// --------------------------------------------------
-// To customize the look and feel of this app, you can override
-// the CSS variables found in Ionic's source files.
-// To view all the possible Ionic variables, see:
-// https://beta.ionicframework.com/docs/theming/css-variables#ionic-variables
-*/
-
-.md {
-  --ion-toolbar-background: var(--ion-color-primary);
-  --ion-toolbar-color: #fff;
-  --ion-toolbar-color-activated: #fff;
 }
