@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
@@ -32,9 +33,9 @@ const useStyles = createUseStyles({
     }
 })
 
-export const SpeciesModal: React.FC = observer(() => {
+export const SpeciesSelector: React.FC = observer(() => {
     const classes = useStyles()
-    const { map, species, ui } = useStores()
+    const { map, settings, species, ui } = useStores()
 
     const allSpecies = toJS(species.list)
 
@@ -62,10 +63,26 @@ export const SpeciesModal: React.FC = observer(() => {
 
     // Handle species select
     const handleSelect = (species: string) => {
-        console.log('Adding new tree:', species)
-        map.setNewFeatureSpecies(species)
-        ui.setShowLocationSelector(true)
-        ui.setShowSpeciesModal(false)
+        if (ui.speciesSelectorAction === 'update') {
+            const featureJson = {
+                species: species
+            }
+            axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
+                .then((response: AxiosResponse) => {
+                    console.debug(response)
+                    map.setNeedsUpdate(true)
+                    ui.setToastText('Geslaagd!')
+                })
+                .catch((error) => {
+                    console.error(error)
+                    ui.setToastText('Verzoek mislukt')
+                })
+        } else {
+            console.log('Adding new tree:', species)
+            map.setNewFeatureSpecies(species)
+            ui.setShowLocationSelector(true)
+        }
+        ui.setShowSpeciesSelector(false)
     }
 
     const speciesList = filteredSpecies.map((item: Species) => (
@@ -77,16 +94,18 @@ export const SpeciesModal: React.FC = observer(() => {
         </IonItem>
     ))
 
+    const headerText = ui.speciesSelectorAction === 'update' ? 'Soort bewerken' : 'Kies een soort'
+
     return (
         <IonModal
-            isOpen={ui.showSpeciesModal}
-            onDidDismiss={_e => ui.setShowSpeciesModal(false)}
+            isOpen={ui.showSpeciesSelector}
+            onDidDismiss={_e => ui.setShowSpeciesSelector(false)}
         >
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Nieuwe boom toevoegen</IonTitle>
+                    <IonTitle>{headerText}</IonTitle>
                     <IonButtons className={classes.toolbarButtons} slot="end">
-                        <IonIcon onClick={() => ui.setShowSpeciesModal(false)} icon={close} />
+                        <IonIcon onClick={() => ui.setShowSpeciesSelector(false)} icon={close} />
                     </IonButtons>
                 </IonToolbar>
                 <IonToolbar>

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
@@ -49,7 +49,7 @@ export const LocationSelector: React.FC = observer(() => {
     const classes = useStyles(map.overlayBackground)
 
     useEffect(() => {
-        if (ui.selectorAction === 'move') map.setCenterOnSelected(true)
+        if (ui.locationSelectorAction === 'move') map.setCenterOnSelected(true)
     })
 
     const handleCancel = (event: any) => {
@@ -59,13 +59,13 @@ export const LocationSelector: React.FC = observer(() => {
 
     const handleConfirm = (event: any) => {
 
-        if (ui.selectorAction === 'move') {
+        if (ui.locationSelectorAction === 'move') {
             const featureJson = {
                 lon: map.center[0],
                 lat: map.center[1]
             }
             axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
-                .then((response) => {
+                .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
                     ui.setToastText('Geslaagd!')
@@ -83,7 +83,7 @@ export const LocationSelector: React.FC = observer(() => {
             console.log('Trying to add feature', featureJson)
 
             axios.post(`${settings.host}/tree/add/`, featureJson)
-                .then((response) => {
+                .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
                     ui.setToastText('Geslaagd!')
@@ -98,7 +98,7 @@ export const LocationSelector: React.FC = observer(() => {
         ui.setShowLocationSelector(false)
     }
 
-    const headerText = ui.selectorAction === 'new' ? 'Kies een locatie' : 'Kies een niewue locatie'
+    const headerText = ui.locationSelectorAction === 'move' ? 'Locatie bewerken' : 'Kies een locatie'
 
     return (
         <div className={classes.container}>

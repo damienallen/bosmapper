@@ -25,11 +25,14 @@ export class UIStore {
     @observable showLicenseModal: boolean = false
     @observable showFilterModal: boolean = false
     @observable showSettingsModal: boolean = false
-    @observable showSpeciesModal: boolean = false
 
     @observable showTreeDetails: boolean = false
+
     @observable showLocationSelector: boolean = false
-    @observable selectorAction: string = 'new'
+    @observable showSpeciesSelector: boolean = false
+
+    @observable locationSelectorAction: string = 'new'
+    @observable speciesSelectorAction: string = 'new'
 
     setToastText(value: string) {
         this.toastText = value
@@ -57,17 +60,18 @@ export class UIStore {
         this.showSettingsModal = value
     }
 
-    setShowSpeciesModal(value: boolean) {
-        this.showSpeciesModal = value
-    }
-
     setShowTreeDetails(value: boolean) {
         this.showTreeDetails = value
     }
 
     setShowLocationSelector(value: boolean, action: string = 'new') {
         this.showLocationSelector = value
-        this.selectorAction = action
+        this.locationSelectorAction = action
+    }
+
+    setShowSpeciesSelector(value: boolean, action: string = 'new') {
+        this.showSpeciesSelector = value
+        this.speciesSelectorAction = action
     }
 
     constructor(public root: RootStore) { }

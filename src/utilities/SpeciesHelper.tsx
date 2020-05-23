@@ -1,9 +1,9 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { RootStore } from '../stores'
 
 export const fetchSpecies = (rootStore: RootStore) => {
     axios.get(`${rootStore.settings.host}/species/`)
-        .then((response) => {
+        .then((response: AxiosResponse) => {
             rootStore.species.setList(response.data)
             console.log(`Loaded species list with ${response.data.length} items`)
         })

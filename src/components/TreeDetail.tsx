@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
@@ -65,7 +65,7 @@ export const TreeDetail: React.FC = observer(() => {
         console.log('Removing feature', oid)
 
         axios.post(`${settings.host}/tree/remove/${oid}/`)
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
                 ui.setShowTreeDetails(false)
@@ -78,10 +78,6 @@ export const TreeDetail: React.FC = observer(() => {
 
 
         setShowRemovePopover(false)
-    }
-
-    const chooseSpecies = () => {
-        console.log('Choose species')
     }
 
     return (
@@ -130,7 +126,7 @@ export const TreeDetail: React.FC = observer(() => {
                         fill="outline"
                         size="small"
                         className={classes.labelButton}
-                        onClick={chooseSpecies}
+                        onClick={() => ui.setShowSpeciesSelector(true, 'update')}
                     >
                         Soort bewerken
                     </IonButton>

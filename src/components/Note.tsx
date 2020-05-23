@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
@@ -27,7 +27,7 @@ export const Note: React.FC = observer(() => {
         }
 
         axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
                 ui.setToastText('Geslaagd!')

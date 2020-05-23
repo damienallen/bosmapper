@@ -31,7 +31,7 @@ export const AddButton: React.FC = () => {
             horizontal="end"
             slot="fixed"
         >
-            <IonFabButton color="light" onClick={() => ui.setShowSpeciesModal(true)}>
+            <IonFabButton color="light" onClick={() => ui.setShowSpeciesSelector(true)}>
                 <IonIcon icon={add} />
             </IonFabButton>
         </IonFab>

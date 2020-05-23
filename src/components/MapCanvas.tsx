@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useEffect, useRef } from 'react'
 import { reaction, IReactionDisposer } from 'mobx'
 import { MobXProviderContext } from 'mobx-react'
@@ -155,7 +155,7 @@ export const MapCanvas: React.FC = () => {
     // Feature fetching from server
     const getFeatures = () => {
         axios.get(`${settings.host}/trees/`)
-            .then((response) => {
+            .then((response: AxiosResponse) => {
                 const featuresHash = hash(response.data)
                 if (featuresHash !== map.featuresHash) {
                     console.debug(response)

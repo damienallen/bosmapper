@@ -7,7 +7,7 @@ import { MapOverlay } from './MapOverlay'
 
 import { LoginPopover } from './LoginPopover'
 import { SettingsModal } from './SettingsModal'
-import { SpeciesModal } from './SpeciesModal'
+import { SpeciesSelector } from './SpeciesSelector'
 
 
 const useStores = () => {
@@ -19,7 +19,7 @@ export const Content: React.FC = observer(() => {
     return (
         <IonContent id="main">
             <SettingsModal />
-            {species.count > 0 ? <SpeciesModal /> : null}
+            {species.count > 0 ? <SpeciesSelector /> : null}
             <LoginPopover />
 
             <MapOverlay />
