@@ -2,7 +2,7 @@ import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
 
-export const showUpdatedTimeout = 3000
+export const showUpdatedTimeout = 2500
 
 export class RootStore {
     public ui: UIStore
@@ -209,17 +209,9 @@ export class MapStore {
     constructor(public root: RootStore) {
         autorun(() => {
             const query = this.root.species.query.toLowerCase()
-            // const minHeight = this.root.species.minHeight
-            // const maxHeight = this.root.species.maxHeight
-
-            // const minWidth = this.root.species.minWidth
-            // const maxWidth = this.root.species.maxWidth
 
             const featureFilter = (feature: any) => {
                 const speciesData = feature.properties
-
-                // if (speciesData.height < minHeight || speciesData.height > maxHeight) return false
-                // if (speciesData.width < minWidth || speciesData.width > maxWidth) return false
 
                 if (query.length < 1) {
                     return true

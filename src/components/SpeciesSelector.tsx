@@ -78,7 +78,6 @@ export const SpeciesSelector: React.FC = observer(() => {
                     ui.setToastText('Verzoek mislukt')
                 })
         } else {
-            console.log('Adding new tree:', species)
             map.setNewFeatureSpecies(species)
             ui.setShowLocationSelector(true)
         }

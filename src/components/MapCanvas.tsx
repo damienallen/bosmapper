@@ -162,7 +162,7 @@ export const MapCanvas: React.FC = () => {
 
                     map.setFeaturesHash(featuresHash)
                     map.setFeaturesGeoJson(response.data)
-                    console.log(`Loaded ${response.data.features.length} features`)
+                    console.log(`Loaded ${response.data.features.length} features at ${new Date().toISOString()}`)
 
                     // Update selected feature if necesary
                     if (map.selectedFeature) {
@@ -173,7 +173,7 @@ export const MapCanvas: React.FC = () => {
                         if (newFeatureEntry) {
                             map.setSelectedFeature(newFeatureEntry)
                         } else {
-                            console.warn(`Unable to find features '${oid} in updated feature list`)
+                            console.warn(`Unable to find feature '${oid} in updated feature list`)
                         }
                     }
                 } else {

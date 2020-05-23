@@ -75,6 +75,7 @@ export const TreeDetail: React.FC = observer(() => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
                 ui.setShowTreeDetails(false)
+                map.setSelectedFeature(null)
                 ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
