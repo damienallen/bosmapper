@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
-    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover
+    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover, IonCardContent
 } from '@ionic/react'
-import { createOutline, documentTextOutline, move, trash } from 'ionicons/icons'
+import { move, trash } from 'ionicons/icons'
 
+import { Note } from './Note'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -39,7 +40,8 @@ const useStyles = createUseStyles({
     },
     featureActions: {
         display: 'flex',
-        padding: 5
+        padding: 5,
+        background: '#fff'
     },
     labelButton: {
         flex: '0 1'
@@ -76,10 +78,6 @@ export const TreeDetail: React.FC = observer(() => {
 
 
         setShowRemovePopover(false)
-    }
-
-    const addNote = () => {
-        console.log('Add note')
     }
 
     const chooseSpecies = () => {
@@ -125,31 +123,24 @@ export const TreeDetail: React.FC = observer(() => {
                     <IonCardSubtitle className={classes.subtitle}>{speciesData.name_la}</IonCardSubtitle>
                 </IonCardHeader>
 
+                <IonCardContent>
+                    <Note />
+                </IonCardContent>
+
                 <div className={classes.featureActions}>
                     <IonButton
                         fill="outline"
                         size="small"
-                        color="medium"
-                        className={classes.labelButton}
-                        onClick={addNote}
-                    >
-                        <IonIcon icon={documentTextOutline} /> Notitie
-                    </IonButton>
-                    <IonButton
-                        fill="outline"
-                        size="small"
-                        color="medium"
                         className={classes.labelButton}
                         onClick={chooseSpecies}
                     >
-                        <IonIcon icon={createOutline} /> Soort
+                        Soort bewerken
                     </IonButton>
 
                     <div className={classes.iconButtons}>
                         <IonButton
                             fill="outline"
                             size="small"
-                            color="medium"
                             onClick={() => ui.setShowLocationSelector(true, 'move')}
                         >
                             <IonIcon icon={move} />

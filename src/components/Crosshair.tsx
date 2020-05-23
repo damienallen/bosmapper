@@ -11,7 +11,7 @@ const useStyles = createUseStyles({
         justifyContent: 'center'
     },
     focus: {
-        zIndex: 150
+        zIndex: 500
     }
 })
 
