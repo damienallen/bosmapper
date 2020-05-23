@@ -52,12 +52,12 @@ export const LocationSelector: React.FC = observer(() => {
         if (ui.locationSelectorAction === 'move') map.setCenterOnSelected(true)
     })
 
-    const handleCancel = (event: any) => {
+    const handleCancel = () => {
         map.setNewFeatureSpecies(null)
         ui.setShowLocationSelector(false)
     }
 
-    const handleConfirm = (event: any) => {
+    const handleConfirm = () => {
 
         if (ui.locationSelectorAction === 'move') {
             const featureJson = {
@@ -68,7 +68,7 @@ export const LocationSelector: React.FC = observer(() => {
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
-                    ui.setToastText('Geslaagd!')
+                    ui.setShowLocationUpdated(true)
                 })
                 .catch((error) => {
                     console.error(error)
@@ -98,7 +98,7 @@ export const LocationSelector: React.FC = observer(() => {
         ui.setShowLocationSelector(false)
     }
 
-    const headerText = ui.locationSelectorAction === 'move' ? 'Locatie bewerken' : 'Kies een locatie'
+    const headerText = ui.locationSelectorAction === 'move' ? 'Locatie bewerken' : 'Kies een locatie (nieuw)'
 
     return (
         <div className={classes.container}>
@@ -111,7 +111,7 @@ export const LocationSelector: React.FC = observer(() => {
             <div className={classes.footer}>
                 <IonButton
                     className={classes.actionButton}
-                    onClick={handleCancel}
+                    onClick={() => handleCancel()}
                     size="default"
                     fill="outline"
                 >
@@ -119,7 +119,7 @@ export const LocationSelector: React.FC = observer(() => {
                     </IonButton>
                 <IonButton
                     className={classes.actionButton}
-                    onClick={handleConfirm}
+                    onClick={() => handleConfirm()}
                     size="default"
                 >
                     Bevestigen

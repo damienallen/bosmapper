@@ -2,6 +2,8 @@ import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
 
+export const showUpdatedTimeout = 3000
+
 export class RootStore {
     public ui: UIStore
     public map: MapStore
@@ -27,6 +29,9 @@ export class UIStore {
     @observable showSettingsModal: boolean = false
 
     @observable showTreeDetails: boolean = false
+    @observable showLocationUpdated: boolean = false
+    @observable showNotesUpdated: boolean = false
+    @observable showSpeciesUpdated: boolean = false
 
     @observable showLocationSelector: boolean = false
     @observable showSpeciesSelector: boolean = false
@@ -64,6 +69,21 @@ export class UIStore {
         this.showTreeDetails = value
     }
 
+    setShowSpeciesUpdated(value: boolean) {
+        this.showSpeciesUpdated = value
+        if (value) setTimeout(() => this.setShowSpeciesUpdated(false), showUpdatedTimeout)
+    }
+
+    setShowNotesUpdated(value: boolean) {
+        this.showNotesUpdated = value
+        if (value) setTimeout(() => this.setShowNotesUpdated(false), showUpdatedTimeout)
+    }
+
+    setShowLocationUpdated(value: boolean) {
+        this.showLocationUpdated = value
+        if (value) setTimeout(() => this.setShowLocationUpdated(false), showUpdatedTimeout)
+    }
+
     setShowLocationSelector(value: boolean, action: string = 'new') {
         this.showLocationSelector = value
         this.locationSelectorAction = action
@@ -72,6 +92,10 @@ export class UIStore {
     setShowSpeciesSelector(value: boolean, action: string = 'new') {
         this.showSpeciesSelector = value
         this.speciesSelectorAction = action
+    }
+
+    @computed get showDetailsUpdated() {
+        return (this.showLocationUpdated || this.showNotesUpdated || this.showSpeciesUpdated)
     }
 
     constructor(public root: RootStore) { }

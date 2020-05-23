@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss'
 import {
     IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover
 } from '@ionic/react'
-import { move, trash } from 'ionicons/icons'
+import { cloudDone, move, trash } from 'ionicons/icons'
 
 import { Note } from './Note'
 
@@ -51,6 +51,12 @@ const useStyles = createUseStyles({
         marginLeft: 'auto',
         display: 'flex'
     },
+    updated: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
+        fontSize: '1.5em'
+    }
 })
 
 export const TreeDetail: React.FC = observer(() => {
@@ -79,6 +85,41 @@ export const TreeDetail: React.FC = observer(() => {
 
         setShowRemovePopover(false)
     }
+
+    // Action buttons
+    const changeSpeciesButton = (
+        <IonButton
+            fill="outline"
+            size="small"
+            className={classes.labelButton}
+            onClick={() => ui.setShowSpeciesSelector(true, 'update')}
+            disabled={ui.showSpeciesUpdated}
+        >
+            Soort bewerken
+        </IonButton>
+    )
+
+    const moveButton = (
+        <IonButton
+            fill="outline"
+            size="small"
+            onClick={() => ui.setShowLocationSelector(true, 'move')}
+            disabled={ui.showLocationUpdated}
+        >
+            <IonIcon icon={move} />
+        </IonButton>
+    )
+
+    const deleteButton = (
+        <IonButton
+            fill="outline"
+            size="small"
+            color="danger"
+            onClick={() => setShowRemovePopover(true)}
+        >
+            <IonIcon icon={trash} color="danger" />
+        </IonButton>
+    )
 
     return (
         <div className={classes.container}>
@@ -120,33 +161,14 @@ export const TreeDetail: React.FC = observer(() => {
                 </IonCardHeader>
 
                 <Note />
+                {ui.showDetailsUpdated ? <IonIcon color='success' className={classes.updated} icon={cloudDone} /> : null}
 
                 <div className={classes.featureActions}>
-                    <IonButton
-                        fill="outline"
-                        size="small"
-                        className={classes.labelButton}
-                        onClick={() => ui.setShowSpeciesSelector(true, 'update')}
-                    >
-                        Soort bewerken
-                    </IonButton>
+                    {changeSpeciesButton}
 
                     <div className={classes.iconButtons}>
-                        <IonButton
-                            fill="outline"
-                            size="small"
-                            onClick={() => ui.setShowLocationSelector(true, 'move')}
-                        >
-                            <IonIcon icon={move} />
-                        </IonButton>
-                        <IonButton
-                            fill="outline"
-                            size="small"
-                            color="danger"
-                            onClick={() => setShowRemovePopover(true)}
-                        >
-                            <IonIcon icon={trash} color="danger" />
-                        </IonButton>
+                        {moveButton}
+                        {deleteButton}
                     </div>
                 </div>
             </IonCard>

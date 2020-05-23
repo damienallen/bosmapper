@@ -12,8 +12,9 @@ const useStores = () => {
 const useStyles = createUseStyles({
     container: {
         padding: '5px 20px',
-        background: 'rgba(0, 0, 0, 0.1)'
-    },
+        background: 'rgba(0, 0, 0, 0.1)',
+        position: 'relative'
+    }
 })
 
 export const Note: React.FC = observer(() => {
@@ -30,7 +31,7 @@ export const Note: React.FC = observer(() => {
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
-                ui.setToastText('Geslaagd!')
+                ui.setShowNotesUpdated(true)
             })
             .catch((error) => {
                 console.error(error)
@@ -42,6 +43,7 @@ export const Note: React.FC = observer(() => {
         <div className={classes.container}>
             <IonInput
                 value={text}
+                disabled={ui.showNotesUpdated}
                 placeholder='Notitie toevoegen'
                 onIonChange={(e: any) => setText(e.detail.value!)}
                 onIonBlur={() => updateNote()}

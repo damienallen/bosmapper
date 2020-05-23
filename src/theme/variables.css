@@ -40,12 +40,12 @@
   --ion-color-tertiary-shade: #4e3016;
   --ion-color-tertiary-tint: #6a4b30;
 
-  --ion-color-success: #318C23;
-  --ion-color-success-rgb: 49,140,35;
+  --ion-color-success: #009400;
+  --ion-color-success-rgb: 0,148,0;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255,255,255;
-  --ion-color-success-shade: #2b7b1f;
-  --ion-color-success-tint: #469839;
+  --ion-color-success-shade: #008200;
+  --ion-color-success-tint: #1a9f1a;
 
   --ion-color-warning: #ffc409;
   --ion-color-warning-rgb: 255,196,9;

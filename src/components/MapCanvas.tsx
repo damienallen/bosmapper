@@ -163,6 +163,19 @@ export const MapCanvas: React.FC = () => {
                     map.setFeaturesHash(featuresHash)
                     map.setFeaturesGeoJson(response.data)
                     console.log(`Loaded ${response.data.features.length} features`)
+
+                    // Update selected feature if necesary
+                    if (map.selectedFeature) {
+                        const oid = map.selectedFeature.values_.oid
+                        const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
+                            (feature: any) => (feature.values_ && feature.values_.oid === oid)
+                        )
+                        if (newFeatureEntry) {
+                            map.setSelectedFeature(newFeatureEntry)
+                        } else {
+                            console.warn(`Unable to find features '${oid} in updated feature list`)
+                        }
+                    }
                 } else {
                     console.debug('Features not updated')
                 }
@@ -189,7 +202,7 @@ export const MapCanvas: React.FC = () => {
                 () => map.needsUpdate,
                 (needsUpdate: boolean) => {
                     if (needsUpdate) {
-                        getFeatures()
+                        setTimeout(() => getFeatures(), 100)
                         map.setNeedsUpdate(false)
                     }
                 }
@@ -199,6 +212,7 @@ export const MapCanvas: React.FC = () => {
                 (centerOnSelected: boolean) => {
                     if (centerOnSelected && map.selectedFeature) {
                         const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
+                        olView.setZoom(21)
                         olView.setCenter(featureCoords)
                         map.setCenterOnSelected(false)
                     }
@@ -219,7 +233,7 @@ export const MapCanvas: React.FC = () => {
                         console.warn('No features found')
                     }
                 }
-            ),
+            )
         ]
 
         // Prevent map loading issues by forcing resize

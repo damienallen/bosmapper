@@ -71,7 +71,7 @@ export const SpeciesSelector: React.FC = observer(() => {
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
-                    ui.setToastText('Geslaagd!')
+                    ui.setShowSpeciesUpdated(true)
                 })
                 .catch((error) => {
                     console.error(error)
@@ -94,7 +94,7 @@ export const SpeciesSelector: React.FC = observer(() => {
         </IonItem>
     ))
 
-    const headerText = ui.speciesSelectorAction === 'update' ? 'Soort bewerken' : 'Kies een soort'
+    const headerText = ui.speciesSelectorAction === 'update' ? 'Soort bewerken' : 'Kies een soort (nieuw)'
 
     return (
         <IonModal
