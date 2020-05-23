@@ -40,10 +40,10 @@ import 'ol/ol.css'
 
 export const App: React.FC = () => {
   const rootStore = new RootStore()
-  console.debug(process.env)
-  if (process.env.SERVER_ENV === 'dev') {
-    rootStore.settings.setHost('http://192.168.178.16:8080')
-  }
+  // console.debug(process.env)
+  // if (process.env.SERVER_ENV === 'dev' || true) {
+  rootStore.settings.setHost('http://192.168.178.16:8080')
+  // }
 
   // Fetch species list from server
   fetchSpecies(rootStore)
