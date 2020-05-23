@@ -56,7 +56,7 @@ export const App: React.FC = () => {
       ui={rootStore.ui}
     >
       <IonApp>
-        <IonSplitPane contentId="main">
+        <IonSplitPane contentId='main'>
           <Menu />
           <Content />
         </IonSplitPane>

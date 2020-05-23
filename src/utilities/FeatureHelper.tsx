@@ -101,11 +101,13 @@ export const styleFunction = (feature: any, resolution: number) => {
     const speciesData = feature.values_
 
     // Display text based at high zoom level
-    if (resolution < 0.06) {
+    if (resolution < 0.07) {
         const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
     } else {
         featureStyle.getText().setText(null)
     }
+
+    // Adjust opacity if selected
     return [featureStyle]
 }

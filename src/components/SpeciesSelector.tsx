@@ -103,7 +103,7 @@ export const SpeciesSelector: React.FC = observer(() => {
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>{headerText}</IonTitle>
-                    <IonButtons className={classes.toolbarButtons} slot="end">
+                    <IonButtons className={classes.toolbarButtons} slot='end'>
                         <IonIcon onClick={() => ui.setShowSpeciesSelector(false)} icon={close} />
                     </IonButtons>
                 </IonToolbar>
@@ -112,8 +112,8 @@ export const SpeciesSelector: React.FC = observer(() => {
                         value={searchText}
                         onIonChange={handleInput}
                         debounce={200}
-                        placeholder="Zoeken"
-                        mode="ios"
+                        placeholder='Zoeken'
+                        mode='ios'
                     />
                 </IonToolbar>
             </IonHeader>

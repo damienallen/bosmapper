@@ -90,8 +90,8 @@ export const TreeDetail: React.FC = observer(() => {
     // Action buttons
     const changeSpeciesButton = (
         <IonButton
-            fill="outline"
-            size="small"
+            fill='outline'
+            size='small'
             className={classes.labelButton}
             onClick={() => ui.setShowSpeciesSelector(true, 'update')}
             disabled={ui.showSpeciesUpdated}
@@ -102,8 +102,8 @@ export const TreeDetail: React.FC = observer(() => {
 
     const moveButton = (
         <IonButton
-            fill="outline"
-            size="small"
+            fill='outline'
+            size='small'
             onClick={() => ui.setShowLocationSelector(true, 'move')}
             disabled={ui.showLocationUpdated}
         >
@@ -113,12 +113,12 @@ export const TreeDetail: React.FC = observer(() => {
 
     const deleteButton = (
         <IonButton
-            fill="outline"
-            size="small"
-            color="danger"
+            fill='outline'
+            size='small'
+            color='danger'
             onClick={() => setShowRemovePopover(true)}
         >
-            <IonIcon icon={trash} color="danger" />
+            <IonIcon icon={trash} color='danger' />
         </IonButton>
     )
 
@@ -137,16 +137,16 @@ export const TreeDetail: React.FC = observer(() => {
                     <IonButton
                         className={classes.actionButton}
                         onClick={() => setShowRemovePopover(false)}
-                        size="default"
+                        size='default'
                     >
                         Nee, ga terug
                     </IonButton>
                     <IonButton
                         className={classes.actionButton}
                         onClick={confirmRemove}
-                        size="default"
-                        color="danger"
-                        fill="outline"
+                        size='default'
+                        color='danger'
+                        fill='outline'
                     >
                         Ja
                     </IonButton>

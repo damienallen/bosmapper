@@ -112,15 +112,15 @@ export const LocationSelector: React.FC = observer(() => {
                 <IonButton
                     className={classes.actionButton}
                     onClick={() => handleCancel()}
-                    size="default"
-                    fill="outline"
+                    size='default'
+                    fill='outline'
                 >
                     Annuleren
                     </IonButton>
                 <IonButton
                     className={classes.actionButton}
                     onClick={() => handleConfirm()}
-                    size="default"
+                    size='default'
                 >
                     Bevestigen
                     </IonButton>
