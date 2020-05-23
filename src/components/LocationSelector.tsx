@@ -61,11 +61,8 @@ export const LocationSelector: React.FC = observer(() => {
 
         if (ui.selectorAction === 'move') {
             const featureJson = {
-                species: map.selectedFeature.values_.species,
-                status: map.selectedFeature.values_.status,
                 lon: map.center[0],
-                lat: map.center[1],
-                notes: map.selectedFeature.values_.notes
+                lat: map.center[1]
             }
             axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
                 .then((response) => {

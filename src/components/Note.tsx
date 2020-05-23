@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
@@ -17,11 +18,24 @@ const useStyles = createUseStyles({
 
 export const Note: React.FC = observer(() => {
     const classes = useStyles()
-    const { map } = useStores()
+    const { map, settings, ui } = useStores()
     const [text, setText] = useState(map.selectedFeature.values_.notes)
 
     const updateNote = () => {
-        console.log('Edit note')
+        const featureJson = {
+            notes: text
+        }
+
+        axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
+            .then((response) => {
+                console.debug(response)
+                map.setNeedsUpdate(true)
+                ui.setToastText('Geslaagd!')
+            })
+            .catch((error) => {
+                console.error(error)
+                ui.setToastText('Verzoek mislukt')
+            })
     }
 
     return (
