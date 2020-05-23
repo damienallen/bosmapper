@@ -68,18 +68,14 @@ export const SpeciesModal: React.FC = observer(() => {
         ui.setShowSpeciesModal(false)
     }
 
-    console.log(allSpecies, filteredSpecies)
-    const speciesList = filteredSpecies.map((item: Species) => {
-        console.log(item)
-        return (
-            <IonItem key={item.abbr} onClick={e => handleSelect(item.abbr)}>
-                <IonLabel>
-                    <h2>{item.name_nl}</h2>
-                    <p>{item.species}</p>
-                </IonLabel>
-            </IonItem>
-        )
-    })
+    const speciesList = filteredSpecies.map((item: Species) => (
+        <IonItem key={item.species} onClick={e => handleSelect(item.species)}>
+            <IonLabel>
+                <h2>{item.name_nl}</h2>
+                <p>{item.name_la}</p>
+            </IonLabel>
+        </IonItem>
+    ))
 
     return (
         <IonModal

@@ -25,7 +25,7 @@ const useStyles = createUseStyles({
 })
 
 export const MapOverlay: React.FC = observer(() => {
-  const { map, species, ui } = useStores()
+  const { map, ui } = useStores()
   const classes = useStyles(map.mapBackground)
 
   return ui.showLocationSelector ? (
@@ -36,7 +36,7 @@ export const MapOverlay: React.FC = observer(() => {
       <div className={classes.container}>
         <SearchBar />
         {ui.showTreeDetails ? <TreeDetail /> : null}
-        {(ui.showTreeDetails || species.list.length < 1) ? null : <AddButton />}
+        {ui.showTreeDetails ? null : <AddButton />}
 
         <IonToast
           isOpen={ui.showToast}

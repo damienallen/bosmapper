@@ -1,4 +1,5 @@
 import React from 'react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import { IonContent } from '@ionic/react'
 
 import { MapCanvas } from './MapCanvas'
@@ -9,13 +10,20 @@ import { SettingsModal } from './SettingsModal'
 import { SpeciesModal } from './SpeciesModal'
 
 
-export const Content: React.FC = () => (
-    <IonContent id="main">
-        <SettingsModal />
-        <SpeciesModal />
-        <LoginPopover />
+const useStores = () => {
+    return React.useContext(MobXProviderContext)
+}
 
-        <MapOverlay />
-        <MapCanvas />
-    </IonContent>
-)
+export const Content: React.FC = observer(() => {
+    const { species } = useStores()
+    return (
+        <IonContent id="main">
+            <SettingsModal />
+            {species.count > 0 ? <SpeciesModal /> : null}
+            <LoginPopover />
+
+            <MapOverlay />
+            <MapCanvas />
+        </IonContent>
+    )
+})

@@ -163,6 +163,7 @@ export const MapCanvas: React.FC = () => {
 
                     map.setFeaturesHash(featuresHash)
                     map.setFeaturesGeoJson(response.data)
+                    console.log(`Loaded ${response.data.features.length} features`)
                 } else {
                     console.debug('Features not updated')
                 }
@@ -179,7 +180,7 @@ export const MapCanvas: React.FC = () => {
         olMap.setTarget(mapEl.current)
 
         // Fetch features
-        console.log(`Fetching features from '${settings.host}'`)
+        console.log(`Connecting to host '${settings.host}'`)
         getFeatures()
         const featureFetcher = setInterval(getFeatures, 10000)
 

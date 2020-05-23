@@ -100,13 +100,12 @@ export const styleFunction = (feature: any, resolution: number) => {
     const featureStyle: any = featureStyles[feature.getGeometry().getType()]
     const speciesData = feature.values_
 
-    // Display text based on tree height & crown width
+    // Display text based at high zoom level
     if (resolution < 0.06) {
-        const text = speciesData.name_nl ? speciesData.name_nl : speciesData.abbr
+        const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
     } else {
         featureStyle.getText().setText(null)
     }
-
     return [featureStyle]
 }

@@ -75,8 +75,8 @@ export class UIStore {
 
 
 export interface Species {
-    abbr: string,
     species: string,
+    name_la: string,
     name_nl?: string,
     name_en?: string,
     height?: number,
@@ -108,6 +108,10 @@ export class SpeciesStore {
     setWidthRange(minValue: number, maxValue: number) {
         this.maxWidth = minValue
         this.maxWidth = maxValue
+    }
+
+    @computed get count() {
+        return this.list.length
     }
 
     constructor(public root: RootStore) { }
