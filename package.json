@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "ionic serve --no-open",
-    "start-dev": "cross-env SERVER_ENV=dev ionic serve --no-open",
+    "start-dev": "cross-env REACT_APP_SERVER=dev ionic serve --no-open",
     "update": "npm-check -u",
     "build": "react-scripts build",
     "test": "jest",

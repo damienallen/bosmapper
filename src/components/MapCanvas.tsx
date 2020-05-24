@@ -194,7 +194,7 @@ export const MapCanvas: React.FC = () => {
         // Fetch features
         console.log(`Connecting to host '${settings.host}'`)
         getFeatures()
-        const featureFetcher = setInterval(getFeatures, 10000)
+        const featureFetcher = setInterval(getFeatures, 15000)
 
         // Set up reactions
         const disposer = [
