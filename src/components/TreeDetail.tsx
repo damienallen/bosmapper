@@ -70,7 +70,7 @@ export const TreeDetail: React.FC = observer(() => {
         const oid = map.selectedFeature.get('oid')
         console.log('Removing feature', oid)
 
-        axios.post(`${settings.host}/tree/remove/${oid}/`)
+        axios.post(`${settings.host}/tree/remove/${oid}/`, settings.authHeader)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)

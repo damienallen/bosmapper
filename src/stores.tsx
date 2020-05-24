@@ -264,5 +264,11 @@ export class SettingStore {
         return (this.token !== null)
     }
 
+    @computed get authHeader() {
+        return {
+            headers: { 'Authorization': `Bearer ${this.token}` }
+        }
+    }
+
     constructor(public root: RootStore) { }
 }

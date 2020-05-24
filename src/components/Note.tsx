@@ -31,7 +31,7 @@ export const Note: React.FC = observer(() => {
             notes: text
         }
 
-        axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson)
+        axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)

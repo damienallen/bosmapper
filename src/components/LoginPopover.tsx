@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios'
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
@@ -38,8 +39,19 @@ export const LoginPopover: React.FC = observer(() => {
     const { settings, ui } = useStores()
 
     const handleLogin = () => {
-        settings.setToken('123')
-        ui.setShowLoginPopover(false)
+        const formData = new FormData();
+        formData.append('username', 'bosmapper')
+        formData.append('password', '1234')
+
+        axios.post(`${settings.host}/token/`, formData)
+            .then((response: AxiosResponse) => {
+                settings.setToken(response.data.access_token)
+                ui.setShowLoginPopover(false)
+            })
+            .catch((error) => {
+                console.error(error)
+                ui.setToastText('Verzoek mislukt')
+            })
     }
 
     const login = (

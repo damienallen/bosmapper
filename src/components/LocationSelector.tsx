@@ -64,7 +64,7 @@ export const LocationSelector: React.FC = observer(() => {
                 lon: map.center[0],
                 lat: map.center[1]
             }
-            axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson)
+            axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
@@ -82,7 +82,7 @@ export const LocationSelector: React.FC = observer(() => {
             }
             console.log('Trying to add feature', featureJson)
 
-            axios.post(`${settings.host}/tree/add/`, featureJson)
+            axios.post(`${settings.host}/tree/add/`, featureJson, settings.authHeader)
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
