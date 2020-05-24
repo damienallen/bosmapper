@@ -242,7 +242,6 @@ export class SettingStore {
     @observable host: string = 'https://bos.dallen.co'
 
     @observable token: string | null = null
-    // @observable token: string | null = 'xyz'
 
     setLanguage(value: string) {
         this.language = value

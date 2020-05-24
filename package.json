@@ -18,7 +18,8 @@
     "react-icons": "3.10.0",
     "react-jss": "10.1.1",
     "react-scripts": "3.4.1",
-    "typescript": "3.9.3"
+    "typescript": "3.9.3",
+    "universal-cookie": "^4.0.3"
   },
   "scripts": {
     "start": "ionic serve --no-open",
