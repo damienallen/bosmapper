@@ -44,8 +44,7 @@ export const LoginPopover: React.FC = observer(() => {
 
     const login = (
         <div className={classes.container}>
-            <IonInput className={classes.input} placeholder="Email" />
-            <IonInput className={classes.input} type="password" placeholder="Wachtwoord" />
+            <IonInput className={classes.input} placeholder="Login code" />
             <IonButton className={classes.button} onClick={() => handleLogin()}>Inloggen</IonButton>
         </div>
     )
