@@ -198,8 +198,16 @@ export const MapCanvas: React.FC = () => {
 
         // Set up reactions
         const disposer = [
-            reaction(() => map.selectedFeature, () => treeFeatures.changed()),
             reaction(() => map.baseMap, () => treeFeatures.changed()),
+            reaction(() => map.selectedFeature, (selectedFeature: any) => {
+                treeFeatures.changed()
+                if (selectedFeature && olView.getZoom() > 20) {
+                    olView.animate({
+                        center: selectedFeature.getGeometry().getCoordinates(),
+                        duration: 500
+                    })
+                }
+            }),
             reaction(
                 () => map.needsUpdate,
                 (needsUpdate: boolean) => {
