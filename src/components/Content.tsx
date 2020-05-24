@@ -17,16 +17,15 @@ const useStores = () => {
 
 
 export const Content: React.FC = observer(() => {
-    const { species, } = useStores()
-    return species.count > 0 ?
-        (
-            <IonContent id='main'>
-                <SettingsModal />
-                <SpeciesSelector />
-                <LoginPopover />
+    const { species } = useStores()
+    return species.count > 0 ? (
+        <IonContent id='main'>
+            <SettingsModal />
+            <SpeciesSelector />
+            <LoginPopover />
 
-                <MapOverlay />
-                <MapCanvas />
-            </IonContent>
-        ) : <LoadingScreen />
+            <MapOverlay />
+            <MapCanvas />
+        </IonContent>
+    ) : <LoadingScreen />
 })

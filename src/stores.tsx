@@ -26,7 +26,6 @@ export class UIStore {
 
     @observable showLoginPopover: boolean = false
     @observable showLicenseModal: boolean = false
-    @observable showFilterModal: boolean = false
     @observable showSettingsModal: boolean = false
 
     @observable showTreeDetails: boolean = false
@@ -60,10 +59,6 @@ export class UIStore {
 
     setShowLicenseModal(value: boolean) {
         this.showLicenseModal = value
-    }
-
-    setShowFilterModal(value: boolean) {
-        this.showFilterModal = value
     }
 
     setShowSettingsModal(value: boolean) {
