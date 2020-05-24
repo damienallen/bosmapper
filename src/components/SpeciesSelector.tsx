@@ -67,7 +67,7 @@ export const SpeciesSelector: React.FC = observer(() => {
             const featureJson = {
                 species: species
             }
-            axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
+            axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson)
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)

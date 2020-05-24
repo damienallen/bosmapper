@@ -20,14 +20,14 @@ const useStyles = createUseStyles({
 export const Note: React.FC = observer(() => {
     const classes = useStyles()
     const { map, settings, ui } = useStores()
-    const [text, setText] = useState(map.selectedFeature.values_.notes)
+    const [text, setText] = useState(map.selectedFeature.get('notes'))
 
     const updateNote = () => {
         const featureJson = {
             notes: text
         }
 
-        axios.post(`${settings.host}/tree/update/${map.selectedFeature.values_.oid}/`, featureJson)
+        axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
