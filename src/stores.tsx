@@ -22,6 +22,7 @@ export class UIStore {
 
     @observable toastText: string = ''
     @observable showToast: boolean = false
+    @observable showConnectionError: boolean = false
 
     @observable showLoginPopover: boolean = false
     @observable showLicenseModal: boolean = false
@@ -47,6 +48,10 @@ export class UIStore {
     hideToast() {
         this.showToast = false
         this.toastText = ''
+    }
+
+    setShowConnectionError(value: boolean) {
+        this.showConnectionError = value
     }
 
     setShowLoginPopover(value: boolean) {
