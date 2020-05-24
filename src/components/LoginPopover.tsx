@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import React from 'react'
+import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
 import {
@@ -37,26 +37,37 @@ const useStyles = createUseStyles({
 export const LoginPopover: React.FC = observer(() => {
     const classes = useStyles()
     const { settings, ui } = useStores()
+    const [passcode, setPasscode] = useState('')
 
     const handleLogin = () => {
         const formData = new FormData();
         formData.append('username', 'bosmapper')
-        formData.append('password', '1234')
+        formData.append('password', passcode)
 
         axios.post(`${settings.host}/token/`, formData)
             .then((response: AxiosResponse) => {
                 settings.setToken(response.data.access_token)
+                setPasscode('')
                 ui.setShowLoginPopover(false)
             })
             .catch((error) => {
-                console.error(error)
-                ui.setToastText('Verzoek mislukt')
+                if (error.response.status >= 400 && error.response.status < 500) {
+                    ui.setToastText('Ongeldige code')
+                } else {
+                    console.error(error)
+                    ui.setToastText('Verzoek mislukt')
+                }
             })
     }
 
     const login = (
         <div className={classes.container}>
-            <IonInput className={classes.input} placeholder="Login code" />
+            <IonInput
+                value={passcode}
+                className={classes.input}
+                onIonChange={(e: any) => setPasscode(e.detail.value!)}
+                placeholder="Login code"
+            />
             <IonButton className={classes.button} onClick={() => handleLogin()}>Inloggen</IonButton>
         </div>
     )
