@@ -64,10 +64,10 @@ export const TreeDetail: React.FC = observer(() => {
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
-    const speciesData = map.selectedFeature.values_
+    const speciesData = map.selectedFeature.getProperties()
 
     const confirmRemove = () => {
-        const oid = map.selectedFeature.values_.oid
+        const oid = map.selectedFeature.get('oid')
         console.log('Removing feature', oid)
 
         axios.post(`${settings.host}/tree/remove/${oid}/`)

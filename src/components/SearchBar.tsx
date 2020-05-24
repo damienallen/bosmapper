@@ -1,13 +1,10 @@
 import React from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
-import {
-    IonIcon,
-    IonSearchbar
-} from '@ionic/react'
-import { funnel } from 'ionicons/icons'
+import { IonSearchbar } from '@ionic/react'
 
 import { MenuToggle } from './Menu'
+
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -39,14 +36,6 @@ const useStyles = createUseStyles({
     menuToggle: {
         flex: '0 1',
         height: 36
-    },
-    filterToggle: {
-        display: 'none',
-        flex: '0 1',
-        fontSize: '1.4em',
-        lineHeight: '32px',
-        color: '#999',
-        padding: '14px 10px 14px 0'
     }
 })
 
@@ -68,13 +57,9 @@ export const SearchBar: React.FC = observer(() => {
                         map.setSelectedFeature(null)
                     }}
                     debounce={400}
-                    placeholder="Zoeken"
-                    mode="ios"
+                    placeholder='Zoeken'
+                    mode='ios'
                 />
-
-                <div className={classes.filterToggle}>
-                    <IonIcon icon={funnel} onClick={() => ui.setShowFilterModal(true)} />
-                </div>
 
                 <div className={classes.menuToggle}>
                     <MenuToggle />

@@ -107,13 +107,13 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map, settings, ui } = useStores()
+    const { map, root, settings, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
-        style: styleFunction,
+        style: (feature: any, resolution: number) => (styleFunction(root, feature, resolution)),
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
@@ -156,19 +156,19 @@ export const MapCanvas: React.FC = () => {
     const getFeatures = () => {
         axios.get(`${settings.host}/trees/`)
             .then((response: AxiosResponse) => {
+                // Check against hash of existing features
                 const featuresHash = hash(response.data)
-                if (featuresHash !== map.featuresHash) {
-                    console.debug(response)
 
+                if (featuresHash !== map.featuresHash) {
                     map.setFeaturesHash(featuresHash)
                     map.setFeaturesGeoJson(response.data)
                     console.log(`Loaded ${response.data.features.length} features at ${new Date().toISOString()}`)
 
                     // Update selected feature if necesary
                     if (map.selectedFeature) {
-                        const oid = map.selectedFeature.values_.oid
+                        const oid = map.selectedFeature.get('oid')
                         const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
-                            (feature: any) => (feature.values_ && feature.values_.oid === oid)
+                            (feature: any) => (feature.get('oid') === oid)
                         )
                         if (newFeatureEntry) {
                             map.setSelectedFeature(newFeatureEntry)
@@ -194,10 +194,20 @@ export const MapCanvas: React.FC = () => {
         // Fetch features
         console.log(`Connecting to host '${settings.host}'`)
         getFeatures()
-        const featureFetcher = setInterval(getFeatures, 10000)
+        const featureFetcher = setInterval(getFeatures, 15000)
 
         // Set up reactions
         const disposer = [
+            reaction(() => map.baseMap, () => treeFeatures.changed()),
+            reaction(() => map.selectedFeature, (selectedFeature: any) => {
+                treeFeatures.changed()
+                if (selectedFeature && olView.getZoom() > 20) {
+                    olView.animate({
+                        center: selectedFeature.getGeometry().getCoordinates(),
+                        duration: 500
+                    })
+                }
+            }),
             reaction(
                 () => map.needsUpdate,
                 (needsUpdate: boolean) => {
@@ -212,8 +222,11 @@ export const MapCanvas: React.FC = () => {
                 (centerOnSelected: boolean) => {
                     if (centerOnSelected && map.selectedFeature) {
                         const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
-                        olView.setZoom(21)
-                        olView.setCenter(featureCoords)
+                        olView.animate({
+                            center: featureCoords,
+                            zoom: 21,
+                            duration: 200
+                        })
                         map.setCenterOnSelected(false)
                     }
                 }

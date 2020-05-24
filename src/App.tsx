@@ -40,8 +40,9 @@ import 'ol/ol.css'
 
 export const App: React.FC = () => {
   const rootStore = new RootStore()
-  console.debug(process.env)
-  if (process.env.SERVER_ENV === 'dev') {
+
+  // Use dev server if enabled
+  if (process.env.REACT_APP_SERVER === 'dev') {
     rootStore.settings.setHost('http://192.168.178.16:8080')
   }
 
@@ -51,6 +52,7 @@ export const App: React.FC = () => {
   return (
     <Provider
       map={rootStore.map}
+      root={rootStore}
       settings={rootStore.settings}
       species={rootStore.species}
       ui={rootStore.ui}

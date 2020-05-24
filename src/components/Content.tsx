@@ -5,6 +5,7 @@ import { IonContent } from '@ionic/react'
 import { MapCanvas } from './MapCanvas'
 import { MapOverlay } from './MapOverlay'
 
+import { LoadingScreen } from './LoadingScreen'
 import { LoginPopover } from './LoginPopover'
 import { SettingsModal } from './SettingsModal'
 import { SpeciesSelector } from './SpeciesSelector'
@@ -14,16 +15,17 @@ const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
 
+
 export const Content: React.FC = observer(() => {
     const { species } = useStores()
-    return (
-        <IonContent id="main">
+    return species.count > 0 ? (
+        <IonContent id='main'>
             <SettingsModal />
-            {species.count > 0 ? <SpeciesSelector /> : null}
+            <SpeciesSelector />
             <LoginPopover />
 
             <MapOverlay />
             <MapCanvas />
         </IonContent>
-    )
+    ) : <LoadingScreen />
 })

@@ -22,10 +22,10 @@ export class UIStore {
 
     @observable toastText: string = ''
     @observable showToast: boolean = false
+    @observable showConnectionError: boolean = false
 
     @observable showLoginPopover: boolean = false
     @observable showLicenseModal: boolean = false
-    @observable showFilterModal: boolean = false
     @observable showSettingsModal: boolean = false
 
     @observable showTreeDetails: boolean = false
@@ -49,16 +49,16 @@ export class UIStore {
         this.toastText = ''
     }
 
+    setShowConnectionError(value: boolean) {
+        this.showConnectionError = value
+    }
+
     setShowLoginPopover(value: boolean) {
         this.showLoginPopover = value
     }
 
     setShowLicenseModal(value: boolean) {
         this.showLicenseModal = value
-    }
-
-    setShowFilterModal(value: boolean) {
-        this.showFilterModal = value
     }
 
     setShowSettingsModal(value: boolean) {

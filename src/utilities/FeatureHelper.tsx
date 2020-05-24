@@ -1,111 +1,58 @@
-import { Circle as CircleStyle, Fill, Icon, Stroke, Style, Text } from 'ol/style'
-import mapPin from '../assets/pin_green.svg'
+import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
+import pinIcon from '../assets/pin.svg'
+import pinIconSelected from '../assets/pin_selected.svg'
 
+import { RootStore } from '../stores'
+
+const pinScale = 0.25
 
 const pin = new Icon({
     anchor: [0.5, 1],
-    src: mapPin,
-    scale: 0.25
+    src: pinIcon,
+    scale: pinScale
 })
 
-const textStyle = new Text({
+const pinSelected = new Icon({
+    anchor: [0.5, 1],
+    src: pinIconSelected,
+    scale: pinScale
+})
+
+const textStyle = (baseMap: string) => (new Text({
     textAlign: 'center',
     textBaseline: 'middle',
     text: '',
-    fill: new Fill({ color: '#ffffff' }),
-    stroke: new Stroke({
-        color: '#000000',
-        width: 0.5
+    fill: new Fill({
+        color: baseMap === 'drone' ? '#ffffff' : '#000000'
     }),
-    font: '18px sans-serif',
+    stroke: new Stroke({
+        color: baseMap === 'drone' ? '#000000' : '#ffffff',
+        width: 1.5
+    }),
+    font: '16px sans-serif',
     offsetX: 0,
     offsetY: 15,
     placement: undefined,
     maxAngle: undefined,
     overflow: undefined,
     rotation: 0
-})
+}))
 
-interface StyleDict {
-    [key: string]: Style
-}
 
-const featureStyles: StyleDict = {
-    'Point': new Style({
-        image: pin,
-        text: textStyle
-    }),
-    'LineString': new Style({
-        stroke: new Stroke({
-            color: 'green',
-            width: 1
-        })
-    }),
-    'MultiLineString': new Style({
-        stroke: new Stroke({
-            color: 'green',
-            width: 1
-        })
-    }),
-    'MultiPoint': new Style({
-        image: pin
-    }),
-    'MultiPolygon': new Style({
-        stroke: new Stroke({
-            color: 'yellow',
-            width: 1
-        }),
-        fill: new Fill({
-            color: 'rgba(255, 255, 0, 0.1)'
-        })
-    }),
-    'Polygon': new Style({
-        stroke: new Stroke({
-            color: 'blue',
-            lineDash: [4],
-            width: 3
-        }),
-        fill: new Fill({
-            color: 'rgba(0, 0, 255, 0.1)'
-        })
-    }),
-    'GeometryCollection': new Style({
-        stroke: new Stroke({
-            color: 'magenta',
-            width: 2
-        }),
-        fill: new Fill({
-            color: 'magenta'
-        }),
-        image: new CircleStyle({
-            radius: 10,
-            fill: undefined,
-            stroke: new Stroke({
-                color: 'magenta'
-            })
-        })
-    }),
-    'Circle': new Style({
-        stroke: new Stroke({
-            color: 'red',
-            width: 2
-        }),
-        fill: new Fill({
-            color: 'rgba(255,0,0,0.2)'
-        })
+export const styleFunction = (store: RootStore, feature: any, resolution: number) => {
+    const speciesData = feature.getProperties()
+    const pinStyle = feature === store.map.selectedFeature ? pinSelected : pin
+    const featureStyle: Style = new Style({
+        image: pinStyle,
+        text: textStyle(store.map.baseMap)
     })
-}
-
-export const styleFunction = (feature: any, resolution: number) => {
-    const featureStyle: any = featureStyles[feature.getGeometry().getType()]
-    const speciesData = feature.values_
 
     // Display text based at high zoom level
     if (resolution < 0.07) {
         const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
     } else {
-        featureStyle.getText().setText(null)
+        featureStyle.getText().setText(undefined)
     }
 
     // Adjust opacity if selected
