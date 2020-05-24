@@ -11,9 +11,13 @@ const useStores = () => {
 
 const useStyles = createUseStyles({
     container: {
-        padding: '5px 20px',
+        padding: '5px 16px',
         background: 'rgba(0, 0, 0, 0.1)',
         position: 'relative'
+    },
+    readonly: {
+        padding: '10px 16px',
+        background: 'rgba(0, 0, 0, 0.1)'
     }
 })
 
@@ -46,20 +50,29 @@ export const Note: React.FC = observer(() => {
         }
     }
 
-    return (
-        <div className={classes.container}>
-            <IonInput
-                value={text}
-                disabled={ui.showNotesUpdated}
-                placeholder='Notitie toevoegen'
-                enterkeyhint='done'
-                onIonChange={(e: any) => setText(e.detail.value!)}
-                onIonBlur={() => updateNote()}
-                onKeyDown={onKeyPress}
-                maxlength={80}
-                mode='ios'
-                clearInput
-            ></IonInput>
-        </div>
-    )
+    const readonlyNote = map.selectedFeature.get('notes') ?
+        (
+            <div className={classes.readonly}>
+                {map.selectedFeature.get('notes')}
+            </div>
+        ) : null
+
+    return settings.authenticated ?
+        (
+            <div className={classes.container}>
+                <IonInput
+                    value={text}
+                    disabled={ui.showNotesUpdated}
+                    placeholder='Notitie toevoegen'
+                    enterkeyhint='done'
+                    onIonChange={(e: any) => setText(e.detail.value!)}
+                    onIonBlur={() => updateNote()}
+                    onKeyDown={onKeyPress}
+                    maxlength={80}
+                    mode='ios'
+                    clearInput
+                ></IonInput>
+            </div>
+        ) : readonlyNote
+
 })

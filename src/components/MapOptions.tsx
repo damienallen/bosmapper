@@ -36,7 +36,7 @@ export const MapOptions: React.FC = observer(() => {
         <div className={classes.container} >
 
             <IonListHeader>
-                <IonLabel color="medium">Kaart</IonLabel>
+                <IonLabel color="medium">Basis Kaart</IonLabel>
             </IonListHeader>
 
             <IonItem>
