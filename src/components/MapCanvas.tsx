@@ -107,13 +107,13 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map, settings, ui } = useStores()
+    const { map, root, settings, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
-        style: (feature: any, resolution: number) => (styleFunction(map, feature, resolution)),
+        style: (feature: any, resolution: number) => (styleFunction(root, feature, resolution)),
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
@@ -198,10 +198,8 @@ export const MapCanvas: React.FC = () => {
 
         // Set up reactions
         const disposer = [
-            reaction(
-                () => map.selectedFeature,
-                (selectedFeature: any) => treeFeatures.changed()
-            ),
+            reaction(() => map.selectedFeature, () => treeFeatures.changed()),
+            reaction(() => map.baseMap, () => treeFeatures.changed()),
             reaction(
                 () => map.needsUpdate,
                 (needsUpdate: boolean) => {

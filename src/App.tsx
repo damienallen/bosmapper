@@ -52,6 +52,7 @@ export const App: React.FC = () => {
   return (
     <Provider
       map={rootStore.map}
+      root={rootStore}
       settings={rootStore.settings}
       species={rootStore.species}
       ui={rootStore.ui}
