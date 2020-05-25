@@ -70,7 +70,7 @@ export const TreeDetail: React.FC = observer(() => {
         const oid = map.selectedFeature.get('oid')
         console.log('Removing feature', oid)
 
-        axios.post(`${settings.host}/tree/remove/${oid}/`)
+        axios.post(`${settings.host}/tree/remove/${oid}/`, null, settings.authHeader)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
@@ -79,7 +79,7 @@ export const TreeDetail: React.FC = observer(() => {
                 ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error.response)
                 ui.setToastText('Verzoek mislukt')
             })
 
@@ -122,12 +122,26 @@ export const TreeDetail: React.FC = observer(() => {
         </IonButton>
     )
 
+    const actionsArea = settings.authenticated ?
+        (
+            <div className={classes.featureActions}>
+                {changeSpeciesButton}
+
+                <div className={classes.iconButtons}>
+                    {moveButton}
+                    {deleteButton}
+                </div>
+            </div>
+        ) : null
+
     return (
         <div className={classes.container}>
+
             <IonPopover
                 isOpen={showRemovePopover}
                 onDidDismiss={(_e: any) => setShowRemovePopover(false)}
             >
+
                 <IonCardHeader>
                     <IonCardTitle>Zeker?</IonCardTitle>
                     <IonCardSubtitle>Wilt u dit boom verwijderen?</IonCardSubtitle>
@@ -161,18 +175,13 @@ export const TreeDetail: React.FC = observer(() => {
                     <IonCardSubtitle className={classes.subtitle}>{speciesData.name_la}</IonCardSubtitle>
                 </IonCardHeader>
 
+                {ui.showDetailsUpdated ? <IonIcon color='medium' className={classes.updated} icon={cloudDone} /> : null}
+
                 <Note />
-                {ui.showDetailsUpdated ? <IonIcon color='success' className={classes.updated} icon={cloudDone} /> : null}
+                {actionsArea}
 
-                <div className={classes.featureActions}>
-                    {changeSpeciesButton}
-
-                    <div className={classes.iconButtons}>
-                        {moveButton}
-                        {deleteButton}
-                    </div>
-                </div>
             </IonCard>
+
         </div>
     )
 })

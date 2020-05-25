@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { MobXProviderContext } from 'mobx-react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import {
   IonContent,
   IonIcon,
@@ -10,7 +10,7 @@ import {
   IonMenu,
   IonMenuButton
 } from '@ionic/react'
-import { logIn, settings } from 'ionicons/icons'
+import { logIn, logOut } from 'ionicons/icons'
 
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
@@ -46,9 +46,9 @@ export const MenuToggle: React.FC = () => {
   return (<IonMenuButton className={classes.menuIcon} />)
 }
 
-export const Menu: React.FC = () => {
+export const Menu: React.FC = observer(() => {
   const classes = useStyles()
-  const { ui } = useStores()
+  const { settings, ui } = useStores()
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -60,29 +60,27 @@ export const Menu: React.FC = () => {
           <MapOptions />
         </IonList>
 
-        <IonList className={classes.menuList} lines="none">
+        <IonItem
+          className={classes.clickable}
+          lines='none'
+          onClick={() => ui.setShowLoginPopover(true)}
+        >
+          <IonIcon slot="start" icon={settings.authenticated ? logOut : logIn} />
+          <IonLabel>{settings.authenticated ? 'Uitloggen' : 'Inloggen'}</IonLabel>
+        </IonItem>
 
-          <IonItem
-            className={classes.clickable}
-            onClick={() => ui.setShowLoginPopover(true)}
-          >
-            <IonIcon slot="start" icon={logIn} />
-            <IonLabel>Inloggen</IonLabel>
-          </IonItem>
-
-          <IonItem
+        {/* <IonItem
             className={classes.clickable}
             onClick={() => ui.setShowSettingsModal(true)}
           >
-            <IonIcon slot="start" icon={settings} />
+            <IonIcon slot="start" icon={settingsIcon} />
             <IonLabel>Instellingen</IonLabel>
-          </IonItem>
+          </IonItem> */}
 
-        </IonList>
 
         <MenuFooter />
 
       </IonContent>
     </IonMenu >
   )
-}
+})

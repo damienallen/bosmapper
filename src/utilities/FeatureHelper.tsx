@@ -1,5 +1,5 @@
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
-import pinIcon from '../assets/pin.svg'
+import pinIcon from '../assets/pin_normal.svg'
 import pinIconSelected from '../assets/pin_selected.svg'
 
 import { RootStore } from '../stores'

@@ -67,14 +67,14 @@ export const SpeciesSelector: React.FC = observer(() => {
             const featureJson = {
                 species: species
             }
-            axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson)
+            axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
                     ui.setShowSpeciesUpdated(true)
                 })
                 .catch((error) => {
-                    console.error(error)
+                    console.error(error.response)
                     ui.setToastText('Verzoek mislukt')
                 })
         } else {

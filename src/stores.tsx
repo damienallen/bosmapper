@@ -241,12 +241,32 @@ export class SettingStore {
     @observable language: string = 'nl'
     @observable host: string = 'https://bos.dallen.co'
 
+    @observable token: string | null = null
+
     setLanguage(value: string) {
         this.language = value
     }
 
     setHost(value: string) {
         this.host = value
+    }
+
+    setToken(value: string) {
+        this.token = value
+    }
+
+    clearToken() {
+        this.token = null
+    }
+
+    @computed get authenticated() {
+        return (this.token !== null)
+    }
+
+    @computed get authHeader() {
+        return {
+            headers: { 'Authorization': `Bearer ${this.token}` }
+        }
     }
 
     constructor(public root: RootStore) { }

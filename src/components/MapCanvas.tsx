@@ -182,7 +182,7 @@ export const MapCanvas: React.FC = () => {
 
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error.response)
                 ui.setToastText('Geen verbinding met server')
             })
     }
