@@ -38,7 +38,7 @@ export const Note: React.FC = observer(() => {
                 ui.setShowNotesUpdated(true)
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error.response)
                 ui.setToastText('Verzoek mislukt')
             })
     }

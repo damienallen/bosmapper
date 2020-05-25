@@ -70,7 +70,7 @@ export const TreeDetail: React.FC = observer(() => {
         const oid = map.selectedFeature.get('oid')
         console.log('Removing feature', oid)
 
-        axios.post(`${settings.host}/tree/remove/${oid}/`, settings.authHeader)
+        axios.post(`${settings.host}/tree/remove/${oid}/`, null, settings.authHeader)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
@@ -79,7 +79,7 @@ export const TreeDetail: React.FC = observer(() => {
                 ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error.response)
                 ui.setToastText('Verzoek mislukt')
             })
 

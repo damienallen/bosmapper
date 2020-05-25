@@ -71,7 +71,7 @@ export const LocationSelector: React.FC = observer(() => {
                     ui.setShowLocationUpdated(true)
                 })
                 .catch((error) => {
-                    console.error(error)
+                    console.error(error.response)
                     ui.setToastText('Verzoek mislukt')
                 })
         } else {
@@ -89,7 +89,7 @@ export const LocationSelector: React.FC = observer(() => {
                     ui.setToastText('Geslaagd!')
                 })
                 .catch((error) => {
-                    console.error(error)
+                    console.error(error.response)
                     ui.setToastText('Verzoek mislukt')
                 })
         }

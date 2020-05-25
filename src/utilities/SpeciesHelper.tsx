@@ -9,7 +9,7 @@ export const fetchSpecies = (store: RootStore) => {
             console.log(`Loaded species list with ${response.data.length} items`)
         })
         .catch((error) => {
-            console.error(error)
+            console.error(error.response)
 
             if (store.species.count > 0) {
                 store.ui.setToastText('Geen verbinding met server')

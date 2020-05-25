@@ -74,7 +74,7 @@ export const SpeciesSelector: React.FC = observer(() => {
                     ui.setShowSpeciesUpdated(true)
                 })
                 .catch((error) => {
-                    console.error(error)
+                    console.error(error.response)
                     ui.setToastText('Verzoek mislukt')
                 })
         } else {
