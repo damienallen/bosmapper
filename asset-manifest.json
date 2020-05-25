@@ -15,8 +15,8 @@
     "static/js/6.eb55bdf0.chunk.js": "/bosmapper/static/js/6.eb55bdf0.chunk.js",
     "static/js/6.eb55bdf0.chunk.js.map": "/bosmapper/static/js/6.eb55bdf0.chunk.js.map",
     "main.css": "/bosmapper/static/css/main.a3e5c268.chunk.css",
-    "main.js": "/bosmapper/static/js/main.41d96b69.chunk.js",
-    "main.js.map": "/bosmapper/static/js/main.41d96b69.chunk.js.map",
+    "main.js": "/bosmapper/static/js/main.e747943a.chunk.js",
+    "main.js.map": "/bosmapper/static/js/main.e747943a.chunk.js.map",
     "polyfills-css-shim.js": "/bosmapper/static/js/polyfills-css-shim.cd99bc92.chunk.js",
     "polyfills-css-shim.js.map": "/bosmapper/static/js/polyfills-css-shim.cd99bc92.chunk.js.map",
     "runtime-main.js": "/bosmapper/static/js/runtime-main.f27ca716.js",
@@ -193,7 +193,7 @@
     "static/js/94.afec3f5a.chunk.js": "/bosmapper/static/js/94.afec3f5a.chunk.js",
     "static/js/94.afec3f5a.chunk.js.map": "/bosmapper/static/js/94.afec3f5a.chunk.js.map",
     "index.html": "/bosmapper/index.html",
-    "precache-manifest.f01937ab821838086f7f6e7f78bbce4c.js": "/bosmapper/precache-manifest.f01937ab821838086f7f6e7f78bbce4c.js",
+    "precache-manifest.a8971bddd790f6192dd4fc5731fdea59.js": "/bosmapper/precache-manifest.a8971bddd790f6192dd4fc5731fdea59.js",
     "service-worker.js": "/bosmapper/service-worker.js",
     "static/css/12.c48c954d.chunk.css.map": "/bosmapper/static/css/12.c48c954d.chunk.css.map",
     "static/css/main.a3e5c268.chunk.css.map": "/bosmapper/static/css/main.a3e5c268.chunk.css.map",
@@ -211,6 +211,6 @@
     "static/css/12.c48c954d.chunk.css",
     "static/js/12.dc8bf5d3.chunk.js",
     "static/css/main.a3e5c268.chunk.css",
-    "static/js/main.41d96b69.chunk.js"
+    "static/js/main.e747943a.chunk.js"
   ]
 }
