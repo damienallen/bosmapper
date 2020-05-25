@@ -1,13 +1,13 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
-    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonItem, IonIcon, IonButton, IonPopover
+    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover
 } from '@ionic/react'
-import { move, trash } from 'ionicons/icons'
+import { cloudDone, move, trash } from 'ionicons/icons'
 
-import { getSpeciesData } from '../utilities/FeatureHelpers'
+import { Note } from './Note'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -30,9 +30,6 @@ const useStyles = createUseStyles({
         fontStyle: 'italic',
         fontWeight: 400
     },
-    moveButton: {
-        marginRight: 10
-    },
     actionButtons: {
         display: 'flex',
         padding: '0 5px 10px 5px'
@@ -40,6 +37,25 @@ const useStyles = createUseStyles({
     actionButton: {
         flex: 1,
         margin: '0 5px'
+    },
+    featureActions: {
+        display: 'flex',
+        padding: '15px 5px 5px 5px',
+        background: '#fff'
+    },
+    labelButton: {
+        flex: '0 1'
+    },
+    iconButtons: {
+        flex: '0 1',
+        marginLeft: 'auto',
+        display: 'flex'
+    },
+    updated: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
+        fontSize: '1.5em'
     }
 })
 
@@ -48,22 +64,22 @@ export const TreeDetail: React.FC = observer(() => {
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
-    const speciesName = map.selectedFeature.values_.species
-    const speciesData = getSpeciesData(speciesName)
+    const speciesData = map.selectedFeature.getProperties()
 
     const confirmRemove = () => {
-        const oid = map.selectedFeature.values_.oid
+        const oid = map.selectedFeature.get('oid')
         console.log('Removing feature', oid)
 
-        axios.post(`${settings.host}/tree/remove/${oid}/`)
-            .then((response) => {
+        axios.post(`${settings.host}/tree/remove/${oid}/`, null, settings.authHeader)
+            .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
                 ui.setShowTreeDetails(false)
+                map.setSelectedFeature(null)
                 ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error.response)
                 ui.setToastText('Verzoek mislukt')
             })
 
@@ -71,12 +87,61 @@ export const TreeDetail: React.FC = observer(() => {
         setShowRemovePopover(false)
     }
 
+    // Action buttons
+    const changeSpeciesButton = (
+        <IonButton
+            fill='outline'
+            size='small'
+            className={classes.labelButton}
+            onClick={() => ui.setShowSpeciesSelector(true, 'update')}
+            disabled={ui.showSpeciesUpdated}
+        >
+            Soort bewerken
+        </IonButton>
+    )
+
+    const moveButton = (
+        <IonButton
+            fill='outline'
+            size='small'
+            onClick={() => ui.setShowLocationSelector(true, 'move')}
+            disabled={ui.showLocationUpdated}
+        >
+            <IonIcon icon={move} />
+        </IonButton>
+    )
+
+    const deleteButton = (
+        <IonButton
+            fill='outline'
+            size='small'
+            color='danger'
+            onClick={() => setShowRemovePopover(true)}
+        >
+            <IonIcon icon={trash} color='danger' />
+        </IonButton>
+    )
+
+    const actionsArea = settings.authenticated ?
+        (
+            <div className={classes.featureActions}>
+                {changeSpeciesButton}
+
+                <div className={classes.iconButtons}>
+                    {moveButton}
+                    {deleteButton}
+                </div>
+            </div>
+        ) : null
+
     return (
         <div className={classes.container}>
+
             <IonPopover
                 isOpen={showRemovePopover}
                 onDidDismiss={(_e: any) => setShowRemovePopover(false)}
             >
+
                 <IonCardHeader>
                     <IonCardTitle>Zeker?</IonCardTitle>
                     <IonCardSubtitle>Wilt u dit boom verwijderen?</IonCardSubtitle>
@@ -86,16 +151,16 @@ export const TreeDetail: React.FC = observer(() => {
                     <IonButton
                         className={classes.actionButton}
                         onClick={() => setShowRemovePopover(false)}
-                        size="default"
+                        size='default'
                     >
                         Nee, ga terug
                     </IonButton>
                     <IonButton
                         className={classes.actionButton}
                         onClick={confirmRemove}
-                        size="default"
-                        color="danger"
-                        fill="outline"
+                        size='default'
+                        color='danger'
+                        fill='outline'
                     >
                         Ja
                     </IonButton>
@@ -106,20 +171,17 @@ export const TreeDetail: React.FC = observer(() => {
             <IonCard className={classes.box}>
 
                 <IonCardHeader>
-                    <IonCardTitle>{speciesData.name_nl}</IonCardTitle>
-                    <IonCardSubtitle className={classes.subtitle}>{speciesData.abbr}</IonCardSubtitle>
+                    <IonCardTitle>{speciesData.name_nl ? speciesData.name_nl : speciesData.species}</IonCardTitle>
+                    <IonCardSubtitle className={classes.subtitle}>{speciesData.name_la}</IonCardSubtitle>
                 </IonCardHeader>
 
-                <IonItem>
-                    <IonButton fill="outline" className={classes.moveButton} onClick={() => { ui.setShowLocationSelector(true, 'move') }}>
-                        <IonIcon icon={move} />Verplaatsen
-                    </IonButton>
-                    {/* <IonButton fill="outline">species wijzigen</IonButton> */}
-                    <IonButton fill="outline" slot="end" color="danger" onClick={() => { setShowRemovePopover(true) }}>
-                        <IonIcon icon={trash} color="danger" />Verwijderen
-                    </IonButton>
-                </IonItem>
+                {ui.showDetailsUpdated ? <IonIcon color='medium' className={classes.updated} icon={cloudDone} /> : null}
+
+                <Note />
+                {actionsArea}
+
             </IonCard>
+
         </div>
     )
 })

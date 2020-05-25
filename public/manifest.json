@@ -1,6 +1,6 @@
 {
-  "short_name": "Bos Mapper",
-  "name": "Bos Mapper",
+  "short_name": "bosmapper",
+  "name": "bosmapper",
   "icons": [
     {
       "src": "assets/icon/favicon.png",

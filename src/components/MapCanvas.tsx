@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import React, { useEffect, useRef } from 'react'
 import { reaction, IReactionDisposer } from 'mobx'
 import { MobXProviderContext } from 'mobx-react'
@@ -14,7 +14,7 @@ import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
-import { styleFunction } from '../utilities/FeatureHelpers'
+import { styleFunction } from '../utilities/FeatureHelper'
 import { MapBrowserEvent } from 'ol'
 
 
@@ -107,13 +107,13 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 export const MapCanvas: React.FC = () => {
 
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map, settings, ui } = useStores()
+    const { map, root, settings, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
-        style: styleFunction,
+        style: (feature: any, resolution: number) => (styleFunction(root, feature, resolution)),
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
@@ -125,7 +125,7 @@ export const MapCanvas: React.FC = () => {
         minZoom: 18,
         zoom: 19.5,
         rotation: -0.948,
-        extent: [493263, 6783483, 493457, 6783667] // 493249,493472,6783473,6783677 [EPSG:3857]
+        extent: [493263, 6783480, 493457, 6783670] // 493249,493472,6783473,6783677 [EPSG:3857]
     })
 
     const olMap = new OlMap({
@@ -147,7 +147,6 @@ export const MapCanvas: React.FC = () => {
         map.setSelectedFeature(null)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
-            // console.log(feature)
             map.setSelectedFeature(feature)
             ui.setShowTreeDetails(true)
         })
@@ -156,20 +155,34 @@ export const MapCanvas: React.FC = () => {
     // Feature fetching from server
     const getFeatures = () => {
         axios.get(`${settings.host}/trees/`)
-            .then((response) => {
+            .then((response: AxiosResponse) => {
+                // Check against hash of existing features
                 const featuresHash = hash(response.data)
-                if (featuresHash !== map.featuresHash) {
-                    console.debug(response)
 
+                if (featuresHash !== map.featuresHash) {
                     map.setFeaturesHash(featuresHash)
                     map.setFeaturesGeoJson(response.data)
+                    console.log(`Loaded ${response.data.features.length} features at ${new Date().toISOString()}`)
+
+                    // Update selected feature if necesary
+                    if (map.selectedFeature) {
+                        const oid = map.selectedFeature.get('oid')
+                        const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
+                            (feature: any) => (feature.get('oid') === oid)
+                        )
+                        if (newFeatureEntry) {
+                            map.setSelectedFeature(newFeatureEntry)
+                        } else {
+                            console.warn(`Unable to find feature '${oid} in updated feature list`)
+                        }
+                    }
                 } else {
                     console.debug('Features not updated')
                 }
 
             })
             .catch((error) => {
-                console.error(error)
+                console.error(error.response)
                 ui.setToastText('Geen verbinding met server')
             })
     }
@@ -179,16 +192,27 @@ export const MapCanvas: React.FC = () => {
         olMap.setTarget(mapEl.current)
 
         // Fetch features
+        console.log(`Connecting to host '${settings.host}'`)
         getFeatures()
-        const featureFetcher = setInterval(getFeatures, 10000)
+        const featureFetcher = setInterval(getFeatures, 15000)
 
         // Set up reactions
         const disposer = [
+            reaction(() => map.baseMap, () => treeFeatures.changed()),
+            reaction(() => map.selectedFeature, (selectedFeature: any) => {
+                treeFeatures.changed()
+                if (selectedFeature && olView.getZoom() > 20) {
+                    olView.animate({
+                        center: selectedFeature.getGeometry().getCoordinates(),
+                        duration: 500
+                    })
+                }
+            }),
             reaction(
                 () => map.needsUpdate,
                 (needsUpdate: boolean) => {
                     if (needsUpdate) {
-                        getFeatures()
+                        setTimeout(() => getFeatures(), 100)
                         map.setNeedsUpdate(false)
                     }
                 }
@@ -198,7 +222,11 @@ export const MapCanvas: React.FC = () => {
                 (centerOnSelected: boolean) => {
                     if (centerOnSelected && map.selectedFeature) {
                         const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
-                        olView.setCenter(featureCoords)
+                        olView.animate({
+                            center: featureCoords,
+                            zoom: 21,
+                            duration: 200
+                        })
                         map.setCenterOnSelected(false)
                     }
                 }
@@ -218,12 +246,16 @@ export const MapCanvas: React.FC = () => {
                         console.warn('No features found')
                     }
                 }
-            ),
+            )
         ]
 
-        setTimeout(() => {
+        // Prevent map loading issues by forcing resize
+        const waitForMap = setInterval(() => {
             olMap.updateSize()
-        }, 500)
+        }, 100)
+        olMap.once('postcompose', () => {
+            clearInterval(waitForMap)
+        })
 
         return () => {
             console.log('Unloading map canvas...')

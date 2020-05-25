@@ -1,4 +1,4 @@
-![bosmapper](https://github.com/damienallen/bosmapper/blob/develop/src/assets/logo_dark.png)
+# bosmapper
 
 ### Requirements
 - node & npm

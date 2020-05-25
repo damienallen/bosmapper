@@ -1,3 +1,4 @@
+import Cookies from 'universal-cookie'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import {
@@ -11,6 +12,9 @@ import { Menu } from './components/Menu'
 
 /* Stores */
 import { RootStore } from './stores'
+
+/* Utilities */
+import { fetchSpecies } from './utilities/SpeciesHelper'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -34,19 +38,41 @@ import './theme/variables.css'
 /* Openlayers styling */
 import 'ol/ol.css'
 
+/* Cache static assets */
+import '../assets/pin_normal.svg'
+import '../assets/pin_selected.svg'
+import '../assets/focus.svg'
+
 
 export const App: React.FC = () => {
   const rootStore = new RootStore()
 
+  // Use dev server if enabled
+  if (process.env.REACT_APP_SERVER === 'dev') {
+    rootStore.settings.setHost('http://192.168.178.16:8080')
+  }
+
+  // Fetch token cookie
+  const cookies = new Cookies()
+  const cachedToken = cookies.get('token')
+  if (cachedToken) {
+    rootStore.settings.setToken(cachedToken)
+    console.log(`Using cached token '${cachedToken}'`)
+  }
+
+  // Fetch species list from server
+  fetchSpecies(rootStore)
+
   return (
     <Provider
-      filter={rootStore.filter}
       map={rootStore.map}
+      root={rootStore}
       settings={rootStore.settings}
+      species={rootStore.species}
       ui={rootStore.ui}
     >
       <IonApp>
-        <IonSplitPane contentId="main">
+        <IonSplitPane contentId='main'>
           <Menu />
           <Content />
         </IonSplitPane>
