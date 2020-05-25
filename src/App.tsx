@@ -38,6 +38,11 @@ import './theme/variables.css'
 /* Openlayers styling */
 import 'ol/ol.css'
 
+/* Cache static assets */
+import '../assets/pin_normal.svg'
+import '../assets/pin_selected.svg'
+import '../assets/focus.svg'
+
 
 export const App: React.FC = () => {
   const rootStore = new RootStore()
