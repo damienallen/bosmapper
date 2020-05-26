@@ -224,7 +224,7 @@ export const MapCanvas: React.FC = () => {
                         const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
                         olView.animate({
                             center: featureCoords,
-                            zoom: 21,
+                            zoom: Math.max(21, olView.getZoom()),
                             duration: 200
                         })
                         map.setCenterOnSelected(false)
