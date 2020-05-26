@@ -44,6 +44,10 @@ export const SearchBar: React.FC = observer(() => {
     const { species, map, ui } = useStores()
     const classes = useStyles(map.overlayBackground)
 
+    const onKeyPress = (e: any) => {
+        if (e.key === 'Enter') e.target.blur()
+    }
+
     return (
         <div className={classes.container}>
             <div className={classes.bar}>
@@ -56,6 +60,7 @@ export const SearchBar: React.FC = observer(() => {
                         ui.setShowTreeDetails(false)
                         map.setSelectedFeature(null)
                     }}
+                    onKeyDown={onKeyPress}
                     debounce={400}
                     placeholder='Zoeken'
                     mode='ios'

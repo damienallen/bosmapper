@@ -84,6 +84,10 @@ export const SpeciesSelector: React.FC = observer(() => {
         ui.setShowSpeciesSelector(false)
     }
 
+    const onKeyPress = (e: any) => {
+        if (e.key === 'Enter') e.target.blur()
+    }
+
     const speciesList = filteredSpecies.map((item: Species) => (
         <IonItem key={item.species} onClick={e => handleSelect(item.species)}>
             <IonLabel>
@@ -111,6 +115,7 @@ export const SpeciesSelector: React.FC = observer(() => {
                     <IonSearchbar
                         value={searchText}
                         onIonChange={handleInput}
+                        onKeyDown={onKeyPress}
                         debounce={200}
                         placeholder='Zoeken'
                         mode='ios'

@@ -45,9 +45,7 @@ export const Note: React.FC = observer(() => {
 
     // Blur input and submit on 'enter' press
     const onKeyPress = (e: any): void => {
-        if (e.key === 'Enter') {
-            e.target.blur()
-        }
+        if (e.key === 'Enter') e.target.blur()
     }
 
     const readonlyNote = map.selectedFeature.get('notes') ?
