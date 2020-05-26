@@ -153,6 +153,7 @@ export class MapStore {
     @observable featuresGeoJson: any
     @observable filteredFeatures: any
     @observable selectedFeature: any
+    @observable firstLoad: boolean = true
 
     @observable featuresHash: string = ''
     @observable needsUpdate: boolean = false
@@ -176,6 +177,7 @@ export class MapStore {
 
     setSelectedFeature(value: any) {
         this.selectedFeature = value
+        this.firstLoad = false
     }
 
     setFeaturesHash(value: string) {

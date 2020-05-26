@@ -5,6 +5,7 @@ import { MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import hash from 'object-hash'
 
+import { MapBrowserEvent } from 'ol'
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
 import OlLayerTile from 'ol/layer/Tile'
@@ -15,7 +16,7 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelper'
-import { MapBrowserEvent } from 'ol'
+import focusIcon from '../assets/focus.svg'
 
 
 const useStores = () => {
@@ -196,6 +197,9 @@ export const MapCanvas: React.FC = () => {
         getFeatures()
         const featureFetcher = setInterval(getFeatures, 15000)
 
+        // Cache focus icon
+        new Image().src = focusIcon
+
         // Set up reactions
         const disposer = [
             reaction(() => map.baseMap, () => treeFeatures.changed()),
@@ -242,6 +246,13 @@ export const MapCanvas: React.FC = () => {
                         treeFeatures.setSource(new VectorSource({
                             features: (new GeoJSON()).readFeatures(filteredFeatures)
                         }))
+
+                        // Toggle selected feature on first load (cache feature)
+                        if (map.firstLoad) {
+                            map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
+                            setTimeout(() => map.setSelectedFeature(null), 100)
+                        }
+
                     } else {
                         console.warn('No features found')
                     }
