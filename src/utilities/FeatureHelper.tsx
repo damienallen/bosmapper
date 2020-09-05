@@ -1,6 +1,8 @@
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
 import pinIcon from '../assets/pin_normal.svg'
 import pinIconSelected from '../assets/pin_selected.svg'
+import pinIconUnknown from '../assets/pin_unknown.svg'
+import pinIconUnknownSelected from '../assets/pin_unknown_selected.svg'
 
 import { RootStore } from '../stores'
 
@@ -15,6 +17,18 @@ const pin = new Icon({
 const pinSelected = new Icon({
     anchor: [0.5, 1],
     src: pinIconSelected,
+    scale: pinScale
+})
+
+const pinUnknown = new Icon({
+    anchor: [0.5, 1],
+    src: pinIconUnknown,
+    scale: pinScale
+})
+
+const pinUnknownSelected = new Icon({
+    anchor: [0.5, 1],
+    src: pinIconUnknownSelected,
     scale: pinScale
 })
 
@@ -38,10 +52,18 @@ const textStyle = (baseMap: string) => (new Text({
     rotation: 0
 }))
 
+const getPinStyle = (isSelected: boolean, nameNL: string) => {
+    if (nameNL === 'Onbekend') {
+        return isSelected ? pinUnknownSelected : pinUnknown
+    } else {
+        return isSelected ? pinSelected : pin
+    }
+}
 
 export const styleFunction = (store: RootStore, feature: any, resolution: number) => {
     const speciesData = feature.getProperties()
-    const pinStyle = feature === store.map.selectedFeature ? pinSelected : pin
+    const isSelected = feature === store.map.selectedFeature
+    const pinStyle = getPinStyle(isSelected, speciesData.name_nl)
     const featureStyle: Style = new Style({
         image: pinStyle,
         text: textStyle(store.map.baseMap)
