@@ -28,7 +28,7 @@ export const MapOptions: React.FC = observer(() => {
         if (e.target.checked) {
             map.setBaseMap('drone')
         } else {
-            map.setBaseMap('vector')
+            map.setBaseMap('vector/v2')
         }
     }
 
