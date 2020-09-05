@@ -1,5 +1,5 @@
 {
-  "name": "bos-mapper",
+  "name": "bosmapper",
   "version": "2.0.0",
   "private": true,
   "dependencies": {
@@ -70,5 +70,5 @@
     "ts-jest": "^24.2.0"
   },
   "description": "Simple tree management",
-  "homepage": "https://damienallen.github.io/bosmapper"
+  "homepage": "https://bosmapper.dallen.co"
 }
