@@ -26,6 +26,7 @@
     "start-dev": "cross-env REACT_APP_SERVER=dev ionic serve --no-open",
     "update": "yarn upgrade-interactive --latest",
     "build": "react-scripts build",
+    "build-dev": "cross-env REACT_APP_SERVER=dev react-scripts build",
     "test": "jest",
     "predeploy": "react-scripts build",
     "deploy": "gh-pages -d build"

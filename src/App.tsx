@@ -44,7 +44,7 @@ export const App: React.FC = () => {
 
   // Use dev server if enabled
   if (process.env.REACT_APP_SERVER === 'dev') {
-    rootStore.settings.setHost('http://192.168.178.16:8080')
+    rootStore.settings.setHost('https://devbos.dallen.co/api')
   }
 
   // Fetch token cookie
