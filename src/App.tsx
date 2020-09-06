@@ -47,12 +47,21 @@ export const App: React.FC = () => {
     rootStore.settings.setHost('https://devbos.dallen.co/api')
   }
 
-  // Fetch token cookie
+  // Fetch cookies
   const cookies = new Cookies()
   const cachedToken = cookies.get('token')
   if (cachedToken) {
     rootStore.settings.setToken(cachedToken)
     console.log(`Using cached token '${cachedToken}'`)
+  }
+
+  const droneMap = cookies.get('drone')
+  if (droneMap === 'true') {
+    rootStore.map.setBaseMap('drone')
+  } else if (droneMap === 'false') {
+    rootStore.map.setBaseMap('vector/v2')
+  } else {
+    cookies.set('drone', true)
   }
 
   // Fetch species list from server

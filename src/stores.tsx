@@ -1,7 +1,9 @@
+import Cookies from 'universal-cookie'
 import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
 
+const cookies = new Cookies()
 export const showUpdatedTimeout = 2500
 
 export class RootStore {
@@ -169,6 +171,7 @@ export class MapStore {
 
     setBaseMap(value: string) {
         this.baseMap = value
+        cookies.set('drone', value === 'drone')
     }
 
     setFeaturesGeoJson(value: any) {
