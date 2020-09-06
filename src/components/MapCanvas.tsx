@@ -261,9 +261,7 @@ export const MapCanvas: React.FC = () => {
         ]
 
         // Prevent map loading issues by forcing resize
-        const waitForMap = setInterval(() => {
-            olMap.updateSize()
-        }, 100)
+        const waitForMap = setInterval(() => olMap.updateSize(), 100)
         olMap.once('postcompose', () => {
             clearInterval(waitForMap)
         })

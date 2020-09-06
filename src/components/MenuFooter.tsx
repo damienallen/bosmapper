@@ -41,13 +41,13 @@ export const MenuFooter: React.FC = () => {
                 </div>
 
                 <div className={classes.footerItem}>
-                    <span className={classes.itemHeader}>coding: </span>
+                    <span className={classes.itemHeader}>coding en ontwerp: </span>
                     Damien Allen
                 </div>
 
                 <div className={classes.footerItem}>
                     <span className={classes.itemHeader}>kaartgegevens: </span>
-                    Voedseltuin Vrijwilligers
+                    Voedseltuin vrijwilligers
                 </div>
 
                 <div className={classes.footerItem}>
