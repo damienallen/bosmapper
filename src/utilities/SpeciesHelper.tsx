@@ -4,6 +4,7 @@ import { RootStore } from '../stores'
 export const fetchSpecies = (store: RootStore) => {
     axios.get(`${store.settings.host}/species/`)
         .then((response: AxiosResponse) => {
+            console.dir(response)
             store.species.setList(response.data)
             store.ui.setShowConnectionError(false)
             console.log(`Loaded species list with ${response.data.length} items`)

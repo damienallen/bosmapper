@@ -11,7 +11,6 @@ const useStyles = createUseStyles({
         position: 'absolute',
         bottom: 20,
         width: '100%',
-        textAlign: 'center',
         '& div': {
             padding: '0 10px'
         }
@@ -25,7 +24,7 @@ const useStyles = createUseStyles({
         opacity: 0.6
     },
     version: {
-        marginBottom: 20,
+        marginBottom: 10,
         fontStyle: 'italic'
     }
 })

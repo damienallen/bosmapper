@@ -8,6 +8,7 @@ import {
   IonMenuButton
 } from '@ionic/react'
 
+import { DataSummary } from './DataSummary'
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
@@ -18,9 +19,9 @@ const useStyles = createUseStyles({
     color: '#999',
     fontSize: '2.1em'
   },
-  menuList: {
-    borderBottom: '1px solid rgba(0,0,0,0.13)',
-    marginBottom: 8,
+  menuSection: {
+    // borderBottom: '1px solid rgba(0,0,0,0.13)',
+    // marginBottom: 8,
     userSelect: 'none'
   },
   clickable: {
@@ -43,8 +44,12 @@ export const Menu: React.FC = observer(() => {
 
       <IonContent>
 
-        <IonList className={classes.menuList} lines="none">
+        <IonList className={classes.menuSection} lines="none">
           <MapOptions />
+        </IonList>
+
+        <IonList className={classes.menuSection} lines="none">
+          <DataSummary />
         </IonList>
 
         <MenuFooter />

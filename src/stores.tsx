@@ -153,6 +153,7 @@ export class MapStore {
     @observable featuresGeoJson: any
     @observable filteredFeatures: any
     @observable selectedFeature: any
+    @observable numUnknown: number = 0
     @observable firstLoad: boolean = true
 
     @observable featuresHash: string = ''
@@ -173,6 +174,7 @@ export class MapStore {
     setFeaturesGeoJson(value: any) {
         this.featuresGeoJson = value
         this.filteredFeatures = value
+        this.numUnknown = value.features.filter((species: any) => (species.properties.name_nl === 'Onbekend')).length
     }
 
     setSelectedFeature(value: any) {
