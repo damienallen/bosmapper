@@ -208,6 +208,10 @@ export class MapStore {
         return this.baseMap === 'drone' ? '#333' : '#fff'
     }
 
+    @computed get searchBorder() {
+        return this.baseMap === 'drone' ? '2px solid transparent' : '2px solid #999'
+    }
+
     constructor(public root: RootStore) {
         autorun(() => {
             const query = this.root.species.query.toLowerCase()
