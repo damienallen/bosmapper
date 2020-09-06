@@ -45,6 +45,18 @@ const dotSelected = new Icon({
     scale: svgScale
 })
 
+const dotAlt = new Icon({
+    anchor: [0.5, 0.5],
+    src: dotSVG('78a658'),
+    scale: svgScale
+})
+
+const dotAltSelected = new Icon({
+    anchor: [0.5, 0.5],
+    src: dotSVG('78a658', 'ffffff'),
+    scale: svgScale
+})
+
 const dotUnknown = new Icon({
     anchor: [0.5, 0.5],
     src: dotSVG('aaaaaa'),
@@ -69,6 +81,19 @@ const pinSelected = new Icon({
     scale: svgScale
 })
 
+const pinAlt = new Icon({
+    anchor: [0.5, 1],
+    src: pinSVG('78a658', '4d7343'),
+    scale: svgScale
+})
+
+const pinAltSelected = new Icon({
+    anchor: [0.5, 1],
+    src: pinSVG('78a658', 'a1c786', 'fff'),
+    scale: svgScale
+})
+
+
 const pinUnknown = new Icon({
     anchor: [0.5, 1],
     src: pinSVG('aaa', '888'),
@@ -81,16 +106,17 @@ const pinUnknownSelected = new Icon({
     scale: svgScale
 })
 
-const textStyle = (baseMap: string) => (new Text({
+// Feature label styling
+const textStyle = (droneBase: boolean) => (new Text({
     textAlign: 'center',
     textBaseline: 'middle',
     text: '',
     fill: new Fill({
-        color: baseMap === 'drone' ? '#ffffff' : '#000000'
+        color: droneBase ? '#ffffff' : '#000000'
     }),
     stroke: new Stroke({
-        color: baseMap === 'drone' ? '#000000' : '#ffffff',
-        width: 3
+        color: droneBase ? '#000000' : '#ffffff',
+        width: 2.5
     }),
     font: '16px sans-serif',
     offsetX: 0,
@@ -101,30 +127,42 @@ const textStyle = (baseMap: string) => (new Text({
     rotation: 0
 }))
 
-const getDotStyle = (isSelected: boolean, nameNL: string) => {
-    if (nameNL === 'Onbekend') {
+// Marker style depending on context
+const getDotStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean) => {
+    if (isUnknown) {
         return isSelected ? dotUnknownSelected : dotUnknown
     } else {
-        return isSelected ? dotSelected : dot
+        return isSelected ?
+            (droneBase ? dotSelected : dotAltSelected) :
+            (droneBase ? dot : dotAlt)
     }
 }
 
-const getPinStyle = (isSelected: boolean, nameNL: string) => {
-    if (nameNL === 'Onbekend') {
+const getPinStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean) => {
+    if (isUnknown) {
         return isSelected ? pinUnknownSelected : pinUnknown
     } else {
-        return isSelected ? pinSelected : pin
+        return isSelected ?
+            (droneBase ? pinSelected : pinAltSelected) :
+            (droneBase ? pin : pinAlt)
     }
 }
 
 export const styleFunction = (store: RootStore, feature: any, resolution: number) => {
     const nearZoom = resolution < 0.08
     const speciesData = feature.getProperties()
+
     const isSelected = feature === store.map.selectedFeature
-    const pinStyle = nearZoom ? getPinStyle(isSelected, speciesData.name_nl) : getDotStyle(isSelected, speciesData.name_nl)
+    const isUnknown = speciesData.name_nl === 'Onbekend'
+    const droneBase = store.map.baseMap === 'drone'
+
+    const pinStyle = nearZoom ?
+        getPinStyle(isSelected, isUnknown, droneBase) :
+        getDotStyle(isSelected, isUnknown, droneBase)
+
     const featureStyle: Style = new Style({
         image: pinStyle,
-        text: textStyle(store.map.baseMap)
+        text: textStyle(droneBase)
     })
 
     // Display text based at high zoom level
