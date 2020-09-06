@@ -1,10 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer, MobXProviderContext } from 'mobx-react'
-import {
-  IonListHeader,
-  IonLabel,
-} from '@ionic/react'
 
 const useStores = () => {
   return React.useContext(MobXProviderContext)
@@ -13,6 +9,11 @@ const useStores = () => {
 const useStyles = createUseStyles({
   container: {
     width: '100%',
+  },
+  sectionHeader: {
+    padding: 16,
+    color: '#92949c',
+    fontSize: '0.9em'
   },
   summaryItems: {
     padding: '0 16px'
@@ -33,24 +34,22 @@ export const DataSummary: React.FC = observer(() => {
   return (
     <div className={classes.container} >
 
-      <IonListHeader>
-        <IonLabel color="medium">Overzicht</IonLabel>
-      </IonListHeader>
+      <div className={classes.sectionHeader}>Overzicht</div>
 
       <div className={classes.summaryItems}>
 
         <div className={classes.item}>
-          {map.featuresGeoJson ? map.featuresGeoJson.features.length : '--'}
+          {map.featuresGeoJson ? map.featuresGeoJson.features.length : '—'}
           <span className={classes.itemHeader}> bomen</span>
         </div>
 
         <div className={classes.item}>
-          {map.featuresGeoJson ? map.numUnknown : '--'}
+          {map.featuresGeoJson ? map.numUnknown : '—'}
           <span className={classes.itemHeader}> onbekend</span>
         </div>
 
         <div className={classes.item}>
-          {species.list.length ? species.list.length - 1 : '--'}
+          {species.list.length ? species.list.length - 1 : '—'}
           <span className={classes.itemHeader}> soorten</span>
         </div>
 

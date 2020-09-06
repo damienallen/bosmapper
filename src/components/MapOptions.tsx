@@ -1,11 +1,6 @@
 import React from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
-import {
-    IonLabel,
-    IonListHeader
-} from '@ionic/react'
-
 import droneBackground from '../assets/drone_bg.png'
 import vectorBackground from '../assets/vector_bg.png'
 
@@ -16,6 +11,11 @@ const useStores = () => {
 const useStyles = createUseStyles({
     container: {
         width: '100%'
+    },
+    sectionHeader: {
+        padding: 16,
+        color: '#92949c',
+        fontSize: '0.9em'
     },
     mapButtonContainer: {
         display: 'flex',
@@ -61,9 +61,7 @@ export const MapOptions: React.FC = observer(() => {
     return (
         <div className={classes.container} >
 
-            <IonListHeader>
-                <IonLabel color="medium">Basis Kaart</IonLabel>
-            </IonListHeader>
+            <div className={classes.sectionHeader}>Basis kaart</div>
 
             <div className={classes.mapButtonContainer}>
                 <div className={mapButtonClass(isDrone)} onClick={() => map.setBaseMap('drone')}>
