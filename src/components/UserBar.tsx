@@ -32,7 +32,7 @@ export const UserBar: React.FC = observer(() => {
 
   return (
     <IonItem
-      color="primary"
+      color={settings.authenticated ? 'secondary' : 'tertiary'}
       className={classes.container}
       lines='none'
     >
