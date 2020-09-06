@@ -3,9 +3,6 @@ import { createUseStyles } from 'react-jss'
 import { observer } from 'mobx-react'
 import {
   IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
   IonList,
   IonMenu,
   IonMenuButton
