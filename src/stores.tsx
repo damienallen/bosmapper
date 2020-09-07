@@ -250,7 +250,7 @@ export class MapStore {
 export class SettingStore {
 
     @observable language: string = 'nl'
-    @observable host: string = 'https://bosmapper.dallen.co'
+    @observable host: string = 'https://bosmapper.dallen.co/api'
 
     @observable token: string | null = null
 
