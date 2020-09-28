@@ -126,7 +126,7 @@ export const MapCanvas: React.FC = () => {
         minZoom: 18,
         zoom: 19.5,
         rotation: -0.948,
-        extent: [493263, 6783480, 493457, 6783670] // 493249,493472,6783473,6783677 [EPSG:3857]
+        extent: [493243, 6783460, 493477, 6783690] // 493249,493472,6783473,6783677 [EPSG:3857]
     })
 
     const olMap = new OlMap({
@@ -261,9 +261,7 @@ export const MapCanvas: React.FC = () => {
         ]
 
         // Prevent map loading issues by forcing resize
-        const waitForMap = setInterval(() => {
-            olMap.updateSize()
-        }, 100)
+        const waitForMap = setInterval(() => olMap.updateSize(), 100)
         olMap.once('postcompose', () => {
             clearInterval(waitForMap)
         })

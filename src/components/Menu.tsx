@@ -1,38 +1,25 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import {
   IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
   IonList,
   IonMenu,
   IonMenuButton
 } from '@ionic/react'
-import { logIn, logOut } from 'ionicons/icons'
 
+import { DataSummary } from './DataSummary'
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
-
-const useStores = () => {
-  return React.useContext(MobXProviderContext)
-}
-
-export interface AppPage {
-  url: string,
-  icon: object,
-  title: string
-}
+import { UserBar } from './UserBar'
 
 const useStyles = createUseStyles({
   menuIcon: {
     color: '#999',
     fontSize: '2.1em'
   },
-  menuList: {
-    borderBottom: '1px solid rgba(0,0,0,0.13)',
+  menuSection: {
     marginBottom: 8,
     userSelect: 'none'
   },
@@ -48,35 +35,21 @@ export const MenuToggle: React.FC = () => {
 
 export const Menu: React.FC = observer(() => {
   const classes = useStyles()
-  const { settings, ui } = useStores()
 
   return (
     <IonMenu contentId="main" type="overlay">
       <Logo />
+      <UserBar />
 
       <IonContent>
 
-        <IonList className={classes.menuList} lines="none">
+        <IonList className={classes.menuSection} lines="none">
           <MapOptions />
         </IonList>
 
-        <IonItem
-          className={classes.clickable}
-          lines='none'
-          onClick={() => ui.setShowLoginPopover(true)}
-        >
-          <IonIcon slot="start" icon={settings.authenticated ? logOut : logIn} />
-          <IonLabel>{settings.authenticated ? 'Uitloggen' : 'Inloggen'}</IonLabel>
-        </IonItem>
-
-        {/* <IonItem
-            className={classes.clickable}
-            onClick={() => ui.setShowSettingsModal(true)}
-          >
-            <IonIcon slot="start" icon={settingsIcon} />
-            <IonLabel>Instellingen</IonLabel>
-          </IonItem> */}
-
+        <IonList className={classes.menuSection} lines="none">
+          <DataSummary />
+        </IonList>
 
         <MenuFooter />
 

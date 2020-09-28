@@ -1,7 +1,9 @@
+import Cookies from 'universal-cookie'
 import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
 
+const cookies = new Cookies()
 export const showUpdatedTimeout = 2500
 
 export class RootStore {
@@ -153,6 +155,7 @@ export class MapStore {
     @observable featuresGeoJson: any
     @observable filteredFeatures: any
     @observable selectedFeature: any
+    @observable numUnknown: number = 0
     @observable firstLoad: boolean = true
 
     @observable featuresHash: string = ''
@@ -168,11 +171,13 @@ export class MapStore {
 
     setBaseMap(value: string) {
         this.baseMap = value
+        cookies.set('drone', value === 'drone')
     }
 
     setFeaturesGeoJson(value: any) {
         this.featuresGeoJson = value
         this.filteredFeatures = value
+        this.numUnknown = value.features.filter((species: any) => (species.properties.name_nl === 'Onbekend')).length
     }
 
     setSelectedFeature(value: any) {
@@ -208,6 +213,10 @@ export class MapStore {
         return this.baseMap === 'drone' ? '#333' : '#fff'
     }
 
+    @computed get searchBorder() {
+        return this.baseMap === 'drone' ? '2px solid transparent' : '2px solid #999'
+    }
+
     constructor(public root: RootStore) {
         autorun(() => {
             const query = this.root.species.query.toLowerCase()
@@ -241,7 +250,7 @@ export class MapStore {
 export class SettingStore {
 
     @observable language: string = 'nl'
-    @observable host: string = 'https://bos.dallen.co'
+    @observable host: string = 'https://bosmapper.dallen.co/api'
 
     @observable token: string | null = null
 

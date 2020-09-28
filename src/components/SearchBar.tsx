@@ -22,9 +22,10 @@ const useStyles = createUseStyles({
     },
     bar: {
         width: '100%',
+        border: (props: StyleProps) => props.border,
         borderRadius: 4,
         padding: 5,
-        background: (searchBackground: string) => searchBackground,
+        background: (props: StyleProps) => props.background,
         display: 'flex'
     },
     search: {
@@ -39,10 +40,20 @@ const useStyles = createUseStyles({
     }
 })
 
+interface StyleProps {
+    border: 'string',
+    background: 'string',
+}
+
 export const SearchBar: React.FC = observer(() => {
     const [searchText] = React.useState('')
     const { species, map, ui } = useStores()
-    const classes = useStyles(map.overlayBackground)
+
+    const styleProps = {
+        border: map.searchBorder,
+        background: map.overlayBackground,
+    }
+    const classes = useStyles(styleProps)
 
     const onKeyPress = (e: any) => {
         if (e.key === 'Enter') e.target.blur()
