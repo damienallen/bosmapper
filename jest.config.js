@@ -13,7 +13,8 @@ module.exports = {
     '^.+\\.svg$': 'jest-svg-transformer'
   },
   moduleNameMapper: {
-    '.+\\.(css|scss|png|jpg|ttf)$': 'identity-obj-proxy'
+    '.+\\.(png|jpg|ttf)$': '<rootDir>/tests/fileMock.js',
+    '.+\\.(css|scss)$': 'identity-obj-proxy'
   },
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules/',
