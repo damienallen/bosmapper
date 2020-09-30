@@ -5,13 +5,15 @@ import {
   IonChip,
   IonContent,
   IonIcon,
+  IonItem,
   IonLabel,
   IonList,
   IonListHeader,
   IonMenu,
   IonMenuButton,
+  IonToggle
 } from '@ionic/react'
-import { refreshOutline, layersOutline, pricetagsOutline } from 'ionicons/icons'
+import { refreshOutline, layersOutline, pricetagsOutline, settingsOutline } from 'ionicons/icons'
 
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
@@ -87,6 +89,22 @@ export const Menu: React.FC = observer(() => {
           <IonChip>
             <IonLabel>Zorg nodig</IonLabel>
           </IonChip>
+        </IonList>
+
+        <IonListHeader className={classes.sectionHeader}>
+          <IonIcon className={classes.sectionIcon} icon={settingsOutline} />
+          Instellingen
+        </IonListHeader>
+
+        <IonList className={classes.menuSection} lines="none">
+          <IonItem>
+            <IonToggle color="primary" slot="start" />
+            <IonLabel>Dood bomen tonen</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonToggle color="primary" slot="start" />
+            <IonLabel>Notities tonen op kaart</IonLabel>
+          </IonItem>
         </IonList>
 
         <MenuFooter />
