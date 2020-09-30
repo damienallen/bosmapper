@@ -11,15 +11,15 @@ const useStyles = createUseStyles({
     width: '100%',
   },
   sectionHeader: {
-    padding: 16,
+    padding: 20,
     color: '#92949c',
-    fontSize: '0.9em'
+    fontSize: '1.2em'
   },
   summaryItems: {
-    padding: '0 16px'
+    padding: '0 20px'
   },
   item: {
-    marginBottom: 16
+    marginBottom: 20
   },
   itemHeader: {
     opacity: 0.6

@@ -117,20 +117,40 @@ const pinUnknownSelected = new Icon({
 })
 
 // Feature label styling
-const textStyle = (droneBase: boolean) => (new Text({
+const nameStyle = (droneBase: boolean) => (new Text({
     textAlign: 'center',
     textBaseline: 'middle',
     text: '',
     fill: new Fill({
-        color: droneBase ? '#ffffff' : '#000000'
+        color: droneBase ? 'rgba(255,255,255,1.0)' : 'rgba(0,0,0,1.0)'
     }),
     stroke: new Stroke({
-        color: droneBase ? '#000000' : '#ffffff',
+        color: droneBase ? 'rgba(0,0,0,1.0)' : 'rgba(255,255,255,1.0)',
         width: 2.5
     }),
-    font: '16px sans-serif',
+    font: '14px sans-serif',
     offsetX: 0,
     offsetY: 15,
+    placement: undefined,
+    maxAngle: undefined,
+    overflow: undefined,
+    rotation: 0
+}))
+
+const noteStyle = (droneBase: boolean) => (new Text({
+    textAlign: 'center',
+    textBaseline: 'middle',
+    text: '',
+    fill: new Fill({
+        color: droneBase ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'
+    }),
+    stroke: new Stroke({
+        color: droneBase ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.7)',
+        width: 2.5
+    }),
+    font: '12px sans-serif',
+    offsetX: 0,
+    offsetY: 35,
     placement: undefined,
     maxAngle: undefined,
     overflow: undefined,
@@ -158,7 +178,7 @@ const getPinStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean
     }
 }
 
-export const styleFunction = (store: RootStore, feature: any, resolution: number) => {
+export const styleFunction = (store: RootStore, feature: any, resolution: number, authenticated: boolean) => {
     const nearZoom = resolution < 0.08
     const speciesData = feature.getProperties()
 
@@ -172,17 +192,25 @@ export const styleFunction = (store: RootStore, feature: any, resolution: number
 
     const featureStyle: Style = new Style({
         image: pinStyle,
-        text: textStyle(droneBase)
+        text: nameStyle(droneBase)
+    })
+
+    const subtitleStyle: Style = new Style({
+        text: noteStyle(droneBase)
     })
 
     // Display text based at high zoom level
     if (nearZoom) {
         const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
+        if (authenticated) {
+            subtitleStyle.getText().setText(speciesData.notes)
+        }
     } else {
         featureStyle.getText().setText(undefined)
+        subtitleStyle.getText().setText(undefined)
     }
 
     // Adjust opacity if selected
-    return [featureStyle]
+    return [featureStyle, subtitleStyle]
 }

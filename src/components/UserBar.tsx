@@ -6,7 +6,7 @@ import {
   IonItem,
   IonLabel,
 } from '@ionic/react'
-import { logInOutline, logOutOutline } from 'ionicons/icons'
+import { logInOutline, logOutOutline, informationCircleOutline } from 'ionicons/icons'
 
 const useStores = () => {
   return React.useContext(MobXProviderContext)
@@ -36,12 +36,12 @@ export const UserBar: React.FC = observer(() => {
       className={classes.container}
       lines='none'
     >
-      {/* <IonIcon
+      <IonIcon
         className={classes.icon}
-        onClick={() => ui.setShowSettingsModal(true)}
-        icon={settingsOutline}
+        onClick={() => ui.setShowAboutModal(true)}
+        icon={informationCircleOutline}
         slot="end"
-      /> */}
+      />
       <IonIcon
         className={classes.icon}
         onClick={() => ui.setShowLoginPopover(true)}

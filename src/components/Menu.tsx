@@ -2,13 +2,17 @@ import React from 'react'
 import { createUseStyles } from 'react-jss'
 import { observer } from 'mobx-react'
 import {
+  IonChip,
   IonContent,
+  IonIcon,
+  IonLabel,
   IonList,
+  IonListHeader,
   IonMenu,
-  IonMenuButton
+  IonMenuButton,
 } from '@ionic/react'
+import { refreshOutline, layersOutline, pricetagsOutline } from 'ionicons/icons'
 
-import { DataSummary } from './DataSummary'
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
@@ -20,8 +24,17 @@ const useStyles = createUseStyles({
     fontSize: '2.1em'
   },
   menuSection: {
-    marginBottom: 8,
+    padding: '0 10px',
+    marginBottom: 10,
     userSelect: 'none'
+  },
+  sectionHeader: {
+    paddingBottom: 0,
+    color: '#92949c',
+    fontSize: '0.9em'
+  },
+  sectionIcon: {
+    marginRight: 10
   },
   clickable: {
     cursor: 'pointer'
@@ -43,12 +56,37 @@ export const Menu: React.FC = observer(() => {
 
       <IonContent>
 
+        <IonListHeader className={classes.sectionHeader}>
+          <IonIcon className={classes.sectionIcon} icon={layersOutline} />
+          Basis kaart
+        </IonListHeader>
+
         <IonList className={classes.menuSection} lines="none">
           <MapOptions />
         </IonList>
 
+        <IonListHeader className={classes.sectionHeader}>
+          <IonIcon className={classes.sectionIcon} icon={pricetagsOutline} />
+          Tags
+        </IonListHeader>
+
         <IonList className={classes.menuSection} lines="none">
-          <DataSummary />
+          <IonChip color="primary" outline>
+            <IonIcon icon={refreshOutline} />
+            <IonLabel>Alles</IonLabel>
+          </IonChip>
+          <IonChip>
+            <IonLabel>Onzeker soort</IonLabel>
+          </IonChip>
+          <IonChip>
+            <IonLabel>Droog</IonLabel>
+          </IonChip>
+          <IonChip>
+            <IonLabel>Experiment</IonLabel>
+          </IonChip>
+          <IonChip>
+            <IonLabel>Zorg nodig</IonLabel>
+          </IonChip>
         </IonList>
 
         <MenuFooter />

@@ -114,7 +114,9 @@ export const MapCanvas: React.FC = () => {
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
-        style: (feature: any, resolution: number) => (styleFunction(root, feature, resolution)),
+        style: (feature: any, resolution: number) => (
+            styleFunction(root, feature, resolution, settings.authenticated)
+        ),
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })

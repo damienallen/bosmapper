@@ -28,7 +28,7 @@ export class UIStore {
 
     @observable showLoginPopover: boolean = false
     @observable showLicenseModal: boolean = false
-    @observable showSettingsModal: boolean = false
+    @observable showAboutModal: boolean = false
 
     @observable showTreeDetails: boolean = false
     @observable showLocationUpdated: boolean = false
@@ -63,8 +63,8 @@ export class UIStore {
         this.showLicenseModal = value
     }
 
-    setShowSettingsModal(value: boolean) {
-        this.showSettingsModal = value
+    setShowAboutModal(value: boolean) {
+        this.showAboutModal = value
     }
 
     setShowTreeDetails(value: boolean) {

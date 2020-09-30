@@ -1,6 +1,6 @@
 {
   "name": "bosmapper",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.1.0",
@@ -24,6 +24,7 @@
   "scripts": {
     "start": "ionic serve --no-open",
     "start-dev": "cross-env REACT_APP_SERVER=dev ionic serve --no-open",
+    "start-live": "cross-env REACT_APP_SERVER=dev ionic serve --no-open --external",
     "update": "yarn upgrade-interactive --latest",
     "build": "react-scripts build",
     "build-dev": "cross-env REACT_APP_SERVER=dev react-scripts build",
