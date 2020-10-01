@@ -156,10 +156,12 @@ export class MapStore {
     @observable filteredFeatures: any
     @observable selectedFeature: any
     @observable numUnknown: number = 0
+
     @observable firstLoad: boolean = true
 
     @observable featuresHash: string = ''
     @observable needsUpdate: boolean = false
+    @observable needsRefresh: boolean = false
     @observable centerOnSelected: boolean = false
 
     @observable center: any
@@ -191,6 +193,10 @@ export class MapStore {
 
     setNeedsUpdate(value: boolean) {
         this.needsUpdate = value
+    }
+
+    setNeedsRefresh(value: boolean) {
+        this.needsRefresh = value
     }
 
     setCenterOnSelected(value: boolean) {

@@ -204,6 +204,15 @@ export const MapCanvas: React.FC = () => {
 
         // Set up reactions
         const disposer = [
+            reaction(() => map.needsRefresh, () => {
+                if (map.needsRefresh) {
+                    treeFeatures.changed()
+                    map.setNeedsRefresh(false)
+                }
+            }),
+            // TODO: use needsRefresh for these 
+            reaction(() => settings.showDead, () => treeFeatures.changed()),
+            reaction(() => settings.showNotes, () => treeFeatures.changed()),
             reaction(() => map.baseMap, () => treeFeatures.changed()),
             reaction(() => map.selectedFeature, (selectedFeature: any) => {
                 treeFeatures.changed()
