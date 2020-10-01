@@ -15,7 +15,7 @@ const useStores = () => {
 const useStyles = createUseStyles({
   container: {
     width: '100%',
-    fontSize: '0.8em',
+    fontSize: '0.8em'
   },
   icon: {
     cursor: 'pointer'
@@ -36,6 +36,7 @@ export const UserBar: React.FC = observer(() => {
       className={classes.container}
       lines='none'
     >
+      <IonLabel>{statusText}</IonLabel>
       <IonIcon
         className={classes.icon}
         onClick={() => ui.setShowAboutModal(true)}
@@ -48,7 +49,6 @@ export const UserBar: React.FC = observer(() => {
         icon={actionIcon}
         slot="end"
       />
-      <IonLabel>{statusText}</IonLabel>
     </IonItem>
   )
 })

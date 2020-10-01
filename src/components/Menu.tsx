@@ -13,7 +13,7 @@ import {
   IonMenuButton,
   IonToggle
 } from '@ionic/react'
-import { refreshOutline, layersOutline, pricetagsOutline, settingsOutline } from 'ionicons/icons'
+import { refreshOutline, layersOutline, pricetagsOutline, mapOutline } from 'ionicons/icons'
 
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
@@ -62,11 +62,11 @@ export const Menu: React.FC = observer(() => {
   const displayToggles = settings.authenticated ? (
     <div>
       <IonListHeader className={classes.sectionHeader}>
-        <IonIcon className={classes.sectionIcon} icon={settingsOutline} />
+        <IonIcon className={classes.sectionIcon} icon={mapOutline} />
       Weergave
     </IonListHeader>
 
-      <IonList className={classes.menuSection} lines="none">
+      <IonList lines="none">
         <IonItem>
           <IonToggle color="primary" slot="start" />
           <IonLabel className={classes.toggleLabel}>Dood bomen tonen</IonLabel>
