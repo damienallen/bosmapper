@@ -117,15 +117,15 @@ const pinUnknownSelected = new Icon({
 })
 
 // Feature label styling
-const nameStyle = (droneBase: boolean) => (new Text({
+const nameStyle = (droneBase: boolean, opacity: number) => (new Text({
     textAlign: 'center',
     textBaseline: 'middle',
     text: '',
     fill: new Fill({
-        color: droneBase ? 'rgba(255,255,255,1.0)' : 'rgba(0,0,0,1.0)'
+        color: droneBase ? `rgba(255,255,255,${opacity})` : `rgba(0,0,0,${opacity})`
     }),
     stroke: new Stroke({
-        color: droneBase ? 'rgba(0,0,0,1.0)' : 'rgba(255,255,255,1.0)',
+        color: droneBase ? `rgba(0,0,0,${opacity})` : `rgba(255,255,255,${opacity})`,
         width: 2.5
     }),
     font: '14px sans-serif',
@@ -137,7 +137,7 @@ const nameStyle = (droneBase: boolean) => (new Text({
     rotation: 0
 }))
 
-const noteStyle = (droneBase: boolean) => (new Text({
+const noteStyle = (droneBase: boolean, opacity: number) => (new Text({
     textAlign: 'center',
     textBaseline: 'middle',
     text: '',
@@ -190,13 +190,18 @@ export const styleFunction = (store: RootStore, feature: any, resolution: number
         getPinStyle(isSelected, isUnknown, droneBase) :
         getDotStyle(isSelected, isUnknown, droneBase)
 
+
+    const opacity = nearZoom ? (
+        resolution < 0.06 ? 1 : -50 * resolution + 4
+    ) : 0
+
     const featureStyle: Style = new Style({
         image: pinStyle,
-        text: nameStyle(droneBase)
+        text: nameStyle(droneBase, opacity)
     })
 
     const subtitleStyle: Style = new Style({
-        text: noteStyle(droneBase)
+        text: noteStyle(droneBase, opacity)
     })
 
     // Display text based at high zoom level
