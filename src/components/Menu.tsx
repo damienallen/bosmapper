@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer } from 'mobx-react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import {
   IonChip,
   IonContent,
@@ -20,6 +20,10 @@ import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
 import { UserBar } from './UserBar'
 
+const useStores = () => {
+  return React.useContext(MobXProviderContext)
+}
+
 const useStyles = createUseStyles({
   menuIcon: {
     color: '#999',
@@ -38,6 +42,9 @@ const useStyles = createUseStyles({
   sectionIcon: {
     marginRight: 10
   },
+  toggleLabel: {
+    fontSize: '0.8em'
+  },
   clickable: {
     cursor: 'pointer'
   }
@@ -49,7 +56,28 @@ export const MenuToggle: React.FC = () => {
 }
 
 export const Menu: React.FC = observer(() => {
+  const { settings } = useStores()
   const classes = useStyles()
+
+  const displayToggles = settings.authenticated ? (
+    <div>
+      <IonListHeader className={classes.sectionHeader}>
+        <IonIcon className={classes.sectionIcon} icon={settingsOutline} />
+      Weergave
+    </IonListHeader>
+
+      <IonList className={classes.menuSection} lines="none">
+        <IonItem>
+          <IonToggle color="primary" slot="start" />
+          <IonLabel className={classes.toggleLabel}>Dood bomen tonen</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonToggle color="primary" slot="start" />
+          <IonLabel>Notities op kaart</IonLabel>
+        </IonItem>
+      </IonList>
+    </div>
+  ) : null
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -78,34 +106,20 @@ export const Menu: React.FC = observer(() => {
             <IonLabel>Alles</IonLabel>
           </IonChip>
           <IonChip>
-            <IonLabel>Onzeker soort</IonLabel>
+            <IonLabel>Onzeker</IonLabel>
           </IonChip>
           <IonChip>
             <IonLabel>Droog</IonLabel>
           </IonChip>
           <IonChip>
-            <IonLabel>Experiment</IonLabel>
+            <IonLabel>Tijdelijk</IonLabel>
           </IonChip>
           <IonChip>
-            <IonLabel>Zorg nodig</IonLabel>
+            <IonLabel>Aandacht nodig</IonLabel>
           </IonChip>
         </IonList>
 
-        <IonListHeader className={classes.sectionHeader}>
-          <IonIcon className={classes.sectionIcon} icon={settingsOutline} />
-          Instellingen
-        </IonListHeader>
-
-        <IonList className={classes.menuSection} lines="none">
-          <IonItem>
-            <IonToggle color="primary" slot="start" />
-            <IonLabel>Dood bomen tonen</IonLabel>
-          </IonItem>
-          <IonItem>
-            <IonToggle color="primary" slot="start" />
-            <IonLabel>Notities tonen op kaart</IonLabel>
-          </IonItem>
-        </IonList>
+        {displayToggles}
 
         <MenuFooter />
 
