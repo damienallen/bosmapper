@@ -115,7 +115,7 @@ export const MapCanvas: React.FC = () => {
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
         style: (feature: any, resolution: number) => (
-            styleFunction(root, feature, resolution, settings.authenticated)
+            styleFunction(root, feature, resolution)
         ),
         updateWhileAnimating: true,
         updateWhileInteracting: true

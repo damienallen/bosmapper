@@ -249,10 +249,23 @@ export class MapStore {
 
 export class SettingStore {
 
+    @observable showDead: boolean = false
+    @observable showNotes: boolean = false
+
     @observable language: string = 'nl'
     @observable host: string = 'https://bosmapper.dallen.co/api'
 
     @observable token: string | null = null
+
+    setShowDead(value: boolean) {
+        this.showDead = value
+        cookies.set('showDead', value)
+    }
+
+    setShowNotes(value: boolean) {
+        this.showNotes = value
+        cookies.set('showNotes', value)
+    }
 
     setLanguage(value: string) {
         this.language = value

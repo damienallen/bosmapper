@@ -178,7 +178,12 @@ const getPinStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean
     }
 }
 
-export const styleFunction = (store: RootStore, feature: any, resolution: number, authenticated: boolean) => {
+export const styleFunction = (
+    store: RootStore,
+    feature: any,
+    resolution: number
+) => {
+
     const nearZoom = resolution < 0.08
     const speciesData = feature.getProperties()
 
@@ -200,22 +205,19 @@ export const styleFunction = (store: RootStore, feature: any, resolution: number
         text: nameStyle(droneBase, opacity)
     })
 
-    const subtitleStyle: Style = new Style({
-        text: noteStyle(droneBase, opacity)
-    })
-
     // Display text based at high zoom level
     if (nearZoom) {
         const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
-        if (authenticated) {
+        if (store.settings.authenticated && store.settings.showNotes) {
+            const subtitleStyle: Style = new Style({
+                text: noteStyle(droneBase, opacity)
+            })
             subtitleStyle.getText().setText(speciesData.notes)
+            return [featureStyle, subtitleStyle]
         }
-    } else {
-        featureStyle.getText().setText(undefined)
-        subtitleStyle.getText().setText(undefined)
     }
 
     // Adjust opacity if selected
-    return [featureStyle, subtitleStyle]
+    return [featureStyle]
 }

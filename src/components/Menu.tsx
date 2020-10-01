@@ -68,11 +68,21 @@ export const Menu: React.FC = observer(() => {
 
       <IonList lines="none">
         <IonItem>
-          <IonToggle color="primary" slot="start" />
+          <IonToggle
+            color="primary"
+            slot="start"
+            checked={settings.showDead}
+            onIonChange={e => settings.setShowDead(e.detail.checked)}
+          />
           <IonLabel className={classes.toggleLabel}>Dood bomen tonen</IonLabel>
         </IonItem>
         <IonItem>
-          <IonToggle color="primary" slot="start" />
+          <IonToggle
+            color="primary"
+            slot="start"
+            checked={settings.showNotes}
+            onIonChange={e => settings.setShowNotes(e.detail.checked)}
+          />
           <IonLabel>Notities op kaart</IonLabel>
         </IonItem>
       </IonList>
