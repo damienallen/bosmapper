@@ -21,14 +21,14 @@ export const fetchCookies = (store: RootStore) => {
     }
 
     const showDead = cookies.get('showDead')
-    if (showDead) {
+    if (showDead === 'true') {
         store.settings.setShowDead(true)
     } else {
         store.settings.setShowDead(false)
     }
 
     const showNotes = cookies.get('showNotes')
-    if (showNotes) {
+    if (showNotes === 'true') {
         store.settings.setShowNotes(true)
     } else {
         store.settings.setShowNotes(false)
