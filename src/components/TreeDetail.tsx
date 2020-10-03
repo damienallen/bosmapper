@@ -8,6 +8,7 @@ import {
 import { cloudDone, move, trash } from 'ionicons/icons'
 
 import { Note } from './Note'
+import { TagButton } from './TagButton'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -23,6 +24,8 @@ const useStyles = createUseStyles({
         zIndex: 150,
     },
     box: {
+        position: 'relative',
+        overflow: 'visible',
         background: 'rgba(255, 255, 255, 0.9)'
     },
     subtitle: {
@@ -169,6 +172,8 @@ export const TreeDetail: React.FC = observer(() => {
             </IonPopover>
 
             <IonCard className={classes.box}>
+
+                <TagButton />
 
                 <IonCardHeader>
                     <IonCardTitle>{speciesData.name_nl ? speciesData.name_nl : speciesData.species}</IonCardTitle>
