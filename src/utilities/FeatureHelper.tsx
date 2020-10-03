@@ -197,7 +197,7 @@ export const styleFunction = (
 
 
     const opacity = nearZoom ? (
-        resolution < 0.06 ? 1 : -40 * resolution + 3.4
+        resolution < 0.05 ? 1 : -40 * resolution + 3.4
     ) : 0
 
     const featureStyle: Style = new Style({

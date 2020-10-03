@@ -5,8 +5,9 @@ import json
 
 
 xlsx_path = Path("voedselbos_species.xlsx")
-json_path = Path(__file__).parent / "output" / "voedselbos_species.json"
-json_path.mkdir(parents=True, exist_ok=True)
+output_dir = Path(__file__).parent / "output"
+json_path = output_dir / "voedselbos_species.json"
+output_dir.mkdir(parents=True, exist_ok=True)
 
 print(f"Loading data from '{xlsx_path}''")
 wb = load_workbook(filename=xlsx_path)

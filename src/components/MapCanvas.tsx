@@ -120,13 +120,14 @@ export const MapCanvas: React.FC = () => {
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
-
+    console.log('>>', window.innerWidth)
     // Set up map
+    const zoom = window.innerWidth > 980 ? 21.5 : 19.5
     const olView = new OlView({
         center: [493358, 6783574],
         maxZoom: 22,
         minZoom: 18,
-        zoom: 19.5,
+        zoom: zoom,
         rotation: -0.948,
         extent: [493243, 6783460, 493477, 6783690] // 493249,493472,6783473,6783677 [EPSG:3857]
     })
@@ -259,10 +260,10 @@ export const MapCanvas: React.FC = () => {
                         }))
 
                         // Toggle selected feature on first load (cache feature)
-                        if (map.firstLoad) {
-                            map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
-                            setTimeout(() => map.setSelectedFeature(null), 100)
-                        }
+                        // if (map.firstLoad) {
+                        //     map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
+                        //     setTimeout(() => map.setSelectedFeature(null), 100)
+                        // }
 
                     } else {
                         console.warn('No features found')

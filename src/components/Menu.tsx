@@ -74,7 +74,7 @@ export const Menu: React.FC = observer(() => {
             checked={settings.showDead}
             onIonChange={e => settings.setShowDead(e.detail.checked)}
           />
-          <IonLabel className={classes.toggleLabel}>Dood bomen tonen</IonLabel>
+          <IonLabel className={classes.toggleLabel}>Dood tonen</IonLabel>
         </IonItem>
         <IonItem>
           <IonToggle

@@ -40,7 +40,7 @@ export const DataSummary: React.FC = observer(() => {
 
         <div className={classes.item}>
           {map.featuresGeoJson ? map.featuresGeoJson.features.length : '—'}
-          <span className={classes.itemHeader}> bomen</span>
+          <span className={classes.itemHeader}> bomen &amp; struiken</span>
         </div>
 
         <div className={classes.item}>
