@@ -106,9 +106,9 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 )
 
 export const MapCanvas: React.FC = () => {
-
+    console.log('Loading map canvas 1')
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map, root, settings, ui } = useStores()
+    const { map, root, settings, species, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
@@ -251,6 +251,7 @@ export const MapCanvas: React.FC = () => {
                 () => map.baseMap,
                 (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
             ),
+            reaction(() => map.firstLoad, () => map.filterFeatures()),
             reaction(
                 () => map.filteredFeatures,
                 (filteredFeatures: any) => {

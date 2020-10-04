@@ -156,6 +156,7 @@ export class MapStore {
     @observable filteredFeatures: any
     @observable selectedFeature: any
     @observable numUnknown: number = 0
+    @observable numDead: number = 0
 
     @observable firstLoad: boolean = true
 
@@ -178,8 +179,8 @@ export class MapStore {
 
     setFeaturesGeoJson(value: any) {
         this.featuresGeoJson = value
-        this.filteredFeatures = value
         this.numUnknown = value.features.filter((species: any) => (species.properties.name_nl === 'Onbekend')).length
+        this.numDead = value.features.filter((species: any) => (species.properties.dead)).length
     }
 
     setSelectedFeature(value: any) {
@@ -227,32 +228,35 @@ export class MapStore {
         return this.baseMap === 'drone' ? '2px solid transparent' : '2px solid #999'
     }
 
+    filterFeatures = () => {
+        const query = this.root.species.query.toLowerCase()
+        const featureFilter = (feature: any) => {
+            const speciesData = feature.properties
+
+            if (speciesData.dead && !this.root.settings.showDead) {
+                return false
+            } else if (query.length < 1) {
+                return true
+            } else if (
+                speciesData.species.toLowerCase().includes(query)
+                || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
+                || (speciesData.name_en && speciesData.name_en.toLowerCase().includes(query))
+            ) {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        if (this.featuresGeoJson && this.featuresGeoJson.features) {
+            const filteredGeoJson = cloneDeep(this.featuresGeoJson)
+            filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
+            this.filteredFeatures = filteredGeoJson
+        }
+    }
+
     constructor(public root: RootStore) {
-        autorun(() => {
-            const query = this.root.species.query.toLowerCase()
-
-            const featureFilter = (feature: any) => {
-                const speciesData = feature.properties
-
-                if (query.length < 1) {
-                    return true
-                } else if (
-                    speciesData.species.toLowerCase().includes(query)
-                    || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
-                    || (speciesData.name_en && speciesData.name_en.toLowerCase().includes(query))
-                ) {
-                    return true
-                } else {
-                    return false
-                }
-            }
-
-            if (this.featuresGeoJson && this.featuresGeoJson.features) {
-                const filteredGeoJson = cloneDeep(this.featuresGeoJson)
-                filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
-                this.filteredFeatures = filteredGeoJson
-            }
-        })
+        autorun(() => this.filterFeatures())
     }
 
 }
