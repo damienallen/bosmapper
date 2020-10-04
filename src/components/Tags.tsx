@@ -84,7 +84,7 @@ export const Tags: React.FC = observer(() => {
 
     const updateTags = (key: string) => {
         const oid = map.selectedId
-        console.log('Updating feature tags', oid)
+        console.debug('Updating feature tags', oid)
 
         const index = featureTags.indexOf(key)
         if (index > -1) {

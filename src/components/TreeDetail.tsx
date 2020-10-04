@@ -72,7 +72,7 @@ export const TreeDetail: React.FC = observer(() => {
 
     const confirmRemove = () => {
         const oid = map.selectedId
-        console.log('Removing feature', oid)
+        console.debug('Removing feature', oid)
 
         axios.post(`${settings.host}/tree/remove/${oid}/`, null, settings.authHeader)
             .then((response: AxiosResponse) => {
@@ -93,7 +93,7 @@ export const TreeDetail: React.FC = observer(() => {
 
     const confirmDead = (dead: boolean) => {
         const oid = map.selectedId
-        console.log('Marking feature dead', oid)
+        console.debug('Marking feature dead', oid)
 
         const featureJson = {
             dead: dead
