@@ -106,7 +106,7 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 )
 
 export const MapCanvas: React.FC = () => {
-
+    console.log('Loading map canvas 1')
     const mapEl: any = useRef<HTMLDivElement>()
     const { map, root, settings, ui } = useStores()
     const classes = useStyles()
@@ -114,17 +114,20 @@ export const MapCanvas: React.FC = () => {
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
-        style: (feature: any, resolution: number) => (styleFunction(root, feature, resolution)),
+        style: (feature: any, resolution: number) => (
+            styleFunction(root, feature, resolution)
+        ),
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
 
     // Set up map
+    const zoom = window.innerWidth > 980 ? 21.5 : 19.5
     const olView = new OlView({
         center: [493358, 6783574],
         maxZoom: 22,
         minZoom: 18,
-        zoom: 19.5,
+        zoom: zoom,
         rotation: -0.948,
         extent: [493243, 6783460, 493477, 6783690] // 493249,493472,6783473,6783677 [EPSG:3857]
     })
@@ -167,7 +170,7 @@ export const MapCanvas: React.FC = () => {
 
                     // Update selected feature if necesary
                     if (map.selectedFeature) {
-                        const oid = map.selectedFeature.get('oid')
+                        const oid = map.selectedId
                         const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
                             (feature: any) => (feature.get('oid') === oid)
                         )
@@ -202,6 +205,15 @@ export const MapCanvas: React.FC = () => {
 
         // Set up reactions
         const disposer = [
+            reaction(() => map.needsRefresh, () => {
+                if (map.needsRefresh) {
+                    treeFeatures.changed()
+                    map.setNeedsRefresh(false)
+                }
+            }),
+            // TODO: use needsRefresh for these 
+            reaction(() => settings.showDead, () => treeFeatures.changed()),
+            reaction(() => settings.showNotes, () => treeFeatures.changed()),
             reaction(() => map.baseMap, () => treeFeatures.changed()),
             reaction(() => map.selectedFeature, (selectedFeature: any) => {
                 treeFeatures.changed()
@@ -239,6 +251,7 @@ export const MapCanvas: React.FC = () => {
                 () => map.baseMap,
                 (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
             ),
+            reaction(() => map.firstLoad, () => map.filterFeatures()),
             reaction(
                 () => map.filteredFeatures,
                 (filteredFeatures: any) => {
@@ -248,10 +261,10 @@ export const MapCanvas: React.FC = () => {
                         }))
 
                         // Toggle selected feature on first load (cache feature)
-                        if (map.firstLoad) {
-                            map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
-                            setTimeout(() => map.setSelectedFeature(null), 100)
-                        }
+                        // if (map.firstLoad) {
+                        //     map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
+                        //     setTimeout(() => map.setSelectedFeature(null), 100)
+                        // }
 
                     } else {
                         console.warn('No features found')

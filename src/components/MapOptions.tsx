@@ -10,16 +10,8 @@ const useStores = () => {
 
 const useStyles = createUseStyles({
     container: {
-        width: '100%'
-    },
-    sectionHeader: {
-        padding: 16,
-        color: '#92949c',
-        fontSize: '0.9em'
-    },
-    mapButtonContainer: {
+        width: '100%',
         display: 'flex',
-        padding: '0 8px'
     },
     mapButton: {
         flex: 1,
@@ -60,20 +52,14 @@ export const MapOptions: React.FC = observer(() => {
 
     return (
         <div className={classes.container} >
-
-            <div className={classes.sectionHeader}>Basis kaart</div>
-
-            <div className={classes.mapButtonContainer}>
-                <div className={mapButtonClass(isDrone)} onClick={() => map.setBaseMap('drone')}>
-                    <div className={classes.buttonLabel} style={{ color: '#fff' }}>drone</div>
-                    <img className={classes.buttonBackground} src={droneBackground} alt="Drone" />
-                </div>
-                <div className={mapButtonClass(!isDrone)} onClick={() => map.setBaseMap('vector/v2')}>
-                    <div className={classes.buttonLabel} style={{ color: '#888' }}>vector</div>
-                    <img className={classes.buttonBackground} src={vectorBackground} alt="Vector" />
-                </div>
+            <div className={mapButtonClass(isDrone)} onClick={() => map.setBaseMap('drone')}>
+                <div className={classes.buttonLabel} style={{ color: '#fff' }}>drone</div>
+                <img className={classes.buttonBackground} src={droneBackground} alt="Drone" />
             </div>
-
+            <div className={mapButtonClass(!isDrone)} onClick={() => map.setBaseMap('vector/v2')}>
+                <div className={classes.buttonLabel} style={{ color: '#888' }}>vector</div>
+                <img className={classes.buttonBackground} src={vectorBackground} alt="Vector" />
+            </div>
         </div>
     )
 })

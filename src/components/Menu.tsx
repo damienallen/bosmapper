@@ -1,18 +1,28 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer } from 'mobx-react'
+import { observer, MobXProviderContext } from 'mobx-react'
 import {
+  IonChip,
   IonContent,
+  IonIcon,
+  IonItem,
+  IonLabel,
   IonList,
+  IonListHeader,
   IonMenu,
-  IonMenuButton
+  IonMenuButton,
+  IonToggle
 } from '@ionic/react'
+import { refreshOutline, layersOutline, pricetagsOutline, mapOutline } from 'ionicons/icons'
 
-import { DataSummary } from './DataSummary'
 import { Logo } from './Logo'
 import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
 import { UserBar } from './UserBar'
+
+const useStores = () => {
+  return React.useContext(MobXProviderContext)
+}
 
 const useStyles = createUseStyles({
   menuIcon: {
@@ -20,8 +30,20 @@ const useStyles = createUseStyles({
     fontSize: '2.1em'
   },
   menuSection: {
-    marginBottom: 8,
+    padding: '0 10px',
+    marginBottom: 10,
     userSelect: 'none'
+  },
+  sectionHeader: {
+    paddingBottom: 0,
+    color: '#92949c',
+    fontSize: '0.9em'
+  },
+  sectionIcon: {
+    marginRight: 10
+  },
+  toggleLabel: {
+    fontSize: '0.8em'
   },
   clickable: {
     cursor: 'pointer'
@@ -34,7 +56,38 @@ export const MenuToggle: React.FC = () => {
 }
 
 export const Menu: React.FC = observer(() => {
+  const { settings, species } = useStores()
   const classes = useStyles()
+
+  const displayToggles = settings.authenticated ? (
+    <div>
+      <IonListHeader className={classes.sectionHeader}>
+        <IonIcon className={classes.sectionIcon} icon={mapOutline} />
+      Weergave
+    </IonListHeader>
+
+      <IonList lines="none">
+        <IonItem>
+          <IonToggle
+            color="primary"
+            slot="start"
+            checked={settings.showDead}
+            onIonChange={e => settings.setShowDead(e.detail.checked)}
+          />
+          <IonLabel className={classes.toggleLabel}>Dood tonen</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonToggle
+            color="primary"
+            slot="start"
+            checked={settings.showNotes}
+            onIonChange={e => settings.setShowNotes(e.detail.checked)}
+          />
+          <IonLabel>Notities op kaart</IonLabel>
+        </IonItem>
+      </IonList>
+    </div>
+  ) : null
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -43,13 +96,52 @@ export const Menu: React.FC = observer(() => {
 
       <IonContent>
 
+        <IonListHeader className={classes.sectionHeader}>
+          <IonIcon className={classes.sectionIcon} icon={layersOutline} />
+          Basis kaart
+        </IonListHeader>
+
         <IonList className={classes.menuSection} lines="none">
           <MapOptions />
         </IonList>
 
+        <IonListHeader className={classes.sectionHeader}>
+          <IonIcon className={classes.sectionIcon} icon={pricetagsOutline} />
+          Tags
+        </IonListHeader>
+
         <IonList className={classes.menuSection} lines="none">
-          <DataSummary />
+          <IonChip color="primary" outline onClick={() => species.clearSelectedTags()}>
+            <IonIcon icon={refreshOutline} />
+            <IonLabel>Alles</IonLabel>
+          </IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('unsure')}
+            onClick={() => species.toggleSelectedTag('unsure')}
+          >
+            <IonLabel>Onzeker</IonLabel>
+          </IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('dry')}
+            onClick={() => species.toggleSelectedTag('dry')}
+          >
+            <IonLabel>Droog</IonLabel>
+          </IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('temporary')}
+            onClick={() => species.toggleSelectedTag('temporary')}
+          >
+            <IonLabel>Tijdelijk</IonLabel>
+          </IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('attn_needed')}
+            onClick={() => species.toggleSelectedTag('attn_needed')}
+          >
+            <IonLabel>Aandacht nodig</IonLabel>
+          </IonChip>
         </IonList>
+
+        {displayToggles}
 
         <MenuFooter />
 

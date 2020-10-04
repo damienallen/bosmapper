@@ -5,12 +5,16 @@ import {
   IonButtons,
   IonHeader,
   IonIcon,
+  IonContent,
   IonModal,
   IonToolbar,
   IonPage,
   IonTitle
 } from '@ionic/react'
 import { close } from 'ionicons/icons'
+
+import { Credits } from './Credits'
+import { DataSummary } from './DataSummary'
 
 const useStores = () => {
   return React.useContext(MobXProviderContext)
@@ -25,7 +29,7 @@ const useStyles = createUseStyles({
   }
 })
 
-export const SettingsModal: React.FC = observer(() => {
+export const AboutModal: React.FC = observer(() => {
   const classes = useStyles()
   const { ui } = useStores()
 
@@ -37,20 +41,24 @@ export const SettingsModal: React.FC = observer(() => {
 
   return (
     <IonModal
-      isOpen={ui.showSettingsModal}
-      onDidDismiss={_e => ui.setShowSettingsModal(false)}
+      isOpen={ui.showAboutModal}
+      onDidDismiss={_e => ui.setShowAboutModal(false)}
     >
       <IonPage>
         <IonHeader>
           <IonToolbar>
             <IonButtons className={classes.toolbarButtons} slot="end">
-              <IonIcon onClick={() => ui.setShowSettingsModal(false)} icon={close} />
+              <IonIcon onClick={() => ui.setShowAboutModal(false)} icon={close} />
             </IonButtons>
-            <IonTitle>Instellingen</IonTitle>
+            <IonTitle>Info</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <div className={classes.container}>
-        </div>
+
+        <IonContent fullscreen>
+          <DataSummary />
+          <Credits />
+        </IonContent>
+
       </IonPage>
     </IonModal>
   )

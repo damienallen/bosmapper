@@ -51,7 +51,7 @@ const dot = new Icon({
 
 const dotSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('f28705', 'ffffff'),
+    src: dotSVG('f28705', 'fff'),
     scale: svgScale
 })
 
@@ -63,21 +63,34 @@ const dotAlt = new Icon({
 
 const dotAltSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('78a658', 'ffffff'),
+    src: dotSVG('78a658', 'fff'),
+    scale: svgScale
+})
+
+const dotDead = new Icon({
+    anchor: [0.5, 0.5],
+    src: dotSVG('D93D04'),
+    scale: svgScale
+})
+
+const dotDeadSelected = new Icon({
+    anchor: [0.5, 0.5],
+    src: dotSVG('D93D04', 'fff'),
     scale: svgScale
 })
 
 const dotUnknown = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('aaaaaa'),
+    src: dotSVG('aaa'),
     scale: svgScale
 })
 
 const dotUnknownSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('aaaaaa', 'ffffff'),
+    src: dotSVG('aaa', 'fff'),
     scale: svgScale
 })
+
 
 const pin = new Icon({
     anchor: [0.5, 1],
@@ -103,6 +116,17 @@ const pinAltSelected = new Icon({
     scale: svgScale
 })
 
+const pinDead = new Icon({
+    anchor: [0.5, 1],
+    src: pinSVG('D93D04', 'B03000'),
+    scale: svgScale
+})
+
+const pinDeadSelected = new Icon({
+    anchor: [0.5, 1],
+    src: pinSVG('D93D04', 'F9622A', 'fff'),
+    scale: svgScale
+})
 
 const pinUnknown = new Icon({
     anchor: [0.5, 1],
@@ -117,18 +141,18 @@ const pinUnknownSelected = new Icon({
 })
 
 // Feature label styling
-const textStyle = (droneBase: boolean) => (new Text({
+const nameStyle = (droneBase: boolean, opacity: number) => (new Text({
     textAlign: 'center',
     textBaseline: 'middle',
     text: '',
     fill: new Fill({
-        color: droneBase ? '#ffffff' : '#000000'
+        color: droneBase ? `rgba(255,255,255,${opacity})` : `rgba(0,0,0,${opacity})`
     }),
     stroke: new Stroke({
-        color: droneBase ? '#000000' : '#ffffff',
+        color: droneBase ? `rgba(0,0,0,${opacity})` : `rgba(255,255,255,${opacity})`,
         width: 2.5
     }),
-    font: '16px sans-serif',
+    font: '14px sans-serif',
     offsetX: 0,
     offsetY: 15,
     placement: undefined,
@@ -137,9 +161,31 @@ const textStyle = (droneBase: boolean) => (new Text({
     rotation: 0
 }))
 
+const noteStyle = (droneBase: boolean, opacity: number) => (new Text({
+    textAlign: 'center',
+    textBaseline: 'middle',
+    text: '',
+    fill: new Fill({
+        color: droneBase ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)'
+    }),
+    stroke: new Stroke({
+        color: droneBase ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.7)',
+        width: 2.5
+    }),
+    font: '12px sans-serif',
+    offsetX: 0,
+    offsetY: 35,
+    placement: undefined,
+    maxAngle: undefined,
+    overflow: undefined,
+    rotation: 0
+}))
+
 // Marker style depending on context
-const getDotStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean) => {
-    if (isUnknown) {
+const getDotStyle = (isSelected: boolean, isDead: boolean, isUnknown: boolean, droneBase: boolean) => {
+    if (isDead) {
+        return isSelected ? dotDeadSelected : dotDead
+    } else if (isUnknown) {
         return isSelected ? dotUnknownSelected : dotUnknown
     } else {
         return isSelected ?
@@ -148,8 +194,10 @@ const getDotStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean
     }
 }
 
-const getPinStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean) => {
-    if (isUnknown) {
+const getPinStyle = (isSelected: boolean, isDead: boolean, isUnknown: boolean, droneBase: boolean) => {
+    if (isDead) {
+        return isSelected ? pinDeadSelected : pinDead
+    } else if (isUnknown) {
         return isSelected ? pinUnknownSelected : pinUnknown
     } else {
         return isSelected ?
@@ -158,7 +206,12 @@ const getPinStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean
     }
 }
 
-export const styleFunction = (store: RootStore, feature: any, resolution: number) => {
+export const styleFunction = (
+    store: RootStore,
+    feature: any,
+    resolution: number
+) => {
+
     const nearZoom = resolution < 0.08
     const speciesData = feature.getProperties()
 
@@ -167,20 +220,30 @@ export const styleFunction = (store: RootStore, feature: any, resolution: number
     const droneBase = store.map.baseMap === 'drone'
 
     const pinStyle = nearZoom ?
-        getPinStyle(isSelected, isUnknown, droneBase) :
-        getDotStyle(isSelected, isUnknown, droneBase)
+        getPinStyle(isSelected, speciesData.dead, isUnknown, droneBase) :
+        getDotStyle(isSelected, speciesData.dead, isUnknown, droneBase)
+
+
+    const opacity = nearZoom ? (
+        resolution < 0.05 ? 1 : -40 * resolution + 3.4
+    ) : 0
 
     const featureStyle: Style = new Style({
         image: pinStyle,
-        text: textStyle(droneBase)
+        text: nameStyle(droneBase, opacity)
     })
 
     // Display text based at high zoom level
     if (nearZoom) {
         const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
-    } else {
-        featureStyle.getText().setText(undefined)
+        if (store.settings.authenticated && store.settings.showNotes) {
+            const subtitleStyle: Style = new Style({
+                text: noteStyle(droneBase, opacity)
+            })
+            subtitleStyle.getText().setText(speciesData.notes)
+            return [featureStyle, subtitleStyle]
+        }
     }
 
     // Adjust opacity if selected

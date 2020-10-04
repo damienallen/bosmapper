@@ -1,4 +1,3 @@
-import Cookies from 'universal-cookie'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import {
@@ -14,6 +13,7 @@ import { Menu } from './components/Menu'
 import { RootStore } from './stores'
 
 /* Utilities */
+import { fetchCookies } from './utilities/CookieHelper'
 import { fetchSpecies } from './utilities/SpeciesHelper'
 
 /* Core CSS required for Ionic components to work properly */
@@ -48,21 +48,7 @@ export const App: React.FC = () => {
   }
 
   // Fetch cookies
-  const cookies = new Cookies()
-  const cachedToken = cookies.get('token')
-  if (cachedToken) {
-    rootStore.settings.setToken(cachedToken)
-    console.log(`Using cached token '${cachedToken}'`)
-  }
-
-  const droneMap = cookies.get('drone')
-  if (droneMap === 'true') {
-    rootStore.map.setBaseMap('drone')
-  } else if (droneMap === 'false') {
-    rootStore.map.setBaseMap('vector/v2')
-  } else {
-    cookies.set('drone', true)
-  }
+  fetchCookies(rootStore)
 
   // Fetch species list from server
   fetchSpecies(rootStore)
