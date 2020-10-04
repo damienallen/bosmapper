@@ -71,7 +71,7 @@ export const TreeDetail: React.FC = observer(() => {
     const speciesData = map.selectedFeature.getProperties()
 
     const confirmRemove = () => {
-        const oid = map.selectedFeature.get('oid')
+        const oid = map.selectedId
         console.log('Removing feature', oid)
 
         axios.post(`${settings.host}/tree/remove/${oid}/`, null, settings.authHeader)
@@ -92,14 +92,14 @@ export const TreeDetail: React.FC = observer(() => {
     }
 
     const confirmDead = () => {
-        const oid = map.selectedFeature.get('oid')
+        const oid = map.selectedId
         console.log('Marking feature dead', oid)
 
         const featureJson = {
             dead: true
         }
 
-        axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
+        axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)

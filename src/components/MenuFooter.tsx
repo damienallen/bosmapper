@@ -16,6 +16,7 @@ const useStyles = createUseStyles({
         }
     },
     version: {
+        fontSize: '0.8em',
         fontStyle: 'italic',
         textAlign: 'right'
     }

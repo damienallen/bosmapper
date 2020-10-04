@@ -170,7 +170,7 @@ export const MapCanvas: React.FC = () => {
 
                     // Update selected feature if necesary
                     if (map.selectedFeature) {
-                        const oid = map.selectedFeature.get('oid')
+                        const oid = map.selectedId
                         const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
                             (feature: any) => (feature.get('oid') === oid)
                         )

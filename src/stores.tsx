@@ -211,6 +211,10 @@ export class MapStore {
         this.newFeatureSpecies = value
     }
 
+    @computed get selectedId() {
+        return this.selectedFeature.get('oid')
+    }
+
     @computed get overlayBackground() {
         return this.baseMap === 'drone' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(230, 230, 230, 0.95)'
     }

@@ -6,6 +6,7 @@ import { MobXProviderContext, observer } from 'mobx-react'
 
 import { IonButton, IonIcon, IonItem, IonLabel, IonPopover, IonItemDivider } from '@ionic/react'
 import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
+import { Interface } from 'readline'
 
 
 const useStores = () => {
@@ -16,7 +17,7 @@ const useStyles = createUseStyles({
     container: {
         position: 'absolute',
         top: -27,
-        right: 25,
+        right: 15,
         opacity: 0.9
     },
     popover: {
@@ -32,8 +33,20 @@ const useStyles = createUseStyles({
         fontWeight: '400',
         zIndex: 50
     },
-    tagText: {
-        marginLeft: 5
+    tabContainer: {
+        position: 'absolute',
+        bottom: 10,
+        right: 52,
+    },
+    tab: {
+        display: 'inline',
+        marginRight: 10,
+        padding: '5px 10px',
+        background: '#ccc',
+        borderRadius: '5px 5px 0 0',
+        fontSize: '0.8em',
+        fontStyle: 'italic',
+        whiteSpace: 'nowrap'
     },
     divider: {
         fontWeight: 400,
@@ -45,24 +58,15 @@ const useStyles = createUseStyles({
     }
 })
 
-export const tagTypes = [
-    {
-        key: 'unsure',
-        text: 'Onzeker'
-    },
-    {
-        key: 'dry',
-        text: 'Droog'
-    },
-    {
-        key: 'temporary',
-        text: 'Tijdelijk'
-    },
-    {
-        key: 'attn_needed',
-        text: 'Aandacht nodig'
-    },
-]
+interface LookupDict {
+    [Key: string]: string
+}
+export const tagTypes: LookupDict = {
+    'unsure': 'Onzeker',
+    'dry': 'Droog',
+    'temporary': 'Tijdelijk',
+    'attn_needed': 'Aandacht nodig'
+}
 
 export const Tags: React.FC = observer(() => {
     const [showTagsPopover, setShowTagsPopover] = useState<{ open: boolean, event: Event | undefined }>({
@@ -74,12 +78,9 @@ export const Tags: React.FC = observer(() => {
     const classes = useStyles()
 
     const featureTags = toJS(map.selectedFeature.get('tags'))
-    const tagsList = featureTags.length ? (
-        <div className={classes.tagText}>{featureTags.join(', ')}</div>
-    ) : null
 
     const updateTags = (key: string) => {
-        const oid = map.selectedFeature.get('oid')
+        const oid = map.selectedId
         console.log('Updating feature tags', oid)
 
         if (featureTags.includes(key)) {
@@ -92,7 +93,7 @@ export const Tags: React.FC = observer(() => {
             tags: featureTags
         }
 
-        axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
+        axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
@@ -105,14 +106,19 @@ export const Tags: React.FC = observer(() => {
 
     }
 
-    const tags = tagTypes.map((type: any) => (
-        < IonItem key={type.key} lines="none" onClick={() => updateTags(type.key)}>
+    const tabs = featureTags.length ? featureTags.map((key: any) => (
+        <div className={classes.tab} key={`tab-${key}`}>{tagTypes[key]}</div>
+    )) : null
+
+
+    const tags = Object.keys(tagTypes).map((key: any) => (
+        < IonItem key={key} lines="none" onClick={() => updateTags(key)}>
             <IonIcon
-                color={featureTags.includes(type.key) ? "medium" : "light"}
-                icon={featureTags.includes(type.key) ? checkboxOutline : squareOutline}
+                color={featureTags.includes(key) ? "medium" : "light"}
+                icon={featureTags.includes(key) ? checkboxOutline : squareOutline}
                 slot="start"
             />
-            <IonLabel>{type.text}</IonLabel>
+            <IonLabel>{tagTypes[key]}</IonLabel>
         </IonItem >
     ))
 
@@ -133,13 +139,14 @@ export const Tags: React.FC = observer(() => {
                 {tags}
             </IonPopover>
 
+            <div className={classes.tabContainer}>{tabs}</div>
+
             <IonButton
                 color="medium"
                 mode="md"
                 className={classes.tagButton}
                 onClick={(e: any) => setShowTagsPopover({ open: true, event: e.nativeEvent })}
             >
-                {tagsList}
                 <IonIcon icon={showTagsPopover.open ? closeOutline : pricetagOutline} />
             </IonButton>
         </div>
