@@ -258,7 +258,7 @@ export class MapStore {
             } else if (query.length < 1) {
                 return true
             } else if (
-                speciesData.species.toLowerCase().includes(query)
+                (speciesData.name_la && speciesData.name_la.toLowerCase().includes(query))
                 || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
             ) {
                 return true
