@@ -8,7 +8,7 @@ import {
 import { cloudDone, move, trash } from 'ionicons/icons'
 
 import { Note } from './Note'
-import { Tags, TagSelector } from './Tags'
+import { Tags } from './Tags'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -18,14 +18,15 @@ const useStyles = createUseStyles({
     container: {
         position: 'absolute',
         bottom: 0,
-        left: 0,
+        left: '50%',
         width: '100vw',
         maxWidth: 400,
         zIndex: 150,
+        transform: 'translateX(-50%)'
     },
     box: {
         position: 'relative',
-        overflow: 'visible',
+        overflow: 'hidden',
         background: 'rgba(255, 255, 255, 0.9)'
     },
     subtitle: {
@@ -90,6 +91,30 @@ export const TreeDetail: React.FC = observer(() => {
         setShowRemovePopover(false)
     }
 
+    const confirmDead = () => {
+        const oid = map.selectedFeature.get('oid')
+        console.log('Marking feature dead', oid)
+
+        const featureJson = {
+            dead: true
+        }
+
+        axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
+            .then((response: AxiosResponse) => {
+                console.debug(response)
+                map.setNeedsUpdate(true)
+                ui.setShowTreeDetails(false)
+                map.setSelectedFeature(null)
+                ui.setToastText('Geslaagd!')
+            })
+            .catch((error) => {
+                console.error(error.response)
+                ui.setToastText('Verzoek mislukt')
+            })
+
+        setShowRemovePopover(false)
+    }
+
     // Action buttons
     const changeSpeciesButton = (
         <IonButton
@@ -140,7 +165,6 @@ export const TreeDetail: React.FC = observer(() => {
     return (
         <div className={classes.container}>
 
-            {/* <TagSelector /> */}
             <IonPopover
                 isOpen={showRemovePopover}
                 onDidDismiss={(_e: any) => setShowRemovePopover(false)}
@@ -148,7 +172,7 @@ export const TreeDetail: React.FC = observer(() => {
 
                 <IonCardHeader>
                     <IonCardTitle>Zeker?</IonCardTitle>
-                    <IonCardSubtitle>Wilt u dit boom verwijderen?</IonCardSubtitle>
+                    <IonCardSubtitle>Echt dood?</IonCardSubtitle>
                 </IonCardHeader>
 
                 <div className={classes.actionButtons}>
@@ -161,22 +185,29 @@ export const TreeDetail: React.FC = observer(() => {
                     </IonButton>
                     <IonButton
                         className={classes.actionButton}
+                        onClick={confirmDead}
+                        size='default'
+                        color='danger'
+                    >
+                        Dood
+                    </IonButton>
+                    <IonButton
+                        className={classes.actionButton}
                         onClick={confirmRemove}
                         size='default'
                         color='danger'
                         fill='outline'
                     >
-                        Ja
+                        Verwijderen
                     </IonButton>
                 </div>
 
             </IonPopover>
 
-            <IonCard className={classes.box}>
+            <Tags />
 
-                <Tags />
-
-                <IonCardHeader>
+            <IonCard className={classes.box} mode="md">
+                <IonCardHeader mode="md">
                     <IonCardTitle>{speciesData.name_nl ? speciesData.name_nl : speciesData.species}</IonCardTitle>
                     <IonCardSubtitle className={classes.subtitle}>{speciesData.name_la}</IonCardSubtitle>
                 </IonCardHeader>

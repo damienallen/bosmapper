@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash'
 
 
 const cookies = new Cookies()
-export const showUpdatedTimeout = 2500
+export const showUpdatedTimeout = 1000
 
 export class RootStore {
     public ui: UIStore
@@ -27,13 +27,12 @@ export class UIStore {
     @observable showConnectionError: boolean = false
 
     @observable showLoginPopover: boolean = false
-    @observable showTagsPopover: boolean = false
     @observable showLicenseModal: boolean = false
     @observable showAboutModal: boolean = false
 
     @observable showTreeDetails: boolean = false
     @observable showLocationUpdated: boolean = false
-    @observable showNotesUpdated: boolean = false
+    @observable showMetaUpdated: boolean = false
     @observable showSpeciesUpdated: boolean = false
 
     @observable showLocationSelector: boolean = false
@@ -60,10 +59,6 @@ export class UIStore {
         this.showLoginPopover = value
     }
 
-    setShowTagsPopover(value: boolean) {
-        this.showTagsPopover = value
-    }
-
     setShowLicenseModal(value: boolean) {
         this.showLicenseModal = value
     }
@@ -81,9 +76,9 @@ export class UIStore {
         if (value) setTimeout(() => this.setShowSpeciesUpdated(false), showUpdatedTimeout)
     }
 
-    setShowNotesUpdated(value: boolean) {
-        this.showNotesUpdated = value
-        if (value) setTimeout(() => this.setShowNotesUpdated(false), showUpdatedTimeout)
+    setShowMetaUpdated(value: boolean) {
+        this.showMetaUpdated = value
+        if (value) setTimeout(() => this.setShowMetaUpdated(false), showUpdatedTimeout)
     }
 
     setShowLocationUpdated(value: boolean) {
@@ -102,7 +97,7 @@ export class UIStore {
     }
 
     @computed get showDetailsUpdated() {
-        return (this.showLocationUpdated || this.showNotesUpdated || this.showSpeciesUpdated)
+        return (this.showLocationUpdated || this.showMetaUpdated || this.showSpeciesUpdated)
     }
 
     constructor(public root: RootStore) { }

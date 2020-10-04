@@ -35,7 +35,7 @@ export const Note: React.FC = observer(() => {
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
-                ui.setShowNotesUpdated(true)
+                ui.setShowMetaUpdated(true)
             })
             .catch((error) => {
                 console.error(error.response)
@@ -60,7 +60,7 @@ export const Note: React.FC = observer(() => {
             <div className={classes.container}>
                 <IonInput
                     value={text}
-                    disabled={ui.showNotesUpdated}
+                    disabled={ui.showMetaUpdated}
                     placeholder='Notitie toevoegen'
                     enterkeyhint='done'
                     onIonChange={(e: any) => setText(e.detail.value!)}

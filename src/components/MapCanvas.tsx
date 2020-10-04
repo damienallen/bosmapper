@@ -120,7 +120,7 @@ export const MapCanvas: React.FC = () => {
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
-    console.log('>>', window.innerWidth)
+
     // Set up map
     const zoom = window.innerWidth > 980 ? 21.5 : 19.5
     const olView = new OlView({
