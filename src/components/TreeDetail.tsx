@@ -64,7 +64,7 @@ const useStyles = createUseStyles({
 })
 
 export const TreeDetail: React.FC = observer(() => {
-    const [showRemoveActions, setShowRemoveActions] = useState(false)
+    const [showActionSheet, setShowActionSheet] = useState(false)
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
@@ -88,15 +88,15 @@ export const TreeDetail: React.FC = observer(() => {
             })
 
 
-        setShowRemoveActions(false)
+        setShowActionSheet(false)
     }
 
-    const confirmDead = () => {
+    const confirmDead = (dead: boolean) => {
         const oid = map.selectedId
         console.log('Marking feature dead', oid)
 
         const featureJson = {
-            dead: true
+            dead: dead
         }
 
         axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
@@ -112,7 +112,7 @@ export const TreeDetail: React.FC = observer(() => {
                 ui.setToastText('Verzoek mislukt')
             })
 
-        setShowRemoveActions(false)
+        setShowActionSheet(false)
     }
 
     // Action buttons
@@ -144,7 +144,7 @@ export const TreeDetail: React.FC = observer(() => {
             fill='outline'
             size='small'
             color='danger'
-            onClick={() => setShowRemoveActions(true)}
+            onClick={() => setShowActionSheet(true)}
         >
             <IonIcon icon={trash} color='danger' />
         </IonButton>
@@ -162,28 +162,41 @@ export const TreeDetail: React.FC = observer(() => {
             </div>
         ) : null
 
+    const actionSheetButtons = speciesData.dead ? [{
+        text: 'Leeft nog!',
+        handler: () => confirmDead(false)
+    }, {
+        text: 'Verwijderen',
+        role: 'destructive',
+        handler: confirmRemove
+    }, {
+        text: 'Nee, ga terug',
+        role: 'cancel',
+        handler: () => setShowActionSheet(false)
+    }] : [{
+        text: 'Ja, dood!',
+        role: 'destructive',
+        handler: () => confirmDead(true)
+    }, {
+        text: 'Verwijderen',
+        role: 'destructive',
+        handler: confirmRemove
+    }, {
+        text: 'Nee, ga terug',
+        role: 'cancel',
+        handler: () => setShowActionSheet(false)
+    }]
+
     return (
         <div className={classes.container}>
 
             <Tags />
 
             <IonActionSheet
-                isOpen={showRemoveActions}
-                onDidDismiss={() => setShowRemoveActions(false)}
+                isOpen={showActionSheet}
+                onDidDismiss={() => setShowActionSheet(false)}
                 header="Zeker?"
-                buttons={[{
-                    text: 'Ja, dood!',
-                    role: 'destructive',
-                    handler: confirmDead
-                }, {
-                    text: 'Verwijderen',
-                    role: 'destructive',
-                    handler: confirmRemove
-                }, {
-                    text: 'Nee, ga terug',
-                    role: 'cancel',
-                    handler: () => setShowRemoveActions(false)
-                }]}
+                buttons={actionSheetButtons}
             >
             </IonActionSheet>
 
