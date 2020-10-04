@@ -260,7 +260,6 @@ export class MapStore {
             } else if (
                 speciesData.species.toLowerCase().includes(query)
                 || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
-                || (speciesData.name_en && speciesData.name_en.toLowerCase().includes(query))
             ) {
                 return true
             } else {

@@ -46,13 +46,12 @@ export const SpeciesSelector: React.FC = observer(() => {
     // Handle species search
     const handleInput = (e: any) => {
         setSearchText(e.detail.value!)
-        const query = searchText.toLowerCase()
+        const query = e.detail.value.toLowerCase()
 
-        if (query.length > 2) {
+        if (query.length > 1) {
             const nameFilter = (item: Species) => (
                 item.species.toLowerCase().includes(query)
                 || (item.name_nl && item.name_nl.toLowerCase().includes(query))
-                || (item.name_en && item.name_en.toLowerCase().includes(query))
             )
 
             setFilteredSpecies(allSpecies.filter(nameFilter))
