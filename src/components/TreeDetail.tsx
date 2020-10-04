@@ -8,7 +8,7 @@ import {
 import { cloudDone, move, trash } from 'ionicons/icons'
 
 import { Note } from './Note'
-import { TagButton } from './TagButton'
+import { Tags, TagSelector } from './Tags'
 
 const useStores = () => {
     return React.useContext(MobXProviderContext)
@@ -140,6 +140,7 @@ export const TreeDetail: React.FC = observer(() => {
     return (
         <div className={classes.container}>
 
+            {/* <TagSelector /> */}
             <IonPopover
                 isOpen={showRemovePopover}
                 onDidDismiss={(_e: any) => setShowRemovePopover(false)}
@@ -173,7 +174,7 @@ export const TreeDetail: React.FC = observer(() => {
 
             <IonCard className={classes.box}>
 
-                <TagButton />
+                <Tags />
 
                 <IonCardHeader>
                     <IonCardTitle>{speciesData.name_nl ? speciesData.name_nl : speciesData.species}</IonCardTitle>

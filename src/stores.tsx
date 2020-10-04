@@ -27,6 +27,7 @@ export class UIStore {
     @observable showConnectionError: boolean = false
 
     @observable showLoginPopover: boolean = false
+    @observable showTagsPopover: boolean = false
     @observable showLicenseModal: boolean = false
     @observable showAboutModal: boolean = false
 
@@ -57,6 +58,10 @@ export class UIStore {
 
     setShowLoginPopover(value: boolean) {
         this.showLoginPopover = value
+    }
+
+    setShowTagsPopover(value: boolean) {
+        this.showTagsPopover = value
     }
 
     setShowLicenseModal(value: boolean) {
