@@ -27,7 +27,7 @@ const useStyles = createUseStyles({
     box: {
         position: 'relative',
         overflow: 'hidden',
-        background: 'rgba(255, 255, 255, 0.9)'
+        background: 'rgba(255, 255, 255, 0.95)'
     },
     subtitle: {
         marginTop: 5,
@@ -165,6 +165,7 @@ export const TreeDetail: React.FC = observer(() => {
     return (
         <div className={classes.container}>
 
+            <Tags />
             <IonPopover
                 isOpen={showRemovePopover}
                 onDidDismiss={(_e: any) => setShowRemovePopover(false)}
@@ -203,8 +204,6 @@ export const TreeDetail: React.FC = observer(() => {
                 </div>
 
             </IonPopover>
-
-            <Tags />
 
             <IonCard className={classes.box} mode="md">
                 <IonCardHeader mode="md">

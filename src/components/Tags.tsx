@@ -6,7 +6,6 @@ import { MobXProviderContext, observer } from 'mobx-react'
 
 import { IonButton, IonIcon, IonItem, IonLabel, IonPopover, IonItemDivider } from '@ionic/react'
 import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
-import { Interface } from 'readline'
 
 
 const useStores = () => {
@@ -16,30 +15,34 @@ const useStores = () => {
 const useStyles = createUseStyles({
     container: {
         position: 'absolute',
-        top: -27,
+        top: -10,
         right: 15,
         opacity: 0.9
     },
     popover: {
         '& ion-item': {
-            cursor: 'pointer'
+            cursor: 'pointer',
+            marginLeft: -10
         },
         '& ion-icon': {
             marginRight: 5
         }
     },
+    tabContainer: {
+        display: 'inline',
+        position: 'relative',
+        bottom: 0,
+        right: 0,
+        zIndex: 50
+    },
     tagButton: {
         textTransform: 'lowercase',
         fontWeight: '400',
-        zIndex: 50
-    },
-    tabContainer: {
-        position: 'absolute',
-        bottom: 10,
-        right: 52,
+        marginTop: -16
     },
     tab: {
         display: 'inline',
+        marginTop: -20,
         marginRight: 10,
         padding: '5px 10px',
         background: '#ccc',
@@ -122,6 +125,17 @@ export const Tags: React.FC = observer(() => {
         </IonItem >
     ))
 
+    const popoverButton = settings.authenticated ? (
+        <IonButton
+            color="medium"
+            mode="md"
+            className={classes.tagButton}
+            onClick={(e: any) => setShowTagsPopover({ open: true, event: e.nativeEvent })}
+        >
+            <IonIcon icon={showTagsPopover.open ? closeOutline : pricetagOutline} />
+        </IonButton>
+    ) : null
+
     return (
         <div className={classes.container}>
             <IonPopover
@@ -139,16 +153,12 @@ export const Tags: React.FC = observer(() => {
                 {tags}
             </IonPopover>
 
-            <div className={classes.tabContainer}>{tabs}</div>
+            <div className={classes.tabContainer}>
+                {tabs}
+                {popoverButton}
+            </div>
 
-            <IonButton
-                color="medium"
-                mode="md"
-                className={classes.tagButton}
-                onClick={(e: any) => setShowTagsPopover({ open: true, event: e.nativeEvent })}
-            >
-                <IonIcon icon={showTagsPopover.open ? closeOutline : pricetagOutline} />
-            </IonButton>
+
         </div>
     )
 })
