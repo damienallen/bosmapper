@@ -51,7 +51,7 @@ const dot = new Icon({
 
 const dotSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('f28705', 'ffffff'),
+    src: dotSVG('f28705', 'fff'),
     scale: svgScale
 })
 
@@ -63,21 +63,34 @@ const dotAlt = new Icon({
 
 const dotAltSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('78a658', 'ffffff'),
+    src: dotSVG('78a658', 'fff'),
+    scale: svgScale
+})
+
+const dotDead = new Icon({
+    anchor: [0.5, 0.5],
+    src: dotSVG('D93D04'),
+    scale: svgScale
+})
+
+const dotDeadSelected = new Icon({
+    anchor: [0.5, 0.5],
+    src: dotSVG('D93D04', 'fff'),
     scale: svgScale
 })
 
 const dotUnknown = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('aaaaaa'),
+    src: dotSVG('aaa'),
     scale: svgScale
 })
 
 const dotUnknownSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('aaaaaa', 'ffffff'),
+    src: dotSVG('aaa', 'fff'),
     scale: svgScale
 })
+
 
 const pin = new Icon({
     anchor: [0.5, 1],
@@ -103,6 +116,17 @@ const pinAltSelected = new Icon({
     scale: svgScale
 })
 
+const pinDead = new Icon({
+    anchor: [0.5, 1],
+    src: pinSVG('D93D04', 'B03000'),
+    scale: svgScale
+})
+
+const pinDeadSelected = new Icon({
+    anchor: [0.5, 1],
+    src: pinSVG('D93D04', 'F9622A', 'fff'),
+    scale: svgScale
+})
 
 const pinUnknown = new Icon({
     anchor: [0.5, 1],
@@ -158,8 +182,10 @@ const noteStyle = (droneBase: boolean, opacity: number) => (new Text({
 }))
 
 // Marker style depending on context
-const getDotStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean) => {
-    if (isUnknown) {
+const getDotStyle = (isSelected: boolean, isDead: boolean, isUnknown: boolean, droneBase: boolean) => {
+    if (isDead) {
+        return isSelected ? dotDeadSelected : dotDead
+    } else if (isUnknown) {
         return isSelected ? dotUnknownSelected : dotUnknown
     } else {
         return isSelected ?
@@ -168,8 +194,10 @@ const getDotStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean
     }
 }
 
-const getPinStyle = (isSelected: boolean, isUnknown: boolean, droneBase: boolean) => {
-    if (isUnknown) {
+const getPinStyle = (isSelected: boolean, isDead: boolean, isUnknown: boolean, droneBase: boolean) => {
+    if (isDead) {
+        return isSelected ? pinDeadSelected : pinDead
+    } else if (isUnknown) {
         return isSelected ? pinUnknownSelected : pinUnknown
     } else {
         return isSelected ?
@@ -192,8 +220,8 @@ export const styleFunction = (
     const droneBase = store.map.baseMap === 'drone'
 
     const pinStyle = nearZoom ?
-        getPinStyle(isSelected, isUnknown, droneBase) :
-        getDotStyle(isSelected, isUnknown, droneBase)
+        getPinStyle(isSelected, speciesData.dead, isUnknown, droneBase) :
+        getDotStyle(isSelected, speciesData.dead, isUnknown, droneBase)
 
 
     const opacity = nearZoom ? (

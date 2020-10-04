@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
-    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton, IonPopover
+    IonActionSheet, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton
 } from '@ionic/react'
 import { cloudDone, move, trash } from 'ionicons/icons'
 
@@ -64,7 +64,7 @@ const useStyles = createUseStyles({
 })
 
 export const TreeDetail: React.FC = observer(() => {
-    const [showRemovePopover, setShowRemovePopover] = useState(false)
+    const [showRemoveActions, setShowRemoveActions] = useState(false)
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
@@ -88,7 +88,7 @@ export const TreeDetail: React.FC = observer(() => {
             })
 
 
-        setShowRemovePopover(false)
+        setShowRemoveActions(false)
     }
 
     const confirmDead = () => {
@@ -112,7 +112,7 @@ export const TreeDetail: React.FC = observer(() => {
                 ui.setToastText('Verzoek mislukt')
             })
 
-        setShowRemovePopover(false)
+        setShowRemoveActions(false)
     }
 
     // Action buttons
@@ -144,7 +144,7 @@ export const TreeDetail: React.FC = observer(() => {
             fill='outline'
             size='small'
             color='danger'
-            onClick={() => setShowRemovePopover(true)}
+            onClick={() => setShowRemoveActions(true)}
         >
             <IonIcon icon={trash} color='danger' />
         </IonButton>
@@ -166,44 +166,26 @@ export const TreeDetail: React.FC = observer(() => {
         <div className={classes.container}>
 
             <Tags />
-            <IonPopover
-                isOpen={showRemovePopover}
-                onDidDismiss={(_e: any) => setShowRemovePopover(false)}
+
+            <IonActionSheet
+                isOpen={showRemoveActions}
+                onDidDismiss={() => setShowRemoveActions(false)}
+                header="Zeker?"
+                buttons={[{
+                    text: 'Ja, dood!',
+                    role: 'destructive',
+                    handler: confirmDead
+                }, {
+                    text: 'Verwijderen',
+                    role: 'destructive',
+                    handler: confirmRemove
+                }, {
+                    text: 'Nee, ga terug',
+                    role: 'cancel',
+                    handler: () => setShowRemoveActions(false)
+                }]}
             >
-
-                <IonCardHeader>
-                    <IonCardTitle>Zeker?</IonCardTitle>
-                    <IonCardSubtitle>Echt dood?</IonCardSubtitle>
-                </IonCardHeader>
-
-                <div className={classes.actionButtons}>
-                    <IonButton
-                        className={classes.actionButton}
-                        onClick={() => setShowRemovePopover(false)}
-                        size='default'
-                    >
-                        Nee, ga terug
-                    </IonButton>
-                    <IonButton
-                        className={classes.actionButton}
-                        onClick={confirmDead}
-                        size='default'
-                        color='danger'
-                    >
-                        Dood
-                    </IonButton>
-                    <IonButton
-                        className={classes.actionButton}
-                        onClick={confirmRemove}
-                        size='default'
-                        color='danger'
-                        fill='outline'
-                    >
-                        Verwijderen
-                    </IonButton>
-                </div>
-
-            </IonPopover>
+            </IonActionSheet>
 
             <IonCard className={classes.box} mode="md">
                 <IonCardHeader mode="md">
