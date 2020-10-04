@@ -56,7 +56,7 @@ export const MenuToggle: React.FC = () => {
 }
 
 export const Menu: React.FC = observer(() => {
-  const { settings } = useStores()
+  const { settings, species } = useStores()
   const classes = useStyles()
 
   const displayToggles = settings.authenticated ? (
@@ -111,20 +111,32 @@ export const Menu: React.FC = observer(() => {
         </IonListHeader>
 
         <IonList className={classes.menuSection} lines="none">
-          <IonChip color="primary" outline>
+          <IonChip color="primary" outline onClick={() => species.clearSelectedTags()}>
             <IonIcon icon={refreshOutline} />
             <IonLabel>Alles</IonLabel>
           </IonChip>
-          <IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('unsure')}
+            onClick={() => species.toggleSelectedTag('unsure')}
+          >
             <IonLabel>Onzeker</IonLabel>
           </IonChip>
-          <IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('dry')}
+            onClick={() => species.toggleSelectedTag('dry')}
+          >
             <IonLabel>Droog</IonLabel>
           </IonChip>
-          <IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('temporary')}
+            onClick={() => species.toggleSelectedTag('temporary')}
+          >
             <IonLabel>Tijdelijk</IonLabel>
           </IonChip>
-          <IonChip>
+          <IonChip
+            outline={!species.selectedTags.includes('attn_needed')}
+            onClick={() => species.toggleSelectedTag('attn_needed')}
+          >
             <IonLabel>Aandacht nodig</IonLabel>
           </IonChip>
         </IonList>

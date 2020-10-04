@@ -115,8 +115,10 @@ export interface Species {
 
 export class SpeciesStore {
 
-    @observable list: Species[] = []
     @observable query: string = ''
+    @observable selectedTags: string[] = []
+
+    @observable list: Species[] = []
     @observable minHeight: number = 0
     @observable maxHeight: number = 30
     @observable minWidth: number = 0
@@ -128,6 +130,19 @@ export class SpeciesStore {
 
     setQuery(value: string) {
         this.query = value
+    }
+
+    clearSelectedTags() {
+        this.selectedTags = []
+    }
+
+    toggleSelectedTag(value: string) {
+        const index = this.selectedTags.indexOf(value)
+        if (index > -1) {
+            this.selectedTags.splice(index, 1)
+        } else {
+            this.selectedTags.push(value)
+        }
     }
 
     setHeightRange(minValue: number, maxValue: number) {
@@ -233,7 +248,12 @@ export class MapStore {
         const featureFilter = (feature: any) => {
             const speciesData = feature.properties
 
-            if (speciesData.dead && !this.root.settings.showDead) {
+            if (speciesData.dead && (!this.root.settings.showDead || !this.root.settings.authenticated)) {
+                return false
+            } else if (
+                this.root.species.selectedTags.length > 0 &&
+                !this.root.species.selectedTags.every(tag => speciesData.tags.includes(tag))
+            ) {
                 return false
             } else if (query.length < 1) {
                 return true

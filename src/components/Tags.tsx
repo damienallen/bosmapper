@@ -86,8 +86,9 @@ export const Tags: React.FC = observer(() => {
         const oid = map.selectedId
         console.log('Updating feature tags', oid)
 
-        if (featureTags.includes(key)) {
-            featureTags.pop(key)
+        const index = featureTags.indexOf(key)
+        if (index > -1) {
+            featureTags.splice(index, 1)
         } else {
             featureTags.push(key)
         }

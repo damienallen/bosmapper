@@ -108,7 +108,7 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 export const MapCanvas: React.FC = () => {
     console.log('Loading map canvas 1')
     const mapEl: any = useRef<HTMLDivElement>()
-    const { map, root, settings, species, ui } = useStores()
+    const { map, root, settings, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
