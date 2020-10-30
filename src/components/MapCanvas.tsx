@@ -249,7 +249,7 @@ export const MapCanvas: React.FC = () => {
             ),
             reaction(
                 () => map.baseMap,
-                (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
+                (baseMap: string) => olMap.setLayerGroup(getLayers(map.bucketUrl, treeFeatures))
             ),
             reaction(() => map.firstLoad, () => map.filterFeatures()),
             reaction(

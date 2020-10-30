@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash'
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
 
-export const droneUrl = 'drone/v2'
+export const droneUrl = 'drone/v4'
 export const vectorUrl = 'vector/v2'
 
 export class RootStore {
