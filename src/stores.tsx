@@ -6,8 +6,6 @@ import { cloneDeep } from 'lodash'
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
 
-export const droneUrl = 'drone/v4'
-
 export class RootStore {
     public ui: UIStore
     public map: MapStore

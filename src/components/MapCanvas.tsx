@@ -15,7 +15,6 @@ import GeoJSON from 'ol/format/GeoJSON'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
-import { droneUrl } from '../stores'
 import { styleFunction } from '../utilities/FeatureHelper'
 import { vectorStyleFunction, vectorFeatures } from '../utilities/VectorHelper'
 import focusIcon from '../assets/focus.svg'
@@ -90,18 +89,28 @@ const useStyles = createUseStyles({
     }
 })
 
+const baseUrl = 'https://voedselbos-tiles.ams3.digitaloceanspaces.com'
+const droneUrl = `${baseUrl}/drone/v4/{z}/{x}/{y}.png`
+const cartigoUrl = `${baseUrl}/cartigo/light/{z}/{x}/{y}.png`
+
 
 const getLayers = (isDrone: boolean, features: VectorLayer, vectorFeatures: VectorLayer) => {
     return new OlLayerGroup({
-        layers: isDrone ? [
-            new OlLayerTile({
-                source: new XYZ({
-                    url: `https://voedselbos-tiles.ams3.digitaloceanspaces.com/${droneUrl}/{z}/{x}/{y}.png`
-                })
-            }),
-            vectorFeatures,
-            features,
-        ] : [
+        layers: isDrone ?
+            [
+                new OlLayerTile({
+                    source: new XYZ({
+                        url: droneUrl
+                    })
+                }),
+                vectorFeatures,
+                features,
+            ] : [
+                new OlLayerTile({
+                    source: new XYZ({
+                        url: cartigoUrl
+                    })
+                }),
                 vectorFeatures,
                 features,
             ]
