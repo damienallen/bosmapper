@@ -1,6 +1,6 @@
 import { Fill, Stroke, Style } from 'ol/style'
 
-import vectorGeoJson from '../assets/vector_features.json'
+import vectorGeoJson from '../assets/vector_base.json'
 
 
 export const vectorFeatures = vectorGeoJson
@@ -36,15 +36,25 @@ const buildingsFill = new Fill({
     color: '#cedce5'
 })
 
+// Misc
+const circleFill = new Fill({
+    color: '#eaeaea'
+})
+
 
 const getTypeStyle = (vectorType: string, resolution: number) => {
     const buildingTypes = ['greenhouse', 'bee_hives']
     if (vectorType === 'boundary') {
-        return new Style({
-            stroke: boundaryStroke,
-            fill: boundaryFill,
-            zIndex: 10
-        })
+        return [
+            new Style({
+                fill: boundaryFill,
+                zIndex: 10
+            }),
+            new Style({
+                stroke: boundaryStroke,
+                zIndex: 80
+            })
+        ]
     } else if (vectorType === 'vegetation') {
         return new Style({
             stroke: brickStroke,
@@ -54,6 +64,11 @@ const getTypeStyle = (vectorType: string, resolution: number) => {
     } else if (vectorType === 'vegetation_no_wall') {
         return new Style({
             fill: vegetationFill,
+            zIndex: 20
+        })
+    } else if (vectorType === 'circle') {
+        return new Style({
+            fill: circleFill,
             zIndex: 20
         })
     } else if (vectorType === 'wall') {
