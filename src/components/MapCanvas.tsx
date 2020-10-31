@@ -5,6 +5,7 @@ import { MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import hash from 'object-hash'
 
+import { MapBrowserEvent } from 'ol'
 import OlMap from 'ol/Map'
 import OlView from 'ol/View'
 import OlLayerTile from 'ol/layer/Tile'
@@ -15,7 +16,7 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelper'
-import { MapBrowserEvent } from 'ol'
+import focusIcon from '../assets/focus.svg'
 
 
 const useStores = () => {
@@ -105,7 +106,7 @@ const getLayers = (baseMap: string, features: VectorLayer) => (
 )
 
 export const MapCanvas: React.FC = () => {
-
+    console.log('Loading map canvas 1')
     const mapEl: any = useRef<HTMLDivElement>()
     const { map, root, settings, ui } = useStores()
     const classes = useStyles()
@@ -113,23 +114,26 @@ export const MapCanvas: React.FC = () => {
     // Load GeoJSON features
     const treeFeatures = new VectorLayer({
         source: new VectorSource(),
-        style: (feature: any, resolution: number) => (styleFunction(root, feature, resolution)),
+        style: (feature: any, resolution: number) => (
+            styleFunction(root, feature, resolution)
+        ),
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
 
-    // Set up map
+    // Set up map (EPSG:3857)
+    const zoom = window.innerWidth > 980 ? 21.5 : 19.5
     const olView = new OlView({
         center: [493358, 6783574],
-        maxZoom: 22,
+        maxZoom: 23,
         minZoom: 18,
-        zoom: 19.5,
+        zoom: zoom,
         rotation: -0.948,
-        extent: [493263, 6783480, 493457, 6783670] // 493249,493472,6783473,6783677 [EPSG:3857]
+        extent: [493050, 6783250, 493850, 6784085]
     })
 
     const olMap = new OlMap({
-        layers: getLayers(map.baseMap, treeFeatures),
+        layers: getLayers(map.bucketUrl, treeFeatures),
         view: olView
     })
 
@@ -166,7 +170,7 @@ export const MapCanvas: React.FC = () => {
 
                     // Update selected feature if necesary
                     if (map.selectedFeature) {
-                        const oid = map.selectedFeature.get('oid')
+                        const oid = map.selectedId
                         const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
                             (feature: any) => (feature.get('oid') === oid)
                         )
@@ -196,8 +200,20 @@ export const MapCanvas: React.FC = () => {
         getFeatures()
         const featureFetcher = setInterval(getFeatures, 15000)
 
+        // Cache focus icon
+        new Image().src = focusIcon
+
         // Set up reactions
         const disposer = [
+            reaction(() => map.needsRefresh, () => {
+                if (map.needsRefresh) {
+                    treeFeatures.changed()
+                    map.setNeedsRefresh(false)
+                }
+            }),
+            // TODO: use needsRefresh for these 
+            reaction(() => settings.showDead, () => treeFeatures.changed()),
+            reaction(() => settings.showNotes, () => treeFeatures.changed()),
             reaction(() => map.baseMap, () => treeFeatures.changed()),
             reaction(() => map.selectedFeature, (selectedFeature: any) => {
                 treeFeatures.changed()
@@ -224,7 +240,7 @@ export const MapCanvas: React.FC = () => {
                         const featureCoords = map.selectedFeature.getGeometry().getCoordinates()
                         olView.animate({
                             center: featureCoords,
-                            zoom: 21,
+                            zoom: Math.max(21, olView.getZoom()),
                             duration: 200
                         })
                         map.setCenterOnSelected(false)
@@ -233,8 +249,9 @@ export const MapCanvas: React.FC = () => {
             ),
             reaction(
                 () => map.baseMap,
-                (baseMap: string) => olMap.setLayerGroup(getLayers(baseMap, treeFeatures))
+                (baseMap: string) => olMap.setLayerGroup(getLayers(map.bucketUrl, treeFeatures))
             ),
+            reaction(() => map.firstLoad, () => map.filterFeatures()),
             reaction(
                 () => map.filteredFeatures,
                 (filteredFeatures: any) => {
@@ -242,6 +259,13 @@ export const MapCanvas: React.FC = () => {
                         treeFeatures.setSource(new VectorSource({
                             features: (new GeoJSON()).readFeatures(filteredFeatures)
                         }))
+
+                        // Toggle selected feature on first load (cache feature)
+                        // if (map.firstLoad) {
+                        //     map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
+                        //     setTimeout(() => map.setSelectedFeature(null), 100)
+                        // }
+
                     } else {
                         console.warn('No features found')
                     }
@@ -250,9 +274,7 @@ export const MapCanvas: React.FC = () => {
         ]
 
         // Prevent map loading issues by forcing resize
-        const waitForMap = setInterval(() => {
-            olMap.updateSize()
-        }, 100)
+        const waitForMap = setInterval(() => olMap.updateSize(), 100)
         olMap.once('postcompose', () => {
             clearInterval(waitForMap)
         })

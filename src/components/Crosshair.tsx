@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import focus from '../assets/focus.svg'
+import focusIcon from '../assets/focus.svg'
 
 const useStyles = createUseStyles({
     container: {
@@ -20,7 +20,7 @@ export const Crosshair: React.FC = () => {
 
     return (
         <div className={classes.container}>
-            <img src={focus} className={classes.focus} alt="+" />
+            <img src={focusIcon} className={classes.focus} alt="+" />
         </div>
     )
 }

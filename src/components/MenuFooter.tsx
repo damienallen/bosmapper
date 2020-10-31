@@ -11,23 +11,23 @@ const useStyles = createUseStyles({
         position: 'absolute',
         bottom: 20,
         width: '100%',
-        textAlign: 'center',
         '& div': {
-            padding: '0 10px'
+            padding: '0 20px'
         }
     },
-    footerItem: {
-        display: 'inline-block'
+    version: {
+        fontSize: '0.8em',
+        fontStyle: 'italic',
+        textAlign: 'right'
     }
 })
 
 export const MenuFooter: React.FC = () => {
     const classes = useStyles()
-
     return (
         <div className={classes.container}>
             <IonText color="medium">
-                <div className={classes.footerItem}>
+                <div className={classes.version}>
                     v{version}
                 </div>
             </IonText>

@@ -64,7 +64,7 @@ export const LocationSelector: React.FC = observer(() => {
                 lon: map.center[0],
                 lat: map.center[1]
             }
-            axios.post(`${settings.host}/tree/update/${map.selectedFeature.get('oid')}/`, featureJson, settings.authHeader)
+            axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)

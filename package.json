@@ -1,6 +1,6 @@
 {
-  "name": "bos-mapper",
-  "version": "1.0.0",
+  "name": "bosmapper",
+  "version": "2.2.0",
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.1.0",
@@ -24,9 +24,11 @@
   "scripts": {
     "start": "ionic serve --no-open",
     "start-dev": "cross-env REACT_APP_SERVER=dev ionic serve --no-open",
+    "start-live": "cross-env REACT_APP_SERVER=dev ionic serve --no-open --external",
     "update": "yarn upgrade-interactive --latest",
     "build": "react-scripts build",
-    "test": "jest",
+    "build-dev": "cross-env REACT_APP_SERVER=dev react-scripts build",
+    "test": "jest ./tests",
     "predeploy": "react-scripts build",
     "deploy": "gh-pages -d build"
   },
@@ -58,6 +60,7 @@
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "babel-jest": "^24.9.0",
+    "capacitor-resources": "^2.0.3",
     "cordova-res": "0.14.0",
     "cross-env": "^7.0.2",
     "gh-pages": "2.2.0",
@@ -69,5 +72,5 @@
     "ts-jest": "^24.2.0"
   },
   "description": "Simple tree management",
-  "homepage": "https://damienallen.github.io/bosmapper"
+  "homepage": "https://bosmapper.dallen.co"
 }

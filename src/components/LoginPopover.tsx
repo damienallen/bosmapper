@@ -64,15 +64,25 @@ export const LoginPopover: React.FC = observer(() => {
             })
     }
 
+    const onKeyPress = (e: any) => {
+        if (e.key === 'Enter') handleLogin()
+    }
+
     const login = (
         <div className={classes.container}>
             <IonInput
                 value={passcode}
                 className={classes.input}
                 onIonChange={(e: any) => setPasscode(e.detail.value!)}
+                onKeyDown={onKeyPress}
                 placeholder="Login code"
             />
-            <IonButton className={classes.button} onClick={() => handleLogin()}>Inloggen</IonButton>
+            <IonButton
+                className={classes.button}
+                onClick={() => handleLogin()}
+            >
+                Inloggen
+            </IonButton>
         </div>
     )
 
@@ -88,7 +98,13 @@ export const LoginPopover: React.FC = observer(() => {
                 <IonCardTitle>Zeker?</IonCardTitle>
                 <IonCardSubtitle>Wilt u uitloggen?</IonCardSubtitle>
             </IonCardHeader>
-            <IonButton color='danger' className={classes.button} onClick={() => handleLogout()}>Uitloggen</IonButton>
+            <IonButton
+                color='danger'
+                className={classes.button}
+                onClick={() => handleLogout()}
+            >
+                Uitloggen
+            </IonButton>
         </div>
     )
 

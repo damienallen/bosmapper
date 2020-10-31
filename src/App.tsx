@@ -1,4 +1,3 @@
-import Cookies from 'universal-cookie'
 import React from 'react'
 import { Provider } from 'mobx-react'
 import {
@@ -14,6 +13,7 @@ import { Menu } from './components/Menu'
 import { RootStore } from './stores'
 
 /* Utilities */
+import { fetchCookies } from './utilities/CookieHelper'
 import { fetchSpecies } from './utilities/SpeciesHelper'
 
 /* Core CSS required for Ionic components to work properly */
@@ -38,27 +38,17 @@ import './theme/variables.css'
 /* Openlayers styling */
 import 'ol/ol.css'
 
-/* Cache static assets */
-import '../assets/pin_normal.svg'
-import '../assets/pin_selected.svg'
-import '../assets/focus.svg'
-
 
 export const App: React.FC = () => {
   const rootStore = new RootStore()
 
   // Use dev server if enabled
   if (process.env.REACT_APP_SERVER === 'dev') {
-    rootStore.settings.setHost('http://192.168.178.16:8080')
+    rootStore.settings.setHost('https://devbos.dallen.co/api')
   }
 
-  // Fetch token cookie
-  const cookies = new Cookies()
-  const cachedToken = cookies.get('token')
-  if (cachedToken) {
-    rootStore.settings.setToken(cachedToken)
-    console.log(`Using cached token '${cachedToken}'`)
-  }
+  // Fetch cookies
+  fetchCookies(rootStore)
 
   // Fetch species list from server
   fetchSpecies(rootStore)
