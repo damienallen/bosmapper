@@ -16,6 +16,7 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelper'
+import { vectorStyleFunction, vectorFeatures } from '../utilities/VectorHelper'
 import focusIcon from '../assets/focus.svg'
 
 
@@ -88,34 +89,55 @@ const useStyles = createUseStyles({
     }
 })
 
-const xyzUrl = (baseMap: string) => (
-    `https://voedselbos-tiles.ams3.digitaloceanspaces.com/${baseMap}/{z}/{x}/{y}.png`
-)
+const baseUrl = 'https://voedselbos-tiles.ams3.digitaloceanspaces.com'
+const droneUrl = `${baseUrl}/drone/v4/{z}/{x}/{y}.png`
+const cartigoUrl = `${baseUrl}/cartigo/light/{z}/{x}/{y}.png`
 
-const getLayers = (baseMap: string, features: VectorLayer) => (
-    new OlLayerGroup({
-        layers: [
-            new OlLayerTile({
-                source: new XYZ({
-                    url: xyzUrl(baseMap)
-                })
-            }),
-            features
-        ]
+
+const getLayers = (isDrone: boolean, features: VectorLayer, vectorFeatures: VectorLayer) => {
+    return new OlLayerGroup({
+        layers: isDrone ?
+            [
+                new OlLayerTile({
+                    source: new XYZ({
+                        url: droneUrl
+                    })
+                }),
+                vectorFeatures,
+                features,
+            ] : [
+                new OlLayerTile({
+                    source: new XYZ({
+                        url: cartigoUrl
+                    })
+                }),
+                vectorFeatures,
+                features,
+            ]
     })
-)
+}
 
 export const MapCanvas: React.FC = () => {
-    console.log('Loading map canvas 1')
     const mapEl: any = useRef<HTMLDivElement>()
     const { map, root, settings, ui } = useStores()
     const classes = useStyles()
 
     // Load GeoJSON features
-    const treeFeatures = new VectorLayer({
+    const treeLayer = new VectorLayer({
         source: new VectorSource(),
         style: (feature: any, resolution: number) => (
             styleFunction(root, feature, resolution)
+        ),
+        updateWhileAnimating: true,
+        updateWhileInteracting: true
+    })
+
+    const vectorLayer = new VectorLayer({
+        source: new VectorSource({
+            features: (new GeoJSON()).readFeatures(vectorFeatures)
+        }),
+        style: (feature: any, resolution: number) => (
+            vectorStyleFunction(map.isDrone, feature, resolution)
         ),
         updateWhileAnimating: true,
         updateWhileInteracting: true
@@ -133,7 +155,7 @@ export const MapCanvas: React.FC = () => {
     })
 
     const olMap = new OlMap({
-        layers: getLayers(map.bucketUrl, treeFeatures),
+        layers: getLayers(map.isDrone, treeLayer, vectorLayer),
         view: olView
     })
 
@@ -171,7 +193,7 @@ export const MapCanvas: React.FC = () => {
                     // Update selected feature if necesary
                     if (map.selectedFeature) {
                         const oid = map.selectedId
-                        const newFeatureEntry = treeFeatures.getSource().getFeatures().find(
+                        const newFeatureEntry = treeLayer.getSource().getFeatures().find(
                             (feature: any) => (feature.get('oid') === oid)
                         )
                         if (newFeatureEntry) {
@@ -207,16 +229,19 @@ export const MapCanvas: React.FC = () => {
         const disposer = [
             reaction(() => map.needsRefresh, () => {
                 if (map.needsRefresh) {
-                    treeFeatures.changed()
+                    treeLayer.changed()
                     map.setNeedsRefresh(false)
                 }
             }),
             // TODO: use needsRefresh for these 
-            reaction(() => settings.showDead, () => treeFeatures.changed()),
-            reaction(() => settings.showNotes, () => treeFeatures.changed()),
-            reaction(() => map.baseMap, () => treeFeatures.changed()),
+            reaction(() => settings.showDead, () => treeLayer.changed()),
+            reaction(() => settings.showNotes, () => treeLayer.changed()),
+            reaction(() => map.baseMap, () => {
+                treeLayer.changed()
+                vectorLayer.changed()
+            }),
             reaction(() => map.selectedFeature, (selectedFeature: any) => {
-                treeFeatures.changed()
+                treeLayer.changed()
                 if (selectedFeature && olView.getZoom() > 20) {
                     olView.animate({
                         center: selectedFeature.getGeometry().getCoordinates(),
@@ -249,23 +274,16 @@ export const MapCanvas: React.FC = () => {
             ),
             reaction(
                 () => map.baseMap,
-                (baseMap: string) => olMap.setLayerGroup(getLayers(map.bucketUrl, treeFeatures))
+                () => olMap.setLayerGroup(getLayers(map.isDrone, treeLayer, vectorLayer))
             ),
             reaction(() => map.firstLoad, () => map.filterFeatures()),
             reaction(
                 () => map.filteredFeatures,
                 (filteredFeatures: any) => {
                     if (map.filteredFeatures.features) {
-                        treeFeatures.setSource(new VectorSource({
+                        treeLayer.setSource(new VectorSource({
                             features: (new GeoJSON()).readFeatures(filteredFeatures)
                         }))
-
-                        // Toggle selected feature on first load (cache feature)
-                        // if (map.firstLoad) {
-                        //     map.setSelectedFeature(treeFeatures.getSource().getFeatures()[0])
-                        //     setTimeout(() => map.setSelectedFeature(null), 100)
-                        // }
-
                     } else {
                         console.warn('No features found')
                     }

@@ -6,9 +6,6 @@ import { cloneDeep } from 'lodash'
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
 
-export const droneUrl = 'drone/v4'
-export const vectorUrl = 'vector/v2'
-
 export class RootStore {
     public ui: UIStore
     public map: MapStore
@@ -195,8 +192,8 @@ export class MapStore {
         cookies.set('drone', value === 'drone')
     }
 
-    @computed get bucketUrl() {
-        return this.baseMap === 'drone' ? droneUrl : vectorUrl
+    @computed get isDrone() {
+        return this.baseMap === 'drone'
     }
 
     setFeaturesGeoJson(value: any) {
