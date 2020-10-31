@@ -195,6 +195,10 @@ export class MapStore {
         cookies.set('drone', value === 'drone')
     }
 
+    @computed get isDrone() {
+        return this.baseMap === 'drone'
+    }
+
     @computed get bucketUrl() {
         return this.baseMap === 'drone' ? droneUrl : vectorUrl
     }
