@@ -11,11 +11,12 @@ const boundaryFill = new Fill({
     color: '#efefef'
 })
 
-const boundaryStroke = new Stroke({
-    color: '#999',
-    width: 3
-})
-
+const boundaryStroke = (resolution: number) => {
+    return new Stroke({
+        color: '#999',
+        width: 0.4 / resolution
+    })
+}
 
 // Vegetation
 const vegetationFill = new Fill({
@@ -26,10 +27,12 @@ const brickFill = new Fill({
     color: '#999'
 })
 
-const brickStroke = new Stroke({
-    color: '#999',
-    width: 3
-})
+const brickStroke = (resolution: number) => {
+    return new Stroke({
+        color: '#999',
+        width: 0.2 / resolution
+    })
+}
 
 // Buildings
 const buildingsFill = new Fill({
@@ -51,13 +54,13 @@ const getTypeStyle = (vectorType: string, resolution: number) => {
                 zIndex: 10
             }),
             new Style({
-                stroke: boundaryStroke,
+                stroke: boundaryStroke(resolution),
                 zIndex: 80
             })
         ]
     } else if (vectorType === 'vegetation') {
         return new Style({
-            stroke: brickStroke,
+            stroke: brickStroke(resolution),
             fill: vegetationFill,
             zIndex: 20
         })
@@ -73,13 +76,13 @@ const getTypeStyle = (vectorType: string, resolution: number) => {
         })
     } else if (vectorType === 'wall') {
         return new Style({
-            stroke: brickStroke,
+            stroke: brickStroke(resolution),
             fill: brickFill,
             zIndex: 40
         })
     } else if (buildingTypes.includes(vectorType)) {
         return new Style({
-            stroke: brickStroke,
+            stroke: brickStroke(resolution),
             fill: buildingsFill,
             zIndex: 50
         })
