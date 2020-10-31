@@ -56,7 +56,7 @@ export const MapOptions: React.FC = observer(() => {
                 <div className={classes.buttonLabel} style={{ color: '#fff' }}>drone</div>
                 <img className={classes.buttonBackground} src={droneBackground} alt="Drone" />
             </div>
-            <div className={mapButtonClass(!isDrone)} onClick={() => map.setBaseMap('vector/v2')}>
+            <div className={mapButtonClass(!isDrone)} onClick={() => map.setBaseMap('vector')}>
                 <div className={classes.buttonLabel} style={{ color: '#888' }}>vector</div>
                 <img className={classes.buttonBackground} src={vectorBackground} alt="Vector" />
             </div>
