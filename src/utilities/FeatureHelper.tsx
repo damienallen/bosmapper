@@ -1,6 +1,7 @@
 
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import Feature from 'ol/Feature'
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
 
 import { RootStore } from '../stores'
@@ -208,14 +209,14 @@ const getPinStyle = (isSelected: boolean, isDead: boolean, isUnknown: boolean, d
 
 export const styleFunction = (
     store: RootStore,
-    feature: any,
+    feature: Feature,
     resolution: number
 ) => {
-
     const nearZoom = resolution < 0.08
     const speciesData = feature.getProperties()
 
-    const isSelected = feature === store.map.selectedFeature
+    const selectedFeatureOid = store.map.selectedFeature?.get('oid')
+    const isSelected = feature.get('oid') === selectedFeatureOid
     const isUnknown = speciesData.name_nl === 'Onbekend'
     const droneBase = store.map.baseMap === 'drone'
 

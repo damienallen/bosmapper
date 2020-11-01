@@ -172,7 +172,7 @@ export const MapCanvas: React.FC = () => {
 
         // Hide details if open
         ui.setShowTreeDetails(false)
-        map.setSelectedFeature(null)
+        map.setSelectedFeature(undefined)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
             if (!layer.className_.includes('vector-base')) {

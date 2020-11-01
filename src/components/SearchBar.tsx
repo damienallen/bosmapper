@@ -69,7 +69,7 @@ export const SearchBar: React.FC = observer(() => {
                     onIonChange={e => species.setQuery(e.detail.value!)}
                     onIonFocus={e => {
                         ui.setShowTreeDetails(false)
-                        map.setSelectedFeature(null)
+                        map.setSelectedFeature(undefined)
                     }}
                     onKeyDown={onKeyPress}
                     debounce={400}
