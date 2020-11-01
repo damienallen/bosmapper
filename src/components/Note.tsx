@@ -44,8 +44,8 @@ export const Note: React.FC = observer(() => {
     }
 
     // Blur input and submit on 'enter' press
-    const onKeyPress = (e: any): void => {
-        if (e.key === 'Enter') e.target.blur()
+    const onKeyPress = (e: React.KeyboardEvent): void => {
+        if (e.key === 'Enter') (e.target as HTMLIonInputElement).blur()
     }
 
     const readonlyNote = map.selectedFeature.get('notes') ?
@@ -63,7 +63,7 @@ export const Note: React.FC = observer(() => {
                     disabled={ui.showMetaUpdated}
                     placeholder='Notitie toevoegen'
                     enterkeyhint='done'
-                    onIonChange={(e: any) => setText(e.detail.value!)}
+                    onIonChange={(e: CustomEvent) => setText(e.detail.value!)}
                     onIonBlur={() => updateNote()}
                     onKeyDown={onKeyPress}
                     maxlength={80}

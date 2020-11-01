@@ -110,12 +110,12 @@ export const Tags: React.FC = observer(() => {
 
     }
 
-    const tabs = featureTags.length ? featureTags.map((key: any) => (
+    const tabs = featureTags.length ? featureTags.map((key: string) => (
         <div className={classes.tab} key={`tab-${key}`}>{tagTypes[key]}</div>
     )) : null
 
 
-    const tags = Object.keys(tagTypes).map((key: any) => (
+    const tags = Object.keys(tagTypes).map((key: string) => (
         < IonItem key={key} lines="none" onClick={() => updateTags(key)}>
             <IonIcon
                 color={featureTags.includes(key) ? "medium" : "light"}
@@ -131,7 +131,7 @@ export const Tags: React.FC = observer(() => {
             color="medium"
             mode="md"
             className={classes.tagButton}
-            onClick={(e: any) => setShowTagsPopover({ open: true, event: e.nativeEvent })}
+            onClick={(e: React.MouseEvent) => setShowTagsPopover({ open: true, event: e.nativeEvent })}
         >
             <IonIcon icon={showTagsPopover.open ? closeOutline : pricetagOutline} />
         </IonButton>
@@ -144,7 +144,7 @@ export const Tags: React.FC = observer(() => {
                 event={showTagsPopover.event}
                 cssClass={classes.popover}
                 mode="ios"
-                onDidDismiss={(_e: any) => setShowTagsPopover({ open: false, event: undefined })}
+                onDidDismiss={() => setShowTagsPopover({ open: false, event: undefined })}
             >
                 <IonItemDivider className={classes.divider}>
                     <IonIcon icon={pricetagOutline} />
