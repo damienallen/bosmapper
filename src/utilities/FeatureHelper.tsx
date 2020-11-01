@@ -1,7 +1,7 @@
 
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import Feature from 'ol/Feature'
+import { Feature } from 'ol'
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
 
 import { RootStore } from '../stores'

@@ -55,8 +55,8 @@ export const SearchBar: React.FC = observer(() => {
     }
     const classes = useStyles(styleProps)
 
-    const onKeyPress = (e: any) => {
-        if (e.key === 'Enter') e.target.blur()
+    const onKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') (e.target as HTMLIonSearchbarElement).blur()
     }
 
     return (

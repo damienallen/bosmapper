@@ -2,6 +2,7 @@ import Cookies from 'universal-cookie'
 import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
+import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
 
 
@@ -182,7 +183,7 @@ export class MapStore {
     @observable needsRefresh: boolean = false
     @observable centerOnSelected: boolean = false
 
-    @observable center: any
+    @observable center: Coordinate = [0, 0]
     @observable newFeatureSpecies: string | null = null
 
     setVersion(value: string) {
@@ -225,7 +226,7 @@ export class MapStore {
         this.centerOnSelected = value
     }
 
-    setCenter(value: any) {
+    setCenter(value: Coordinate) {
         this.center = value
     }
 

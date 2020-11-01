@@ -1,3 +1,4 @@
+import { Feature } from 'ol'
 import { Fill, Stroke, Style } from 'ol/style'
 
 
@@ -88,7 +89,7 @@ const getTypeStyle = (vectorType: string, resolution: number) => {
 
 export const vectorStyleFunction = (
     isDrone: boolean,
-    feature: any,
+    feature: Feature,
     resolution: number
 ) => {
     const featureProps = feature.getProperties()
