@@ -162,8 +162,7 @@ export const MapCanvas: React.FC = () => {
     })
 
     // Drag handling
-    olMap.on('moveend', (event: any) => {
-        console.log('setting center')
+    olMap.on('moveend', () => {
         const mapCenter = olMap.getView().getCenter()
         map.setCenter(mapCenter)
     })
