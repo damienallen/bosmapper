@@ -1,10 +1,5 @@
 import { Fill, Stroke, Style } from 'ol/style'
 
-import vectorGeoJson from '../assets/vector_base.json'
-
-
-export const vectorFeatures = vectorGeoJson
-
 
 // Boundary
 const boundaryFill = new Fill({

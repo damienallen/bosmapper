@@ -16,7 +16,8 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelper'
-import { vectorStyleFunction, vectorFeatures } from '../utilities/VectorHelper'
+import { vectorStyleFunction } from '../utilities/VectorHelper'
+import vectorFeatures from '../assets/vector_base.json'
 import focusIcon from '../assets/focus.svg'
 
 
