@@ -2,6 +2,9 @@ import Cookies from 'universal-cookie'
 import { autorun, observable, computed } from 'mobx'
 import { cloneDeep } from 'lodash'
 
+import { Coordinate } from 'ol/coordinate'
+import Feature from 'ol/Feature'
+
 
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
@@ -168,8 +171,8 @@ export class MapStore {
     @observable baseMap: string = 'drone'
 
     @observable featuresGeoJson: any
-    @observable filteredFeatures: any
-    @observable selectedFeature: any
+    @observable filteredFeatures: any[] = []
+    @observable selectedFeature?: Feature
     @observable numUnknown: number = 0
     @observable numDead: number = 0
 
@@ -180,7 +183,7 @@ export class MapStore {
     @observable needsRefresh: boolean = false
     @observable centerOnSelected: boolean = false
 
-    @observable center: any
+    @observable center: Coordinate = [0, 0]
     @observable newFeatureSpecies: string | null = null
 
     setVersion(value: string) {
@@ -202,7 +205,7 @@ export class MapStore {
         this.numDead = value.features.filter((species: any) => (species.properties.dead)).length
     }
 
-    setSelectedFeature(value: any) {
+    setSelectedFeature(value: Feature | undefined) {
         this.selectedFeature = value
         this.firstLoad = false
     }
@@ -223,7 +226,7 @@ export class MapStore {
         this.centerOnSelected = value
     }
 
-    setCenter(value: any) {
+    setCenter(value: Coordinate) {
         this.center = value
     }
 
@@ -232,7 +235,7 @@ export class MapStore {
     }
 
     @computed get selectedId() {
-        return this.selectedFeature.get('oid')
+        return this.selectedFeature?.get('oid')
     }
 
     @computed get overlayBackground() {

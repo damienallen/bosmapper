@@ -16,7 +16,8 @@ import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 
 import { styleFunction } from '../utilities/FeatureHelper'
-import { vectorStyleFunction, vectorFeatures } from '../utilities/VectorHelper'
+import { vectorStyleFunction } from '../utilities/VectorHelper'
+import vectorFeatures from '../assets/vector_base.json'
 import focusIcon from '../assets/focus.svg'
 
 
@@ -139,6 +140,7 @@ export const MapCanvas: React.FC = () => {
         style: (feature: any, resolution: number) => (
             vectorStyleFunction(map.isDrone, feature, resolution)
         ),
+        className: 'ol-layer vector-base',
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
@@ -160,7 +162,7 @@ export const MapCanvas: React.FC = () => {
     })
 
     // Drag handling
-    olMap.on('moveend', (event: any) => {
+    olMap.on('moveend', () => {
         const mapCenter = olMap.getView().getCenter()
         map.setCenter(mapCenter)
     })
@@ -170,11 +172,13 @@ export const MapCanvas: React.FC = () => {
 
         // Hide details if open
         ui.setShowTreeDetails(false)
-        map.setSelectedFeature(null)
+        map.setSelectedFeature(undefined)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
-            map.setSelectedFeature(feature)
-            ui.setShowTreeDetails(true)
+            if (!layer.className_.includes('vector-base')) {
+                map.setSelectedFeature(feature)
+                ui.setShowTreeDetails(true)
+            }
         })
     })
 

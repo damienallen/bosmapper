@@ -44,7 +44,7 @@ export const SpeciesSelector: React.FC = observer(() => {
     const [filteredSpecies, setFilteredSpecies] = useState(allSpecies)
 
     // Handle species search
-    const handleInput = (e: any) => {
+    const handleInput = (e: CustomEvent) => {
         setSearchText(e.detail.value!)
         const query = e.detail.value.toLowerCase()
 
@@ -83,8 +83,8 @@ export const SpeciesSelector: React.FC = observer(() => {
         ui.setShowSpeciesSelector(false)
     }
 
-    const onKeyPress = (e: any) => {
-        if (e.key === 'Enter') e.target.blur()
+    const onKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') (e.target as HTMLIonSearchbarElement).blur()
     }
 
     const speciesList = filteredSpecies.map((item: Species) => (

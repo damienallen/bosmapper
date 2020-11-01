@@ -64,7 +64,7 @@ export const LoginPopover: React.FC = observer(() => {
             })
     }
 
-    const onKeyPress = (e: any) => {
+    const onKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') handleLogin()
     }
 
@@ -73,7 +73,7 @@ export const LoginPopover: React.FC = observer(() => {
             <IonInput
                 value={passcode}
                 className={classes.input}
-                onIonChange={(e: any) => setPasscode(e.detail.value!)}
+                onIonChange={(e: CustomEvent) => setPasscode(e.detail.value!)}
                 onKeyDown={onKeyPress}
                 placeholder="Login code"
             />
@@ -111,7 +111,7 @@ export const LoginPopover: React.FC = observer(() => {
     return (
         <IonPopover
             isOpen={ui.showLoginPopover}
-            onDidDismiss={(_e: any) => ui.setShowLoginPopover(false)}
+            onDidDismiss={() => ui.setShowLoginPopover(false)}
         >
             {settings.authenticated ? logout : login}
         </IonPopover>
