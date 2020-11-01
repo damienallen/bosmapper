@@ -139,6 +139,7 @@ export const MapCanvas: React.FC = () => {
         style: (feature: any, resolution: number) => (
             vectorStyleFunction(map.isDrone, feature, resolution)
         ),
+        className: 'ol-layer vector-base',
         updateWhileAnimating: true,
         updateWhileInteracting: true
     })
@@ -173,8 +174,10 @@ export const MapCanvas: React.FC = () => {
         map.setSelectedFeature(null)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
-            map.setSelectedFeature(feature)
-            ui.setShowTreeDetails(true)
+            if (!layer.className_.includes('vector-base')) {
+                map.setSelectedFeature(feature)
+                ui.setShowTreeDetails(true)
+            }
         })
     })
 
