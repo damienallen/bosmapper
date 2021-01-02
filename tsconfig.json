@@ -21,11 +21,6 @@
     "jsx": "react",
     "noFallthroughCasesInSwitch": true
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  },
   "include": [
     "src",
     "tests/App.test.tsx"
