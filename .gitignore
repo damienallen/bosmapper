@@ -20,6 +20,8 @@
 .mypy_cache
 .vscode
 
+.eslintcache
+
 maptiler.json
 
 npm-debug.log*
