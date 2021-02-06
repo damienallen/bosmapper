@@ -29,8 +29,6 @@
     "build": "react-scripts build",
     "build-dev": "cross-env REACT_APP_SERVER=dev react-scripts build",
     "test": "jest ./tests",
-    "predeploy": "react-scripts build",
-    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

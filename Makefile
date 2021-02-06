@@ -4,4 +4,4 @@ deploy-prod:
 
 deploy-dev:
 	@echo "Deploying to devbos.dallen.co"
-	rsync -azP ./build -e "ssh -i ~/.ssh/deploy" damien@dev.dallen.co:/home/damien/mothership/bosmapper/
+	rsync -azP ./build -e "ssh -i ~/.ssh/deploy" damien@dallen.dev:/home/damien/mothership/bosmapper/
