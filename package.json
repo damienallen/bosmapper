@@ -1,6 +1,6 @@
 {
   "name": "bosmapper",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "private": true,
   "dependencies": {
     "@capacitor/core": "2.4.5",
