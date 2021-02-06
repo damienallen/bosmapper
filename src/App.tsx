@@ -1,9 +1,6 @@
 import React from 'react'
 import { Provider } from 'mobx-react'
-import {
-  IonApp,
-  IonSplitPane
-} from '@ionic/react'
+import { IonApp, IonSplitPane } from '@ionic/react'
 
 /* Components */
 import { Content } from './components/Content'
@@ -38,35 +35,34 @@ import './theme/variables.css'
 /* Openlayers styling */
 import 'ol/ol.css'
 
-
 export const App: React.FC = () => {
-  const rootStore = new RootStore()
+    const rootStore = new RootStore()
 
-  // Use dev server if enabled
-  if (process.env.REACT_APP_SERVER === 'dev') {
-    rootStore.settings.setHost('https://devbos.dallen.co/api')
-  }
+    // Use dev server if enabled
+    if (process.env.REACT_APP_SERVER === 'dev') {
+        rootStore.settings.setHost('https://bosmapper.dallen.dev/api')
+    }
 
-  // Fetch cookies
-  fetchCookies(rootStore)
+    // Fetch cookies
+    fetchCookies(rootStore)
 
-  // Fetch species list from server
-  fetchSpecies(rootStore)
+    // Fetch species list from server
+    fetchSpecies(rootStore)
 
-  return (
-    <Provider
-      map={rootStore.map}
-      root={rootStore}
-      settings={rootStore.settings}
-      species={rootStore.species}
-      ui={rootStore.ui}
-    >
-      <IonApp>
-        <IonSplitPane contentId='main'>
-          <Menu />
-          <Content />
-        </IonSplitPane>
-      </IonApp>
-    </Provider>
-  )
+    return (
+        <Provider
+            map={rootStore.map}
+            root={rootStore}
+            settings={rootStore.settings}
+            species={rootStore.species}
+            ui={rootStore.ui}
+        >
+            <IonApp>
+                <IonSplitPane contentId="main">
+                    <Menu />
+                    <Content />
+                </IonSplitPane>
+            </IonApp>
+        </Provider>
+    )
 }

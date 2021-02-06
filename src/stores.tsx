@@ -5,7 +5,6 @@ import { cloneDeep } from 'lodash'
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
 
-
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
 
@@ -24,7 +23,6 @@ export class RootStore {
 }
 
 export class UIStore {
-
     @observable toastText: string = ''
     @observable showToast: boolean = false
     @observable showConnectionError: boolean = false
@@ -100,24 +98,22 @@ export class UIStore {
     }
 
     @computed get showDetailsUpdated() {
-        return (this.showLocationUpdated || this.showMetaUpdated || this.showSpeciesUpdated)
+        return this.showLocationUpdated || this.showMetaUpdated || this.showSpeciesUpdated
     }
 
-    constructor(public root: RootStore) { }
+    constructor(public root: RootStore) {}
 }
 
-
 export interface Species {
-    species: string,
-    name_la: string,
-    name_nl?: string,
-    name_en?: string,
-    height?: number,
+    species: string
+    name_la: string
+    name_nl?: string
+    name_en?: string
+    height?: number
     width?: number
 }
 
 export class SpeciesStore {
-
     @observable query: string = ''
     @observable selectedTags: string[] = []
 
@@ -162,11 +158,10 @@ export class SpeciesStore {
         return this.list.length
     }
 
-    constructor(public root: RootStore) { }
+    constructor(public root: RootStore) {}
 }
 
 export class MapStore {
-
     @observable version: string = 'current'
     @observable baseMap: string = 'drone'
 
@@ -201,8 +196,10 @@ export class MapStore {
 
     setFeaturesGeoJson(value: any) {
         this.featuresGeoJson = value
-        this.numUnknown = value.features.filter((species: any) => (species.properties.name_nl === 'Onbekend')).length
-        this.numDead = value.features.filter((species: any) => (species.properties.dead)).length
+        this.numUnknown = value.features.filter(
+            (species: any) => species.properties.name_nl === 'Onbekend'
+        ).length
+        this.numDead = value.features.filter((species: any) => species.properties.dead).length
     }
 
     setSelectedFeature(value: Feature | undefined) {
@@ -255,18 +252,21 @@ export class MapStore {
         const featureFilter = (feature: any) => {
             const speciesData = feature.properties
 
-            if (speciesData.dead && (!this.root.settings.showDead || !this.root.settings.authenticated)) {
+            if (
+                speciesData.dead &&
+                (!this.root.settings.showDead || !this.root.settings.authenticated)
+            ) {
                 return false
             } else if (
                 this.root.species.selectedTags.length > 0 &&
-                !this.root.species.selectedTags.every(tag => speciesData.tags.includes(tag))
+                !this.root.species.selectedTags.every((tag) => speciesData.tags.includes(tag))
             ) {
                 return false
             } else if (query.length < 1) {
                 return true
             } else if (
-                (speciesData.name_la && speciesData.name_la.toLowerCase().includes(query))
-                || (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
+                (speciesData.name_la && speciesData.name_la.toLowerCase().includes(query)) ||
+                (speciesData.name_nl && speciesData.name_nl.toLowerCase().includes(query))
             ) {
                 return true
             } else {
@@ -284,11 +284,9 @@ export class MapStore {
     constructor(public root: RootStore) {
         autorun(() => this.filterFeatures())
     }
-
 }
 
 export class SettingStore {
-
     @observable showDead: boolean = false
     @observable showNotes: boolean = false
 
@@ -324,14 +322,14 @@ export class SettingStore {
     }
 
     @computed get authenticated() {
-        return (this.token !== null)
+        return this.token !== null
     }
 
     @computed get authHeader() {
         return {
-            headers: { 'Authorization': `Bearer ${this.token}` }
+            headers: { Authorization: `Bearer ${this.token}` },
         }
     }
 
-    constructor(public root: RootStore) { }
+    constructor(public root: RootStore) {}
 }
