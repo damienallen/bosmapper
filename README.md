@@ -19,3 +19,14 @@ To run the app locally, can use the serve command:
 ```bash
 npx cap serve
 ```
+
+# bosmapper-server
+
+FastAPI server powering the bosmapper backend
+
+### Stack
+
+- Docker
+- Python
+- FastAPI
+- MongoDB

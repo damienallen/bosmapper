@@ -30,3 +30,10 @@ yarn-error.log*
 
 # project
 /scripts/output
+
+# Python
+__pycache__/
+
+# Env
+config/.env
+thunderEnvironment.json
