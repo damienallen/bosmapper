@@ -345,3 +345,12 @@ def update_db(request: Request):
     TreeDB.objects.all().update(unset__status=1)
 
     return {"detail": "Done."}
+
+
+@app.get("/api/export/pdf/")
+def export_pdf(species_json: ImportSpeciesJson, request: Request):
+    """
+    Export to PDF vector map
+    """
+
+    return {"detail": "exported"}
