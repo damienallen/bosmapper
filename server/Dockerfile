@@ -1,5 +1,9 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9 as development
 
+# Install linux dependencies
+RUN apt-get update && apt-get install -y libcairo2-dev
+ENV export DISPLAY=:99.0
+
 # Install Poetry
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
     cd /usr/local/bin && \
