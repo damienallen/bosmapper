@@ -3,7 +3,7 @@ from datetime import datetime
 import requests
 import json
 
-output_dir = Path("/mnt/u/OneDrive/bosmapper/backups")
+output_dir = Path("/Users/damien/Development/backups")
 base_url = "https://bosmapper.dallen.co/api"
 
 print(f"Backing up into: {output_dir}")
