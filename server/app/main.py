@@ -19,6 +19,7 @@ from models import (
     User,
     UsersDB,
 )
+from draw import MapMaker
 
 # Fast API main app
 app = FastAPI()
@@ -122,35 +123,12 @@ def trees_geojson():
     """
     List tree objects in GeoJSON format
     """
-    features = []
-    for tree in TreeDB.objects:
-        feature = {
-            "type": "Feature",
-            "properties": {
-                "oid": str(tree.id),
-                "species": tree.species,
-                "notes": tree.notes,
-                "tags": tree.tags,
-                "dead": tree.dead,
-            },
-            "geometry": {"type": "Point", "coordinates": [tree.lon, tree.lat]},
-        }
-
-        try:
-            species = SpeciesDB.objects.get(species=tree.species)
-            feature["properties"]["name_la"] = species.name_la
-            feature["properties"]["name_nl"] = species.name_nl
-            feature["properties"]["name_en"] = species.name_en
-        except SpeciesDB.DoesNotExist:
-            pass
-
-        features.append(feature)
 
     return {
         "type": "FeatureCollection",
         "name": "trees",
         "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:EPSG:3857"}},
-        "features": features,
+        "features": get_features(),
     }
 
 
@@ -246,7 +224,6 @@ def update_tree(
     """
     Update tree DB entry
     """
-    print(tree)
     try:
         selected_tree = TreeDB.objects.get(id=oid)
 
@@ -347,10 +324,44 @@ def update_db(request: Request):
     return {"detail": "Done."}
 
 
-@app.get("/api/export/pdf/")
-def export_pdf(species_json: ImportSpeciesJson, request: Request):
+@app.get("/api/export/")
+def export_pdf(request: Request):
     """
     Export to PDF vector map
     """
 
+    maker = MapMaker(get_features())
+    maker.draw()
+
     return {"detail": "exported"}
+
+
+def get_features():
+    features = []
+    for tree in TreeDB.objects:
+        feature = {
+            "type": "Feature",
+            "properties": {
+                "oid": str(tree.id),
+                "species": tree.species,
+                "notes": tree.notes,
+                "tags": tree.tags,
+                "dead": tree.dead,
+            },
+            "geometry": {"type": "Point", "coordinates": [tree.lon, tree.lat]},
+        }
+
+        try:
+            species = SpeciesDB.objects.get(species=tree.species)
+            feature["properties"]["name_la"] = species.name_la
+            feature["properties"]["name_nl"] = species.name_nl
+            feature["properties"]["name_en"] = species.name_en
+            feature["properties"]["width"] = species.width
+            feature["properties"]["height"] = species.height
+
+        except SpeciesDB.DoesNotExist:
+            pass
+
+        features.append(feature)
+
+    return features

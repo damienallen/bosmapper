@@ -62,17 +62,18 @@ FEATURE_STYLES = {
 
 
 class MapMaker:
-    def __init__(self, svg_path, feature_path, base_path):
-        self.base_features = self.get_features(current_dir / "data" / "base.geojson")
+    def __init__(self, features):
 
-        self.feature_list = self.get_features(
-            current_dir / "data" / "voedselbos_20201017.geojson"
-        )
-        self.extract_features()
+        self.get_base_features(current_dir / "base.geojson")
+        self.extract_features(features)
 
     def draw(self):
 
-        with cairo.SVGSurface(svg_path, 840, 1200) as surface:
+        temp_dir = current_dir / "temp"
+        pdf_path = temp_dir / "voedselbos.pdf"
+        Path(temp_dir).mkdir(parents=True, exist_ok=True)
+
+        with cairo.PDFSurface(pdf_path, 840, 1200) as surface:
             self.ctx = cairo.Context(surface)
             self.ctx.scale(1200, 1200)
 
@@ -100,9 +101,8 @@ class MapMaker:
         x2, y2 = transformer.transform(*coordinates)
         return [y2, x2]
 
-    @staticmethod
-    def get_features(geojson_path):
-        print(f"Parsing file {geojson_path}")
+    def get_base_features(self, geojson_path):
+        print(f"Parsing file: {geojson_path}")
 
         with open(geojson_path, "r") as f:
             geojson_data = json.load(f)
@@ -110,25 +110,24 @@ class MapMaker:
         features = geojson_data.get("features")
         print(f"Loaded {len(features)} features")
 
-        return features
+        self.base_features = features
 
     def get_x(self, coords):
-        # return self.max_lat - self.reproject(coords)[1]
         return self.reproject(coords)[1] - self.min_lat
 
     def get_y(self, coords):
         return self.max_lon - self.reproject(coords)[0]
 
-    def extract_features(self):
+    def extract_features(self, feature_list):
 
         # TODO: calculate these from bounds
         lat_list = [
             self.reproject(feature["geometry"]["coordinates"])[1]
-            for feature in self.feature_list
+            for feature in feature_list
         ]
         lon_list = [
             self.reproject(feature["geometry"]["coordinates"])[0]
-            for feature in self.feature_list
+            for feature in feature_list
         ]
 
         self.min_lon = min(lon_list) - MARGIN_LEFT
@@ -148,7 +147,7 @@ class MapMaker:
         self.species_list = []
         num_skipped = 0
 
-        for feature in self.feature_list:
+        for feature in feature_list:
             crown_diameter = (
                 feature["properties"]["width"]
                 if feature["properties"].get("width")
@@ -379,7 +378,7 @@ class MapMaker:
         self.ctx.move_to(
             (x_offset + 4) * self.scale_factor, (y_offset + 2) * self.scale_factor
         )
-        self.ctx.show_text("10m")
+        self.ctx.show_text("10 m")
 
         self.ctx.restore()
 
@@ -398,12 +397,3 @@ class MapMaker:
         self.ctx.show_text("Voedselbos")
 
         self.ctx.restore()
-
-
-if __name__ == "__main__":
-    svg_path = current_dir / "template" / "voedselbos.svg"
-    feature_path = current_dir / "data" / "voedselbos_20201017.geojson"
-    base_path = current_dir / "data" / "base.geojson"
-
-    maker = MapMaker(svg_path, feature_path, base_path)
-    maker.draw()

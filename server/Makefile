@@ -9,3 +9,6 @@ backup:
 
 draw:
 	python scripts/export/draw.py
+
+draw_pdf:
+	python app/draw.py
