@@ -87,14 +87,6 @@ class MapMaker:
             print("Drawing base map")
             self.draw_base_features()
 
-            print(f"Drawing canopy of {len(self.species_list)} species")
-            self.draw_background_outline()
-            for species in self.species_list:
-                filtered_trees = [
-                    tree for tree in self.trees if tree["species"] == species["name"]
-                ]
-                self.draw_fills(filtered_trees)
-
             self.draw_overlay()
             self.draw_text()
             self.draw_compass()
@@ -205,29 +197,9 @@ class MapMaker:
 
         self.species_list = sorted(self.species_list, key=itemgetter("height"))
 
-    def draw_background_outline(self):
-        self.ctx.save()
-        self.ctx.set_line_width(self.scale_factor / 5)
-
-        for tree in self.trees:
-            if not tree["species"] == "Onbekend":
-                self.ctx.arc(tree["x"], tree["y"], tree["radius"], 0, pi * 2)
-                self.ctx.set_source_rgb(*TREE_OUTLINE)
-                self.ctx.stroke()
-
-        self.ctx.restore()
-
     def draw_overlay(self):
 
         for tree in self.trees:
-            self.ctx.save()
-            self.ctx.set_line_width(self.scale_factor / 10)
-            self.ctx.set_dash([self.scale_factor / 3])
-            self.ctx.arc(tree["x"], tree["y"], tree["radius"], 0, pi * 2)
-            self.ctx.set_source_rgb(*TREE_OUTLINE)
-            self.ctx.stroke()
-            self.ctx.restore()
-
             self.ctx.save()
             dot_radius = max(tree["radius"] / 14, 0.001)
             self.ctx.arc(tree["x"], tree["y"], dot_radius, 0, pi * 2)
@@ -241,29 +213,6 @@ class MapMaker:
         white = np.array([1, 1, 1])
         vector = white - color
         return color + vector * percent
-
-    def draw_fills(self, trees):
-        min_radius = min([species["radius"] for species in self.species_list])
-        max_radius = max([species["radius"] for species in self.species_list]) + 0.01
-        percent = (self.trees[0]["radius"] - min_radius) / (max_radius - min_radius)
-
-        fill_color = self.fade_white(TREE_FILL, percent)
-
-        self.ctx.save()
-
-        for tree in trees:
-            if not tree["species"] == "Onbekend":
-                self.ctx.arc(
-                    tree["x"],
-                    tree["y"],
-                    tree["radius"] - self.scale_factor / 20,
-                    0,
-                    pi * 2,
-                )
-                self.ctx.set_source_rgba(*fill_color, 0.75)
-                self.ctx.fill()
-
-        self.ctx.restore()
 
     def draw_text(self):
 
