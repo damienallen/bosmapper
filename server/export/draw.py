@@ -19,7 +19,9 @@ MARGIN_TOP = 10
 MARGIN_BOTTOM = 10
 MARGIN_LEFT = 10
 MARGIN_RIGHT = 5
-TEXT_MARGIN = 1
+TEXT_MARGIN_V = 0
+TEXT_MARGIN_H = 0.5
+TEXT_SIZE = 0.8
 
 COMPASS_COORDS = [493399, 6783645]
 SCALE_COORDS = [493297, 6783567]
@@ -201,7 +203,7 @@ class MapMaker:
 
         for tree in self.trees:
             self.ctx.save()
-            dot_radius = max(tree["radius"] / 14, 0.001)
+            dot_radius = max(tree["radius"] / 14, 0.002)
             self.ctx.arc(tree["x"], tree["y"], dot_radius, 0, pi * 2)
             self.ctx.set_source_rgba(*COLOR_BLACK, 0.6)
             self.ctx.fill()
@@ -224,26 +226,35 @@ class MapMaker:
 
             min_radius = -50 * self.scale_factor
             max_radius = 15 * self.scale_factor
-            fill_percent = min(
+            radius_factor = min(
                 (tree["radius"] - min_radius) / (max_radius - min_radius), 1
             )
-            fill_color = self.fade_white(COLOR_BLACK, 1 - fill_percent)
+
+            # Set text styling
+            fill_color = self.fade_white(COLOR_BLACK, 1 - radius_factor)
             self.ctx.set_source_rgb(*fill_color)
-            self.ctx.set_font_size(1 * self.scale_factor)
+            self.ctx.set_font_size(TEXT_SIZE * radius_factor * self.scale_factor)
 
             self.ctx.select_font_face(
                 "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
             )
 
+            # Measure and align text
             fascent, fdescent, fheight, fxadvance, fyadvance = self.ctx.font_extents()
             x_off, y_off, tw, th = self.ctx.text_extents(display_name)[:4]
-            nx = -tw / 2.0
-            ny = fheight / 2
+
+            # nx = -tw / 2.0
+            # ny = fheight / 2
+
+            nx = 0
+            ny = th / 2
 
             self.ctx.translate(tree["x"], tree["y"])
             self.ctx.rotate(-ROTATION_ANGLE)
             self.ctx.translate(nx, ny)
-            self.ctx.move_to(0, TEXT_MARGIN * self.scale_factor)
+            self.ctx.move_to(
+                TEXT_MARGIN_H * self.scale_factor, TEXT_MARGIN_V * self.scale_factor
+            )
             self.ctx.show_text(display_name)
 
             self.ctx.restore()
@@ -315,7 +326,7 @@ class MapMaker:
         self.ctx.select_font_face(
             "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
         )
-        self.ctx.set_font_size(2 * self.scale_factor)
+        self.ctx.set_font_size(1.5 * self.scale_factor)
 
         fascent, fdescent, fheight, fxadvance, fyadvance = self.ctx.font_extents()
         x_off, y_off, tw, th = self.ctx.text_extents("N")[:4]
@@ -382,7 +393,7 @@ class MapMaker:
         self.ctx.select_font_face(
             "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
         )
-        self.ctx.set_font_size(3 * self.scale_factor)
+        self.ctx.set_font_size(1.5 * self.scale_factor)
         self.ctx.move_to(0, 0)
         self.ctx.show_text("Voedselbos")
 
