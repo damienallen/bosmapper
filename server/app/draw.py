@@ -260,7 +260,6 @@ class MapMaker:
 
     def draw_base_features(self):
         # TODO: break this up, offset paths
-        self.base_features.sort(key=lambda d: d["properties"]["z_index"])
 
         for feature in self.base_features:
 
@@ -272,6 +271,9 @@ class MapMaker:
                 continue
 
             self.ctx.save()
+
+            if not feature["geometry"]["coordinates"]:
+                continue
 
             for index, point in enumerate(feature["geometry"]["coordinates"][0]):
                 x = self.get_x(point) * self.scale_factor
@@ -397,3 +399,12 @@ class MapMaker:
         self.ctx.show_text("Voedselbos")
 
         self.ctx.restore()
+
+
+if __name__ == "__main__":
+    feature_path = current_dir / ".." / "scripts" / "export" / "data" / "trees.geojson"
+    with open(feature_path, "r") as f:
+        geojson_data = json.load(f)
+
+    maker = MapMaker(geojson_data["features"])
+    maker.draw()
