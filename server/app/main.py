@@ -325,14 +325,14 @@ def update_db(request: Request):
     return {"detail": "Done."}
 
 
-@app.get("/api/export/{size}/")
-def export_pdf(size: str = "a4"):
+@app.get("/api/export")
+def export_pdf(format: str = "a4"):
     """
     Export to PDF vector map
     """
 
     maker = MapMaker(get_features())
-    file_path = maker.draw(size)
+    file_path = maker.draw(format)
 
     return FileResponse(file_path)
 
