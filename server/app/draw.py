@@ -67,13 +67,16 @@ class MapMaker:
         self.get_base_features(current_dir / "base.geojson")
         self.extract_features(features)
 
-    def draw(self):
+    def draw(self, size: str) -> str:
+
+        height = (16.5 if size == "a3" else 11.7) * 72
+        width = (11.7 if size == "a3" else 8.3) * 72
 
         temp_dir = current_dir / "temp"
         pdf_path = temp_dir / "voedselbos.pdf"
         Path(temp_dir).mkdir(parents=True, exist_ok=True)
 
-        with cairo.PDFSurface(pdf_path, 840, 1200) as surface:
+        with cairo.PDFSurface(pdf_path, width, height) as surface:
             self.ctx = cairo.Context(surface)
             self.ctx.scale(1200, 1200)
 
@@ -95,6 +98,8 @@ class MapMaker:
             self.draw_compass()
             self.draw_scale()
             self.draw_title()
+
+        return pdf_path
 
     @staticmethod
     def reproject(coordinates):
@@ -407,4 +412,4 @@ if __name__ == "__main__":
         geojson_data = json.load(f)
 
     maker = MapMaker(geojson_data["features"])
-    maker.draw()
+    maker.draw("a3")

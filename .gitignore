@@ -30,6 +30,7 @@ yarn-error.log*
 
 # project
 /scripts/output
+temp/
 
 # Python
 __pycache__/

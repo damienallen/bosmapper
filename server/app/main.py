@@ -5,6 +5,7 @@ from secrets import token_urlsafe
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.responses import FileResponse
 from mongoengine import connect, errors
 
 from models import (
@@ -331,9 +332,9 @@ def export_pdf(request: Request):
     """
 
     maker = MapMaker(get_features())
-    maker.draw()
+    file_path = maker.draw("a4")
 
-    return {"detail": "exported"}
+    return FileResponse(file_path)
 
 
 def get_features():
