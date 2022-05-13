@@ -65,9 +65,7 @@ class MapMaker:
     def __init__(self, svg_path, feature_path, base_path):
         self.base_features = self.get_features(current_dir / "data" / "base.geojson")
 
-        self.feature_list = self.get_features(
-            current_dir / "data" / "voedselbos_20201017.geojson"
-        )
+        self.feature_list = self.get_features(current_dir / "data" / "trees.geojson")
         self.extract_features()
 
     def draw(self):
@@ -184,7 +182,7 @@ class MapMaker:
             if not feature["properties"]["species"] in existing_species:
                 height = (
                     feature["properties"]["height"]
-                    if feature["properties"]["height"]
+                    if feature["properties"].get("height")
                     else DEFAULT_HEIGHT
                 )
                 self.species_list.append(

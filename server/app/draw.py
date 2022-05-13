@@ -183,7 +183,7 @@ class MapMaker:
             if not feature["properties"]["species"] in existing_species:
                 height = (
                     feature["properties"]["height"]
-                    if feature["properties"]["height"]
+                    if feature["properties"].get("height")
                     else DEFAULT_HEIGHT
                 )
                 self.species_list.append(
