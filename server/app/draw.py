@@ -12,6 +12,7 @@ from pyproj import Transformer
 # CRS projection
 transformer = Transformer.from_crs(3857, 7415)
 current_dir = Path(__file__).resolve().parent
+data_dir = current_dir / "data"
 
 # Constants
 DEFAULT_HEIGHT = 2
@@ -85,7 +86,8 @@ class MapMaker:
         self.min_lat = MIN_LAT - self.format["bottom"]
         self.max_lat = MAX_LAT - self.format["top"]
 
-        self.get_base_features(current_dir / "base.geojson")
+        self.get_base_features(data_dir / "base.geojson")
+        self.extract_species(data_dir / "species.json")
         self.extract_features(features)
 
     def draw(self) -> str:
@@ -144,6 +146,29 @@ class MapMaker:
     def get_y(self, coords):
         return self.max_lon - self.reproject(coords)[0]
 
+    def extract_species(self, species_path: str):
+        print(f"Loading {species_path}")
+
+        with open(species_path, "r") as f:
+            species_data = json.load(f)
+            self.species = species_data["species"]
+
+    def get_species(self, species_name: str):
+        return next(
+            (s for s in self.species if s["species"] == species_name),
+            None,
+        )
+
+    def get_height(self, feature):
+        species_data = self.get_species(feature["properties"]["species"])
+        height = species_data["height"] if species_data else None
+        return height if height else DEFAULT_HEIGHT
+
+    def get_diameter(self, feature):
+        species_data = self.get_species(feature["properties"]["species"])
+        width = species_data["width"] if species_data else None
+        return width if width else DEFAULT_DIAMETER
+
     def extract_features(self, feature_list):
 
         lat_range = self.max_lat - self.min_lat
@@ -152,7 +177,6 @@ class MapMaker:
         print(f"Scale factor: {self.scale_factor}")
 
         self.trees = []
-        self.species_list = []
         num_skipped = 0
 
         for feature in feature_list:
@@ -160,19 +184,10 @@ class MapMaker:
             if feature["properties"]["name_nl"] == "Onbekend":
                 continue
 
-            crown_diameter = (
-                feature["properties"]["width"]
-                if feature["properties"].get("width")
-                else DEFAULT_DIAMETER
-            )
+            width = self.get_diameter(feature)
+            adjusted_radius = (width / 2) * self.scale_factor
 
-            adjusted_radius = (crown_diameter / 2) * self.scale_factor
-            print(adjusted_radius)
-            height = (
-                feature["properties"]["height"]
-                if feature["properties"].get("height")
-                else DEFAULT_HEIGHT
-            )
+            height = self.get_height(feature)
             adjusted_height = height * self.scale_factor
 
             try:
@@ -192,30 +207,13 @@ class MapMaker:
             except KeyError:
                 num_skipped += 1
 
-            existing_species = [species["name"] for species in self.species_list]
-            if not feature["properties"]["species"] in existing_species:
-                height = (
-                    feature["properties"]["height"]
-                    if feature["properties"].get("height")
-                    else DEFAULT_HEIGHT
-                )
-                self.species_list.append(
-                    {
-                        "name": feature["properties"]["species"],
-                        "radius": adjusted_radius,
-                        "height": height,
-                    }
-                )
-
         print(f"Skipped {num_skipped} entries.")
-
-        self.species_list = sorted(self.species_list, key=itemgetter("height"))
 
     def draw_overlay(self):
 
         for tree in self.trees:
             self.ctx.save()
-            dot_radius = min(max(tree["radius"] / 14, 0.0012), 0.0025)
+            dot_radius = min(max(tree["radius"] / 14, 0.0012), 0.0022)
             self.ctx.arc(tree["x"], tree["y"], dot_radius, 0, pi * 2)
             self.ctx.set_source_rgba(*COLOR_GREY_60, 1)
             self.ctx.fill()
@@ -242,8 +240,14 @@ class MapMaker:
                 (tree["radius"] - min_radius) / (max_radius - min_radius), 1
             )
 
+            min_height = -10 * self.scale_factor
+            max_height = 15 * self.scale_factor
+            height_factor = min(
+                (tree["height"] - min_height) / (max_height - min_height), 1
+            )
+
             # Set text styling
-            fill_color = self.fade_white(COLOR_BLACK, 1 - radius_factor)
+            fill_color = self.fade_white(COLOR_BLACK, 0.75 * (1 - height_factor) + 0.1)
             self.ctx.set_source_rgb(*fill_color)
             self.ctx.set_font_size(
                 radius_factor * self.scale_factor / self.format["font_size"]
@@ -423,7 +427,7 @@ class MapMaker:
 
 
 if __name__ == "__main__":
-    feature_path = current_dir / ".." / "scripts" / "export" / "data" / "trees.geojson"
+    feature_path = data_dir / "trees.geojson"
     with open(feature_path, "r") as f:
         geojson_data = json.load(f)
 

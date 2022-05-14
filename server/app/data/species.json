@@ -1,0 +1,1093 @@
+{
+    "species": [
+        {
+            "species": "Onbekend",
+            "name_la": "Onbekend",
+            "name_nl": "Onbekend",
+            "name_en": "Unknown",
+            "height": null,
+            "width": null
+        },
+        {
+            "species": "A. alnifolia",
+            "name_la": "Amelanchier alnifolia",
+            "name_nl": "Saskatoon krentenboompje",
+            "name_en": "Saskatoon serviceberry",
+            "height": 3,
+            "width": 2.5
+        },
+        {
+            "species": "A. araucana",
+            "name_la": "Araucaria araucana",
+            "name_nl": "Slangenden",
+            "name_en": "Monkey puzzle tree",
+            "height": 25,
+            "width": 10
+        },
+        {
+            "species": "A. cordata",
+            "name_la": "Aralia cordata",
+            "name_nl": "Udo",
+            "name_en": "Udo",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "A. incana",
+            "name_la": "Alnus incana",
+            "name_nl": "Witte els",
+            "name_en": "Grey alder",
+            "height": 15,
+            "width": 10
+        },
+        {
+            "species": "A. laevis",
+            "name_la": "Amelanchier laevis",
+            "name_nl": "Krentenboompje",
+            "name_en": "Smooth serviceberry",
+            "height": 4,
+            "width": 3.5
+        },
+        {
+            "species": "A. melanocarpa",
+            "name_la": "Aronia melanocarpa",
+            "name_nl": "Zwarte appelbes (VS)",
+            "name_en": "Black chokeberry (US)",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "A. sellowiana",
+            "name_la": "Acca sellowiana",
+            "name_nl": "Ananasguave",
+            "name_en": "Feijoa",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "A. unedo",
+            "name_la": "Arbutus unedo",
+            "name_nl": "Aardbeiboom",
+            "name_en": "Strawberry tree",
+            "height": 8,
+            "width": 8
+        },
+        {
+            "species": "A. uva-ursi",
+            "name_la": "Arctostaphylos uva-ursi",
+            "name_nl": "Berendruif",
+            "name_en": "Bearberry",
+            "height": 0.25,
+            "width": 0.25
+        },
+        {
+            "species": "Amelanchier",
+            "name_la": "Amelanchier",
+            "name_nl": "Krentenboompje",
+            "name_en": "Serviceberry",
+            "height": 4,
+            "width": 3.5
+        },
+        {
+            "species": "Aronia spp.",
+            "name_la": "Aronia spp.",
+            "name_nl": "Zwarte appelbes",
+            "name_en": "Chokeberry",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "B. darwinii",
+            "name_la": "Berberis darwinii",
+            "name_nl": "Zuurbes",
+            "name_en": "Barberry",
+            "height": 2.5,
+            "width": 2.5
+        },
+        {
+            "species": "B. lologensis",
+            "name_la": "Berberis lologensis",
+            "name_nl": "Zuurbes",
+            "name_en": "Barberry",
+            "height": 2.5,
+            "width": 2.5
+        },
+        {
+            "species": "B. papyrifera",
+            "name_la": "Broussonetia papyrifera",
+            "name_nl": "Papiermoerbei",
+            "name_en": "Paper mulberry",
+            "height": 12,
+            "width": 8
+        },
+        {
+            "species": "B. pendula",
+            "name_la": "Betula pendula",
+            "name_nl": "Ruwe berk",
+            "name_en": "Silver birch",
+            "height": 20,
+            "width": 6
+        },
+        {
+            "species": "B. rubrostilla",
+            "name_la": "Berberis rubrostilla",
+            "name_nl": "Zuurbes",
+            "name_en": "Barberry",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "C. anomala",
+            "name_la": "Callicarpa anomala ",
+            "name_nl": "Schoonvrucht",
+            "name_en": "Beautyberry",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "C. arborescens",
+            "name_la": "Caragana arborescens",
+            "name_nl": "Siberische erwtenstruik",
+            "name_en": "Siberian peashrub",
+            "height": 6,
+            "width": 4
+        },
+        {
+            "species": "C. arnoldiana",
+            "name_la": "Crataegus arnoldiana",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. avellana",
+            "name_la": "Corylus avellana",
+            "name_nl": "Hazelaar",
+            "name_en": "Common hazel",
+            "height": 6,
+            "width": 6
+        },
+        {
+            "species": "C. azarolus",
+            "name_la": "Crataegus azarolus",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 10,
+            "width": 6
+        },
+        {
+            "species": "C. calpodendron",
+            "name_la": "Crataegus calpodendron",
+            "name_nl": "Meidoorn",
+            "name_en": "Late hawthorn",
+            "height": 5,
+            "width": 5
+        },
+        {
+            "species": "C. cathayensis",
+            "name_la": "Chaenomeles cathayensis",
+            "name_nl": "Chinese kwee",
+            "name_en": "Chinese quince",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "C. ellwangeriana",
+            "name_la": "Crataegus ellwangeriana",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. fortunei",
+            "name_la": "Cephalotaxus fortunei",
+            "name_nl": "Dadelpruim",
+            "name_en": "Chinese plum-yew",
+            "height": 10,
+            "width": 7
+        },
+        {
+            "species": "C. harringtonii",
+            "name_la": "Cephalotaxus harringtonii",
+            "name_nl": "Pruimtaxus",
+            "name_en": "Japanese plum-yew",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "C. illinoinensis",
+            "name_la": "Carya illinoinensis",
+            "name_nl": "Pecan",
+            "name_en": "Pecan",
+            "height": 30,
+            "width": 15
+        },
+        {
+            "species": "C. japonica",
+            "name_la": "Chaenomeles japonica",
+            "name_nl": "Japanse sierkwee",
+            "name_en": "Japanese quince",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "C. kousa",
+            "name_la": "Cornus kousa",
+            "name_nl": "Japanse kornoelje",
+            "name_en": "Japanese dogwood",
+            "height": 8,
+            "width": 6
+        },
+        {
+            "species": "C. mas",
+            "name_la": "Cornus mas",
+            "name_nl": "Gele kornoelje",
+            "name_en": "Cornelian cherry",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. mexicana",
+            "name_la": "Crataegus mexicana",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. oblonga",
+            "name_la": "Cydonia oblonga",
+            "name_nl": "Kweepeer",
+            "name_en": "Quince",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. opaca",
+            "name_la": "Crataegus opaca",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 9,
+            "width": 6
+        },
+        {
+            "species": "C. Owari",
+            "name_la": "Citrus Owari Satsuma",
+            "name_nl": "Satsuma mandarijn",
+            "name_en": "Satsuma orange",
+            "height": 3,
+            "width": 4
+        },
+        {
+            "species": "C. pennsylveniaca",
+            "name_la": "Crataegus pennsylveniaca",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. pin. major",
+            "name_la": "Crataegus pinnatifida major",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 7,
+            "width": 7
+        },
+        {
+            "species": "C. sativa",
+            "name_la": "Castanea sativa",
+            "name_nl": "Kastanjeboom",
+            "name_en": "Sweet chestnut",
+            "height": 20,
+            "width": 20
+        },
+        {
+            "species": "C. schraderiana",
+            "name_la": "Crataegus schraderiana",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "C. scolymus",
+            "name_la": "Cynara scolymus",
+            "name_nl": "Artisjok",
+            "name_en": "Artichoke",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "C. speciosa",
+            "name_la": "Chaenomeles speciosa",
+            "name_nl": "Sierkwee",
+            "name_en": "Quince",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "C. tanacetifolia",
+            "name_la": "Crataegus tanacetifolia",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 10,
+            "width": 6
+        },
+        {
+            "species": "C. tricuspidata",
+            "name_la": "Cudrania tricuspidata",
+            "name_nl": "Chinese moerbei",
+            "name_en": "Mandarin melon berry",
+            "height": 6,
+            "width": 6
+        },
+        {
+            "species": "C. x superba",
+            "name_la": "Chaenomeles superba",
+            "name_nl": "Japanse sierkwee  'Jet Trail'",
+            "name_en": "Japanese quince 'Jet Trail'",
+            "height": 1.5,
+            "width": 1.5
+        },
+        {
+            "species": "C. cardunculus",
+            "name_la": "Cynara cardunculus",
+            "name_nl": "Kardoen",
+            "name_en": "Cardoon",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "Crataegus sp.",
+            "name_la": "Crataegus sp.",
+            "name_nl": "Meidoorn",
+            "name_en": "Hawthorn",
+            "height": 10,
+            "width": 6
+        },
+        {
+            "species": "D. fargesii",
+            "name_la": "Decaisnea fargesii",
+            "name_nl": "Augurkenstruik (Blauwe boon)",
+            "name_en": "Blue sausage fruit",
+            "height": 5,
+            "width": 3
+        },
+        {
+            "species": "D. lotus",
+            "name_la": "Diospyros lotus",
+            "name_nl": "Lotusvrucht",
+            "name_en": "Date-plum",
+            "height": 10,
+            "width": 6
+        },
+        {
+            "species": "D. virg. x kaki",
+            "name_la": "Diospyros virginiana x kaki",
+            "name_nl": "Persimoen hybride",
+            "name_en": "Persimmon 'Nikita's Gift'",
+            "height": 15,
+            "width": 8
+        },
+        {
+            "species": "D. virginiana",
+            "name_la": "Diospyros virginiana",
+            "name_nl": "Persimoen",
+            "name_en": "Persimmon",
+            "height": 15,
+            "width": 10
+        },
+        {
+            "species": "E. angustifolia",
+            "name_la": "Elaeagnus angustifolia",
+            "name_nl": "Oleaster",
+            "name_en": "Russian olive",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "E. japonica",
+            "name_la": "Eriobotrya japonica",
+            "name_nl": "Loquat",
+            "name_en": "Loquat",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "E. multiflora",
+            "name_la": "Elaeagnus multiflora",
+            "name_nl": "Goumi",
+            "name_en": "Cherry elaeagnus",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "E. umbellata",
+            "name_la": "Elaeagnus umbellata",
+            "name_nl": "Olijfwilg",
+            "name_en": "Autumn olive",
+            "height": 5,
+            "width": 5
+        },
+        {
+            "species": "E. x ebbingei",
+            "name_la": "Elaeagnus ebbingei",
+            "name_nl": "Zilverbes",
+            "name_en": "Ebbing's Silverberry",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "F. alnus",
+            "name_la": "Frangula alnus",
+            "name_nl": "Vuilboom",
+            "name_en": "Alder buckthorn",
+            "height": 4,
+            "width": 3
+        },
+        {
+            "species": "F. carica",
+            "name_la": "Ficus carica",
+            "name_nl": "Vijg",
+            "name_en": "Fig",
+            "height": 6,
+            "width": 6
+        },
+        {
+            "species": "F. excelsior",
+            "name_la": "Fraxinus excelsior",
+            "name_nl": "Es",
+            "name_en": "European ash",
+            "height": 14,
+            "width": 8
+        },
+        {
+            "species": "F. japonica",
+            "name_la": "Fortunella japonica",
+            "name_nl": "Marumi kumquat",
+            "name_en": "Kumquat",
+            "height": 2.5,
+            "width": 2
+        },
+        {
+            "species": "F. margarita",
+            "name_la": "Fortunella margarita",
+            "name_nl": "Nagami kumquat",
+            "name_en": "Citrus margarita",
+            "height": 2.5,
+            "width": 2
+        },
+        {
+            "species": "G. avellana",
+            "name_la": "Gevuina avellana",
+            "name_nl": "Chileense hazelaar",
+            "name_en": "Chilean hazelnut",
+            "height": 10,
+            "width": 10
+        },
+        {
+            "species": "G. shallon",
+            "name_la": "Gaultheria shallon",
+            "name_nl": "Shallon (appeltjesblad)",
+            "name_en": "Salal",
+            "height": 1.5,
+            "width": 1.5
+        },
+        {
+            "species": "G. triacanthos",
+            "name_la": "Gleditsia triacanthos",
+            "name_nl": "Valse christusdoorn",
+            "name_en": "Honey locust",
+            "height": 20,
+            "width": 10
+        },
+        {
+            "species": "Glyc. glabra",
+            "name_la": "Glycyrrhiza glabra",
+            "name_nl": "Zoethout",
+            "name_en": "Liquorice",
+            "height": 1.5,
+            "width": 1.5
+        },
+        {
+            "species": "H. carolina",
+            "name_la": "Halesia carolina",
+            "name_nl": "Sneeuwklokjesboom",
+            "name_en": "Carolina silverbell",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "H. dulcis",
+            "name_la": "Hovenia dulcis",
+            "name_nl": "Japanse krentenboom",
+            "name_en": "Japanese raisin tree",
+            "height": 10,
+            "width": 7
+        },
+        {
+            "species": "H. rhamnoides",
+            "name_la": "Hippophae rhamnoides",
+            "name_nl": "Duindoorn",
+            "name_en": "Seaberry",
+            "height": 6,
+            "width": 5
+        },
+        {
+            "species": "Hemerocallis sp.",
+            "name_la": "Hemerocallis sp.",
+            "name_nl": "Daglelie",
+            "name_en": "Daylily",
+            "height": 0.5,
+            "width": 0.5
+        },
+        {
+            "species": "J. regia",
+            "name_la": "Juglans regia",
+            "name_nl": "Walnoot",
+            "name_en": "Walnut",
+            "height": 30,
+            "width": 10
+        },
+        {
+            "species": "L. barbarum",
+            "name_la": "Lycium barbarum",
+            "name_nl": "Gojibes",
+            "name_en": "Goji berry",
+            "height": 2.5,
+            "width": 2.5
+        },
+        {
+            "species": "M. alba",
+            "name_la": "Morus alba",
+            "name_nl": "Witte moerbei",
+            "name_en": "Whute mulberry",
+            "height": 15,
+            "width": 12
+        },
+        {
+            "species": "M. aquifolium",
+            "name_la": "Mahonia aquifolium",
+            "name_nl": "Mahonia",
+            "name_en": "Mahonia",
+            "height": 10,
+            "width": 7
+        },
+        {
+            "species": "M. bealei",
+            "name_la": "Mahonia bealei",
+            "name_nl": "Mahonia",
+            "name_en": "Leatherleaf mahonia",
+            "height": 10,
+            "width": 7
+        },
+        {
+            "species": "M. germanica",
+            "name_la": "Mespilus germanica",
+            "name_nl": "Mispel",
+            "name_en": "Medlar",
+            "height": 5,
+            "width": 4
+        },
+        {
+            "species": "M. nigra",
+            "name_la": "Morus nigra",
+            "name_nl": "Zwarte moerbei",
+            "name_en": "Black mulberry",
+            "height": 8,
+            "width": 12
+        },
+        {
+            "species": "M. pensylvanica",
+            "name_la": "Myrica pensylvanica",
+            "name_nl": "Wasgagel",
+            "name_en": "Northern bayberry",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "M. rubra",
+            "name_la": "Morus rubra",
+            "name_nl": "Rode moerbei",
+            "name_en": "Red mulberry",
+            "height": 15,
+            "width": 10
+        },
+        {
+            "species": "M. sylvestris",
+            "name_la": "Malus sylvestris",
+            "name_nl": "Appel (wilde)",
+            "name_en": "Apple (wild)",
+            "height": 6,
+            "width": 4
+        },
+        {
+            "species": "Prunus sp.",
+            "name_la": "Prunus sp.",
+            "name_nl": "Wilde kers",
+            "name_en": "Wild cherry",
+            "height": 6,
+            "width": 4
+        },
+        {
+            "species": "P. avium hfs",
+            "name_la": "Prunus avium, halfstam",
+            "name_nl": "Zoete kers (halfstam)",
+            "name_en": "Wild cherry",
+            "height": 6,
+            "width": 4
+        },
+        {
+            "species": "P. cerasius",
+            "name_la": "Prunus cerasius",
+            "name_nl": "Zure kers (halfstam)",
+            "name_en": "Sour cherry",
+            "height": 4,
+            "width": 4
+        },
+        {
+            "species": "P. communis",
+            "name_la": "Pyrus communis",
+            "name_nl": "Peer (hoogstam)",
+            "name_en": "European pear",
+            "height": 10,
+            "width": 6
+        },
+        {
+            "species": "P. domestica",
+            "name_la": "Prunus domestica",
+            "name_nl": "Pruim (halfstam)",
+            "name_en": "Plum",
+            "height": 4,
+            "width": 3
+        },
+        {
+            "species": "P. koraiensis",
+            "name_la": "Pinus koraiensis",
+            "name_nl": "Pijnboompit",
+            "name_en": "Korean pine",
+            "height": 20,
+            "width": 15
+        },
+        {
+            "species": "P. pinea",
+            "name_la": "Pinus pinea",
+            "name_nl": "Parasolden",
+            "name_en": "Stone pine",
+            "height": 20,
+            "width": 15
+        },
+        {
+            "species": "P. pluot",
+            "name_la": "Pluot",
+            "name_nl": "Pluot",
+            "name_en": "Pluot",
+            "height": 5,
+            "width": 3
+        },
+        {
+            "species": "P. salicina",
+            "name_la": "Prunus salicina",
+            "name_nl": "Japanse pruim",
+            "name_en": "Japanese plum",
+            "height": 8,
+            "width": 5
+        },
+        {
+            "species": "P. sinensis",
+            "name_la": "Pseudocydonia sinensis",
+            "name_nl": "Chinese kweepeer",
+            "name_en": "Chinese quince",
+            "height": 7,
+            "width": 6
+        },
+        {
+            "species": "Phyllostachys sp.",
+            "name_la": "Phyllostachys sp.",
+            "name_nl": "Bamboe",
+            "name_en": "Bamboo",
+            "height": 6,
+            "width": 6
+        },
+        {
+            "species": "Picea sp.",
+            "name_la": "Picea sp.",
+            "name_nl": "Spar",
+            "name_en": "Spruce",
+            "height": 14,
+            "width": 8
+        },
+        {
+            "species": "Q. rotundifolia",
+            "name_la": "Quercus rotundifolia",
+            "name_nl": "Steeneik",
+            "name_en": "Holm oak",
+            "height": 15,
+            "width": 10
+        },
+        {
+            "species": "R. loganberry",
+            "name_la": "Rubus 'Loganberry'",
+            "name_nl": "Frambraam",
+            "name_en": "Loganberry",
+            "height": 2,
+            "width": 3
+        },
+        {
+            "species": "R. tayberry",
+            "name_la": "Rubus 'Tayberry' (Buckingham)",
+            "name_nl": "Taybes",
+            "name_en": "Tayberry",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "R. aromatica",
+            "name_la": "Rhus aromatica",
+            "name_nl": "Welriekende sumak",
+            "name_en": "Fragrant sumac",
+            "height": 1.5,
+            "width": 1.5
+        },
+        {
+            "species": "R. divaricatum",
+            "name_la": "Ribes divaricatum",
+            "name_nl": "Worcester bes",
+            "name_en": "Gooseberry",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "R. glabra",
+            "name_la": "Rhus glabra",
+            "name_nl": "Fluweelboom",
+            "name_en": "Smooth sumac",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "R. ilecebrosus",
+            "name_la": "Rubus ilecebrosus",
+            "name_nl": "Aardbeiframboos",
+            "name_en": "Strawberry raspberry",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "R. nepalensis",
+            "name_la": "Rubus nepalensis",
+            "name_nl": "Nepalese framboos",
+            "name_en": "Nepalese raspberry",
+            "height": 0.5,
+            "width": 0.5
+        },
+        {
+            "species": "R. nigrum",
+            "name_la": "Ribes nigrum",
+            "name_nl": "Zwarte bes",
+            "name_en": "Blackcurrant",
+            "height": 2,
+            "width": 1.5
+        },
+        {
+            "species": "R. odoratum",
+            "name_la": "Ribes odoratum",
+            "name_nl": "Gele ribes",
+            "name_en": "Clove currant",
+            "height": 1.25,
+            "width": 1.25
+        },
+        {
+            "species": "R. phoenicolasius",
+            "name_la": "Rubus phoenicolasius",
+            "name_nl": "Japanse wijnbes",
+            "name_en": "Japanese wineberry",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "R. rubrum",
+            "name_la": "Ribes rubrum",
+            "name_nl": "Aalbes",
+            "name_en": "Redcurrant",
+            "height": 2,
+            "width": 1.5
+        },
+        {
+            "species": "R. rugosa",
+            "name_la": "Rosa rugosa",
+            "name_nl": "Rimpelroos",
+            "name_en": "Beach rose",
+            "height": 2,
+            "width": 1.5
+        },
+        {
+            "species": "R. typhina",
+            "name_la": "Rhus typhina",
+            "name_nl": "Fluweelboom",
+            "name_en": "Staghorn sumac",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "R. uva-crispa",
+            "name_la": "Ribes uva-crispa",
+            "name_nl": "Kruisbes",
+            "name_en": "European gooseberry",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "S. alba",
+            "name_la": "Salix alba",
+            "name_nl": "Schiet Wilg",
+            "name_en": "White willow",
+            "height": 15,
+            "width": 10
+        },
+        {
+            "species": "S. argentea",
+            "name_la": "Shepherdia argentea",
+            "name_nl": "Buffelbes",
+            "name_en": "Silver buffaloberry",
+            "height": 4,
+            "width": 3
+        },
+        {
+            "species": "S. aucuparia",
+            "name_la": "Sorbus aucuparia 'edulis'",
+            "name_nl": "Grootvruchtige lijsterbes",
+            "name_en": "Rowan",
+            "height": 12,
+            "width": 7
+        },
+        {
+            "species": "S. canadensis",
+            "name_la": "Sambucus canadensis",
+            "name_nl": "Vlier",
+            "name_en": "Common elderberry",
+            "height": 3,
+            "width": 2.5
+        },
+        {
+            "species": "S. domestica",
+            "name_la": "Sorbus domestica",
+            "name_nl": "Peervormige lijsterbes",
+            "name_en": "Service tree",
+            "height": 20,
+            "width": 8
+        },
+        {
+            "species": "S. nigra",
+            "name_la": "Sambucus nigra",
+            "name_nl": "Vlier",
+            "name_en": "Elderberry",
+            "height": 4,
+            "width": 3
+        },
+        {
+            "species": "S. pinnata",
+            "name_la": "Staphylea pinnata",
+            "name_nl": "Europese pimpernoot",
+            "name_en": "European bladdernut",
+            "height": 4,
+            "width": 4
+        },
+        {
+            "species": "S. torminalis",
+            "name_la": "Sorbus torminalis",
+            "name_nl": "Elsbes",
+            "name_en": "Wild service tree",
+            "height": 20,
+            "width": 8
+        },
+        {
+            "species": "S. trifolia",
+            "name_la": "Staphylea trifolia",
+            "name_nl": "Amerikaanse pimpernoot",
+            "name_en": "American bladdernut",
+            "height": 3,
+            "width": 3
+        },
+        {
+            "species": "Salix sp.",
+            "name_la": "Salix sp.",
+            "name_nl": "Wilg",
+            "name_en": "Willow",
+            "height": 10,
+            "width": 6
+        },
+        {
+            "species": "Sorbus Burka",
+            "name_la": "Sorbus 'Burka'",
+            "name_nl": "Lijsterbes",
+            "name_en": "Mountain-ash",
+            "height": 7,
+            "width": 5
+        },
+        {
+            "species": "T. cordata",
+            "name_la": "Tilia cordata",
+            "name_nl": "Winterlinde",
+            "name_en": "Small-leaved linden",
+            "height": 3,
+            "width": 2
+        },
+        {
+            "species": "T. nucifera",
+            "name_la": "Torreya nucifera",
+            "name_nl": "Kaya",
+            "name_en": "Japanese torreya",
+            "height": 20,
+            "width": 10
+        },
+        {
+            "species": "T. sinensis",
+            "name_la": "Toona sinensis",
+            "name_nl": "Franseuiensoepboom",
+            "name_en": "Chinese mahogany",
+            "height": 3,
+            "width": 2
+        },
+        {
+            "species": "U. molinea",
+            "name_la": "Ugni molinea",
+            "name_nl": "Chileense guave",
+            "name_en": "Ugni molinea",
+            "height": 1.5,
+            "width": 1.5
+        },
+        {
+            "species": "V. macrocarpon",
+            "name_la": "Vaccinium macrocarpon",
+            "name_nl": "Amerikaanse cranberry",
+            "name_en": "American cranberry",
+            "height": 0.5,
+            "width": 0.5
+        },
+        {
+            "species": "V. myrtillus",
+            "name_la": "Vaccinium myrtillus",
+            "name_nl": "Blauwe bosbes",
+            "name_en": "European blueberry",
+            "height": 0.5,
+            "width": 1
+        },
+        {
+            "species": "V. oxycoccus",
+            "name_la": "Vaccinium oxycoccus",
+            "name_nl": "Kleine veenbes",
+            "name_en": "Small cranberry",
+            "height": 0.2,
+            "width": 1
+        },
+        {
+            "species": "Z. jujuba",
+            "name_la": "Ziziphus jujuba",
+            "name_nl": "Chinese jujube",
+            "name_en": "Chinese jujube",
+            "height": 10,
+            "width": 7
+        },
+        {
+            "species": "Z. piperitum",
+            "name_la": "Zanthoxylum piperetum",
+            "name_nl": "Japans peper boompje",
+            "name_en": "Japanese pepper",
+            "height": 2,
+            "width": 1.5
+        },
+        {
+            "species": "Z. simulans",
+            "name_la": "Zanthoxylum simulans",
+            "name_nl": "Szechuan peper boompje",
+            "name_en": "Sichuan pepper",
+            "height": 2.5,
+            "width": 2.5
+        },
+        {
+            "species": "Zanthoxylum sp.",
+            "name_la": "Zanthoxylum sp.",
+            "name_nl": "Peper boompje",
+            "name_en": "Pepper Tree",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "J. officinale",
+            "name_la": "Jasminum officinale",
+            "name_nl": "Zomerjasmijn",
+            "name_en": "Common jasmine",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "Q. robur",
+            "name_la": "Quercus robur",
+            "name_nl": "Zomereik",
+            "name_en": "Common oak",
+            "height": 6,
+            "width": 4
+        },
+        {
+            "species": "R. nidigrolaria",
+            "name_la": "Ribes \u00d7 nidigrolaria",
+            "name_nl": "Jostabes",
+            "name_en": "Jostaberry",
+            "height": 1.5,
+            "width": 1.5
+        },
+        {
+            "species": "Verbena sp.",
+            "name_la": "Verbena sp.",
+            "name_nl": "Verbena",
+            "name_en": "Verbena",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "B. davidii",
+            "name_la": "Buddleja davidii",
+            "name_nl": "Vlinderstruik",
+            "name_en": "Summer lilac",
+            "height": 2,
+            "width": 2
+        },
+        {
+            "species": "L. caerulea",
+            "name_la": "Lonicera caerulea",
+            "name_nl": "Honingbes",
+            "name_en": "Fly honeysuckle",
+            "height": 1,
+            "width": 1
+        },
+        {
+            "species": "O. europaea",
+            "name_la": "Olea europaea",
+            "name_nl": "Olijf",
+            "name_en": "Olive",
+            "height": 4,
+            "width": 3
+        },
+        {
+            "species": "R. rhabarbarum",
+            "name_la": "Rheum rhabarbarum",
+            "name_nl": "Rabarber",
+            "name_en": "Rhubarb",
+            "height": 0.5,
+            "width": 0.5
+        },
+        {
+            "species": "L. caprifolium",
+            "name_la": "Lonicera caprifolium",
+            "name_nl": "Kamperfoelie",
+            "name_en": "Honeysuckle",
+            "height": 1,
+            "width": 1
+        }
+    ],
+    "updated": "2022-04-24T23:54:52.266072"
+}
