@@ -2,7 +2,7 @@
   "name": "bosmapper",
   "description": "Simple tree management",
   "homepage": "https://bosmapper.dallen.co",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
     "start": "ionic serve --no-open",
