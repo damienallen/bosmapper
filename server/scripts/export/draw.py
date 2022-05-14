@@ -7,7 +7,6 @@ import cairo
 import numpy as np
 from pyproj import Transformer
 
-
 # CRS projection
 transformer = Transformer.from_crs(3857, 7415)
 current_dir = Path(__file__).resolve().parent

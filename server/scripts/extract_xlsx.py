@@ -1,8 +1,8 @@
-from datetime import datetime
-from openpyxl import load_workbook
-from pathlib import Path
 import json
+from datetime import datetime
+from pathlib import Path
 
+from openpyxl import load_workbook
 
 xlsx_path = Path("voedselbos_species.xlsx")
 output_dir = Path(__file__).parent / "output"

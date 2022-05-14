@@ -1,7 +1,8 @@
-from pathlib import Path
-from datetime import datetime
-import requests
 import json
+from datetime import datetime
+from pathlib import Path
+
+import requests
 
 output_dir = Path("/Users/damien/Development/backups")
 base_url = "https://bosmapper.dallen.co/api"

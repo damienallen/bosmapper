@@ -2,12 +2,11 @@ import os
 from datetime import datetime
 from secrets import token_urlsafe
 
+from draw import MapMaker
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.responses import FileResponse
-from mongoengine import connect, errors
-
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from models import (
     EmptyTree,
     GeoJson,
@@ -18,9 +17,9 @@ from models import (
     Tree,
     TreeDB,
     User,
-    UsersDB,
+    UsersDB
 )
-from draw import MapMaker
+from mongoengine import connect, errors
 
 # Fast API main app
 app = FastAPI()

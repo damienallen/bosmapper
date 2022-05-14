@@ -1,12 +1,13 @@
 import json
+from datetime import date
 from math import pi
 from operator import itemgetter
 from pathlib import Path
 
 import cairo
 import numpy as np
+from babel.dates import format_date
 from pyproj import Transformer
-
 
 # CRS projection
 transformer = Transformer.from_crs(3857, 7415)
@@ -17,12 +18,12 @@ DEFAULT_HEIGHT = 2
 DEFAULT_DIAMETER = 3.4
 TEXT_MARGIN_V = 0
 TEXT_MARGIN_H = 0.5
-TEXT_SIZE = 0.8
+BASE_FONT_SIZE = 0.8
 
 # Formats
-FORMAT_MARGINS = {
-    "a3": {"top": 55, "bottom": -5, "left": 0, "right": 10},
-    "a4": {"top": 45, "bottom": 25, "left": 0, "right": 23},
+FORMAT = {
+    "a3": {"top": 55, "bottom": -5, "left": 0, "right": 10, "font_size": 1.2},
+    "a4": {"top": 45, "bottom": 25, "left": 0, "right": 23, "font_size": 1},
 }
 
 MIN_LAT = 89222
@@ -72,13 +73,13 @@ class MapMaker:
     def __init__(self, features, size: str):
 
         self.size = size
-        margins = FORMAT_MARGINS[size]
+        self.format = FORMAT[size]
 
-        self.min_lon = MIN_LON - margins["left"]
-        self.max_lon = MAX_LON - margins["right"]
+        self.min_lon = MIN_LON - self.format["left"]
+        self.max_lon = MAX_LON - self.format["right"]
 
-        self.min_lat = MIN_LAT - margins["bottom"]
-        self.max_lat = MAX_LAT - margins["top"]
+        self.min_lat = MIN_LAT - self.format["bottom"]
+        self.max_lat = MAX_LAT - self.format["top"]
 
         self.get_base_features(current_dir / "base.geojson")
         self.extract_features(features)
@@ -235,7 +236,7 @@ class MapMaker:
             # Set text styling
             fill_color = self.fade_white(COLOR_BLACK, 1 - radius_factor)
             self.ctx.set_source_rgb(*fill_color)
-            self.ctx.set_font_size(TEXT_SIZE * radius_factor * self.scale_factor)
+            self.ctx.set_font_size(BASE_FONT_SIZE * radius_factor * self.scale_factor)
 
             self.ctx.select_font_face(
                 "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
@@ -330,7 +331,7 @@ class MapMaker:
         self.ctx.select_font_face(
             "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
         )
-        self.ctx.set_font_size(1.5 * self.scale_factor)
+        self.ctx.set_font_size(self.format["font_size"] * 1.5 * self.scale_factor)
 
         fascent, fdescent, fheight, fxadvance, fyadvance = self.ctx.font_extents()
         x_off, y_off, tw, th = self.ctx.text_extents("N")[:4]
@@ -397,9 +398,16 @@ class MapMaker:
         self.ctx.select_font_face(
             "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
         )
-        self.ctx.set_font_size(1.5 * self.scale_factor)
+        self.ctx.set_font_size(self.format["font_size"] * 1.5 * self.scale_factor)
         self.ctx.move_to(0, 0)
         self.ctx.show_text("Voedselbos")
+
+        self.ctx.move_to(0, 0.02)
+        self.ctx.set_font_size(self.format["font_size"] * 1.75 * self.scale_factor)
+        self.ctx.set_source_rgba(*COLOR_BLACK, 0.3)
+
+        timestamp = str(format_date(date.today(), "MMM Y", locale="nl")).upper()
+        self.ctx.show_text(timestamp)
 
         self.ctx.restore()
 
