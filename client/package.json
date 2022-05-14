@@ -1,7 +1,7 @@
 {
   "name": "bosmapper",
-  "description": "Simple tree management",
-  "homepage": "https://bosmapper.dallen.co",
+  "description": "Simple tree management at the Voedseltuin",
+  "homepage": "https://bosmapper.dallen.dev",
   "version": "2.4.0",
   "private": true,
   "scripts": {
