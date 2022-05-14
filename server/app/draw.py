@@ -15,13 +15,15 @@ current_dir = Path(__file__).resolve().parent
 # Constants
 DEFAULT_HEIGHT = 2
 DEFAULT_DIAMETER = 3.4
-MARGIN_TOP = -45
-MARGIN_BOTTOM = 25
-MARGIN_LEFT = 0
-MARGIN_RIGHT = 23
 TEXT_MARGIN_V = 0
 TEXT_MARGIN_H = 0.5
 TEXT_SIZE = 0.8
+
+# Formats
+FORMAT_MARGINS = {
+    "a3": {"top": 55, "bottom": -5, "left": 0, "right": 10},
+    "a4": {"top": 45, "bottom": 25, "left": 0, "right": 23},
+}
 
 MIN_LAT = 89222
 MAX_LAT = 89404
@@ -67,21 +69,24 @@ FEATURE_STYLES = {
 
 
 class MapMaker:
-    def __init__(self, features):
+    def __init__(self, features, size: str):
 
-        self.min_lon = MIN_LON - MARGIN_LEFT
-        self.max_lon = MAX_LON - MARGIN_RIGHT
+        self.size = size
+        margins = FORMAT_MARGINS[size]
 
-        self.min_lat = MIN_LAT - MARGIN_BOTTOM
-        self.max_lat = MAX_LAT + MARGIN_TOP
+        self.min_lon = MIN_LON - margins["left"]
+        self.max_lon = MAX_LON - margins["right"]
+
+        self.min_lat = MIN_LAT - margins["bottom"]
+        self.max_lat = MAX_LAT - margins["top"]
 
         self.get_base_features(current_dir / "base.geojson")
         self.extract_features(features)
 
-    def draw(self, size: str) -> str:
+    def draw(self) -> str:
 
-        height = (16.5 if size == "a3" else 11.7) * 72
-        width = (11.7 if size == "a3" else 8.3) * 72
+        height = (16.5 if self.size == "a3" else 11.7) * 72
+        width = (11.7 if self.size == "a3" else 8.3) * 72
 
         temp_dir = current_dir / "temp"
         pdf_path = temp_dir / "voedselbos.pdf"
@@ -404,5 +409,5 @@ if __name__ == "__main__":
     with open(feature_path, "r") as f:
         geojson_data = json.load(f)
 
-    maker = MapMaker(geojson_data["features"])
-    maker.draw("a3")
+    maker = MapMaker(geojson_data["features"], "a3")
+    maker.draw()

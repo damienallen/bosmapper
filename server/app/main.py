@@ -331,8 +331,8 @@ def export_pdf(format: str = "a4"):
     Export to PDF vector map
     """
 
-    maker = MapMaker(get_features())
-    file_path = maker.draw(format)
+    maker = MapMaker(get_features(), format)
+    file_path = maker.draw()
 
     return FileResponse(file_path)
 
