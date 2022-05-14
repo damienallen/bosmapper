@@ -7,7 +7,6 @@ import { MobXProviderContext, observer } from 'mobx-react'
 import { IonButton, IonIcon, IonItem, IonLabel, IonPopover, IonItemDivider } from '@ionic/react'
 import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
 
-
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
@@ -17,28 +16,28 @@ const useStyles = createUseStyles({
         position: 'absolute',
         top: -10,
         right: 15,
-        opacity: 0.9
+        opacity: 0.9,
     },
     popover: {
         '& ion-item': {
             cursor: 'pointer',
-            marginLeft: -10
+            marginLeft: -10,
         },
         '& ion-icon': {
-            marginRight: 5
-        }
+            marginRight: 5,
+        },
     },
     tabContainer: {
         display: 'inline',
         position: 'relative',
         bottom: 0,
         right: 0,
-        zIndex: 50
+        zIndex: 50,
     },
     tagButton: {
         textTransform: 'lowercase',
         fontWeight: '400',
-        marginTop: -16
+        marginTop: -16,
     },
     tab: {
         display: 'inline',
@@ -49,7 +48,7 @@ const useStyles = createUseStyles({
         borderRadius: '5px 5px 0 0',
         fontSize: '0.8em',
         fontStyle: 'italic',
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
     },
     divider: {
         fontWeight: 400,
@@ -57,22 +56,25 @@ const useStyles = createUseStyles({
         opacity: 0.7,
         '& ion-icon': {
             marginRight: 12,
-        }
-    }
+        },
+    },
 })
 
 interface LookupDict {
     [Key: string]: string
 }
 export const tagTypes: LookupDict = {
-    'unsure': 'Onzeker',
-    'dry': 'Droog',
-    'temporary': 'Tijdelijk',
-    'attn_needed': 'Aandacht nodig'
+    unsure: 'Onzeker',
+    dry: 'Droog',
+    temporary: 'Tijdelijk',
+    attn_needed: 'Aandacht nodig',
 }
 
 export const Tags: React.FC = observer(() => {
-    const [showTagsPopover, setShowTagsPopover] = useState<{ open: boolean, event: Event | undefined }>({
+    const [showTagsPopover, setShowTagsPopover] = useState<{
+        open: boolean
+        event: Event | undefined
+    }>({
         open: false,
         event: undefined,
     })
@@ -94,10 +96,15 @@ export const Tags: React.FC = observer(() => {
         }
 
         const featureJson = {
-            tags: featureTags
+            tags: featureTags,
         }
 
-        axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
+        axios
+            .post(
+                `${settings.host}/tree/update/${map.selectedId}/`,
+                featureJson,
+                settings.authHeader
+            )
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
@@ -107,23 +114,25 @@ export const Tags: React.FC = observer(() => {
                 console.error(error.response)
                 ui.setToastText('Verzoek mislukt')
             })
-
     }
 
-    const tabs = featureTags.length ? featureTags.map((key: string) => (
-        <div className={classes.tab} key={`tab-${key}`}>{tagTypes[key]}</div>
-    )) : null
-
+    const tabs = featureTags.length
+        ? featureTags.map((key: string) => (
+              <div className={classes.tab} key={`tab-${key}`}>
+                  {tagTypes[key]}
+              </div>
+          ))
+        : null
 
     const tags = Object.keys(tagTypes).map((key: string) => (
-        < IonItem key={key} lines="none" onClick={() => updateTags(key)}>
+        <IonItem key={key} lines="none" onClick={() => updateTags(key)}>
             <IonIcon
-                color={featureTags.includes(key) ? "medium" : "light"}
+                color={featureTags.includes(key) ? 'medium' : 'light'}
                 icon={featureTags.includes(key) ? checkboxOutline : squareOutline}
                 slot="start"
             />
             <IonLabel>{tagTypes[key]}</IonLabel>
-        </IonItem >
+        </IonItem>
     ))
 
     const popoverButton = settings.authenticated ? (
@@ -131,7 +140,9 @@ export const Tags: React.FC = observer(() => {
             color="medium"
             mode="md"
             className={classes.tagButton}
-            onClick={(e: React.MouseEvent) => setShowTagsPopover({ open: true, event: e.nativeEvent })}
+            onClick={(e: React.MouseEvent) =>
+                setShowTagsPopover({ open: true, event: e.nativeEvent })
+            }
         >
             <IonIcon icon={showTagsPopover.open ? closeOutline : pricetagOutline} />
         </IonButton>
@@ -142,7 +153,7 @@ export const Tags: React.FC = observer(() => {
             <IonPopover
                 isOpen={showTagsPopover.open}
                 event={showTagsPopover.event}
-                cssClass={classes.popover}
+                className={classes.popover}
                 mode="ios"
                 onDidDismiss={() => setShowTagsPopover({ open: false, event: undefined })}
             >
@@ -158,10 +169,6 @@ export const Tags: React.FC = observer(() => {
                 {tabs}
                 {popoverButton}
             </div>
-
-
         </div>
     )
 })
-
-
