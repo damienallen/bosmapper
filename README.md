@@ -32,3 +32,7 @@ FastAPI server powering the bosmapper backend
 - Python
 - FastAPI
 - MongoDB
+
+### Local development
+
+Local development using docker uses the `make build` and `make up` commands inside the _server/_ directory.
