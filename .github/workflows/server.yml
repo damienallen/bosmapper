@@ -3,7 +3,7 @@ name: Server image
 on:
   push:
     branches:
-      - main
+      - monorepo
     paths:
       - ./server/**
 
@@ -13,7 +13,7 @@ jobs:
     env:
       CI: true
       IMAGE_NAME: bosmapper_server
-      REGISTRY_URL: docker.pkg.github.com/damienallen/bosmapper-server/fastapi
+      REGISTRY_URL: docker.pkg.github.com/damienallen/bosmapper/server
       TAG: main
 
     steps:
