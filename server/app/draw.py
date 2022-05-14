@@ -22,7 +22,7 @@ BASE_FONT_SIZE = 0.8
 
 # Formats
 FORMAT = {
-    "a3": {"top": 55, "bottom": -5, "left": 0, "right": 10, "font_size": 1.2},
+    "a3": {"top": 55, "bottom": -5, "left": 0, "right": 10, "font_size": 1.5},
     "a4": {"top": 45, "bottom": 25, "left": 0, "right": 23, "font_size": 1},
 }
 
@@ -48,6 +48,7 @@ TREE_FILL = decimal_color(77, 115, 67)
 TREE_OUTLINE = decimal_color(54, 89, 62)
 
 COLOR_WHITE = decimal_color(255, 255, 255)
+COLOR_GREY_60 = decimal_color(153, 153, 153)
 COLOR_GREY_70 = decimal_color(179, 179, 179)
 COLOR_GREY_80 = decimal_color(203, 203, 203)
 COLOR_GREY_90 = decimal_color(230, 230, 230)
@@ -56,9 +57,12 @@ COLOR_BLACK = decimal_color(0, 0, 0)
 
 FEATURE_STYLES = {
     "boundary": {"stroke_color": COLOR_GREY_70, "stroke_width": 0.5},
+    "background": {"fill_color": COLOR_WHITE},
     "bed": {"fill_color": COLOR_GREY_90},
     "bee_hives": {"fill_color": COLOR_GREY_70},
+    "circle": {"fill_color": COLOR_GREY_80},
     "concrete": {"fill_color": COLOR_WHITE},
+    "clubhouse": {"fill_color": COLOR_GREY_80},
     "paved": {"fill_color": COLOR_WHITE},
     "greenhouse": {"fill_color": COLOR_GREY_70},
     "misc": {"fill_color": COLOR_GREY_80},
@@ -152,13 +156,18 @@ class MapMaker:
         num_skipped = 0
 
         for feature in feature_list:
+
+            if feature["properties"]["name_nl"] == "Onbekend":
+                continue
+
             crown_diameter = (
                 feature["properties"]["width"]
                 if feature["properties"].get("width")
                 else DEFAULT_DIAMETER
             )
-            adjusted_radius = (crown_diameter / 2) * self.scale_factor
 
+            adjusted_radius = (crown_diameter / 2) * self.scale_factor
+            print(adjusted_radius)
             height = (
                 feature["properties"]["height"]
                 if feature["properties"].get("height")
@@ -206,9 +215,9 @@ class MapMaker:
 
         for tree in self.trees:
             self.ctx.save()
-            dot_radius = max(tree["radius"] / 14, 0.002)
+            dot_radius = min(max(tree["radius"] / 14, 0.0012), 0.0025)
             self.ctx.arc(tree["x"], tree["y"], dot_radius, 0, pi * 2)
-            self.ctx.set_source_rgba(*COLOR_BLACK, 0.6)
+            self.ctx.set_source_rgba(*COLOR_GREY_60, 1)
             self.ctx.fill()
             self.ctx.restore()
 
@@ -236,7 +245,9 @@ class MapMaker:
             # Set text styling
             fill_color = self.fade_white(COLOR_BLACK, 1 - radius_factor)
             self.ctx.set_source_rgb(*fill_color)
-            self.ctx.set_font_size(BASE_FONT_SIZE * radius_factor * self.scale_factor)
+            self.ctx.set_font_size(
+                radius_factor * self.scale_factor / self.format["font_size"]
+            )
 
             self.ctx.select_font_face(
                 "Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL
@@ -245,9 +256,6 @@ class MapMaker:
             # Measure and align text
             fascent, fdescent, fheight, fxadvance, fyadvance = self.ctx.font_extents()
             x_off, y_off, tw, th = self.ctx.text_extents(display_name)[:4]
-
-            # nx = -tw / 2.0
-            # ny = fheight / 2
 
             nx = 0
             ny = th / 2
@@ -262,8 +270,18 @@ class MapMaker:
 
             self.ctx.restore()
 
+    def position_feature(self, feature):
+
+        for index, point in enumerate(feature["geometry"]["coordinates"][0]):
+            x = self.get_x(point) * self.scale_factor
+            y = self.get_y(point) * self.scale_factor
+
+            if index == 0:
+                self.ctx.move_to(x, y)
+            else:
+                self.ctx.line_to(x, y)
+
     def draw_base_features(self):
-        # TODO: break this up, offset paths
 
         for feature in self.base_features:
 
@@ -279,15 +297,7 @@ class MapMaker:
             if not feature["geometry"]["coordinates"]:
                 continue
 
-            for index, point in enumerate(feature["geometry"]["coordinates"][0]):
-                x = self.get_x(point) * self.scale_factor
-                y = self.get_y(point) * self.scale_factor
-
-                if index == 0:
-                    self.ctx.move_to(x, y)
-                else:
-                    self.ctx.line_to(x, y)
-
+            self.position_feature(feature)
             self.ctx.close_path()
 
             fill_color = style.get("fill_color")
@@ -402,7 +412,7 @@ class MapMaker:
         self.ctx.move_to(0, 0)
         self.ctx.show_text("Voedselbos")
 
-        self.ctx.move_to(0, 0.02)
+        self.ctx.move_to(0, 0.02 * self.format["font_size"])
         self.ctx.set_font_size(self.format["font_size"] * 1.75 * self.scale_factor)
         self.ctx.set_source_rgba(*COLOR_BLACK, 0.3)
 
