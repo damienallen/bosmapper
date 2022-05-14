@@ -2,6 +2,9 @@ name: Client (test)
 
 on:
   pull_request:
+    branches:
+      - main
+      - monorepo
     paths:
       - ./client/**
 
