@@ -1,11 +1,11 @@
-name: Server image
+name: Server (image)
 
 on:
   push:
     branches:
-      - monorepo
-    # paths:
-    #   - ./server/**
+      - main
+    paths:
+      - ./server/**
 
 jobs:
   build_main:
