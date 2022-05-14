@@ -1,9 +1,10 @@
-from pathlib import Path
-from datetime import datetime
-import requests
 import json
+from datetime import datetime
+from pathlib import Path
 
-output_dir = Path("/mnt/u/OneDrive/bosmapper/backups")
+import requests
+
+output_dir = Path("/Users/damien/Development/backups")
 base_url = "https://bosmapper.dallen.co/api"
 
 print(f"Backing up into: {output_dir}")

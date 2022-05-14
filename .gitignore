@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+/client/node_modules
 /.pnp
 .pnp.js
 
@@ -8,7 +8,7 @@
 
 # production
 /android
-/build
+/client/build
 /electron
 
 # misc
@@ -30,3 +30,11 @@ yarn-error.log*
 
 # project
 /scripts/output
+temp/
+
+# Python
+__pycache__/
+
+# Env
+config/.env
+thunderEnvironment.json
