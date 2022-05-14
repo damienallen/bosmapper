@@ -2,7 +2,6 @@ import React from 'react'
 import { observer, MobXProviderContext } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 
-
 const useStores = () => {
     return React.useContext(MobXProviderContext)
 }
@@ -15,13 +14,13 @@ const useStyles = createUseStyles({
         color: (props: StyleProps) => props.color,
         textAlign: 'center',
         fontSize: '1.4em',
-        opacity: 0.8
-    }
+        opacity: 0.8,
+    },
 })
 
 interface StyleProps {
-    color: 'string',
-    background: 'string',
+    color: 'string'
+    background: 'string'
 }
 
 export const Logo: React.FC = observer(() => {
@@ -33,7 +32,7 @@ export const Logo: React.FC = observer(() => {
         color: textColor,
         background: backgroundColor,
     }
-    const classes = useStyles(styleProps)
+    const classes = useStyles(styleProps as any)
 
     return (
         <div className={classes.container}>
