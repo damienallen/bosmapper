@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Change directory
-        run: cd client/
-
       - name: Checkout
         uses: actions/checkout@v1
 
@@ -28,9 +25,11 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install dependencies
+        working-directory: ./client
         run: yarn install
 
       - name: Run tests
+        working-directory: ./client
         run: yarn test
         env:
           CI: true
