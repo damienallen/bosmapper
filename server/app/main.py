@@ -17,7 +17,7 @@ from models import (
     Tree,
     TreeDB,
     User,
-    UsersDB
+    UsersDB,
 )
 from mongoengine import connect, errors
 
@@ -327,7 +327,7 @@ def update_db(request: Request):
 @app.get("/api/export")
 def export_pdf(format: str = "a4"):
     """
-    Export to PDF vector map
+    Export vector map to PDF
     """
 
     maker = MapMaker(get_features(), format)
