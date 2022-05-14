@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - monorepo
-    paths:
-      - ./server/**
+    # paths:
+    #   - ./server/**
 
 jobs:
   build_main:

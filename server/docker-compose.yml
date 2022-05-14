@@ -7,7 +7,7 @@ services:
   bosmapper:
     build:
       cache_from:
-        - docker.pkg.github.com/damienallen/bosmapper-server/fastapi:main
+        - docker.pkg.github.com/damienallen/bosmapper/server:main
       context: .
       target: development
     restart: unless-stopped
