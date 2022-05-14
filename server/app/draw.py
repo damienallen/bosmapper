@@ -15,17 +15,22 @@ current_dir = Path(__file__).resolve().parent
 # Constants
 DEFAULT_HEIGHT = 2
 DEFAULT_DIAMETER = 3.4
-MARGIN_TOP = 10
-MARGIN_BOTTOM = 10
-MARGIN_LEFT = 10
-MARGIN_RIGHT = 5
+MARGIN_TOP = -45
+MARGIN_BOTTOM = 25
+MARGIN_LEFT = 0
+MARGIN_RIGHT = 23
 TEXT_MARGIN_V = 0
 TEXT_MARGIN_H = 0.5
 TEXT_SIZE = 0.8
 
-COMPASS_COORDS = [493399, 6783645]
+MIN_LAT = 89222
+MAX_LAT = 89404
+MIN_LON = 435919
+MAX_LON = 436033
+
+COMPASS_COORDS = [493420, 6783645]
 SCALE_COORDS = [493297, 6783567]
-TITLE_COORDS = [493402, 6783658]
+TITLE_COORDS = [493480, 6783600]
 
 TRANSLATION = [-0.2, 0.7]
 ROTATION_ANGLE = -56 * pi / 180
@@ -63,6 +68,12 @@ FEATURE_STYLES = {
 
 class MapMaker:
     def __init__(self, features):
+
+        self.min_lon = MIN_LON - MARGIN_LEFT
+        self.max_lon = MAX_LON - MARGIN_RIGHT
+
+        self.min_lat = MIN_LAT - MARGIN_BOTTOM
+        self.max_lat = MAX_LAT + MARGIN_TOP
 
         self.get_base_features(current_dir / "base.geojson")
         self.extract_features(features)
@@ -125,26 +136,8 @@ class MapMaker:
 
     def extract_features(self, feature_list):
 
-        # TODO: calculate these from bounds
-        lat_list = [
-            self.reproject(feature["geometry"]["coordinates"])[1]
-            for feature in feature_list
-        ]
-        lon_list = [
-            self.reproject(feature["geometry"]["coordinates"])[0]
-            for feature in feature_list
-        ]
-
-        self.min_lon = min(lon_list) - MARGIN_LEFT
-        self.max_lon = max(lon_list) + MARGIN_RIGHT
-
-        self.min_lat = min(lat_list) - MARGIN_BOTTOM
-        self.max_lat = max(lat_list) + MARGIN_TOP
-
-        lon_range = self.max_lon - self.min_lon
         lat_range = self.max_lat - self.min_lat
-
-        self.scale_factor = 1 / lon_range if lon_range > lat_range else 1 / lat_range
+        self.scale_factor = 1 / lat_range
 
         print(f"Scale factor: {self.scale_factor}")
 
