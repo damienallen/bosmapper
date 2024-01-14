@@ -38,11 +38,6 @@ import 'ol/ol.css'
 export const App: React.FC = () => {
     const rootStore = new RootStore()
 
-    // Use dev server if enabled
-    if (process.env.REACT_APP_SERVER === 'dev') {
-        rootStore.settings.setHost('https://bosmapper.dallen.dev/api')
-    }
-
     // Fetch cookies
     fetchCookies(rootStore)
 
