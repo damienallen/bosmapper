@@ -6,7 +6,7 @@
 
 ### Requirements
 
-- node & npm
+- node v16
 - ionic cli (v5+)
 - yarn (optional)
 

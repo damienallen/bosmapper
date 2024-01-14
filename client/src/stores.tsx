@@ -1,9 +1,9 @@
-import Cookies from 'universal-cookie'
-import { autorun, observable, computed } from 'mobx'
-import { cloneDeep } from 'lodash'
+import { autorun, computed, observable } from 'mobx'
 
+import Cookies from 'universal-cookie'
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
+import { cloneDeep } from 'lodash'
 
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
@@ -187,7 +187,7 @@ export class MapStore {
 
     setBaseMap(value: string) {
         this.baseMap = value
-        cookies.set('drone', value === 'drone')
+        cookies.set('drone', value === 'drone', { sameSite: 'strict' })
     }
 
     @computed get isDrone() {
@@ -297,12 +297,12 @@ export class SettingStore {
 
     setShowDead(value: boolean) {
         this.showDead = value
-        cookies.set('showDead', value)
+        cookies.set('showDead', value, { sameSite: 'strict' })
     }
 
     setShowNotes(value: boolean) {
         this.showNotes = value
-        cookies.set('showNotes', value)
+        cookies.set('showNotes', value, { sameSite: 'strict' })
     }
 
     setLanguage(value: string) {

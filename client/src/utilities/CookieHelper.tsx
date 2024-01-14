@@ -1,7 +1,6 @@
 import Cookies from 'universal-cookie'
 import { RootStore } from '../stores'
 
-
 export const fetchCookies = (store: RootStore) => {
     const cookies = new Cookies()
 
@@ -17,7 +16,7 @@ export const fetchCookies = (store: RootStore) => {
     } else if (droneMap === 'false') {
         store.map.setBaseMap('vector/v2')
     } else {
-        cookies.set('drone', true)
+        cookies.set('drone', true, { sameSite: 'strict' })
     }
 
     const showDead = cookies.get('showDead')
