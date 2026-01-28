@@ -30,7 +30,7 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 #
 # Caddy image with baked in static and SPA
 #
-FROM node:24-trixie-slim AS static-builder
+FROM node:22-trixie-slim AS static-builder
 WORKDIR /app
 
 COPY ./app/package.json ./app/package-lock.json /app/

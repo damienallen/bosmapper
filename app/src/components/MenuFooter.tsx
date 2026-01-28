@@ -4,7 +4,7 @@ import {
     IonText
 } from '@ionic/react'
 
-import { version } from '../../package.json'
+import packageJson from '../../package.json'
 
 const useStyles = createUseStyles({
     container: {
@@ -28,7 +28,7 @@ export const MenuFooter: React.FC = () => {
         <div className={classes.container}>
             <IonText color="medium">
                 <div className={classes.version}>
-                    v{version}
+                    v{packageJson.version}
                 </div>
             </IonText>
         </div>
