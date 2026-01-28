@@ -1,5 +1,5 @@
 [project]
-name = "bosmapper-server"
+name = "bosmapper"
 version = "3.0.0"
 description = "FastAPI & Mongo powering the bosmapper backend"
 

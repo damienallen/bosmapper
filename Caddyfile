@@ -1,0 +1,20 @@
+# Production caddyfile for k8s cluster
+
+:80 {
+	handle_path /assets/* {
+		root * /var/www/assets
+		file_server
+	}
+
+	handle_path /api/* {
+		reverse_proxy localhost:8000
+	}
+
+	handle {
+		root * /var/www
+		try_files {path} /index.html
+		file_server
+	}
+
+	encode gzip zstd
+}

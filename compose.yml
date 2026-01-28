@@ -1,15 +1,13 @@
 # Compose for local development
-
 ---
-version: "3.6"
 services:
 
-  bosmapper:
+  service:
     build:
       cache_from:
-        - ghcr.io/damienallen/bosmapper/server:main
+        - ghcr.io/damienallen/bosmapper-service:latest
       context: .
-      target: development
+      target: service
     restart: unless-stopped
     command: ["/start-reload.sh"]
     environment:
@@ -21,8 +19,10 @@ services:
     depends_on:
       - mongo
       
-  static:
+  ui:
     build:
+      cache_from:
+        - ghcr.io/damienallen/bosmapper-static:latest
       context: .
       dockerfile: Dockerfile
       target: static
@@ -35,8 +35,6 @@ services:
       - mongo-data:/data/db
     expose:
       - 27017
-
-
 
 volumes:
   mongo-data:

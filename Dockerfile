@@ -33,13 +33,12 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 FROM node:24-trixie-slim AS static-builder
 WORKDIR /app
 
-COPY ./client/package.json ./client/package-lock.json /app/
+COPY ./app/package.json ./app/package-lock.json /app/
 RUN npm ci
 
-COPY ./client /app/
+COPY ./app /app/
 RUN npm run build
 
 FROM caddy:2-alpine AS static
-COPY --from=ui-builder /app/dist /var/www
-COPY --from=static-builder /static /var/www/static
+COPY --from=static-builder /app/dist /var/www
 COPY Caddyfile /etc/caddy/Caddyfile

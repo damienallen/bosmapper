@@ -1,11 +1,11 @@
-name: Server (image)
+name: Build Images
 
 on:
   push:
     branches:
       - dev
-    paths:
-      - ./server/**
+    tags:
+      - "*"
 
 jobs:
   build_main:
