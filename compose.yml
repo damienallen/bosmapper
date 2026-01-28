@@ -18,10 +18,14 @@ services:
       - ./app:/app
     ports:
       - "8080:80"
-    networks:
-      - webnet
     depends_on:
       - mongo
+      
+  static:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: static
 
   mongo:
     image: mongo:latest
@@ -29,13 +33,10 @@ services:
     command: mongod
     volumes:
       - mongo-data:/data/db
-    networks:
-      - webnet
     expose:
       - 27017
 
-networks:
-  webnet:
+
 
 volumes:
   mongo-data:

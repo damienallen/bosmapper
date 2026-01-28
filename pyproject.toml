@@ -1,0 +1,41 @@
+[project]
+name = "bosmapper-server"
+version = "3.0.0"
+description = "FastAPI & Mongo powering the bosmapper backend"
+
+authors = [{ name = "Damien Allen", email = "dev@dallen.co" }]
+license = "AGPL-3.0"
+readme = "README.md"
+
+requires-python = "==3.9.11"
+
+dependencies = [
+    "aiofiles~=0.8",
+    "Babel~=2.10",
+    "fastapi~=0.68",
+    "Jinja2~=3.1",
+    "mongoengine~=0.24",
+    "numpy~=1.22",
+    "python-multipart~=0.0.5",
+    "pycairo~=1.21",
+    "pyproj~=3.3",
+    "uvicorn~=0.15",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.14", "openpyxl~=3.0", "requests~=2.27"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 88
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+profile = "black"
