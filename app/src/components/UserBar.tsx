@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import {
   IonIcon,
   IonItem,
@@ -8,10 +8,7 @@ import {
 } from '@ionic/react'
 import { logInOutline, logOutOutline, informationCircleOutline } from 'ionicons/icons'
 
-const useStores = () => {
-  return React.useContext(MobXProviderContext)
-}
-
+import { useStores } from '../stores'
 const useStyles = createUseStyles({
   container: {
     width: '100%',

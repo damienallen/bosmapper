@@ -1,5 +1,4 @@
 import React from 'react'
-import { Provider } from 'mobx-react'
 import { IonApp, IonSplitPane, setupIonicReact } from '@ionic/react'
 
 /* Components */
@@ -7,7 +6,7 @@ import { Content } from './components/Content'
 import { Menu } from './components/Menu'
 
 /* Stores */
-import { RootStore } from './stores'
+import { rootStore, StoreProvider } from './stores'
 
 /* Utilities */
 import { fetchCookies } from './utilities/CookieHelper'
@@ -40,7 +39,6 @@ setupIonicReact({
 });
 
 export const App: React.FC = () => {
-    const rootStore = new RootStore()
 
     // Fetch cookies
     fetchCookies(rootStore)
@@ -49,19 +47,13 @@ export const App: React.FC = () => {
     fetchSpecies(rootStore)
 
     return (
-        <Provider
-            map={rootStore.map}
-            root={rootStore}
-            settings={rootStore.settings}
-            species={rootStore.species}
-            ui={rootStore.ui}
-        >
+        <StoreProvider>
             <IonApp>
                 <IonSplitPane contentId="main">
                     <Menu />
                     <Content />
                 </IonSplitPane>
             </IonApp>
-        </Provider>
+        </StoreProvider>
     )
 }

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { toJS } from 'mobx'
 import {
     IonButtons,
@@ -20,9 +20,7 @@ import { close } from 'ionicons/icons'
 
 import { Species } from '../stores'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

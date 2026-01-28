@@ -1,14 +1,11 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { MobXProviderContext } from 'mobx-react'
 
 import { IonFab, IonFabButton, IonIcon } from '@ionic/react'
 import { add } from 'ionicons/icons'
 
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     fab: {

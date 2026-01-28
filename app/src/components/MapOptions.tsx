@@ -1,12 +1,10 @@
 import React from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import droneBackground from '../assets/drone_bg.png'
 import vectorBackground from '../assets/vector_bg.png'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

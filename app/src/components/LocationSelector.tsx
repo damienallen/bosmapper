@@ -1,14 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
 import React, { useEffect } from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import { IonButton } from '@ionic/react'
 
 import { Crosshair } from './Crosshair'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

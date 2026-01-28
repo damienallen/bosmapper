@@ -1,6 +1,8 @@
+import React from 'react'
 import Cookies from 'universal-cookie'
-import { autorun, observable, computed } from 'mobx'
+import { autorun, makeAutoObservable } from 'mobx'
 import { cloneDeep } from 'lodash'
+import { createContext, useContext } from 'react'
 
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
@@ -23,24 +25,24 @@ export class RootStore {
 }
 
 export class UIStore {
-    @observable toastText: string = ''
-    @observable showToast: boolean = false
-    @observable showConnectionError: boolean = false
+    toastText: string = ''
+    showToast: boolean = false
+    showConnectionError: boolean = false
 
-    @observable showLoginPopover: boolean = false
-    @observable showLicenseModal: boolean = false
-    @observable showAboutModal: boolean = false
+    showLoginPopover: boolean = false
+    showLicenseModal: boolean = false
+    showAboutModal: boolean = false
 
-    @observable showTreeDetails: boolean = false
-    @observable showLocationUpdated: boolean = false
-    @observable showMetaUpdated: boolean = false
-    @observable showSpeciesUpdated: boolean = false
+    showTreeDetails: boolean = false
+    showLocationUpdated: boolean = false
+    showMetaUpdated: boolean = false
+    showSpeciesUpdated: boolean = false
 
-    @observable showLocationSelector: boolean = false
-    @observable showSpeciesSelector: boolean = false
+    showLocationSelector: boolean = false
+    showSpeciesSelector: boolean = false
 
-    @observable locationSelectorAction: string = 'new'
-    @observable speciesSelectorAction: string = 'new'
+    locationSelectorAction: string = 'new'
+    speciesSelectorAction: string = 'new'
 
     setToastText(value: string) {
         this.toastText = value
@@ -97,11 +99,13 @@ export class UIStore {
         this.speciesSelectorAction = action
     }
 
-    @computed get showDetailsUpdated() {
+    get showDetailsUpdated() {
         return this.showLocationUpdated || this.showMetaUpdated || this.showSpeciesUpdated
     }
 
-    constructor(public root: RootStore) {}
+    constructor(public root: RootStore) {
+        makeAutoObservable(this)
+    }
 }
 
 export interface Species {
@@ -114,14 +118,14 @@ export interface Species {
 }
 
 export class SpeciesStore {
-    @observable query: string = ''
-    @observable selectedTags: string[] = []
+    query: string = ''
+    selectedTags: string[] = []
 
-    @observable list: Species[] = []
-    @observable minHeight: number = 0
-    @observable maxHeight: number = 30
-    @observable minWidth: number = 0
-    @observable maxWidth: number = 20
+    list: Species[] = []
+    minHeight: number = 0
+    maxHeight: number = 30
+    minWidth: number = 0
+    maxWidth: number = 20
 
     setList(value: Species[]) {
         this.list = value
@@ -154,32 +158,34 @@ export class SpeciesStore {
         this.maxWidth = maxValue
     }
 
-    @computed get count() {
+    get count() {
         return this.list.length
     }
 
-    constructor(public root: RootStore) {}
+    constructor(public root: RootStore) {
+        makeAutoObservable(this)
+    }
 }
 
 export class MapStore {
-    @observable version: string = 'current'
-    @observable baseMap: string = 'drone'
+    version: string = 'current'
+    baseMap: string = 'drone'
 
-    @observable featuresGeoJson: any
-    @observable filteredFeatures: any[] = []
-    @observable selectedFeature?: Feature
-    @observable numUnknown: number = 0
-    @observable numDead: number = 0
+    featuresGeoJson: any
+    filteredFeatures: any[] = []
+    selectedFeature?: Feature
+    numUnknown: number = 0
+    numDead: number = 0
 
-    @observable firstLoad: boolean = true
+    firstLoad: boolean = true
 
-    @observable featuresHash: string = ''
-    @observable needsUpdate: boolean = false
-    @observable needsRefresh: boolean = false
-    @observable centerOnSelected: boolean = false
+    featuresHash: string = ''
+    needsUpdate: boolean = false
+    needsRefresh: boolean = false
+    centerOnSelected: boolean = false
 
-    @observable center: Coordinate = [0, 0]
-    @observable newFeatureSpecies: string | null = null
+    center: Coordinate = [0, 0]
+    newFeatureSpecies: string | null = null
 
     setVersion(value: string) {
         this.version = value
@@ -190,7 +196,7 @@ export class MapStore {
         cookies.set('drone', value === 'drone')
     }
 
-    @computed get isDrone() {
+    get isDrone() {
         return this.baseMap === 'drone'
     }
 
@@ -231,19 +237,19 @@ export class MapStore {
         this.newFeatureSpecies = value
     }
 
-    @computed get selectedId() {
+    get selectedId() {
         return this.selectedFeature?.get('oid')
     }
 
-    @computed get overlayBackground() {
+    get overlayBackground() {
         return this.baseMap === 'drone' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(230, 230, 230, 0.95)'
     }
 
-    @computed get mapBackground() {
+    get mapBackground() {
         return this.baseMap === 'drone' ? '#333' : '#fff'
     }
 
-    @computed get searchBorder() {
+    get searchBorder() {
         return this.baseMap === 'drone' ? '2px solid transparent' : '2px solid #999'
     }
 
@@ -283,17 +289,18 @@ export class MapStore {
 
     constructor(public root: RootStore) {
         autorun(() => this.filterFeatures())
+        makeAutoObservable(this)
     }
 }
 
 export class SettingStore {
-    @observable showDead: boolean = false
-    @observable showNotes: boolean = false
+    showDead: boolean = false
+    showNotes: boolean = false
 
-    @observable language: string = 'nl'
-    @observable host: string = 'https://bosmapper.dallen.co/api'
+    language: string = 'nl'
+    host: string = 'https://bosmapper.dallen.co/api'
 
-    @observable token: string | null = null
+    token: string | null = null
 
     setShowDead(value: boolean) {
         this.showDead = value
@@ -321,15 +328,30 @@ export class SettingStore {
         this.token = null
     }
 
-    @computed get authenticated() {
+    get authenticated() {
         return this.token !== null
     }
 
-    @computed get authHeader() {
+    get authHeader() {
         return {
             headers: { Authorization: `Bearer ${this.token}` },
         }
     }
 
-    constructor(public root: RootStore) {}
+    constructor(public root: RootStore) {
+        makeAutoObservable(this)
+    }
+}
+
+
+export const rootStore = new RootStore()
+export const StoreContext = createContext(rootStore)
+export const useStores = () => useContext(StoreContext)
+
+export const StoreProvider: React.FC = ({ children }) => {
+    return (
+        <StoreContext.Provider value={rootStore}>
+            {children}
+        </StoreContext.Provider>
+    );
 }

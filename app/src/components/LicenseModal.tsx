@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import {
     IonButtons,
     IonHeader,
@@ -12,9 +12,7 @@ import {
 } from '@ionic/react'
 import { close } from 'ionicons/icons'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

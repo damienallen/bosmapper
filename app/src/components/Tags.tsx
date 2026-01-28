@@ -2,14 +2,12 @@ import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
 import { toJS } from 'mobx'
-import { MobXProviderContext, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 
 import { IonButton, IonIcon, IonItem, IonLabel, IonPopover, IonItemDivider } from '@ionic/react'
 import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

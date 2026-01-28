@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import React, { useState } from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
     IonActionSheet, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonButton
@@ -10,9 +10,7 @@ import { cloudDone, move, trash } from 'ionicons/icons'
 import { Note } from './Note'
 import { Tags } from './Tags'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

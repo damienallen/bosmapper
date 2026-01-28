@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import Cookies from 'universal-cookie'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import {
     IonButton,
     IonCardHeader,
@@ -12,9 +12,7 @@ import {
     IonPopover
 } from '@ionic/react'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {

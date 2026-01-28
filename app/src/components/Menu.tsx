@@ -1,6 +1,6 @@
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import {
   IonChip,
   IonContent,
@@ -20,9 +20,7 @@ import { MapOptions } from './MapOptions'
 import { MenuFooter } from './MenuFooter'
 import { UserBar } from './UserBar'
 
-const useStores = () => {
-  return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
   menuIcon: {

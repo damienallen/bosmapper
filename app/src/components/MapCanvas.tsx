@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useRef } from "react";
 import { reaction, IReactionDisposer } from "mobx";
-import { MobXProviderContext } from "mobx-react";
 import { createUseStyles } from "react-jss";
 import hash from "object-hash";
 
@@ -20,9 +19,7 @@ import { vectorStyleFunction } from "../utilities/VectorHelper";
 import vectorFeatures from "../assets/vector_base.json";
 import focusIcon from "../assets/focus.svg";
 
-const useStores = () => {
-  return React.useContext(MobXProviderContext);
-};
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
   mapCanvas: {

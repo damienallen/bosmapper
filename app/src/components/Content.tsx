@@ -1,5 +1,5 @@
 import React from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { IonContent } from '@ionic/react'
 
 import { MapCanvas } from './MapCanvas'
@@ -11,9 +11,7 @@ import { AboutModal } from './AboutModal'
 import { SpeciesSelector } from './SpeciesSelector'
 
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 
 export const Content: React.FC = observer(() => {

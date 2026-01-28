@@ -1,5 +1,5 @@
 import React from 'react'
-import { observer, MobXProviderContext } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { createUseStyles } from 'react-jss'
 import {
     IonIcon,
@@ -12,9 +12,7 @@ import {
 import { radioButtonOff } from 'ionicons/icons'
 import { GiFruitTree } from 'react-icons/gi'
 
-const useStores = () => {
-    return React.useContext(MobXProviderContext)
-}
+import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {
