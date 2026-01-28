@@ -21,8 +21,5 @@
     "jsx": "react",
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src",
-    "tests/App.test.tsx"
-  ]
+  "include": ["src"]
 }
