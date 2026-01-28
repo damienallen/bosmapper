@@ -3,7 +3,7 @@ name: Server (image)
 on:
   push:
     branches:
-      - main
+      - dev
     paths:
       - ./server/**
 
