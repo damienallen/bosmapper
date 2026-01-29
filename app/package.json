@@ -22,7 +22,6 @@
     "universal-cookie": "8.0.1"
   },
   "devDependencies": {
-    "@ionic/cli": "~7",
     "@types/lodash": "~4",
     "@types/node": "~24",
     "@types/object-hash": "3.0.6",
