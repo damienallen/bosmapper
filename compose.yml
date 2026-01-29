@@ -9,16 +9,15 @@ services:
       context: .
       target: service
     restart: unless-stopped
-    command: ["/start-reload.sh"]
     environment:
       - MASTER_TOKEN=dev_token
     volumes:
       - ./app:/app
     ports:
-      - "8080:80"
+      - "8080:8888"
     depends_on:
       - mongo
-      
+
   ui:
     build:
       cache_from:
@@ -26,11 +25,12 @@ services:
       context: .
       dockerfile: Dockerfile
       target: static
+    ports:
+      - "3000:3080"
 
   mongo:
-    image: mongo:latest
-    restart: unless-stopped
-    command: mongod
+    image: mongo:8.2-noble
+    restart: always
     volumes:
       - mongo-data:/data/db
     expose:

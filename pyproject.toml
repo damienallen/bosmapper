@@ -1,7 +1,7 @@
 [project]
 name = "bosmapper"
 version = "3.0.0"
-description = "FastAPI & Mongo powering the bosmapper backend"
+description = "FastAPI server powering the bosmapper backend"
 
 authors = [{ name = "Damien Allen", email = "dev@dallen.co" }]
 license = "AGPL-3.0"

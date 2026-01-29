@@ -1,14 +1,14 @@
 up:
-	docker-compose up
+	docker compose build; docker compose up
 
 build:
-	docker-compose build
+	docker compose build
 
 backup:
-	python server/scripts/backup_server.py
+	python bosmapper/scripts/backup_server.py
 
 draw:
-	python server/scripts/export/draw.py
+	python bosmapper/scripts/export/draw.py
 
 draw_pdf:
-	python server/app/draw.py
+	python bosmapper/app/draw.py

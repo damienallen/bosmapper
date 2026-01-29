@@ -1,6 +1,6 @@
 {
   "name": "bosmapper",
-  "description": "Simple tree management at the Voedseltuin",
+  "description": "Forest garden inventory manager",
   "homepage": "https://bosmapper.dallen.dev",
   "version": "3.1.0",
   "private": true,

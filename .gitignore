@@ -17,10 +17,12 @@ maptiler.json
 # project
 bosmapper/scripts/output
 temp/
+scratch/
+backups/
 
 # Python
 __pycache__/
-/coverage
+
 
 # Env
 config/.env

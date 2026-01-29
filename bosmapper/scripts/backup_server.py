@@ -4,7 +4,8 @@ from pathlib import Path
 
 import requests
 
-output_dir = Path.home() / "backups"
+output_dir = Path(__file__).parents[2] / "backups"
+output_dir.mkdir(exist_ok=True)
 base_url = "https://bosmapper.dallen.co/api"
 
 print(f"Backing up into: {output_dir}")
