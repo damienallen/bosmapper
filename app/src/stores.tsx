@@ -1,5 +1,4 @@
-import { cloneDeep } from 'lodash'
-import { autorun, computed, makeObservable, observable } from 'mobx'
+import { autorun, computed, makeObservable, observable, toJS } from 'mobx'
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
 import React, { createContext, useContext } from 'react'
@@ -304,7 +303,7 @@ export class MapStore {
         }
 
         if (this.featuresGeoJson?.features) {
-            const filteredGeoJson = cloneDeep(this.featuresGeoJson)
+            const filteredGeoJson = toJS(this.featuresGeoJson)
             filteredGeoJson.features = filteredGeoJson.features.filter(featureFilter)
             this.filteredFeatures = filteredGeoJson
         }
