@@ -6,7 +6,7 @@ from mongoengine import (
     Document,
     FloatField,
     ListField,
-    StringField
+    StringField,
 )
 from pydantic import BaseModel
 

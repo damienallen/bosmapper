@@ -1,7 +1,6 @@
 import json
 from datetime import date
 from math import pi
-from operator import itemgetter
 from pathlib import Path
 
 import cairo
@@ -76,7 +75,6 @@ FEATURE_STYLES = {
 
 class MapMaker:
     def __init__(self, features, size: str):
-
         self.size = size
         self.format = FORMAT[size]
 
@@ -91,7 +89,6 @@ class MapMaker:
         self.extract_features(features)
 
     def draw(self) -> str:
-
         height = (16.5 if self.size == "a3" else 11.7) * 72
         width = (11.7 if self.size == "a3" else 8.3) * 72
 
@@ -170,7 +167,6 @@ class MapMaker:
         return width if width else DEFAULT_DIAMETER
 
     def extract_features(self, feature_list):
-
         lat_range = self.max_lat - self.min_lat
         self.scale_factor = 1 / lat_range
 
@@ -180,7 +176,6 @@ class MapMaker:
         num_skipped = 0
 
         for feature in feature_list:
-
             if feature["properties"]["name_nl"] == "Onbekend":
                 continue
 
@@ -210,7 +205,6 @@ class MapMaker:
         print(f"Skipped {num_skipped} entries.")
 
     def draw_overlay(self):
-
         for tree in self.trees:
             self.ctx.save()
             dot_radius = min(max(tree["radius"] / 14, 0.0012), 0.0022)
@@ -227,9 +221,7 @@ class MapMaker:
         return color + vector * percent
 
     def draw_text(self):
-
         for tree in self.trees:
-
             self.ctx.save()
 
             display_name = tree["name"] if tree["name"] else tree["species"]
@@ -275,7 +267,6 @@ class MapMaker:
             self.ctx.restore()
 
     def position_feature(self, feature):
-
         for index, point in enumerate(feature["geometry"]["coordinates"][0]):
             x = self.get_x(point) * self.scale_factor
             y = self.get_y(point) * self.scale_factor
@@ -286,9 +277,7 @@ class MapMaker:
                 self.ctx.line_to(x, y)
 
     def draw_base_features(self):
-
         for feature in self.base_features:
-
             feature_type = feature["properties"]["type"]
             style = FEATURE_STYLES.get(feature_type)
 
@@ -323,7 +312,6 @@ class MapMaker:
             self.ctx.restore()
 
     def draw_compass(self):
-
         self.ctx.save()
         x = self.get_x(COMPASS_COORDS) * self.scale_factor
         y = self.get_y(COMPASS_COORDS) * self.scale_factor
@@ -362,7 +350,6 @@ class MapMaker:
         self.ctx.restore()
 
     def draw_scale(self):
-
         self.ctx.save()
         x_offset = -2
         y_offset = -1.5
