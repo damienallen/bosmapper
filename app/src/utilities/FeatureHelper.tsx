@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server'
 import { Feature } from 'ol'
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
 
-import { MapStore, RootStore, SettingStore } from '../stores'
+import { MapStore, SettingStore } from '../stores'
 
 // SVG elements for dots and pins
 const svgScale = 0.25
