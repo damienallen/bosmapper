@@ -14,7 +14,7 @@ const dotSVG = (color: string, centerColor: string = '000000') => {
         ReactDOMServer.renderToString(
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="128" height="128">
                 <circle
-                    fill={'%23' + color}
+                    fill={`%23${color}`}
                     fillOpacity="1"
                     stroke="%23000000"
                     strokeOpacity="0.5"
@@ -23,7 +23,7 @@ const dotSVG = (color: string, centerColor: string = '000000') => {
                     cy="64"
                     r="30"
                 />
-                <circle fill={'%23' + centerColor} fillOpacity="0.3" cx="64" cy="64" r="15" />
+                <circle fill={`%23${centerColor}`} fillOpacity="0.3" cx="64" cy="64" r="15" />
             </svg>
         )
     )
@@ -35,7 +35,7 @@ const pinSVG = (colorOuter: string, colorInner: string, centerColor: string = '0
         ReactDOMServer.renderToString(
             <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="128" height="128">
                 <path
-                    fill={'%23' + colorOuter}
+                    fill={`%23${colorOuter}`}
                     fillOpacity="1"
                     stroke="%23000000"
                     strokeOpacity="0.5"
@@ -53,13 +53,13 @@ const pinSVG = (colorOuter: string, colorInner: string, centerColor: string = '0
                     12.801388,-3.62708 z"
                 />
                 <path
-                    fill={'%23' + colorInner}
+                    fill={`%23${colorInner}`}
                     fillOpacity="1"
                     d="m 45.521425,84.824145 a 34.452763,33.540108 0 1 1 0.85866,0.167155"
                     transform="matrix(0.97020484,0,0,1.0272058,-4.0587829,-5.7503824)"
                 />
                 <path
-                    fill={'%23' + centerColor}
+                    fill={`%23${centerColor}`}
                     fillOpacity="0.3"
                     d="m 57.079416,104.60778 a 34.203297,36.623341 0 1 1 0.852443,0.18252"
                     transform="matrix(0.64629924,0,0,0.61681122,5.1261236,4.9013803)"

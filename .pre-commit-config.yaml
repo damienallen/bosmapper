@@ -7,7 +7,6 @@ repos:
       - id: check-yaml
       - id: end-of-file-fixer
       - id: trailing-whitespace
-        args: ["--unsafe"]
   - repo: https://github.com/astral-sh/uv-pre-commit
     # uv version.
     rev: 0.9.25

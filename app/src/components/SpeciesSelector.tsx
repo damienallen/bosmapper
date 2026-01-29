@@ -45,8 +45,8 @@ export const SpeciesSelector: React.FC = observer(() => {
 
         if (query.length > 1) {
             const nameFilter = (item: Species) =>
-                (item.name_la && item.name_la.toLowerCase().includes(query)) ||
-                (item.name_nl && item.name_nl.toLowerCase().includes(query))
+                item.name_la?.toLowerCase().includes(query) ||
+                item.name_nl?.toLowerCase().includes(query)
 
             setFilteredSpecies(allSpecies.filter(nameFilter))
         } else {
