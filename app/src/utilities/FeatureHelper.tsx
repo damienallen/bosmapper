@@ -80,7 +80,7 @@ const dot = new Icon({
 
 const dotSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('#f28705', '#fff'),
+    src: dotSVG('#f28705', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -92,7 +92,7 @@ const dotAlt = new Icon({
 
 const dotAltSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('#78a658', '#fff'),
+    src: dotSVG('#78a658', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -104,7 +104,7 @@ const dotDead = new Icon({
 
 const dotDeadSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('#D93D04', '#fff'),
+    src: dotSVG('#D93D04', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -116,7 +116,7 @@ const dotUnknown = new Icon({
 
 const dotUnknownSelected = new Icon({
     anchor: [0.5, 0.5],
-    src: dotSVG('#aaa', '#fff'),
+    src: dotSVG('#aaa', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -128,7 +128,7 @@ const pin = new Icon({
 
 const pinSelected = new Icon({
     anchor: [0.5, 1],
-    src: pinSVG('#f28705', '#ffa63a', '#fff'),
+    src: pinSVG('#f28705', '#ffa63a', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -140,7 +140,7 @@ const pinAlt = new Icon({
 
 const pinAltSelected = new Icon({
     anchor: [0.5, 1],
-    src: pinSVG('#78a658', '#a1c786', '#fff'),
+    src: pinSVG('#78a658', '#a1c786', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -152,7 +152,7 @@ const pinDead = new Icon({
 
 const pinDeadSelected = new Icon({
     anchor: [0.5, 1],
-    src: pinSVG('#D93D04', '#F9622A', '#fff'),
+    src: pinSVG('#D93D04', '#F9622A', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -164,7 +164,7 @@ const pinUnknown = new Icon({
 
 const pinUnknownSelected = new Icon({
     anchor: [0.5, 1],
-    src: pinSVG('#aaa', '#ccc', '#fff'),
+    src: pinSVG('#aaa', '#ccc', 'rgba(255, 255, 255, 0.3)'),
     scale: svgScale,
 })
 
@@ -196,10 +196,10 @@ const noteStyle = (droneBase: boolean) =>
         textBaseline: 'middle',
         text: '',
         fill: new Fill({
-            color: droneBase ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)',
+            color: droneBase ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0,0,0,0.7)',
         }),
         stroke: new Stroke({
-            color: droneBase ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.7)',
+            color: droneBase ? 'rgba(0,0,0,0.7)' : 'rgba(255, 255, 255, 0.7)',
             width: 2.5,
         }),
         font: '12px sans-serif',
