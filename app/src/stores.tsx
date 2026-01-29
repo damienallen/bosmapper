@@ -233,7 +233,7 @@ export class MapStore {
         this.center = value
     }
 
-    setNewFeatureSpecies(value: string) {
+    setNewFeatureSpecies(value: string | null) {
         this.newFeatureSpecies = value
     }
 

@@ -80,7 +80,7 @@ export const Tags: React.FC = observer(() => {
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
-    const featureTags = toJS(map.selectedFeature.get('tags'))
+    const featureTags = toJS(map.selectedFeature!.get('tags'))
 
     const updateTags = (key: string) => {
         const oid = map.selectedId

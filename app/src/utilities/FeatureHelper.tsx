@@ -4,7 +4,7 @@ import ReactDOMServer from 'react-dom/server'
 import { Feature } from 'ol'
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
 
-import { RootStore } from '../stores'
+import { MapStore, RootStore, SettingStore } from '../stores'
 
 // SVG elements for dots and pins
 const svgScale = 0.25
@@ -208,17 +208,18 @@ const getPinStyle = (isSelected: boolean, isDead: boolean, isUnknown: boolean, d
 }
 
 export const styleFunction = (
-    store: RootStore,
+    map: MapStore,
+    settings: SettingStore,
     feature: Feature,
     resolution: number
 ) => {
     const nearZoom = resolution < 0.08
     const speciesData = feature.getProperties()
 
-    const selectedFeatureOid = store.map.selectedFeature?.get('oid')
+    const selectedFeatureOid = map.selectedFeature?.get('oid')
     const isSelected = feature.get('oid') === selectedFeatureOid
     const isUnknown = speciesData.name_nl === 'Onbekend'
-    const droneBase = store.map.baseMap === 'drone'
+    const droneBase = map.baseMap === 'drone'
 
     const pinStyle = nearZoom ?
         getPinStyle(isSelected, speciesData.dead, isUnknown, droneBase) :
@@ -238,7 +239,7 @@ export const styleFunction = (
     if (nearZoom) {
         const text = speciesData.name_nl ? speciesData.name_nl : speciesData.species
         featureStyle.getText().setText(text)
-        if (store.settings.authenticated && store.settings.showNotes) {
+        if (settings.authenticated && settings.showNotes) {
             const subtitleStyle: Style = new Style({
                 text: noteStyle(droneBase, opacity)
             })

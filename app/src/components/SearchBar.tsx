@@ -51,7 +51,7 @@ export const SearchBar: React.FC = observer(() => {
         border: map.searchBorder,
         background: map.overlayBackground,
     }
-    const classes = useStyles(styleProps)
+    const classes = useStyles(styleProps as any)
 
     const onKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') (e.target as HTMLIonSearchbarElement).blur()

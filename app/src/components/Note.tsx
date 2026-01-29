@@ -22,7 +22,7 @@ const useStyles = createUseStyles({
 export const Note: React.FC = observer(() => {
     const classes = useStyles()
     const { map, settings, ui } = useStores()
-    const [text, setText] = useState(map.selectedFeature.get('notes'))
+    const [text, setText] = useState(map.selectedFeature?.get('notes'))
 
     const updateNote = () => {
         const featureJson = {
@@ -46,7 +46,7 @@ export const Note: React.FC = observer(() => {
         if (e.key === 'Enter') (e.target as HTMLIonInputElement).blur()
     }
 
-    const readonlyNote = map.selectedFeature.get('notes') ?
+    const readonlyNote = map.selectedFeature?.get('notes') ?
         (
             <div className={classes.readonly}>
                 {map.selectedFeature.get('notes')}

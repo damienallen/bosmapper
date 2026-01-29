@@ -120,14 +120,14 @@ const getLayers = (
 
 export const MapCanvas: React.FC = () => {
   const mapEl: any = useRef<HTMLDivElement>();
-  const { map, root, settings, ui } = useStores();
+  const { map, settings, ui } = useStores();
   const classes = useStyles();
 
   // Load GeoJSON features
   const treeLayer = new VectorLayer({
     source: new VectorSource(),
     style: (feature: any, resolution: number) =>
-      styleFunction(root, feature, resolution),
+      styleFunction(map, settings, feature, resolution),
     updateWhileAnimating: true,
     updateWhileInteracting: true,
   });
@@ -162,7 +162,7 @@ export const MapCanvas: React.FC = () => {
   // Drag handling
   olMap.on("moveend", () => {
     const mapCenter = olMap.getView().getCenter();
-    map.setCenter(mapCenter);
+    if (mapCenter) map.setCenter(mapCenter);
   });
 
   // Click handling
@@ -284,10 +284,8 @@ export const MapCanvas: React.FC = () => {
       reaction(
         () => map.centerOnSelected,
         (centerOnSelected: boolean) => {
-          if (centerOnSelected && map.selectedFeature) {
-            const featureCoords = map.selectedFeature
-              .getGeometry()
-              .getCoordinates();
+          const featureCoords = (map.selectedFeature?.getGeometry() as any)?.getCoordinates();
+          if (centerOnSelected && featureCoords) {
             olView.animate({
               center: featureCoords,
               zoom: Math.max(21, olView.getZoom() as number),
@@ -309,7 +307,7 @@ export const MapCanvas: React.FC = () => {
       reaction(
         () => map.filteredFeatures,
         (filteredFeatures: any) => {
-          if (map.filteredFeatures.features) {
+          if (map.filteredFeatures) {
             treeLayer.setSource(
               new VectorSource({
                 features: new GeoJSON().readFeatures(filteredFeatures),
@@ -332,7 +330,9 @@ export const MapCanvas: React.FC = () => {
       console.log("Unloading map canvas...");
       olMap.setTarget(undefined);
       clearInterval(featureFetcher);
-      disposer.forEach((dispose: IReactionDisposer) => dispose());
+      disposer.forEach((dispose: IReactionDisposer) => {
+        dispose()
+      });
     };
   });
 

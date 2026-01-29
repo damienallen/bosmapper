@@ -66,7 +66,7 @@ export const TreeDetail: React.FC = observer(() => {
     const { map, settings, ui } = useStores()
     const classes = useStyles()
 
-    const speciesData = map.selectedFeature.getProperties()
+    const speciesData = map.selectedFeature!.getProperties()
 
     const confirmRemove = () => {
         const oid = map.selectedId
