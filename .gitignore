@@ -1,8 +1,3 @@
-# dependencies
-node_modules/
-build/
-
-
 # misc
 .DS_Store
 .env.local
@@ -15,7 +10,6 @@ build/
 maptiler.json
 
 # project
-bosmapper/scripts/output
 temp/
 scratch/
 backups/
@@ -23,7 +17,11 @@ backups/
 # Python
 __pycache__/
 
+# JS
+node_modules/
+build/
+
 
 # Env
-config/.env
+.env
 thunderEnvironment.json

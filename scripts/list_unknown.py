@@ -1,4 +1,3 @@
-from datetime import datetime
 from pathlib import Path
 
 import requests
@@ -7,7 +6,7 @@ output_dir = Path(__file__).parent / "output"
 output_dir.mkdir(parents=True, exist_ok=True)
 base_url = "https://bosmapper.dallen.co/api"
 
-print(f"Listing unknown trees")
+print("Listing unknown trees")
 
 r = requests.get(f"{base_url}/trees/json/")
 

@@ -68,7 +68,6 @@ class MapMaker:
         self.extract_features()
 
     def draw(self):
-
         with cairo.SVGSurface(svg_path, 840, 1200) as surface:
             self.ctx = cairo.Context(surface)
             self.ctx.scale(1200, 1200)
@@ -117,7 +116,6 @@ class MapMaker:
         return self.max_lon - self.reproject(coords)[0]
 
     def extract_features(self):
-
         # TODO: calculate these from bounds
         lat_list = [
             self.reproject(feature["geometry"]["coordinates"])[1]
@@ -178,7 +176,7 @@ class MapMaker:
                 num_skipped += 1
 
             existing_species = [species["name"] for species in self.species_list]
-            if not feature["properties"]["species"] in existing_species:
+            if feature["properties"]["species"] not in existing_species:
                 height = (
                     feature["properties"]["height"]
                     if feature["properties"].get("height")
@@ -197,7 +195,6 @@ class MapMaker:
         self.species_list = sorted(self.species_list, key=itemgetter("height"))
 
     def draw_overlay(self):
-
         for tree in self.trees:
             self.ctx.save()
             dot_radius = max(tree["radius"] / 14, 0.002)
@@ -214,9 +211,7 @@ class MapMaker:
         return color + vector * percent
 
     def draw_text(self):
-
         for tree in self.trees:
-
             self.ctx.save()
 
             display_name = tree["name"] if tree["name"] else tree["species"]
@@ -261,7 +256,6 @@ class MapMaker:
         self.base_features.sort(key=lambda d: d["properties"]["z_index"])
 
         for feature in self.base_features:
-
             feature_type = feature["properties"]["type"]
             style = FEATURE_STYLES.get(feature_type)
 
@@ -301,7 +295,6 @@ class MapMaker:
             self.ctx.restore()
 
     def draw_compass(self):
-
         self.ctx.save()
         x = self.get_x(COMPASS_COORDS) * self.scale_factor
         y = self.get_y(COMPASS_COORDS) * self.scale_factor
@@ -340,7 +333,6 @@ class MapMaker:
         self.ctx.restore()
 
     def draw_scale(self):
-
         self.ctx.save()
         x_offset = -2
         y_offset = -1.5

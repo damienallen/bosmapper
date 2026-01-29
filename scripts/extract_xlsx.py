@@ -34,7 +34,6 @@ species_list = [
 ]
 
 for i in range(1, len(species)):
-
     species_list.append(
         {
             "species": species[i].value,
