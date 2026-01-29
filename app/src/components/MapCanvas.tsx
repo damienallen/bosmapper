@@ -86,7 +86,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const baseUrl = "https://voedselbos-tiles.ams3.digitaloceanspaces.com";
+const baseUrl = "https://bosmapper.fsn1.your-objectstorage.com";
 const droneUrl = `${baseUrl}/drone/v4/{z}/{x}/{y}.png`;
 const cartigoUrl = `${baseUrl}/cartigo/light/{z}/{x}/{y}.png`;
 
