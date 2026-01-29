@@ -1,5 +1,4 @@
 import { IReactionDisposer, reaction } from 'mobx'
-import hash from 'object-hash'
 import { Feature, MapBrowserEvent } from 'ol'
 import GeoJSON from 'ol/format/GeoJSON'
 import { Point } from 'ol/geom'
@@ -16,6 +15,7 @@ import focusIcon from '../assets/focus.svg'
 import vectorFeatures from '../assets/vector_base.json'
 import { useStores } from '../stores'
 import { styleFunction } from '../utilities/FeatureHelper'
+import { getObjectHash } from '../utilities/hash'
 import { vectorStyleFunction } from '../utilities/VectorHelper'
 
 const useStyles = createUseStyles({
@@ -180,7 +180,7 @@ export const MapCanvas: React.FC = () => {
                 if (!response.ok) throw new Error(await response.text())
                 const data = await response.json()
                 // Check against hash of existing features
-                const featuresHash = hash(data)
+                const featuresHash = await getObjectHash(data)
 
                 if (featuresHash !== map.featuresHash) {
                     map.setFeaturesHash(featuresHash)
