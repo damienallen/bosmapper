@@ -1,13 +1,12 @@
-import 'mobx-react/batchingForReactDom'
 import { configure } from 'mobx'
-// biome-ignore lint: needed for inline svg
+// biome-ignore lint: needed for mounting app
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
 import * as serviceWorker from './serviceWorker'
 
 configure({
-    enforceActions: 'never', // Options: "always", "observed", or "never"
+    enforceActions: 'never',
 })
 
 ReactDOM.render(<App />, document.getElementById('root'))

@@ -202,8 +202,6 @@ export const MapCanvas: React.FC = () => {
                             console.warn(`Unable to find feature '${oid} in updated feature list`)
                         }
                     }
-                } else {
-                    console.debug('Features not updated')
                 }
             })
             .catch((error) => {
