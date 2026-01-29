@@ -1,11 +1,9 @@
-import React from 'react'
-import Cookies from 'universal-cookie'
-import { autorun, makeAutoObservable } from 'mobx'
 import { cloneDeep } from 'lodash'
-import { createContext, useContext } from 'react'
-
+import { autorun, makeAutoObservable } from 'mobx'
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
+import React, { createContext, useContext } from 'react'
+import Cookies from 'universal-cookie'
 
 const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
@@ -343,15 +341,10 @@ export class SettingStore {
     }
 }
 
-
 export const rootStore = new RootStore()
 export const StoreContext = createContext(rootStore)
 export const useStores = () => useContext(StoreContext)
 
 export const StoreProvider: React.FC = ({ children }) => {
-    return (
-        <StoreContext.Provider value={rootStore}>
-            {children}
-        </StoreContext.Provider>
-    );
+    return <StoreContext.Provider value={rootStore}>{children}</StoreContext.Provider>
 }

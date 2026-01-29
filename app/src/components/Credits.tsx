@@ -1,9 +1,6 @@
+import { IonText } from '@ionic/react'
 import React from 'react'
 import { createUseStyles } from 'react-jss'
-import {
-    IonText
-} from '@ionic/react'
-
 
 const useStyles = createUseStyles({
     container: {
@@ -11,17 +8,17 @@ const useStyles = createUseStyles({
         bottom: 20,
         width: '100%',
         '& div': {
-            padding: '0 20px'
-        }
+            padding: '0 20px',
+        },
     },
     footerItem: {
         fontSize: '0.9em',
-        marginTop: 5
+        marginTop: 5,
     },
     itemHeader: {
         textTransform: 'uppercase',
-        opacity: 0.8
-    }
+        opacity: 0.8,
+    },
 })
 
 export const Credits: React.FC = () => {
@@ -30,7 +27,6 @@ export const Credits: React.FC = () => {
     return (
         <div className={classes.container}>
             <IonText color="medium">
-
                 <div className={classes.footerItem}>
                     <span className={classes.itemHeader}>coding en ontwerp: </span>
                     Damien Allen
@@ -45,7 +41,6 @@ export const Credits: React.FC = () => {
                     <span className={classes.itemHeader}>dronefoto: </span>
                     Gianna Campisano &amp; Taylan Bellen
                 </div>
-
             </IonText>
         </div>
     )

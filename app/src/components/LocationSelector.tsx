@@ -1,17 +1,15 @@
-import axios, { AxiosResponse } from 'axios'
-import React, { useEffect } from 'react'
-import { observer } from 'mobx-react'
-import { createUseStyles } from 'react-jss'
 import { IonButton } from '@ionic/react'
-
-import { Crosshair } from './Crosshair'
-
+import axios, { AxiosResponse } from 'axios'
+import { observer } from 'mobx-react'
+import React, { useEffect } from 'react'
+import { createUseStyles } from 'react-jss'
 import { useStores } from '../stores'
+import { Crosshair } from './Crosshair'
 
 const useStyles = createUseStyles({
     container: {
         width: '100%',
-        height: '100%'
+        height: '100%',
     },
     header: {
         position: 'absolute',
@@ -24,7 +22,7 @@ const useStyles = createUseStyles({
         textTransform: 'uppercase',
         padding: '10px 0',
         fontWeight: 'bold',
-        zIndex: 150
+        zIndex: 150,
     },
     footer: {
         position: 'absolute',
@@ -34,12 +32,12 @@ const useStyles = createUseStyles({
         background: (backgroundColor: string) => backgroundColor,
         display: 'flex',
         padding: '10px 0',
-        zIndex: 150
+        zIndex: 150,
     },
     actionButton: {
         flex: 1,
-        margin: '0 5px'
-    }
+        margin: '0 5px',
+    },
 })
 
 export const LocationSelector: React.FC = observer(() => {
@@ -56,13 +54,17 @@ export const LocationSelector: React.FC = observer(() => {
     }
 
     const handleConfirm = () => {
-
         if (ui.locationSelectorAction === 'move') {
             const featureJson = {
                 lon: map.center[0],
-                lat: map.center[1]
+                lat: map.center[1],
             }
-            axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
+            axios
+                .post(
+                    `${settings.host}/tree/update/${map.selectedId}/`,
+                    featureJson,
+                    settings.authHeader
+                )
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
@@ -80,7 +82,8 @@ export const LocationSelector: React.FC = observer(() => {
             }
             console.log('Trying to add feature', featureJson)
 
-            axios.post(`${settings.host}/tree/add/`, featureJson, settings.authHeader)
+            axios
+                .post(`${settings.host}/tree/add/`, featureJson, settings.authHeader)
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
@@ -96,13 +99,12 @@ export const LocationSelector: React.FC = observer(() => {
         ui.setShowLocationSelector(false)
     }
 
-    const headerText = ui.locationSelectorAction === 'move' ? 'Locatie bewerken' : 'Kies een locatie (nieuw)'
+    const headerText =
+        ui.locationSelectorAction === 'move' ? 'Locatie bewerken' : 'Kies een locatie (nieuw)'
 
     return (
         <div className={classes.container}>
-            <div className={classes.header}>
-                {headerText}
-            </div>
+            <div className={classes.header}>{headerText}</div>
 
             <Crosshair />
 
@@ -110,20 +112,19 @@ export const LocationSelector: React.FC = observer(() => {
                 <IonButton
                     className={classes.actionButton}
                     onClick={() => handleCancel()}
-                    size='default'
-                    fill='outline'
+                    size="default"
+                    fill="outline"
                 >
                     Annuleren
-                    </IonButton>
+                </IonButton>
                 <IonButton
                     className={classes.actionButton}
                     onClick={() => handleConfirm()}
-                    size='default'
+                    size="default"
                 >
                     Bevestigen
-                    </IonButton>
+                </IonButton>
             </div>
         </div>
     )
 })
-

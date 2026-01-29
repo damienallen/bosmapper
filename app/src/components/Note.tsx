@@ -1,9 +1,8 @@
+import { IonInput } from '@ionic/react'
 import axios, { AxiosResponse } from 'axios'
+import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import { observer } from 'mobx-react'
-import { IonInput } from '@ionic/react'
-
 
 import { useStores } from '../stores'
 
@@ -11,12 +10,12 @@ const useStyles = createUseStyles({
     container: {
         padding: '5px 16px',
         background: 'rgba(0, 0, 0, 0.1)',
-        position: 'relative'
+        position: 'relative',
     },
     readonly: {
         padding: '10px 16px',
-        background: 'rgba(0, 0, 0, 0.1)'
-    }
+        background: 'rgba(0, 0, 0, 0.1)',
+    },
 })
 
 export const Note: React.FC = observer(() => {
@@ -26,10 +25,15 @@ export const Note: React.FC = observer(() => {
 
     const updateNote = () => {
         const featureJson = {
-            notes: text
+            notes: text,
         }
 
-        axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
+        axios
+            .post(
+                `${settings.host}/tree/update/${map.selectedId}/`,
+                featureJson,
+                settings.authHeader
+            )
             .then((response: AxiosResponse) => {
                 console.debug(response)
                 map.setNeedsUpdate(true)
@@ -46,29 +50,26 @@ export const Note: React.FC = observer(() => {
         if (e.key === 'Enter') (e.target as HTMLIonInputElement).blur()
     }
 
-    const readonlyNote = map.selectedFeature?.get('notes') ?
-        (
-            <div className={classes.readonly}>
-                {map.selectedFeature.get('notes')}
-            </div>
-        ) : null
+    const readonlyNote = map.selectedFeature?.get('notes') ? (
+        <div className={classes.readonly}>{map.selectedFeature.get('notes')}</div>
+    ) : null
 
-    return settings.authenticated ?
-        (
-            <div className={classes.container}>
-                <IonInput
-                    value={text}
-                    disabled={ui.showMetaUpdated}
-                    placeholder='Notitie toevoegen'
-                    enterkeyhint='done'
-                    onIonChange={(e: CustomEvent) => setText(e.detail.value!)}
-                    onIonBlur={() => updateNote()}
-                    onKeyDown={onKeyPress}
-                    maxlength={80}
-                    mode='ios'
-                    clearInput
-                ></IonInput>
-            </div>
-        ) : readonlyNote
-
+    return settings.authenticated ? (
+        <div className={classes.container}>
+            <IonInput
+                value={text}
+                disabled={ui.showMetaUpdated}
+                placeholder="Notitie toevoegen"
+                enterkeyhint="done"
+                onIonChange={(e: CustomEvent) => setText(e.detail.value!)}
+                onIonBlur={() => updateNote()}
+                onKeyDown={onKeyPress}
+                maxlength={80}
+                mode="ios"
+                clearInput
+            ></IonInput>
+        </div>
+    ) : (
+        readonlyNote
+    )
 })

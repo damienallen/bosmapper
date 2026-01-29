@@ -1,45 +1,43 @@
 import { Feature } from 'ol'
 import { Fill, Stroke, Style } from 'ol/style'
 
-
 // Boundary
 const boundaryFill = new Fill({
-    color: '#efefef'
+    color: '#efefef',
 })
 
 const boundaryStroke = (resolution: number) => {
     return new Stroke({
         color: '#999',
-        width: 0.4 / resolution
+        width: 0.4 / resolution,
     })
 }
 
 // Vegetation
 const vegetationFill = new Fill({
-    color: '#ddd'
+    color: '#ddd',
 })
 
 const brickFill = new Fill({
-    color: '#999'
+    color: '#999',
 })
 
 const brickStroke = (resolution: number) => {
     return new Stroke({
         color: '#999',
-        width: 0.2 / resolution
+        width: 0.2 / resolution,
     })
 }
 
 // Buildings
 const buildingsFill = new Fill({
-    color: '#cedce5'
+    color: '#cedce5',
 })
 
 // Misc
 const circleFill = new Fill({
-    color: '#eaeaea'
+    color: '#eaeaea',
 })
-
 
 const getTypeStyle = (vectorType: string, resolution: number) => {
     const buildingTypes = ['greenhouse', 'bee_hives']
@@ -47,51 +45,47 @@ const getTypeStyle = (vectorType: string, resolution: number) => {
         return [
             new Style({
                 fill: boundaryFill,
-                zIndex: 10
+                zIndex: 10,
             }),
             new Style({
                 stroke: boundaryStroke(resolution),
-                zIndex: 80
-            })
+                zIndex: 80,
+            }),
         ]
     } else if (vectorType === 'vegetation') {
         return new Style({
             stroke: brickStroke(resolution),
             fill: vegetationFill,
-            zIndex: 20
+            zIndex: 20,
         })
     } else if (vectorType === 'vegetation_no_wall') {
         return new Style({
             fill: vegetationFill,
-            zIndex: 20
+            zIndex: 20,
         })
     } else if (vectorType === 'circle') {
         return new Style({
             fill: circleFill,
-            zIndex: 20
+            zIndex: 20,
         })
     } else if (vectorType === 'wall') {
         return new Style({
             stroke: brickStroke(resolution),
             fill: brickFill,
-            zIndex: 40
+            zIndex: 40,
         })
     } else if (buildingTypes.includes(vectorType)) {
         return new Style({
             stroke: brickStroke(resolution),
             fill: buildingsFill,
-            zIndex: 50
+            zIndex: 50,
         })
     } else {
         return []
     }
 }
 
-export const vectorStyleFunction = (
-    isDrone: boolean,
-    feature: Feature,
-    resolution: number
-) => {
+export const vectorStyleFunction = (isDrone: boolean, feature: Feature, resolution: number) => {
     const featureProps = feature.getProperties()
     return !isDrone ? getTypeStyle(featureProps.type, resolution) : []
 }

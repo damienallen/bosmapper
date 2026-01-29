@@ -8,11 +8,11 @@ const useStyles = createUseStyles({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     focus: {
-        zIndex: 500
-    }
+        zIndex: 500,
+    },
 })
 
 export const Crosshair: React.FC = () => {
@@ -24,4 +24,3 @@ export const Crosshair: React.FC = () => {
         </div>
     )
 }
-

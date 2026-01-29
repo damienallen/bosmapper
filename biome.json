@@ -46,7 +46,8 @@
                 "noInvalidUseBeforeDeclaration": "warn"
             },
             "style": {
-                "noNonNullAssertion": "off"
+                "noNonNullAssertion": "off",
+                "useImportType": "off"
             }
         }
     },

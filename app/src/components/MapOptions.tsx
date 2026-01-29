@@ -1,5 +1,5 @@
-import React from 'react'
 import { observer } from 'mobx-react'
+import React from 'react'
 import { createUseStyles } from 'react-jss'
 import droneBackground from '../assets/drone_bg.png'
 import vectorBackground from '../assets/vector_bg.png'
@@ -20,10 +20,10 @@ const useStyles = createUseStyles({
         overflow: 'hidden',
         userSelect: 'none',
         cursor: 'pointer',
-        opacity: 0.6
+        opacity: 0.6,
     },
     buttonBackground: {
-        display: 'block'
+        display: 'block',
     },
     buttonLabel: {
         position: 'absolute',
@@ -31,31 +31,34 @@ const useStyles = createUseStyles({
         right: 8,
         bottom: 8,
         fontSize: '0.8em',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     selected: {
         border: '2px solid #888',
-        opacity: 1
-    }
+        opacity: 1,
+    },
 })
 
 export const MapOptions: React.FC = observer(() => {
     const classes = useStyles()
     const { map } = useStores()
 
-    const isDrone = (map.baseMap === 'drone')
-    const mapButtonClass = (selected: boolean) => (
+    const isDrone = map.baseMap === 'drone'
+    const mapButtonClass = (selected: boolean) =>
         selected ? `${classes.mapButton} ${classes.selected}` : classes.mapButton
-    )
 
     return (
-        <div className={classes.container} >
+        <div className={classes.container}>
             <div className={mapButtonClass(isDrone)} onClick={() => map.setBaseMap('drone')}>
-                <div className={classes.buttonLabel} style={{ color: '#fff' }}>drone</div>
+                <div className={classes.buttonLabel} style={{ color: '#fff' }}>
+                    drone
+                </div>
                 <img className={classes.buttonBackground} src={droneBackground} alt="Drone" />
             </div>
             <div className={mapButtonClass(!isDrone)} onClick={() => map.setBaseMap('vector')}>
-                <div className={classes.buttonLabel} style={{ color: '#888' }}>vector</div>
+                <div className={classes.buttonLabel} style={{ color: '#888' }}>
+                    vector
+                </div>
                 <img className={classes.buttonBackground} src={vectorBackground} alt="Vector" />
             </div>
         </div>

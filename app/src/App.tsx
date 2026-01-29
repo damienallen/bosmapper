@@ -1,12 +1,12 @@
-import React from 'react'
 import { IonApp, IonSplitPane, setupIonicReact } from '@ionic/react'
+import React from 'react'
 
 /* Components */
 import { Content } from './components/Content'
 import { Menu } from './components/Menu'
 
 /* Stores */
-import { rootStore, StoreProvider } from './stores'
+import { StoreProvider, rootStore } from './stores'
 
 /* Utilities */
 import { fetchCookies } from './utilities/CookieHelper'
@@ -35,11 +35,10 @@ import './theme/variables.css'
 import 'ol/ol.css'
 
 setupIonicReact({
-  mode: 'md' 
-});
+    mode: 'md',
+})
 
 export const App: React.FC = () => {
-
     // Fetch cookies
     fetchCookies(rootStore)
 

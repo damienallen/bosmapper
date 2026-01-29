@@ -1,7 +1,6 @@
 import Cookies from 'universal-cookie'
 import { RootStore } from '../stores'
 
-
 export const fetchCookies = (store: RootStore) => {
     const cookies = new Cookies()
 

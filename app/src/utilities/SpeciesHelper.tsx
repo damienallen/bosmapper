@@ -2,7 +2,8 @@ import axios, { AxiosResponse } from 'axios'
 import { RootStore } from '../stores'
 
 export const fetchSpecies = (store: RootStore) => {
-    axios.get(`${store.settings.host}/species/`)
+    axios
+        .get(`${store.settings.host}/species/`)
         .then((response: AxiosResponse) => {
             store.species.setList(response.data)
             store.ui.setShowConnectionError(false)

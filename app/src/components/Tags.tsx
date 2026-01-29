@@ -1,11 +1,10 @@
+import { IonButton, IonIcon, IonItem, IonItemDivider, IonLabel, IonPopover } from '@ionic/react'
 import axios, { AxiosResponse } from 'axios'
-import React, { useState } from 'react'
-import { createUseStyles } from 'react-jss'
+import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-
-import { IonButton, IonIcon, IonItem, IonLabel, IonPopover, IonItemDivider } from '@ionic/react'
-import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
+import React, { useState } from 'react'
+import { createUseStyles } from 'react-jss'
 
 import { useStores } from '../stores'
 

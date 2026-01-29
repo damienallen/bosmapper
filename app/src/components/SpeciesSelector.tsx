@@ -1,34 +1,31 @@
-import axios, { AxiosResponse } from 'axios'
-import React, { useState } from 'react'
-import { createUseStyles } from 'react-jss'
-import { observer } from 'mobx-react'
-import { toJS } from 'mobx'
 import {
     IonButtons,
+    IonContent,
     IonHeader,
     IonIcon,
     IonItem,
     IonLabel,
     IonList,
     IonModal,
-    IonToolbar,
-    IonContent,
+    IonSearchbar,
     IonTitle,
-    IonSearchbar
+    IonToolbar,
 } from '@ionic/react'
+import axios, { AxiosResponse } from 'axios'
 import { close } from 'ionicons/icons'
-
-import { Species } from '../stores'
-
-import { useStores } from '../stores'
+import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { createUseStyles } from 'react-jss'
+import { Species, useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {
-        padding: 20
+        padding: 20,
     },
     toolbarButtons: {
-        marginRight: 20
-    }
+        marginRight: 20,
+    },
 })
 
 export const SpeciesSelector: React.FC = observer(() => {
@@ -47,10 +44,9 @@ export const SpeciesSelector: React.FC = observer(() => {
         const query = e.detail.value.toLowerCase()
 
         if (query.length > 1) {
-            const nameFilter = (item: Species) => (
-                (item.name_la && item.name_la.toLowerCase().includes(query))
-                || (item.name_nl && item.name_nl.toLowerCase().includes(query))
-            )
+            const nameFilter = (item: Species) =>
+                (item.name_la && item.name_la.toLowerCase().includes(query)) ||
+                (item.name_nl && item.name_nl.toLowerCase().includes(query))
 
             setFilteredSpecies(allSpecies.filter(nameFilter))
         } else {
@@ -62,9 +58,14 @@ export const SpeciesSelector: React.FC = observer(() => {
     const handleSelect = (species: string) => {
         if (ui.speciesSelectorAction === 'update') {
             const featureJson = {
-                species: species
+                species: species,
             }
-            axios.post(`${settings.host}/tree/update/${map.selectedId}/`, featureJson, settings.authHeader)
+            axios
+                .post(
+                    `${settings.host}/tree/update/${map.selectedId}/`,
+                    featureJson,
+                    settings.authHeader
+                )
                 .then((response: AxiosResponse) => {
                     console.debug(response)
                     map.setNeedsUpdate(true)
@@ -86,7 +87,7 @@ export const SpeciesSelector: React.FC = observer(() => {
     }
 
     const speciesList = filteredSpecies.map((item: Species) => (
-        <IonItem key={item.species} onClick={e => handleSelect(item.species)}>
+        <IonItem key={item.species} onClick={(e) => handleSelect(item.species)}>
             <IonLabel>
                 <h2>{item.name_nl ? item.name_nl : item.species}</h2>
                 <p>{item.name_la}</p>
@@ -94,17 +95,18 @@ export const SpeciesSelector: React.FC = observer(() => {
         </IonItem>
     ))
 
-    const headerText = ui.speciesSelectorAction === 'update' ? 'Soort bewerken' : 'Kies een soort (nieuw)'
+    const headerText =
+        ui.speciesSelectorAction === 'update' ? 'Soort bewerken' : 'Kies een soort (nieuw)'
 
     return (
         <IonModal
             isOpen={ui.showSpeciesSelector}
-            onDidDismiss={_e => ui.setShowSpeciesSelector(false)}
+            onDidDismiss={(_e) => ui.setShowSpeciesSelector(false)}
         >
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>{headerText}</IonTitle>
-                    <IonButtons className={classes.toolbarButtons} slot='end'>
+                    <IonButtons className={classes.toolbarButtons} slot="end">
                         <IonIcon onClick={() => ui.setShowSpeciesSelector(false)} icon={close} />
                     </IonButtons>
                 </IonToolbar>
@@ -114,15 +116,13 @@ export const SpeciesSelector: React.FC = observer(() => {
                         onIonChange={handleInput}
                         onKeyDown={onKeyPress}
                         debounce={200}
-                        placeholder='Zoeken'
-                        mode='ios'
+                        placeholder="Zoeken"
+                        mode="ios"
                     />
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <IonList>
-                    {speciesList}
-                </IonList>
+                <IonList>{speciesList}</IonList>
             </IonContent>
         </IonModal>
     )

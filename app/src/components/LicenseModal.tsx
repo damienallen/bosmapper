@@ -1,26 +1,26 @@
-import React from 'react'
-import { createUseStyles } from 'react-jss'
-import { observer } from 'mobx-react'
 import {
     IonButtons,
     IonHeader,
     IonIcon,
     IonModal,
-    IonToolbar,
     IonPage,
-    IonTitle
+    IonTitle,
+    IonToolbar,
 } from '@ionic/react'
 import { close } from 'ionicons/icons'
+import { observer } from 'mobx-react'
+import React from 'react'
+import { createUseStyles } from 'react-jss'
 
 import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {
-        padding: 20
+        padding: 20,
     },
     toolbarButtons: {
-        marginRight: 20
-    }
+        marginRight: 20,
+    },
 })
 
 export const LicenseModal: React.FC = observer(() => {
@@ -28,10 +28,7 @@ export const LicenseModal: React.FC = observer(() => {
     const { ui } = useStores()
 
     return (
-        <IonModal
-            isOpen={ui.showLicenseModal}
-            onDidDismiss={_e => ui.setShowLicenseModal(false)}
-        >
+        <IonModal isOpen={ui.showLicenseModal} onDidDismiss={(_e) => ui.setShowLicenseModal(false)}>
             <IonPage>
                 <IonHeader>
                     <IonToolbar>
@@ -43,24 +40,22 @@ export const LicenseModal: React.FC = observer(() => {
                 </IonHeader>
 
                 <div className={classes.container}>
-
                     <p>MIT License</p>
 
                     <p>Copyright (c) 2020 Damien Allen</p>
 
                     <p>
                         Permission is hereby granted, free of charge, to any person obtaining a copy
-                        of this software and associated documentation files (the "Software"), to deal
-                        in the Software without restriction, including without limitation the rights
-                        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-                        copies of the Software, and to permit persons to whom the Software is
+                        of this software and associated documentation files (the "Software"), to
+                        deal in the Software without restriction, including without limitation the
+                        rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+                        sell copies of the Software, and to permit persons to whom the Software is
                         furnished to do so, subject to the following conditions:
                     </p>
 
-
                     <p>
-                        The above copyright notice and this permission notice shall be included in all
-                        copies or substantial portions of the Software.
+                        The above copyright notice and this permission notice shall be included in
+                        all copies or substantial portions of the Software.
                     </p>
 
                     <p>
@@ -68,13 +63,11 @@ export const LicenseModal: React.FC = observer(() => {
                         IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
                         FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
                         AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-                        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-                        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-                        SOFTWARE.
+                        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+                        FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+                        IN THE SOFTWARE.
                     </p>
-
                 </div>
-
             </IonPage>
         </IonModal>
     )

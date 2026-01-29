@@ -1,27 +1,27 @@
-import axios, { AxiosResponse } from 'axios'
-import Cookies from 'universal-cookie'
-import React, { useState } from 'react'
-import { createUseStyles } from 'react-jss'
-import { observer } from 'mobx-react'
 import {
     IonButton,
     IonCardHeader,
-    IonCardTitle,
     IonCardSubtitle,
+    IonCardTitle,
     IonInput,
-    IonPopover
+    IonPopover,
 } from '@ionic/react'
+import axios, { AxiosResponse } from 'axios'
+import { observer } from 'mobx-react'
+import React, { useState } from 'react'
+import { createUseStyles } from 'react-jss'
+import Cookies from 'universal-cookie'
 
 import { useStores } from '../stores'
 
 const useStyles = createUseStyles({
     container: {
         padding: 16,
-        zIndex: 500
+        zIndex: 500,
     },
     button: {
         marginTop: 10,
-        width: '100%'
+        width: '100%',
     },
     input: {
         borderBottom: '1px solid rgba(0,0,0,0.13)',
@@ -30,7 +30,7 @@ const useStyles = createUseStyles({
     confirm: {
         padding: 0,
         marginBottom: 10,
-    }
+    },
 })
 
 export const LoginPopover: React.FC = observer(() => {
@@ -40,11 +40,12 @@ export const LoginPopover: React.FC = observer(() => {
     const cookies = new Cookies()
 
     const handleLogin = () => {
-        const formData = new FormData();
+        const formData = new FormData()
         formData.append('username', 'bosmapper')
         formData.append('password', passcode)
 
-        axios.post(`${settings.host}/token/`, formData)
+        axios
+            .post(`${settings.host}/token/`, formData)
             .then((response: AxiosResponse) => {
                 const accessToken = response.data.access_token
                 settings.setToken(accessToken)
@@ -75,10 +76,7 @@ export const LoginPopover: React.FC = observer(() => {
                 onKeyDown={onKeyPress}
                 placeholder="Login code"
             />
-            <IonButton
-                className={classes.button}
-                onClick={() => handleLogin()}
-            >
+            <IonButton className={classes.button} onClick={() => handleLogin()}>
                 Inloggen
             </IonButton>
         </div>
@@ -96,21 +94,14 @@ export const LoginPopover: React.FC = observer(() => {
                 <IonCardTitle>Zeker?</IonCardTitle>
                 <IonCardSubtitle>Wilt u uitloggen?</IonCardSubtitle>
             </IonCardHeader>
-            <IonButton
-                color='danger'
-                className={classes.button}
-                onClick={() => handleLogout()}
-            >
+            <IonButton color="danger" className={classes.button} onClick={() => handleLogout()}>
                 Uitloggen
             </IonButton>
         </div>
     )
 
     return (
-        <IonPopover
-            isOpen={ui.showLoginPopover}
-            onDidDismiss={() => ui.setShowLoginPopover(false)}
-        >
+        <IonPopover isOpen={ui.showLoginPopover} onDidDismiss={() => ui.setShowLoginPopover(false)}>
             {settings.authenticated ? logout : login}
         </IonPopover>
     )

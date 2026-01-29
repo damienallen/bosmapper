@@ -1,12 +1,9 @@
-import React from 'react'
-import { observer } from 'mobx-react'
-import { createUseStyles } from 'react-jss'
 import { IonSearchbar } from '@ionic/react'
-
-import { MenuToggle } from './Menu'
-
-
+import { observer } from 'mobx-react'
+import React from 'react'
+import { createUseStyles } from 'react-jss'
 import { useStores } from '../stores'
+import { MenuToggle } from './Menu'
 
 const useStyles = createUseStyles({
     container: {
@@ -24,23 +21,23 @@ const useStyles = createUseStyles({
         borderRadius: 4,
         padding: 5,
         background: (props: StyleProps) => props.background,
-        display: 'flex'
+        display: 'flex',
     },
     search: {
         flex: 1,
         padding: 0,
         height: 36,
-        '--background': 'none'
+        '--background': 'none',
     },
     menuToggle: {
         flex: '0 1',
-        height: 36
-    }
+        height: 36,
+    },
 })
 
 interface StyleProps {
-    border: 'string',
-    background: 'string',
+    border: 'string'
+    background: 'string'
 }
 
 export const SearchBar: React.FC = observer(() => {
@@ -60,25 +57,23 @@ export const SearchBar: React.FC = observer(() => {
     return (
         <div className={classes.container}>
             <div className={classes.bar}>
-
                 <IonSearchbar
                     className={classes.search}
                     value={searchText}
-                    onIonChange={e => species.setQuery(e.detail.value!)}
-                    onIonFocus={e => {
+                    onIonChange={(e) => species.setQuery(e.detail.value!)}
+                    onIonFocus={(e) => {
                         ui.setShowTreeDetails(false)
                         map.setSelectedFeature(undefined)
                     }}
                     onKeyDown={onKeyPress}
                     debounce={400}
-                    placeholder='Zoeken'
-                    mode='ios'
+                    placeholder="Zoeken"
+                    mode="ios"
                 />
 
                 <div className={classes.menuToggle}>
                     <MenuToggle />
                 </div>
-
             </div>
         </div>
     )
