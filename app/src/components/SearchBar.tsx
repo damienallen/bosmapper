@@ -61,7 +61,7 @@ export const SearchBar: React.FC = observer(() => {
                     className={classes.search}
                     value={searchText}
                     onIonChange={(e) => species.setQuery(e.detail.value!)}
-                    onIonFocus={(e) => {
+                    onIonFocus={() => {
                         ui.setShowTreeDetails(false)
                         map.setSelectedFeature(undefined)
                     }}

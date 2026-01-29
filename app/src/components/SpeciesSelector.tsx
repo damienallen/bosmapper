@@ -87,7 +87,7 @@ export const SpeciesSelector: React.FC = observer(() => {
     }
 
     const speciesList = filteredSpecies.map((item: Species) => (
-        <IonItem key={item.species} onClick={(e) => handleSelect(item.species)}>
+        <IonItem key={item.species} onClick={() => handleSelect(item.species)}>
             <IonLabel>
                 <h2>{item.name_nl ? item.name_nl : item.species}</h2>
                 <p>{item.name_la}</p>

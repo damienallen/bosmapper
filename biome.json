@@ -48,6 +48,11 @@
             "style": {
                 "noNonNullAssertion": "off",
                 "useImportType": "off"
+            },
+            "a11y": {
+                "noSvgWithoutTitle": "off",
+                "noStaticElementInteractions": "off",
+                "useKeyWithClickEvents": "off"
             }
         }
     },

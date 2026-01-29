@@ -1,5 +1,6 @@
 import { Feature } from 'ol'
 import { Fill, Icon, Stroke, Style, Text } from 'ol/style'
+// biome-ignore lint: needed for inline svg
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 
@@ -187,7 +188,7 @@ const nameStyle = (droneBase: boolean, opacity: number) =>
         rotation: 0,
     })
 
-const noteStyle = (droneBase: boolean, opacity: number) =>
+const noteStyle = (droneBase: boolean) =>
     new Text({
         textAlign: 'center',
         textBaseline: 'middle',
@@ -270,7 +271,7 @@ export const styleFunction = (
         featureStyle.getText().setText(text)
         if (settings.authenticated && settings.showNotes) {
             const subtitleStyle: Style = new Style({
-                text: noteStyle(droneBase, opacity),
+                text: noteStyle(droneBase),
             })
             subtitleStyle.getText().setText(speciesData.notes)
             return [featureStyle, subtitleStyle]

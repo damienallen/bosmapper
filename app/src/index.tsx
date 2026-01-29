@@ -1,4 +1,5 @@
 import 'mobx-react/batchingForReactDom'
+// biome-ignore lint: needed for inline svg
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
