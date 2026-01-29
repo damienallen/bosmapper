@@ -1,5 +1,4 @@
 import { IonButton, IonIcon, IonItem, IonItemDivider, IonLabel, IonPopover } from '@ionic/react'
-import axios, { AxiosResponse } from 'axios'
 import { checkboxOutline, closeOutline, pricetagOutline, squareOutline } from 'ionicons/icons'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
@@ -96,19 +95,21 @@ export const Tags: React.FC = observer(() => {
             tags: featureTags,
         }
 
-        axios
-            .post(
-                `${settings.host}/tree/update/${map.selectedId}/`,
-                featureJson,
-                settings.authHeader
-            )
-            .then((response: AxiosResponse) => {
-                console.debug(response)
+        fetch(`${settings.host}/tree/update/${map.selectedId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(settings.authHeader.headers || {}),
+            },
+            body: JSON.stringify(featureJson),
+        })
+            .then(async (response) => {
+                if (!response.ok) throw new Error(await response.text())
                 map.setNeedsUpdate(true)
                 ui.setShowMetaUpdated(true)
             })
             .catch((error) => {
-                console.error(error.response)
+                console.error(error)
                 ui.setToastText('Verzoek mislukt')
             })
     }

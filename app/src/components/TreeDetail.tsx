@@ -7,7 +7,6 @@ import {
     IonCardTitle,
     IonIcon,
 } from '@ionic/react'
-import axios, { AxiosResponse } from 'axios'
 import { cloudDone, move, trash } from 'ionicons/icons'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
@@ -76,17 +75,21 @@ export const TreeDetail: React.FC = observer(() => {
         const oid = map.selectedId
         console.debug('Removing feature', oid)
 
-        axios
-            .post(`${settings.host}/tree/remove/${oid}/`, null, settings.authHeader)
-            .then((response: AxiosResponse) => {
-                console.debug(response)
+        fetch(`${settings.host}/tree/remove/${oid}/`, {
+            method: 'POST',
+            headers: {
+                ...(settings.authHeader.headers || {}),
+            },
+        })
+            .then(async (response) => {
+                if (!response.ok) throw new Error(await response.text())
                 map.setNeedsUpdate(true)
                 ui.setShowTreeDetails(false)
                 map.setSelectedFeature(undefined)
                 ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
-                console.error(error.response)
+                console.error(error)
                 ui.setToastText('Verzoek mislukt')
             })
 
@@ -101,21 +104,23 @@ export const TreeDetail: React.FC = observer(() => {
             dead: dead,
         }
 
-        axios
-            .post(
-                `${settings.host}/tree/update/${map.selectedId}/`,
-                featureJson,
-                settings.authHeader
-            )
-            .then((response: AxiosResponse) => {
-                console.debug(response)
+        fetch(`${settings.host}/tree/update/${map.selectedId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(settings.authHeader.headers || {}),
+            },
+            body: JSON.stringify(featureJson),
+        })
+            .then(async (response) => {
+                if (!response.ok) throw new Error(await response.text())
                 map.setNeedsUpdate(true)
                 ui.setShowTreeDetails(false)
                 map.setSelectedFeature(undefined)
                 ui.setToastText('Geslaagd!')
             })
             .catch((error) => {
-                console.error(error.response)
+                console.error(error)
                 ui.setToastText('Verzoek mislukt')
             })
 

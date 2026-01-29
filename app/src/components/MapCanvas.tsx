@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from 'axios'
 import { IReactionDisposer, reaction } from 'mobx'
 import hash from 'object-hash'
 import { MapBrowserEvent } from 'ol'
@@ -174,19 +173,18 @@ export const MapCanvas: React.FC = () => {
 
     // Feature fetching from server
     const getFeatures = () => {
-        axios
-            .get(`${settings.host}/trees/`)
-            .then((response: AxiosResponse) => {
+        fetch(`${settings.host}/trees/`)
+            .then(async (response) => {
+                if (!response.ok) throw new Error(await response.text())
+                const data = await response.json()
                 // Check against hash of existing features
-                const featuresHash = hash(response.data)
+                const featuresHash = hash(data)
 
                 if (featuresHash !== map.featuresHash) {
                     map.setFeaturesHash(featuresHash)
-                    map.setFeaturesGeoJson(response.data)
+                    map.setFeaturesGeoJson(data)
                     console.log(
-                        `Loaded ${
-                            response.data.features.length
-                        } features at ${new Date().toISOString()}`
+                        `Loaded ${data.features.length} features at ${new Date().toISOString()}`
                     )
 
                     // Update selected feature if necesary
@@ -207,7 +205,7 @@ export const MapCanvas: React.FC = () => {
                 }
             })
             .catch((error) => {
-                console.error(error.response)
+                console.error(error)
                 ui.setToastText('Geen verbinding met server')
             })
     }

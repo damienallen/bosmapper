@@ -6,7 +6,6 @@ import {
     IonInput,
     IonPopover,
 } from '@ionic/react'
-import axios, { AxiosResponse } from 'axios'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
@@ -44,23 +43,26 @@ export const LoginPopover: React.FC = observer(() => {
         formData.append('username', 'bosmapper')
         formData.append('password', passcode)
 
-        axios
-            .post(`${settings.host}/token/`, formData)
-            .then((response: AxiosResponse) => {
-                const accessToken = response.data.access_token
+        fetch(`${settings.host}/token/`, {
+            method: 'POST',
+            body: formData,
+        }).then(async (response) => {
+            if (!response.ok) {
+                if (response.status >= 400 && response.status < 500) {
+                    ui.setToastText('Ongeldige code')
+                } else {
+                    console.error(response)
+                    ui.setToastText('Verzoek mislukt')
+                }
+            } else {
+                const data = await response.json()
+                const accessToken = data.access_token
                 settings.setToken(accessToken)
                 cookies.set('token', accessToken)
                 setPasscode('')
                 ui.setShowLoginPopover(false)
-            })
-            .catch((error) => {
-                if (error.response.status >= 400 && error.response.status < 500) {
-                    ui.setToastText('Ongeldige code')
-                } else {
-                    console.error(error.response)
-                    ui.setToastText('Verzoek mislukt')
-                }
-            })
+            }
+        })
     }
 
     const onKeyPress = (e: React.KeyboardEvent) => {

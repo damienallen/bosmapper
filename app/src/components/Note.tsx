@@ -1,5 +1,4 @@
 import { IonInput } from '@ionic/react'
-import axios, { AxiosResponse } from 'axios'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
@@ -28,19 +27,21 @@ export const Note: React.FC = observer(() => {
             notes: text,
         }
 
-        axios
-            .post(
-                `${settings.host}/tree/update/${map.selectedId}/`,
-                featureJson,
-                settings.authHeader
-            )
-            .then((response: AxiosResponse) => {
-                console.debug(response)
+        fetch(`${settings.host}/tree/update/${map.selectedId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(settings.authHeader.headers || {}),
+            },
+            body: JSON.stringify(featureJson),
+        })
+            .then(async (response) => {
+                if (!response.ok) throw new Error(await response.text())
                 map.setNeedsUpdate(true)
                 ui.setShowMetaUpdated(true)
             })
             .catch((error) => {
-                console.error(error.response)
+                console.error(error)
                 ui.setToastText('Verzoek mislukt')
             })
     }

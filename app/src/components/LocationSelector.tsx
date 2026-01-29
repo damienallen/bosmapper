@@ -1,5 +1,4 @@
 import { IonButton } from '@ionic/react'
-import axios, { AxiosResponse } from 'axios'
 import { observer } from 'mobx-react'
 import React, { useEffect } from 'react'
 import { createUseStyles } from 'react-jss'
@@ -59,19 +58,21 @@ export const LocationSelector: React.FC = observer(() => {
                 lon: map.center[0],
                 lat: map.center[1],
             }
-            axios
-                .post(
-                    `${settings.host}/tree/update/${map.selectedId}/`,
-                    featureJson,
-                    settings.authHeader
-                )
-                .then((response: AxiosResponse) => {
-                    console.debug(response)
+            fetch(`${settings.host}/tree/update/${map.selectedId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(settings.authHeader.headers || {}),
+                },
+                body: JSON.stringify(featureJson),
+            })
+                .then(async (response) => {
+                    if (!response.ok) throw new Error(await response.text())
                     map.setNeedsUpdate(true)
                     ui.setShowLocationUpdated(true)
                 })
                 .catch((error) => {
-                    console.error(error.response)
+                    console.error(error)
                     ui.setToastText('Verzoek mislukt')
                 })
         } else {
@@ -82,15 +83,21 @@ export const LocationSelector: React.FC = observer(() => {
             }
             console.log('Trying to add feature', featureJson)
 
-            axios
-                .post(`${settings.host}/tree/add/`, featureJson, settings.authHeader)
-                .then((response: AxiosResponse) => {
-                    console.debug(response)
+            fetch(`${settings.host}/tree/add/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...(settings.authHeader.headers || {}),
+                },
+                body: JSON.stringify(featureJson),
+            })
+                .then(async (response) => {
+                    if (!response.ok) throw new Error(await response.text())
                     map.setNeedsUpdate(true)
                     ui.setToastText('Geslaagd!')
                 })
                 .catch((error) => {
-                    console.error(error.response)
+                    console.error(error)
                     ui.setToastText('Verzoek mislukt')
                 })
         }
