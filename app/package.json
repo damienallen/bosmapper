@@ -17,7 +17,7 @@
     "mobx": "6.15.0",
     "mobx-react": "9.2.1",
     "object-hash": "3.0.0",
-    "ol": "~6.3",
+    "ol": "^10.7.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-jss": "10.10.0",
@@ -29,7 +29,7 @@
     "@types/lodash": "~4",
     "@types/node": "~24",
     "@types/object-hash": "3.0.6",
-    "@types/ol": "6.4.2",
+    "@types/ol": "^7.0.0",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "typescript": "~4"

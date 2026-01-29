@@ -1,7 +1,8 @@
 import { IReactionDisposer, reaction } from 'mobx'
 import hash from 'object-hash'
-import { MapBrowserEvent } from 'ol'
+import { Feature, MapBrowserEvent } from 'ol'
 import GeoJSON from 'ol/format/GeoJSON'
+import { Point } from 'ol/geom'
 import { Vector as VectorLayer } from 'ol/layer'
 import OlLayerGroup from 'ol/layer/Group'
 import OlLayerTile from 'ol/layer/Tile'
@@ -164,9 +165,10 @@ export const MapCanvas: React.FC = () => {
         map.setSelectedFeature(undefined)
 
         olMap.forEachFeatureAtPixel(event.pixel, (feature: any, layer: any) => {
-            if (!layer.className_.includes('vector-base')) {
-                map.setSelectedFeature(feature)
+            if (layer === treeLayer) {
+                map.setSelectedFeature(feature as Feature)
                 ui.setShowTreeDetails(true)
+                return true
             }
         })
     })
@@ -192,7 +194,7 @@ export const MapCanvas: React.FC = () => {
                         const oid = map.selectedId
                         const newFeatureEntry = treeLayer
                             .getSource()
-                            .getFeatures()
+                            ?.getFeatures()
                             .find((feature: any) => feature.get('oid') === oid)
                         if (newFeatureEntry) {
                             map.setSelectedFeature(newFeatureEntry)
@@ -273,10 +275,9 @@ export const MapCanvas: React.FC = () => {
             reaction(
                 () => map.centerOnSelected,
                 (centerOnSelected: boolean) => {
-                    const featureCoords = (
-                        map.selectedFeature?.getGeometry() as any
-                    )?.getCoordinates()
-                    if (centerOnSelected && featureCoords) {
+                    const geometry = map.selectedFeature?.getGeometry()
+                    if (centerOnSelected && geometry instanceof Point) {
+                        const featureCoords = geometry.getCoordinates()
                         olView.animate({
                             center: featureCoords,
                             zoom: Math.max(21, olView.getZoom() as number),
@@ -324,7 +325,8 @@ export const MapCanvas: React.FC = () => {
                 dispose()
             })
         }
-    })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return <div className={classes.mapCanvas} ref={mapEl} />
 }
