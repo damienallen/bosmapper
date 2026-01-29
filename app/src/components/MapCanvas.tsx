@@ -210,6 +210,7 @@ export const MapCanvas: React.FC = () => {
             })
     }
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: just want to keep old behavior here...
     useEffect(() => {
         console.log('Loading map canvas')
         olMap.setTarget(mapEl.current)
