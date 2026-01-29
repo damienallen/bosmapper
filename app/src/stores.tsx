@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash'
-import { autorun, makeAutoObservable } from 'mobx'
+import { autorun, computed, makeObservable, observable } from 'mobx'
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
 import React, { createContext, useContext } from 'react'
@@ -102,7 +102,23 @@ export class UIStore {
     }
 
     constructor(public root: RootStore) {
-        makeAutoObservable(this)
+        makeObservable(this, {
+            toastText: observable,
+            showToast: observable,
+            showConnectionError: observable,
+            showLoginPopover: observable,
+            showLicenseModal: observable,
+            showAboutModal: observable,
+            showTreeDetails: observable,
+            showLocationUpdated: observable,
+            showMetaUpdated: observable,
+            showSpeciesUpdated: observable,
+            showLocationSelector: observable,
+            showSpeciesSelector: observable,
+            locationSelectorAction: observable,
+            speciesSelectorAction: observable,
+            showDetailsUpdated: computed,
+        })
     }
 }
 
@@ -161,7 +177,16 @@ export class SpeciesStore {
     }
 
     constructor(public root: RootStore) {
-        makeAutoObservable(this)
+        makeObservable(this, {
+            query: observable,
+            selectedTags: observable,
+            list: observable,
+            minHeight: observable,
+            maxHeight: observable,
+            minWidth: observable,
+            maxWidth: observable,
+            count: computed,
+        })
     }
 }
 
@@ -286,8 +311,29 @@ export class MapStore {
     }
 
     constructor(public root: RootStore) {
+        makeObservable(this, {
+            version: observable,
+            baseMap: observable,
+            featuresGeoJson: observable,
+            filteredFeatures: observable,
+            selectedFeature: observable,
+            numUnknown: observable,
+            numDead: observable,
+            firstLoad: observable,
+            featuresHash: observable,
+            needsUpdate: observable,
+            needsRefresh: observable,
+            centerOnSelected: observable,
+            center: observable,
+            newFeatureSpecies: observable,
+            isDrone: computed,
+            selectedId: computed,
+            overlayBackground: computed,
+            mapBackground: computed,
+            searchBorder: computed,
+        })
+
         autorun(() => this.filterFeatures())
-        makeAutoObservable(this)
     }
 }
 
@@ -337,7 +383,15 @@ export class SettingStore {
     }
 
     constructor(public root: RootStore) {
-        makeAutoObservable(this)
+        makeObservable(this, {
+            showDead: observable,
+            showNotes: observable,
+            language: observable,
+            host: observable,
+            token: observable,
+            authenticated: computed,
+            authHeader: computed,
+        })
     }
 }
 
