@@ -1,10 +1,9 @@
+import Cookies from 'js-cookie'
 import { autorun, computed, makeObservable, observable, toJS } from 'mobx'
 import { Coordinate } from 'ol/coordinate'
 import Feature from 'ol/Feature'
 import React, { createContext, useContext } from 'react'
-import Cookies from 'universal-cookie'
 
-const cookies = new Cookies()
 export const showUpdatedTimeout = 1000
 
 export class RootStore {
@@ -215,7 +214,7 @@ export class MapStore {
 
     setBaseMap(value: string) {
         this.baseMap = value
-        cookies.set('drone', value === 'drone')
+        Cookies.set('drone', String(value === 'drone'), { expires: 365, sameSite: 'strict' })
     }
 
     get isDrone() {
@@ -347,12 +346,12 @@ export class SettingStore {
 
     setShowDead(value: boolean) {
         this.showDead = value
-        cookies.set('showDead', value)
+        Cookies.set('showDead', String(value), { expires: 365, sameSite: 'strict' })
     }
 
     setShowNotes(value: boolean) {
         this.showNotes = value
-        cookies.set('showNotes', value)
+        Cookies.set('showNotes', String(value), { expires: 365, sameSite: 'strict' })
     }
 
     setLanguage(value: string) {

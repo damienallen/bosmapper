@@ -13,17 +13,17 @@
     "@ionic/core": "6.1.15",
     "@ionic/react": "6.1.15",
     "ionicons": "8.0.13",
+    "js-cookie": "3.0.5",
     "mobx": "6.15.0",
     "mobx-react": "9.2.1",
     "ol": "10.7.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-jss": "10.10.0",
-    "universal-cookie": "8.0.1"
+    "react-jss": "10.10.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "3.0.6",
     "@types/node": "~24",
-    "@types/object-hash": "3.0.6",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "@vitejs/plugin-react": "~5",

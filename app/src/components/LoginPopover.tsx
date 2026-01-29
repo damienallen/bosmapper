@@ -6,10 +6,10 @@ import {
     IonInput,
     IonPopover,
 } from '@ionic/react'
+import Cookies from 'js-cookie'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { createUseStyles } from 'react-jss'
-import Cookies from 'universal-cookie'
 
 import { useStores } from '../stores'
 
@@ -36,7 +36,6 @@ export const LoginPopover: React.FC = observer(() => {
     const classes = useStyles()
     const { settings, ui } = useStores()
     const [passcode, setPasscode] = useState('')
-    const cookies = new Cookies()
 
     const handleLogin = () => {
         const formData = new FormData()
@@ -58,7 +57,7 @@ export const LoginPopover: React.FC = observer(() => {
                 const data = await response.json()
                 const accessToken = data.access_token
                 settings.setToken(accessToken)
-                cookies.set('token', accessToken)
+                Cookies.set('token', accessToken, { expires: 30, sameSite: 'strict' })
                 setPasscode('')
                 ui.setShowLoginPopover(false)
             }
@@ -86,7 +85,7 @@ export const LoginPopover: React.FC = observer(() => {
 
     const handleLogout = () => {
         settings.clearToken()
-        cookies.remove('token')
+        Cookies.remove('token')
         ui.setShowLoginPopover(false)
     }
 
