@@ -58,7 +58,7 @@ export const Menu: React.FC = observer(() => {
     const displayToggles = settings.authenticated ? (
         <div>
             <IonListHeader className={classes.sectionHeader}>
-                <IonIcon className={classes.sectionIcon} icon={mapOutline} />
+                <IonIcon className={classes.sectionIcon} icon={mapOutline} aria-hidden="true" />
                 Weergave
             </IonListHeader>
 
@@ -92,7 +92,11 @@ export const Menu: React.FC = observer(() => {
 
             <IonContent>
                 <IonListHeader className={classes.sectionHeader}>
-                    <IonIcon className={classes.sectionIcon} icon={layersOutline} />
+                    <IonIcon
+                        className={classes.sectionIcon}
+                        icon={layersOutline}
+                        aria-hidden="true"
+                    />
                     Basis kaart
                 </IonListHeader>
 
@@ -101,13 +105,17 @@ export const Menu: React.FC = observer(() => {
                 </IonList>
 
                 <IonListHeader className={classes.sectionHeader}>
-                    <IonIcon className={classes.sectionIcon} icon={pricetagsOutline} />
+                    <IonIcon
+                        className={classes.sectionIcon}
+                        icon={pricetagsOutline}
+                        aria-hidden="true"
+                    />
                     Tags
                 </IonListHeader>
 
                 <IonList className={classes.menuSection} lines="none">
                     <IonChip color="primary" outline onClick={() => species.clearSelectedTags()}>
-                        <IonIcon icon={refreshOutline} />
+                        <IonIcon icon={refreshOutline} aria-hidden="true" />
                         <IonLabel>Alles</IonLabel>
                     </IonChip>
                     <IonChip

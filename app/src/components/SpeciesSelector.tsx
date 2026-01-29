@@ -107,7 +107,11 @@ export const SpeciesSelector: React.FC = observer(() => {
                 <IonToolbar>
                     <IonTitle>{headerText}</IonTitle>
                     <IonButtons className={classes.toolbarButtons} slot="end">
-                        <IonIcon onClick={() => ui.setShowSpeciesSelector(false)} icon={close} />
+                        <IonIcon
+                            onClick={() => ui.setShowSpeciesSelector(false)}
+                            icon={close}
+                            aria-label="Sluiten"
+                        />
                     </IonButtons>
                 </IonToolbar>
                 <IonToolbar>

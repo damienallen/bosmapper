@@ -34,7 +34,11 @@ export const LicenseModal: React.FC = observer(() => {
                     <IonToolbar>
                         <IonTitle>License</IonTitle>
                         <IonButtons className={classes.toolbarButtons} slot="end">
-                            <IonIcon onClick={() => ui.setShowLicenseModal(false)} icon={close} />
+                            <IonIcon
+                                onClick={() => ui.setShowLicenseModal(false)}
+                                icon={close}
+                                aria-label="Sluiten"
+                            />
                         </IonButtons>
                     </IonToolbar>
                 </IonHeader>

@@ -41,7 +41,11 @@ export const AboutModal: React.FC = observer(() => {
                 <IonHeader>
                     <IonToolbar>
                         <IonButtons className={classes.toolbarButtons} slot="end">
-                            <IonIcon onClick={() => ui.setShowAboutModal(false)} icon={close} />
+                            <IonIcon
+                                onClick={() => ui.setShowAboutModal(false)}
+                                icon={close}
+                                aria-label="Sluiten"
+                            />
                         </IonButtons>
                         <IonTitle>Info</IonTitle>
                     </IonToolbar>

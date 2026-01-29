@@ -126,6 +126,7 @@ export const Tags: React.FC = observer(() => {
             <IonIcon
                 color={featureTags.includes(key) ? 'medium' : 'light'}
                 icon={featureTags.includes(key) ? checkboxOutline : squareOutline}
+                aria-label={featureTags.includes(key) ? 'Geselecteerd' : 'Niet geselecteerd'}
                 slot="start"
             />
             <IonLabel>{tagTypes[key]}</IonLabel>
@@ -141,7 +142,10 @@ export const Tags: React.FC = observer(() => {
                 setShowTagsPopover({ open: true, event: e.nativeEvent })
             }
         >
-            <IonIcon icon={showTagsPopover.open ? closeOutline : pricetagOutline} />
+            <IonIcon
+                icon={showTagsPopover.open ? closeOutline : pricetagOutline}
+                aria-label={showTagsPopover.open ? 'Sluiten' : 'Tags'}
+            />
         </IonButton>
     ) : null
 
@@ -155,7 +159,7 @@ export const Tags: React.FC = observer(() => {
                 onDidDismiss={() => setShowTagsPopover({ open: false, event: undefined })}
             >
                 <IonItemDivider className={classes.divider}>
-                    <IonIcon icon={pricetagOutline} />
+                    <IonIcon icon={pricetagOutline} aria-hidden="true" />
                     Tags
                 </IonItemDivider>
 

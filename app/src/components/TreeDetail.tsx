@@ -142,7 +142,7 @@ export const TreeDetail: React.FC = observer(() => {
             onClick={() => ui.setShowLocationSelector(true, 'move')}
             disabled={ui.showLocationUpdated}
         >
-            <IonIcon icon={move} />
+            <IonIcon icon={move} aria-label="Verplaatsen" />
         </IonButton>
     )
 
@@ -153,7 +153,7 @@ export const TreeDetail: React.FC = observer(() => {
             color="danger"
             onClick={() => setShowActionSheet(true)}
         >
-            <IonIcon icon={trash} color="danger" />
+            <IonIcon icon={trash} color="danger" aria-label="Verwijderen" />
         </IonButton>
     )
 
@@ -225,7 +225,12 @@ export const TreeDetail: React.FC = observer(() => {
                 </IonCardHeader>
 
                 {ui.showDetailsUpdated ? (
-                    <IonIcon color="medium" className={classes.updated} icon={cloudDone} />
+                    <IonIcon
+                        color="medium"
+                        className={classes.updated}
+                        icon={cloudDone}
+                        aria-hidden="true"
+                    />
                 ) : null}
 
                 <Note />

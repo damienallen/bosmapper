@@ -22,7 +22,7 @@ export const AddButton: React.FC = () => {
     return (
         <IonFab className={classes.fab} vertical="bottom" horizontal="end" slot="fixed">
             <IonFabButton color="light" onClick={() => ui.setShowSpeciesSelector(true)}>
-                <IonIcon icon={add} />
+                <IonIcon icon={add} aria-label="Toevoegen" />
             </IonFabButton>
         </IonFab>
     )

@@ -32,7 +32,12 @@ export const LoadingScreen: React.FC = observer(() => {
 
     const loadingContent = ui.showConnectionError ? (
         <div className={classes.loading}>
-            <IonIcon icon={cloudOfflineOutline} className={classes.offlineIcon} color="light" />
+            <IonIcon
+                icon={cloudOfflineOutline}
+                className={classes.offlineIcon}
+                color="light"
+                aria-hidden="true"
+            />
             <div className={classes.loadingText}>Geen verbinding met server</div>
         </div>
     ) : (

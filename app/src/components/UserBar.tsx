@@ -20,6 +20,7 @@ export const UserBar: React.FC = observer(() => {
     const { settings, ui } = useStores()
     const classes = useStyles()
 
+    const actionLabel = settings.authenticated ? 'Uitloggen' : 'Inloggen'
     const actionIcon = settings.authenticated ? logOutOutline : logInOutline
     const statusText = settings.authenticated ? 'Admin gebruiker' : 'Gast gebruiker'
 
@@ -34,12 +35,14 @@ export const UserBar: React.FC = observer(() => {
                 className={classes.icon}
                 onClick={() => ui.setShowAboutModal(true)}
                 icon={informationCircleOutline}
+                aria-label="More Information"
                 slot="end"
             />
             <IonIcon
                 className={classes.icon}
                 onClick={() => ui.setShowLoginPopover(true)}
                 icon={actionIcon}
+                aria-label={actionLabel}
                 slot="end"
             />
         </IonItem>
