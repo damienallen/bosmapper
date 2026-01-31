@@ -2,12 +2,14 @@ import os
 from datetime import datetime
 from secrets import token_urlsafe
 
-from draw import MapMaker
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from models import (
+from mongoengine import connect, errors
+
+from bosmapper.draw import MapMaker
+from bosmapper.models import (
     EmptyTree,
     GeoJson,
     ImportSpeciesJson,
@@ -19,7 +21,6 @@ from models import (
     User,
     UsersDB,
 )
-from mongoengine import connect, errors
 
 # Fast API main app
 app = FastAPI()
@@ -364,4 +365,5 @@ def get_features():
 
         features.append(feature)
 
+    return features
     return features

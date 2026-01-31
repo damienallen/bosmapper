@@ -14,7 +14,7 @@ services:
     volumes:
       - ./app:/app
     ports:
-      - "8080:8888"
+      - "8888:8888"
     depends_on:
       - mongo
 
@@ -26,7 +26,7 @@ services:
       dockerfile: Dockerfile
       target: static
     ports:
-      - "3000:3080"
+      - "3000:80"
 
   mongo:
     image: mongo:8.2-noble
