@@ -11,6 +11,10 @@ services:
     restart: unless-stopped
     environment:
       - MASTER_TOKEN=dev_token
+    develop:
+      watch:
+        - action: rebuild
+          path: ./uv.lock
     volumes:
       - ./app:/app
     ports:
@@ -23,8 +27,14 @@ services:
       cache_from:
         - ghcr.io/damienallen/bosmapper-static:latest
       context: .
-      dockerfile: Dockerfile
+      args:
+        - BUILD_MODE=localdev
       target: static
+    restart: unless-stopped
+    develop:
+      watch:
+        - action: rebuild
+          path: ./app/package-lock.json
     ports:
       - "3000:80"
 

@@ -381,6 +381,10 @@ export class SettingStore {
     }
 
     constructor(public root: RootStore) {
+        if (import.meta.env.MODE === 'localdev') {
+            this.setHost('http://localhost:8888/api')
+        }
+
         makeObservable(this, {
             showDead: observable,
             showNotes: observable,

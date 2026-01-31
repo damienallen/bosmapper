@@ -28,12 +28,17 @@ CMD ["uvicorn", "bosmapper.main:app", "--host", "0.0.0.0", "--port", "8888"]
 #
 FROM node:24-trixie-slim AS static-builder
 WORKDIR /app
+ARG BUILD_MODE=production
 
 COPY ./app/package.json ./app/package-lock.json /app/
 RUN npm ci
 
 COPY ./app /app/
-RUN npm run build
+RUN if [ "$BUILD_MODE" = "localdev" ]; then \
+    npm run build:local; \
+    else \
+    npm run build; \
+    fi
 
 FROM caddy:2-alpine AS static
 COPY --from=static-builder /app/build /var/www
