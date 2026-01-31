@@ -11,6 +11,7 @@ services:
     restart: unless-stopped
     environment:
       - MASTER_TOKEN=dev_token
+      - MONGODB_URI=mongodb://mongo:27017
     develop:
       watch:
         - action: rebuild
@@ -43,6 +44,8 @@ services:
     restart: always
     volumes:
       - mongo-data:/data/db
+    ports:
+      - "27017:27017"
     expose:
       - 27017
 

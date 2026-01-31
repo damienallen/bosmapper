@@ -37,7 +37,7 @@ app.add_middleware(
 )
 
 # Connect to mongo
-connect("bosmapper", host="mongodb://mongo")
+connect("bosmapper", host=os.environ["MONGODB_URI"])
 
 
 # Users & auth
