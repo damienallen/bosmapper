@@ -4,7 +4,7 @@ import requests
 
 output_dir = Path(__file__).parent / "output"
 output_dir.mkdir(parents=True, exist_ok=True)
-base_url = "https://bosmapper.dallen.co/api"
+base_url = "https://bosmapper.dallen.dev/api"
 
 print("Listing unknown trees")
 

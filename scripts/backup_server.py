@@ -6,7 +6,7 @@ import requests
 
 output_dir = Path(__file__).parents[1] / "backups"
 output_dir.mkdir(exist_ok=True)
-base_url = "https://bosmapper.dallen.co/api"
+base_url = "https://bosmapper.dallen.dev/api"
 
 print(f"Backing up into: {output_dir}")
 

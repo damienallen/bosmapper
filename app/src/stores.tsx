@@ -340,7 +340,7 @@ export class SettingStore {
     showNotes: boolean = false
 
     language: string = 'nl'
-    host: string = 'https://bosmapper.dallen.co/api'
+    host: string = 'https://bosmapper.dallen.dev/api'
 
     token: string | null = null
 
