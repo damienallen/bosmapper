@@ -7,7 +7,7 @@ authors = [{ name = "Damien Allen", email = "dev@dallen.co" }]
 license = "AGPL-3.0"
 readme = "README.md"
 
-requires-python = "==3.9.11"
+requires-python = ">=3.14,<3.15"
 
 dependencies = [
     "aiofiles~=0.8",
@@ -18,12 +18,12 @@ dependencies = [
     "numpy~=1.22",
     "python-multipart~=0.0.5",
     "pycairo~=1.21",
-    "pyproj~=3.3",
+    "pyproj==3.7.2",
     "uvicorn~=0.15",
 ]
 
 [dependency-groups]
-dev = ["ruff>=0.14", "openpyxl~=3.0", "requests~=2.27"]
+dev = ["openpyxl~=3.0", "requests~=2.27"]
 
 [build-system]
 requires = ["hatchling"]

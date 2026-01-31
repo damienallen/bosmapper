@@ -39,23 +39,23 @@ class UsersDB(Document):
 
 
 class EmptyTree(BaseModel):
-    species: str = None
-    lat: float = None
-    lon: float = None
-    oid: str = None
-    notes: str = None
+    species: str | None = None
+    lat: float | None = None
+    lon: float | None = None
+    oid: str | None = None
+    notes: str | None = None
     tags: list = []
     dead: bool = False
 
 
 class Tree(BaseModel):
     species: str
-    lat: float
-    lon: float
-    oid: str = None
+    lat: float | None
+    lon: float | None
+    oid: str | None = None
 
-    notes: str = None
-    tags: list = None
+    notes: str | None = None
+    tags: list | None = None
     dead: bool = False
 
     def to_dict(self):
@@ -111,8 +111,8 @@ class Species(BaseModel):
     name_la: str
     name_nl: str = None
     name_en: str = None
-    width: float = None
-    height: float = None
+    width: float | None = None
+    height: float | None = None
 
 
 class SpeciesDB(Document):
