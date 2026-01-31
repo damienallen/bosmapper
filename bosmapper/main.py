@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from secrets import token_urlsafe
+from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,7 +28,13 @@ app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 # Handle CORS
-origins = ["*"]
+origins = [
+    "http://localhost:3000",
+    "https://bos.dallen.dev",
+    "https://bosmapper.dallen.dev",
+    "https://bosmapper.dallen.co",
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -74,7 +81,7 @@ def get_user(token: str):
         return None
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     user = get_user(token)
     if not user:
         raise HTTPException(
@@ -184,7 +191,7 @@ def import_geojson(geojson: GeoJson, request: Request):
             dead=feature["properties"].get("dead", False),
         )
 
-        new_tree = TreeDB(**tree.to_dict())
+        new_tree = TreeDB(**tree.model_dump())
         new_tree.save()
 
     return {"detail": f"Imported {len(geojson.features)} features"}
@@ -213,7 +220,7 @@ def add_tree(
     """
     Add trees to DB
     """
-    new_tree = TreeDB(**tree.to_dict())
+    new_tree = TreeDB(**tree.model_dump())
     new_tree.save()
     return {"detail": "New object added", "id": str(new_tree.id)}
 
@@ -365,5 +372,4 @@ def get_features():
 
         features.append(feature)
 
-    return features
     return features

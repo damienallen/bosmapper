@@ -215,10 +215,11 @@ class MapMaker:
 
     @staticmethod
     def fade_white(color, percent):
-        color = np.array(color)
-        white = np.array([1, 1, 1])
+        color = np.array(color, dtype=float)
+        white = np.array([1.0, 1.0, 1.0], dtype=float)
         vector = white - color
-        return color + vector * percent
+        res = color + vector * percent
+        return res.tolist()
 
     def draw_text(self):
         for tree in self.trees:
@@ -407,7 +408,7 @@ class MapMaker:
         self.ctx.set_font_size(self.format["font_size"] * 1.75 * self.scale_factor)
         self.ctx.set_source_rgba(*COLOR_BLACK, 0.3)
 
-        timestamp = str(format_date(date.today(), "MMM Y", locale="nl")).upper()
+        timestamp = str(format_date(date.today(), "MMM y", locale="nl")).upper()
         self.ctx.show_text(timestamp)
 
         self.ctx.restore()

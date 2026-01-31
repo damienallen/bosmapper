@@ -205,10 +205,11 @@ class MapMaker:
 
     @staticmethod
     def fade_white(color, percent):
-        color = np.array(color)
-        white = np.array([1, 1, 1])
+        color = np.array(color, dtype=float)
+        white = np.array([1.0, 1.0, 1.0], dtype=float)
         vector = white - color
-        return color + vector * percent
+        res = color + vector * percent
+        return res.tolist()
 
     def draw_text(self):
         for tree in self.trees:

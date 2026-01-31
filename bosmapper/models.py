@@ -8,7 +8,7 @@ from mongoengine import (
     ListField,
     StringField,
 )
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 # Users & auth
 
@@ -44,7 +44,7 @@ class EmptyTree(BaseModel):
     lon: float | None = None
     oid: str | None = None
     notes: str | None = None
-    tags: list = []
+    tags: list[str] = Field(default_factory=list)
     dead: bool = False
 
 
@@ -57,16 +57,6 @@ class Tree(BaseModel):
     notes: str | None = None
     tags: list | None = None
     dead: bool = False
-
-    def to_dict(self):
-        return {
-            "species": self.species,
-            "lat": self.lat,
-            "lon": self.lon,
-            "notes": self.notes,
-            "tags": self.tags,
-            "dead": self.dead,
-        }
 
     @staticmethod
     def from_mongo(mongo_tree):
@@ -109,8 +99,8 @@ class ImportSpeciesJson(BaseModel):
 class Species(BaseModel):
     species: str
     name_la: str
-    name_nl: str = None
-    name_en: str = None
+    name_nl: str | None = None
+    name_en: str | None = None
     width: float | None = None
     height: float | None = None
 
