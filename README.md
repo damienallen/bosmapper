@@ -1,4 +1,4 @@
-![icon](https://github.com/damienallen/bosmapper/blob/main/client/public/favicon.png)
+![icon](https://github.com/damienallen/bosmapper/blob/main/app/public/favicon.png)
 
 # bosmapper
 
